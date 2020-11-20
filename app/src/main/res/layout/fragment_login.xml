@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_xxlarge">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/skip"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@string/skip"
+                    style="@style/Button.purple"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_normal">
+
+            <TextView
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    android:gravity="center"
+                    android:textColor="@color/white" />
+
+            <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="with your Mobile Number"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    android:textStyle="normal" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:orientation="horizontal">
+
+                <com.tedmob.africell.ui.spinner.MaterialSpinner
+                        android:id="@+id/countrySpinner"
+                        style="@style/TextInputLayout.grey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_tiny"
+                        android:focusable="false"
+                        app:spinnerMode="dialog"
+                        app:contentStyle="@style/TextInputEditText.grey"
+                        app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/purple" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/mobileNumberLayout"
+                        style="@style/TextInputLayout.grey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:layout_weight="1"
+                        app:errorTextColor="@color/red_900"
+                        app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputEditText.grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:hint="@string/mobile_number"
+                            android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    app:errorTextColor="@color/red_900"
+                    app:hintTextColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/forgotPassword"
+style="@style/TextAppearance.normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/forgot_password"
+                    />
+
+            <com.tedmob.africell.ui.button.LoadingProgressButton
+                    android:id="@+id/signInButton"
+                    style="@style/Button.purple"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="@string/send" />
+
+            <com.tedmob.africell.ui.button.LoadingProgressButton
+                    android:id="@+id/loginButton"
+                    style="@style/Widget.MaterialComponents.StrokeViolet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:text="@string/send" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

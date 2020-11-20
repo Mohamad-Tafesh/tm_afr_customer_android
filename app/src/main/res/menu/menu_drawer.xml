@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+
+                android:id="@+id/homeFragment"
+                android:icon="@mipmap/side_menu_home"
+                android:title="@string/home" />
+
+        <item
+                android:id="@+id/speedTestFragment"
+                android:icon="@mipmap/side_menu_speed_test"
+                android:title="@string/speed_test" />
+
+        <item
+                android:id="@+id/bookNumberFragment"
+                android:icon="@mipmap/side_menu_book_your_number"
+                android:title="@string/book_number" />
+        <item
+                android:id="@+id/usefulNumberFragment"
+                android:icon="@mipmap/side_menu_useful_number"
+                android:title="@string/useful_number" />
+
+        <item
+                android:id="@+id/reportIncidentFragment"
+                android:icon="@mipmap/side_menu_report"
+                android:title="@string/report_incident" />
+
+        <item
+                android:id="@+id/faqFragment"
+                android:icon="@mipmap/side_menu_faqs"
+                android:title="@string/faq" />
+        <item
+                android:id="@+id/aboutUsFragment"
+                android:icon="@mipmap/side_menu_about_us"
+                android:title="@string/about_us" />
+
+
+        <item
+                android:id="@+id/termsFragment"
+                android:icon="@mipmap/side_menu_terms"
+                android:title="@string/terms_conditions" />
+        <item
+                android:id="@+id/settingsFragment"
+                android:icon="@mipmap/side_menu_settings"
+                android:title="@string/settings" />
+    </group>
+</menu>

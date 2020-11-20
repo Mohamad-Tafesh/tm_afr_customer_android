@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolbarLayout">
+        <attr name="toolbar" format="reference" />
+        <attr name="toolbarLayout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="isLoading" format="boolean" />
+
+        <attr name="message" format="string" />
+        <attr name="messageTextColor" format="color|reference" />
+        <attr name="displayMessage" format="boolean" />
+        <attr name="displayButton" format="boolean" />
+        <attr name="buttonText" format="string" />
+
+        <attr name="image" format="reference" />
+        <attr name="displayImage" format="boolean" />
+
+        <attr name="loadingFrameLayout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="Blocks">
+        <attr name="toolbarLayoutStyle" format="reference" />
+        <attr name="loadingViewStyle" format="reference" />
+    </declare-styleable>
+</resources>

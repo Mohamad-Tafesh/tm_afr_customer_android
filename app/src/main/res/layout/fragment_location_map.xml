@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <FrameLayout
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        <LinearLayout
+                android:id="@+id/locationRootInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/spacing_small"
+                android:background="@drawable/frame_white"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_normal"
+                android:visibility="gone"
+                app:layout_anchor="@+id/map"
+                app:layout_anchorGravity="bottom|center"
+                tools:visibility="visible">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_normal">
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/title"
+                                style="@style/TextAppearance.normalBold"
+                                android:layout_width="match_parent"
+                                android:textColor="@color/purple"
+                                android:layout_height="wrap_content"
+                                tools:text="jsjdsajsadsajhsj dkjkdsjfkdshfksdjhfjashjfhajhdjafjdashfafjsdjosdosd" />
+
+                        <TextView
+                                android:id="@+id/description"
+                                style="@style/TextAppearance.normal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:autoLink="all"
+                                android:gravity="center_vertical"
+                                tools:text="testdtsdtsfdtsfdyf" />
+                    </LinearLayout>
+
+                    <TextView
+                            android:id="@+id/distance"
+                            style="@style/TextAppearance.normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:drawableTop="@mipmap/icon_location_map"
+                            android:gravity="center"
+                            android:textColor="@color/purple"
+                            tools:text="9000000wew0000KM" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Button.yellow.small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/spacing_small"
+                            android:layout_weight="1"
+                            android:text="@string/call_us"
+                            android:textSize="10dp"
+                            app:icon="@mipmap/icon_contact_us" />
+
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Button.yellow.small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_tiny"
+                            android:layout_weight="1"
+                            android:text="@string/get_direction"
+                            android:textSize="10dp"
+                            app:icon="@mipmap/icon_direction"
+                            app:iconTint="@color/white" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

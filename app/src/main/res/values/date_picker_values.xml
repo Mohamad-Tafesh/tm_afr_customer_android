@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dp_s__select_date" translatable="false">Select Date</string>
+    <string name="dp_s__ok" translatable="false">OK</string>
+    <string name="dp_s__cancel" translatable="false">Cancel</string>
+    <string name="dp_s__clear" translatable="false">Clear</string>
+
+    <style name="DatePickerSpinnerDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitlePanelStyle">@style/DatePickerSpinnerDialogTheme.Title.Panel</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/DatePickerSpinnerDialogTheme.Title.Text</item>
+    </style>
+
+    <style name="DatePickerSpinnerDialogTheme.Title.Panel" parent="MaterialAlertDialog.MaterialComponents.Title.Panel">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="DatePickerSpinnerDialogTheme.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.NumberPicker">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

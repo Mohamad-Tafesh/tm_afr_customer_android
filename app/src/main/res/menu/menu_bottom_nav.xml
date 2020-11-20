@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/homeFragment"
+            android:icon="@drawable/tab_home"
+            android:title="@string/home" />
+
+    <item
+            android:id="@+id/servicesFragment"
+            android:icon="@drawable/tab_service"
+            android:title="@string/services" />
+
+    <item
+            android:id="@+id/customerCareFragment"
+            android:icon="@drawable/tab_customer_care"
+            android:title="@string/customerCare" />
+
+
+    <item
+            android:id="@+id/smsFragment"
+            android:icon="@drawable/tab_sms"
+            android:title="@string/sms" />
+
+    <item
+            android:id="@+id/locationMapFragment"
+            android:icon="@drawable/tab_location"
+            android:title="@string/location" />
+
+</menu>

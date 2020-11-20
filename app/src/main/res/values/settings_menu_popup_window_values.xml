@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Animation.SettingsMenuCenter" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/settings_menu_fade_out_center</item>
+    </style>
+
+    <style name="SettingsMenuPopupWindow">
+        <item name="android:popupBackground">@drawable/settings_menu_popup_background</item>
+
+        <item name="listMarginHorizontal">23dp</item>
+        <item name="listMarginVertical">8dp</item>
+        <item name="listItemPadding">16dp</item>
+        <item name="listElevation">4dp</item>
+
+        <item name="dialogMarginHorizontal">16dp</item>
+        <item name="dialogMarginVertical">24dp</item>
+        <item name="dialogItemPadding">24dp</item>
+        <item name="dialogElevation">24dp</item>
+        <item name="dialogMaxWidth">600dp</item>
+
+        <item name="unit">56dp</item>
+        <item name="maxUnits">7</item>
+    </style>
+
+    <declare-styleable name="SettingsMenuPopupWindow">
+        <attr format="dimension" name="listMarginHorizontal"/>
+        <attr format="dimension" name="listMarginVertical"/>
+        <attr format="dimension" name="listItemPadding"/>
+        <attr format="dimension" name="listElevation"/>
+
+        <attr format="dimension" name="dialogMarginHorizontal"/>
+        <attr format="dimension" name="dialogMarginVertical"/>
+        <attr format="dimension" name="dialogItemPadding"/>
+        <attr format="dimension" name="dialogElevation"/>
+        <attr format="dimension" name="dialogMaxWidth"/>
+
+        <attr format="dimension" name="unit"/>
+        <attr format="integer" name="maxUnits"/>
+    </declare-styleable>
+
+    <declare-styleable name="SettingsMenuPopup">
+        <attr format="reference" name="popupStyle"/>
+    </declare-styleable>
+
+    <color name="settings_menu_popup_background_color">#FAFAFA</color>
+</resources>

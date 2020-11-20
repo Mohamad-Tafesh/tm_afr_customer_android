@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "761897452065",
+    "firebase_url": "https://africell-d43c1.firebaseio.com",
+    "project_id": "africell-d43c1",
+    "storage_bucket": "africell-d43c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761897452065:android:2142ce14bc8673f1d09960",
+        "android_client_info": {
+          "package_name": "com.tedmob.africell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761897452065-m1k35e21uhfdlffi0s3le10586hk0r8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWEIt-F7h1AFkiLhLYIWG5eC-mQt-TUYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761897452065-m1k35e21uhfdlffi0s3le10586hk0r8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

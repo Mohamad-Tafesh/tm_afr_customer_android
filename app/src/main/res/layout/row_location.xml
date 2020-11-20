@@ -1,0 +1,47 @@
+<LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_normal"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:textColor="@color/purple"
+                android:layout_height="wrap_content"
+                tools:text="jsjdsajsadsajhsj dkjkdsjfkdshfksdjhfjashjfhajhdjafjdashfafjsdjosdosd" />
+
+        <TextView
+                android:id="@+id/description"
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:gravity="center_vertical"
+                tools:text="testdtsdtsfdtsfdyf" />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/distance"
+            style="@style/TextAppearance.normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:drawableTop="@mipmap/icon_location_map"
+            android:gravity="center"
+            android:textColor="@color/purple"
+            tools:text="9000000wew0000KM" />
+
+
+</LinearLayout>

@@ -30,12 +30,13 @@ class SettingsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return wrap(inflater.context, R.layout.fragment_settings)
+        return wrap(inflater.context, R.layout.fragment_settings,R.layout.toolbar_default)
     }
 
     override fun configureToolbar() {
-        actionbar?.show()
-        actionbar?.title = getString(R.string.settings)
+        actionbar?.title = ""
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -6,13 +6,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BalanceDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
-import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,7 +26,8 @@ class HomeFragment : BaseFragment() {
     val balanceAdapter by lazy {
         BalanceAdapter(mutableListOf())
     }
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by provideViewModel<HomeViewModel> { viewModelFactory }
     val handler = Handler(Looper.getMainLooper())
@@ -40,9 +40,11 @@ class HomeFragment : BaseFragment() {
             override fun onItemClick(item: String) {
                 /*val args = bundleOf("product" to item)
                 findNavController().navigate(R.id.action_insuranceFragment_to_insuranceDetailsActivity, args)
-           */ }
+           */
+            }
         })
     }
+
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.title = ""
@@ -53,14 +55,17 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
- setupRecyclerView()
-bindData()
+        bundleLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
+        }
+        setupRecyclerView()
+        bindData()
         val balance = mutableListOf(
             BalanceDTO(1, "2"), BalanceDTO(1, "2"), BalanceDTO(1, "2"),
             BalanceDTO(1, "2"), BalanceDTO(1, "2"), BalanceDTO(1, "2")
         )
 
-       balanceAdapter.setItems(balance)
+        balanceAdapter.setItems(balance)
     }
 
     private fun setupRecyclerView() {
@@ -70,7 +75,7 @@ bindData()
                 com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
                     .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
                     .setMaxScale(1.2f)
-              //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
+                    //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
                     .build()
             )
             setSlideOnFling(true)
@@ -84,9 +89,9 @@ bindData()
 */
         viewPager.adapter = offersAdapter
         val banners = mutableListOf<String>("1")
-            offersAdapter.setItems(banners)
-            pageIndicator.setViewPager(viewPager)
-            autoScroll(banners.size)
+        offersAdapter.setItems(banners)
+        pageIndicator.setViewPager(viewPager)
+        autoScroll(banners.size)
 
 
     }

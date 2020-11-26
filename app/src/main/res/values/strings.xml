@@ -29,7 +29,6 @@
     <string name="line_recharge">Line\nRecharge</string>
     <string name="my_bundles_services"><![CDATA[My\nBundles & Services]]></string>
     <string name="data_calculator">Data Calculator</string>
-    <string name="bundles">Bundles</string>
     <string name="value_added_services">Value Added\nServices</string>
     <string name="subscribed">Subscribed</string>
     <string name="subscribe">Subscribe</string>
@@ -40,4 +39,15 @@
     <string name="report_incident">Report Incident</string>
     <string name="no_book_available">There is any number available!</string>
     <string name="book_now">Book Now</string>
+    <string name="share">Share</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="sound">Sound</string>
+    <string name="let_us_know">Let Us Know</string>
+    <string name="incident_type">Incident Type</string>
+    <string name="your_message">Your Message</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="bundles">Bundles</string>
+    <string name="no_bundle_available">There is no bundle available right now!</string>
+    <string name="sign_in">Sign In</string>
+    <string name="new_here_sign_up">New Here! Sign Up</string>
 </resources>

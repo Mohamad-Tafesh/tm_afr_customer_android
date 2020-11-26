@@ -22,8 +22,8 @@ fun TextInputLayout.setText(@StringRes resId: Int) {
     editText?.setText(resId)
 }
 
-fun TextInputLayout.setTextWhenNotBlank(text: CharSequence) {
-    if (text.isNotBlank())
+fun TextInputLayout.setTextWhenNotBlank(text: CharSequence?) {
+    if (!text.isNullOrBlank())
         editText?.setText(text)
 }
 

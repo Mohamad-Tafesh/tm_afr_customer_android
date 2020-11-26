@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
+import com.tedmob.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -26,8 +29,8 @@ class ServicesFragment : BaseFragment() {
     val adapter by lazy {
         ServicesAdapter(mutableListOf(), object : ServicesAdapter.Callback {
             override fun onItemClickListener(item: ServicesDTO) {
-                /*     val bundle = bundleOf(Pair(LOCATION_DETAILS, item))
-                     findNavController().navigate(R.id.action_locationListFragment_to_locationDetailsFragment, bundle)*/
+                val bundle = bundleOf(Pair(SERVICE_DETAILS, item))
+                findNavController().navigate(R.id.action_servicesFragment_to_serviceDetailsFragment, bundle)
             }
         })
     }

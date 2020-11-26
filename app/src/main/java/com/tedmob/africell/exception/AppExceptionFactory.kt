@@ -37,9 +37,9 @@ class AppExceptionFactory
                     errorResponse = t.response()?.errorBody()?.string()
                     val apiResponse = gson.fromJson(errorResponse, ErrorDTO::class.java)
                     val appException = AppException(
-                        apiResponse.error?.code ?: UNEXPECTED,
-                        apiResponse.error?.message ?: unexpectedErrorMessage,
-                        apiResponse.error?.debugger, t
+                        apiResponse.status ?: UNEXPECTED,
+                        apiResponse.title ?: unexpectedErrorMessage,
+                        apiResponse.title, t
                     )
 
                     logger.saveLog("Api call url:\n${t.response()?.raw()?.request?.url}")

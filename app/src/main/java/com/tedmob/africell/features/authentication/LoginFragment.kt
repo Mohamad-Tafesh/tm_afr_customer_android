@@ -57,8 +57,8 @@ class LoginFragment : BaseFragment(), Liv.Action {
         bindUser()
         bindCountries()
         debugOnly {
-            mobileNumberLayout.setText("70640164")
-            /*  username.setText("john.doe@tedmob.com")*/
+            mobileNumberLayout.setText("790790082")
+            password.setText("string")
 
         }
     }
@@ -76,7 +76,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+961" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
         })
@@ -96,10 +96,10 @@ class LoginFragment : BaseFragment(), Liv.Action {
     }
 
     override fun performAction() {
-        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-        val formatted = PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())
+        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+","")
+        val formatted = PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+","")
         formatted?.let {
-            viewModel.login(phoneCode.orEmpty(), mobileNumberLayout.getText())
+            viewModel.login(it,password.getText())
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }

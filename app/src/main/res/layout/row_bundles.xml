@@ -1,0 +1,45 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/spacing_normal">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/simpleDraweeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewAspectRatio="1.7"
+            tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+            android:id="@+id/title"
+
+            style="@style/TextAppearance.normalBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/bundleTxt"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/simpleDraweeView"
+            app:layout_constraintStart_toStartOf="@+id/simpleDraweeView"
+            app:layout_constraintTop_toTopOf="@id/simpleDraweeView"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="jsjdsajsadsajhsj dkjkdsjfkdshfksdjhfjashjfhajhdjafjdashfafjsdjosdosd" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bundleTxt"
+            style="@style/TextAppearance.normal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bundles"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/simpleDraweeView"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

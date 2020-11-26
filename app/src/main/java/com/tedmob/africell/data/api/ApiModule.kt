@@ -6,6 +6,7 @@ import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,6 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import timber.log.Timber
+import java.nio.charset.StandardCharsets.UTF_8
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -41,16 +43,22 @@ object ApiModule {
         //.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))
 
         builder.addInterceptor {//addNetworkInterceptor in case you don't want to handle redirections, but logs will not show "access-token"
+            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             it.proceed(
                 it.request().let { request ->
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
+                        .header("Content-Type", "application/json")
+                        .header("Accept-Language", "en")
+                        .header("Authorization", credentials)
+
                         .apply {
                             if (
                                 request.tag(String::class.java) != ApiContract.Params.NO_TOKEN_TAG &&
                                 session.isLoggedIn()
                             ) {
                                 header("access-token", session.accessToken)
+
                             }
                         }
                         .build()
@@ -75,6 +83,7 @@ object ApiModule {
         @Named("Api") gson: Gson
     ): Retrofit {
         return Retrofit.Builder()
+
             .client(client)
             .baseUrl(ApiContract.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

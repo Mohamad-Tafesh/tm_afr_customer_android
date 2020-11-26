@@ -130,7 +130,7 @@
                         android:background="@color/separator" />
 
                 <TextView
-                        android:id="@+id/myClaimsLayout"
+                        android:id="@+id/bundlesLayout"
                         style="@style/TextAppearance.small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

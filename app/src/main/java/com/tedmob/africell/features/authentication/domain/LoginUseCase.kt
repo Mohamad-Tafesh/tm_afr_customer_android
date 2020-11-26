@@ -6,6 +6,7 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.dto.UserDTO
+import com.tedmob.africell.data.api.requests.SignInRequestDTO
 import com.tedmob.africell.data.entity.User
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.exception.AppException
@@ -29,64 +30,15 @@ class LoginUseCase
     schedulers: ExecutionSchedulers
 ) : UseCase<Unit, LoginUseCase.UserLoginInfo>(schedulers) {
 
-    //Version waiting for OneSignal:
-    /*override fun buildUseCaseObservable(params: UserLoginInfo): Observable<Unit> {
-        return oneSignalIdsObservable
-            .observeOn(schedulers.subscribeScheduler)
-            .flatMap {
-                api.login(params.username, params.password)
-                    .map { user ->
-                        // save session
-                        session.accessToken = user.accessToken
-                session.user = user
-                        session.identifyUser(firebaseAnalytics)
-                        //user
-                    }
-            }
-    }*/
-
     //Version not waiting for OneSignal:
-    /*override fun buildUseCaseObservable(params: UserLoginInfo): Observable<Unit> {
-        return api.login(params.username, params.password)
+    override fun buildUseCaseObservable(params: UserLoginInfo): Observable<Unit> {
+        return api.login( SignInRequestDTO( params.username, params.password))
             .map { user ->
                 // save session
-                session.accessToken = user.accessToken
-                session.user = user
-                session.identifyUser(firebaseAnalytics)
+           //     session.accessToken = user.accessToken
+                session.identifyUser(firebaseAnalytics,firebaseCrashlytics)
                 //user
             }
-    }*/
-
-    override fun buildUseCaseObservable(params: UserLoginInfo): Observable<Unit> {
-        return Observable.just(params)
-            .switchMap {
-                if (true) {
-                    Observable.just(
-                        UserDTO(null,null,null,null,null,
-
-                            null,null,null,null,null,
-                            null,null,"1234","1234"
-                        )
-                    )
-                } else {
-                    Observable.error<UserDTO>(
-                        AppException(
-                            AppException.Code.NETWORK,
-                            "Wrong username / password",
-                            null
-                        )
-                    )
-                }
-            }
-            .subscribeOn(Schedulers.io())
-            .delay(2, TimeUnit.SECONDS, Schedulers.io(), true)
-            .map { user ->
-                // save session
-                session.accessToken = user.token.orEmpty()
-                session.user = user
-                session.identifyUser(firebaseAnalytics, firebaseCrashlytics)
-            }
     }
-
     data class UserLoginInfo(val username: String, val password: String)
 }

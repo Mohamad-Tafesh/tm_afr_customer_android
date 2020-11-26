@@ -2,14 +2,18 @@ package com.tedmob.africell.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.tedmob.africell.features.aboutus.AboutViewModel
 import com.tedmob.africell.features.authentication.LoginViewModel
 import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.authentication.VerifyPinViewModel
 import com.tedmob.africell.features.bookNumber.BookNumberViewModel
+import com.tedmob.africell.features.bundles.BundlesViewModel
+import com.tedmob.africell.features.customerCare.CustomerCareViewModel
 import com.tedmob.africell.features.faq.FaqViewModel
 import com.tedmob.africell.features.home.HomeViewModel
 import com.tedmob.africell.features.launch.SplashViewModel
 import com.tedmob.africell.features.location.LocationViewModel
+import com.tedmob.africell.features.reportIncident.ReportIncidentViewModel
 import com.tedmob.africell.features.services.ServicesViewModel
 import com.tedmob.africell.features.terms.TermsViewModel
 import com.tedmob.africell.features.usefulNumber.UsefulNumberViewModel
@@ -83,5 +87,26 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TermsViewModel::class)
     internal abstract fun termsViewModel(viewModel: TermsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AboutViewModel::class)
+    internal abstract fun aboutViewModel(viewModel: AboutViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ReportIncidentViewModel::class)
+    internal abstract fun reportIncidentViewModel(viewModel: ReportIncidentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CustomerCareViewModel::class)
+    internal abstract fun customerCareViewModel(viewModel: CustomerCareViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( BundlesViewModel::class)
+    internal abstract fun  bundlesViewModel(viewModel: BundlesViewModel): ViewModel
 
 }

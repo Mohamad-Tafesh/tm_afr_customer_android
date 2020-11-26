@@ -6,7 +6,11 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.tedmob.africell.features.home.HomeFragment"
-            android:label="@string/home"/>
+            android:label="@string/home">
+        <action
+                android:id="@+id/action_homeFragment_to_bundleActivity"
+                app:destination="@id/bundleActivity" />
+    </fragment>
     <fragment
             android:id="@+id/settingsFragment"
             android:name="com.tedmob.africell.features.settings.SettingsFragment"
@@ -27,10 +31,9 @@
             android:label="@string/about_us"
             tools:layout="@layout/fragment_about_us"/>
     <fragment
-            android:id="@+id/contactUsFragment"
-            android:name="com.tedmob.africell.features.contactus.ContactUsFragment"
-            android:label="@string/contact_us"
-            tools:layout="@layout/fragment_contact_us"/>
+            android:id="@+id/reportIncidentFragment"
+            android:name="com.tedmob.africell.features.reportIncident.ReportIncidentFragment"
+            tools:layout="@layout/fragment_report_incident"/>
     <fragment
             android:id="@+id/locationMapFragment"
             android:name="com.tedmob.africell.features.location.LocationMapFragment"
@@ -65,14 +68,39 @@
     <fragment
             android:id="@+id/servicesFragment"
             android:name="com.tedmob.africell.features.services.ServicesFragment"
-            tools:layout="@layout/fragment_services"/>
+            tools:layout="@layout/fragment_services">
+        <action
+                android:id="@+id/action_servicesFragment_to_serviceDetailsFragment"
+                app:destination="@id/serviceDetailsFragment" />
+    </fragment>
+
     <fragment
             android:id="@+id/usefulNumberFragment"
             android:name="com.tedmob.africell.features.usefulNumber.UsefulNumberFragment"
             android:label="UsefulNumberFragment" />
+
     <fragment
             android:id="@+id/bookNumberFragment"
             android:name="com.tedmob.africell.features.bookNumber.BookNumberFragment"
             android:label="BookNumberFragment" />
+
+    <fragment
+            android:id="@+id/termsFragment"
+            android:name="com.tedmob.africell.features.terms.TermsFragment"
+            android:label="TermsFragment" />
+
+    <fragment
+            android:id="@+id/customerCareFragment"
+            android:name="com.tedmob.africell.features.customerCare.CustomerCareFragment"
+            android:label="CustomerCareFragment" />
+    <fragment
+            android:id="@+id/serviceDetailsFragment"
+            android:name="com.tedmob.africell.features.services.ServiceDetailsFragment"
+            android:label="ServiceDetailsFragment" />
+    <activity
+            android:id="@+id/bundleActivity"
+            tools:layout="@layout/activity_bundle"
+            android:name="com.tedmob.africell.features.bundles.BundleActivity"
+            android:label="BundleActivity" />
 
 </navigation>

@@ -9,28 +9,22 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher"
+            android:background="@drawable/africell_bgd_login3"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/spacing_xxlarge">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_large"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/africell_logo_splash"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -38,14 +32,14 @@
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/skip"
-                    android:layout_marginTop="@dimen/spacing_normal"
+                    style="@style/Button.purple.small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_normal"
                     android:text="@string/skip"
-                    style="@style/Button.purple"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -100,14 +94,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/spacing_tiny"
                         android:layout_weight="1"
-                        app:errorTextColor="@color/red_900"
-                        app:hintTextColor="@color/white">
+                        android:paddingTop="@dimen/spacing_normal"
+                        app:errorTextColor="@color/red_900">
 
                     <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputEditText.grey"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:hint="@string/mobile_number"
                             android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -122,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     app:errorTextColor="@color/red_900"
-                    app:hintTextColor="@color/white">
+                  >
 
                 <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText.grey"
@@ -132,6 +125,15 @@
                         android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <com.tedmob.africell.ui.button.LoadingProgressButton
+                    android:id="@+id/loginButton"
+                    style="@style/Button.yellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:text="@string/sign_in" />
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,23 +145,16 @@ style="@style/TextAppearance.normal"
                     android:text="@string/forgot_password"
                     />
 
-            <com.tedmob.africell.ui.button.LoadingProgressButton
-                    android:id="@+id/signInButton"
-                    style="@style/Button.purple"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:text="@string/send" />
 
             <com.tedmob.africell.ui.button.LoadingProgressButton
-                    android:id="@+id/loginButton"
+                    android:id="@+id/signInButton"
+                    android:textColor="@color/white"
                     style="@style/Widget.MaterialComponents.StrokeViolet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:text="@string/send" />
+                    android:text="@string/new_here_sign_up" />
 
 
         </LinearLayout>

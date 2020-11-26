@@ -1,19 +1,20 @@
 package com.tedmob.africell.data.api
 
+import com.tedmob.africell.data.api.dto.LoginDTO
+import com.tedmob.africell.data.api.requests.SignInRequestDTO
 import com.tedmob.africell.data.entity.User
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.Tag
+import retrofit2.http.*
 
 interface RestApi {
 
-    @FormUrlEncoded
-    @POST("login")
+
+    @POST("SelfCare/SignIN")
     fun login(
-        @Field("username") username: String,
-        @Field("password") password: String,
+        @Body request: SignInRequestDTO,
         @Tag tag: String = ApiContract.Params.NO_TOKEN_TAG
-    ): Observable<User>
+    ): Observable<LoginDTO>
+
+
+
 }

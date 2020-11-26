@@ -13,8 +13,7 @@
 
     <item
             android:id="@+id/customerCareFragment"
-            android:icon="@drawable/tab_customer_care"
-            android:title="@string/customerCare" />
+            android:title="" />
 
 
     <item

@@ -1,22 +1,22 @@
 package com.tedmob.africell.features.home
 
 import android.os.Bundle
-import android.view.MenuItem
+import android.util.TypedValue
 import android.view.View
 import androidx.activity.addCallback
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseActivity
 import com.tedmob.africell.util.navigation.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+
 
 class MainActivity : BaseActivity() {
 
@@ -47,23 +47,24 @@ class MainActivity : BaseActivity() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main, false, false, 0)
-     /*   setSupportActionBar(drawerToolbar)
-     */
+        /*   setSupportActionBar(drawerToolbar)
+        */
         appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
         setupNavigation()
         setupBottomNavigationStyle()
     }
 
 
-
-    override fun onSupportNavigateUp(): Boolean = NavigationUI.navigateUp(findNavController(R.id.nav_host_main), appBarConfiguration) || findNavController(R.id.nav_host_main).navigateUp()
+    override fun onSupportNavigateUp(): Boolean = NavigationUI.navigateUp(
+        findNavController(R.id.nav_host_main),
+        appBarConfiguration
+    ) || findNavController(R.id.nav_host_main).navigateUp()
 
     private fun setupNavigation() {
-    //    navigationView.itemIconTintList = null
+        //    navigationView.itemIconTintList = null
 
         findNavController(R.id.nav_host_main).let {
 //            setupActionBarWithNavController(it, drawerLayout)
@@ -121,13 +122,45 @@ class MainActivity : BaseActivity() {
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                if (bottomNavFragmentIds.contains(destination.id)) {
+                    if (destination.id == R.id.customerCareFragment) {
+                        customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            R.mipmap.tab_customer_care_selected, 0, 0
+                        )
+                    } else {
+                        customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            R.mipmap.tab_customer_care,
+                            0,
+                            0
+                        )
+
+                    }
+                }
             }
         }
     }
 
     private fun setupBottomNavigationStyle() {
         bottomNavigationView.itemIconTintList = null
+     /*   val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
+        // make second item bigger
+        val iconView =
+            menuView.getChildAt(2)?.findViewById<View>(com.google.android.material.R.id.icon)
+        val size = resources.getDimensionPixelSize(R.dimen.spacing_large)
+        val padding = resources.getDimensionPixelSize(R.dimen.spacing_medium)
+        iconView?.setPadding(0, 0, 0, padding)
 
+        val layoutParams = iconView?.layoutParams
+        val displayMetrics = resources.displayMetrics
+        // set your height here
+        // set your height here
+        layoutParams?.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
+        // set your width here
+        // set your width here
+        layoutParams?.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
+        iconView?.layoutParams = layoutParams*/
     }
 
     private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {

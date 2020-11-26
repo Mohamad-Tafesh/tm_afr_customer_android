@@ -10,6 +10,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tedmob.africell.data.api.ApiModule
+import com.tedmob.africell.data.api.UnsafeOkHttpClient
 import com.tedmob.africell.util.log.CrashlyticsExceptionLogger
 import com.tedmob.africell.util.log.ExceptionLogger
 import dagger.Module
@@ -53,7 +54,8 @@ object DataModule {
     @Provides
     @Singleton
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
-        return OkHttpClient.Builder()
+        return ( UnsafeOkHttpClient.getUnsafeOkHttpClient()?.newBuilder() ?:
+        OkHttpClient.Builder())
             .callTimeout(60L, TimeUnit.SECONDS)
             .cache(cache)
             .build()

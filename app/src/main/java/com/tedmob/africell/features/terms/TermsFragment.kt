@@ -25,7 +25,7 @@ class TermsFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.setDisplayHomeAsUpEnabled(true)
-  //      actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+  actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
         actionbar?.title = ""
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {

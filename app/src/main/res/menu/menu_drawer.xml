@@ -4,7 +4,6 @@
     <group android:checkableBehavior="single">
 
         <item
-
                 android:id="@+id/homeFragment"
                 android:icon="@mipmap/side_menu_home"
                 android:title="@string/home" />

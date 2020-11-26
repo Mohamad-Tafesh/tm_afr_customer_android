@@ -18,10 +18,11 @@
                 android:id="@+id/toolbarImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:actualImageResource="@mipmap/main_top_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:viewAspectRatio="2.4" />
+                app:viewAspectRatio="1.78" />
 
         <TextView
                 android:id="@+id/toolbarTitle"
@@ -35,11 +36,12 @@
                 app:layout_constraintBottom_toTopOf="@+id/roundBackground"
                 tools:text="FAQ" />
 
-        <ImageView
+        <FrameLayout
+                android:padding="@dimen/spacing_normal"
                 android:id="@+id/roundBackground"
+                android:background="@drawable/frame_grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
                 android:translationZ="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbarImage"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,4 +56,10 @@
             android:background="@color/transparent"
             android:theme="@style/AppTheme.Toolbar.transparent"
             app:layout_collapseMode="pin" />
+    <ImageView
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+        android:src="@mipmap/main_logo_top"
+            android:layout_height="wrap_content"/>
 </com.google.android.material.appbar.CollapsingToolbarLayout>

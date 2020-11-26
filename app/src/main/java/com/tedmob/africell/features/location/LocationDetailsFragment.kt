@@ -14,10 +14,8 @@ import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.util.html.html
 import com.tedmob.africell.util.intents.dial
-import com.tedmob.africell.util.intents.email
 import com.tedmob.africell.util.intents.openGoogleMapNavigation
 import kotlinx.android.synthetic.main.fragment_location_details.*
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 
@@ -25,11 +23,14 @@ class LocationDetailsFragment : BaseFragment() {
 
 
     val location by lazy {
-        arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS) ?:   throw IllegalArgumentException("required Type arguments")
+        arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
+            ?: throw IllegalArgumentException("required Type arguments")
     }
-    companion object{
-        const val LOCATION_DETAILS="location_details"
+
+    companion object {
+        const val LOCATION_DETAILS = "location_details"
     }
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -47,11 +48,13 @@ class LocationDetailsFragment : BaseFragment() {
         setUpMapConfiguration()
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_location_details, 0, false)
+            return wrap(inflater.context, R.layout.fragment_location_details, R.layout.toolbar_default, false)
         }
     }
 
@@ -71,7 +74,10 @@ class LocationDetailsFragment : BaseFragment() {
 
                     context?.let {
                         val marker =
-                            googleMap.addMarker(MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.maps_icon_selected)))
+                            googleMap.addMarker(
+                                MarkerOptions().position(latLng)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.maps_icon_selected))
+                            )
                         marker.title = "${location?.title}"
                         marker.tag = location
 
@@ -107,7 +113,7 @@ class LocationDetailsFragment : BaseFragment() {
 
             distance.text = location.displayDistance()
             description.text = location.description?.html()
-         //   workingHrsValue.text= location.workingHrs?.joinToString(separator =", ")
+            //   workingHrsValue.text= location.workingHrs?.joinToString(separator =", ")
             callUs.setOnClickListener {
                 location.phoneNb?.let { dial(it) } ?: showMessage("Phone number is not available")
             }

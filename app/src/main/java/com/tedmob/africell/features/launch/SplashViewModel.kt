@@ -21,14 +21,15 @@ class SplashViewModel
     fun redirectToAppropriateSection() {
         _navigationAction.value = Resource.Success(
             NavigationAction { activity ->
-                if (/*session.isLoggedIn() && session.user?.isNewUser==false*/true) {
+               /* if (*//*session.isLoggedIn() && session.user?.isNewUser==false*//*true) {
                     navigate(R.id.action_splashFragment_to_mainActivity)
                 } else {
-                    navigate(R.id.action_splashFragment_to_authenticationActivity)
-                }/*
+                }*//*
                 if(session.showHelp) {
                     activity?.startActivity(Intent(activity, HelpActivity::class.java))
                 }*/
+                navigate(R.id.action_splashFragment_to_authenticationActivity)
+
                 activity?.finish()
             }
         )

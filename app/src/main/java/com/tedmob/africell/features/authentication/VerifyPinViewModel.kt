@@ -8,6 +8,7 @@ import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.api.dto.LoginDTO
 import com.tedmob.africell.data.api.dto.UserDTO
+import com.tedmob.africell.data.api.dto.VerifyOTPDTO
 import com.tedmob.africell.exception.AppExceptionFactory
 import javax.inject.Inject
 
@@ -19,8 +20,8 @@ class VerifyPinViewModel
 ) : ViewModel() {
 
 
-    private val _verifyData = SingleLiveEvent<Resource<UserDTO>>()
-    val verifyData: SingleLiveEvent<Resource<UserDTO>> get() = _verifyData
+    private val _verifyData = SingleLiveEvent<Resource<VerifyOTPDTO>>()
+    val verifyData: SingleLiveEvent<Resource<VerifyOTPDTO>> get() = _verifyData
 
 
     fun verifyPin(pin: String) {

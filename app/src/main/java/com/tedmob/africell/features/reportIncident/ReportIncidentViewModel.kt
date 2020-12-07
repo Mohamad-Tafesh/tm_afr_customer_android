@@ -35,10 +35,10 @@ class ReportIncidentViewModel
         }.execute()
     }
 
-    fun contactUs(email: String?, categoryId: Long?, message: String) {
+    fun contactUs( category:SupportCategoryDTO?, message: String) {
         ResourceUseCaseExecutor(
             reportIncidentUseCase,
-            ReportIncidentUseCase.ContactInfo(email, categoryId, message),
+            ReportIncidentUseCase.Params(category?.id, category?.name, message),
             contactUsData,
             appExceptionFactory
         ).execute()

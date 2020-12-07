@@ -113,7 +113,7 @@ fun <T : Any, L : LiveData<T>> BaseFragment.observeNotNull(liveData: L?, body: (
 
 
 //LiveData with Resource:
-fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResource(
+fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceWithoutProgress(
     liveData: L?,
     body: (T) -> Unit
 ) {
@@ -141,7 +141,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResource(
     })
 }
 
-fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceProgress(
+fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResource(
     liveData: L?,
     body: (T) -> Unit
 ) {

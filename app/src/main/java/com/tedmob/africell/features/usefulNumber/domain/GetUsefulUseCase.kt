@@ -18,8 +18,7 @@ class GetUsefulUseCase
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<UsefulNumberDTO>> {
 
-        return Observable.just(mutableListOf(UsefulNumberDTO(1, "dsa",false),
-            UsefulNumberDTO(1, "dsa",false)))
+        return restApi.getUsefullNumber()
     }
 
 }

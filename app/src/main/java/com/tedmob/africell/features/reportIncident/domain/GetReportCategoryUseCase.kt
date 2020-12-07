@@ -14,6 +14,6 @@ class GetReportCategoryUseCase
 ) : UseCase<List<SupportCategoryDTO>, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<SupportCategoryDTO>> {
-        return /*restApi.getContactSubject()*/Observable.just(mutableListOf(SupportCategoryDTO(123,"1234")))
+        return restApi.getIncidentType()
     }
 }

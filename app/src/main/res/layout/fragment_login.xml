@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
         android:fillViewport="true">
 
     <LinearLayout
@@ -16,8 +16,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium">
 
 
             <ImageView
@@ -55,14 +55,14 @@
                     style="@style/TextAppearance.AppCompat.Display1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/login"
                     android:gravity="center"
+                    android:text="@string/login"
                     android:textColor="@color/white" />
 
             <TextView
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="with your Mobile Number"
                     android:textColor="@color/white"
                     android:textSize="26sp"
@@ -81,11 +81,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_tiny"
                         android:focusable="false"
-                        app:spinnerMode="dialog"
                         app:contentStyle="@style/TextInputEditText.grey"
                         app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
                         app:endIconMode="custom"
-                        app:endIconTint="@color/purple" />
+                        app:endIconTint="@color/purple"
+                        app:spinnerMode="dialog" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/mobileNumberLayout"
@@ -114,8 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:errorTextColor="@color/red_900"
-                  >
+                    app:errorTextColor="@color/red_900">
 
                 <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText.grey"
@@ -134,27 +133,28 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:text="@string/sign_in" />
+
             <TextView
+                    android:id="@+id/forgotPassword"
+                    style="@style/TextAppearance.normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/forgotPassword"
-style="@style/TextAppearance.normal"
                     android:layout_marginTop="@dimen/spacing_normal"
+                    android:background="?selectableItemBackground"
                     android:gravity="center"
-                    android:textColor="@color/white"
                     android:text="@string/forgot_password"
-                    />
+                    android:textColor="@color/white" />
 
 
             <com.tedmob.africell.ui.button.LoadingProgressButton
                     android:id="@+id/signInButton"
-                    android:textColor="@color/white"
                     style="@style/Widget.MaterialComponents.StrokeViolet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:text="@string/new_here_sign_up" />
+                    android:text="@string/new_here_sign_up"
+                    android:textColor="@color/white" />
 
 
         </LinearLayout>

@@ -1,6 +1,5 @@
 package com.tedmob.africell.features.launch
 
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import com.tedmob.africell.R
 import com.tedmob.africell.data.Resource
@@ -21,15 +20,16 @@ class SplashViewModel
     fun redirectToAppropriateSection() {
         _navigationAction.value = Resource.Success(
             NavigationAction { activity ->
-               /* if (*//*session.isLoggedIn() && session.user?.isNewUser==false*//*true) {
+                if (session.isLoggedIn()) {
                     navigate(R.id.action_splashFragment_to_mainActivity)
                 } else {
-                }*//*
-                if(session.showHelp) {
-                    activity?.startActivity(Intent(activity, HelpActivity::class.java))
-                }*/
-                navigate(R.id.action_splashFragment_to_authenticationActivity)
+                    navigate(R.id.action_splashFragment_to_authenticationActivity)
 
+                }
+                /* if(session.showHelp) {
+                     activity?.startActivity(Intent(activity, HelpActivity::class.java))
+                 }
+ */
                 activity?.finish()
             }
         )

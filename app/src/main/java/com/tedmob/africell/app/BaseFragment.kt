@@ -20,6 +20,7 @@ import com.tedmob.africell.R
 import com.tedmob.africell.ui.blocks.LoadingLayout
 import com.tedmob.africell.ui.blocks.LoadingView
 import com.tedmob.africell.ui.blocks.ToolbarLayout
+import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.util.DialogUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
@@ -220,5 +221,10 @@ abstract class BaseFragment : DaggerFragment() {
                 .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
                 .show()
         }
+    }
+
+    override fun onDestroyView() {
+        activity?.hideKeyboard()
+        super.onDestroyView()
     }
 }

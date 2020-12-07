@@ -5,15 +5,10 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
-import com.tedmob.africell.data.api.dto.UserDTO
-import com.tedmob.africell.data.api.requests.SignInRequestDTO
-import com.tedmob.africell.data.entity.User
+import com.tedmob.africell.data.api.requests.LoginRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.exception.AppException
 import com.tedmob.africell.util.identifyUser
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -32,10 +27,12 @@ class LoginUseCase
 
     //Version not waiting for OneSignal:
     override fun buildUseCaseObservable(params: UserLoginInfo): Observable<Unit> {
-        return api.login( SignInRequestDTO( params.username, params.password))
+        return api.login( LoginRequest( params.username, params.password))
             .map { user ->
                 // save session
-           //     session.accessToken = user.accessToken
+               session.accessToken = user.authenticationToken.orEmpty()
+                session.refreshToken= user.refreshToken.orEmpty()
+                session.msisdn= params.username
                 session.identifyUser(firebaseAnalytics,firebaseCrashlytics)
                 //user
             }

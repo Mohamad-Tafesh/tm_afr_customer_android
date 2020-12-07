@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.ConfirmPasswordRule
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
@@ -13,27 +14,29 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
-
+import com.tedmob.africell.util.getText
 import kotlinx.android.synthetic.main.fragment_set_password.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
-class SetPasswordFragment : BaseFragment(), Liv.Action {
+class ResetPasswordFragment : BaseFragment(), Liv.Action {
 
     private var liv: Liv? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by provideActivityViewModel<RegisterViewModel> { viewModelFactory }
+    private val viewModel by provideActivityViewModel<ResetPasswordViewModel> { viewModelFactory }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_set_password, R.layout.toolbar_image, false)
     }
 
     override fun configureToolbar() {
         actionbar?.show()
-        //headerImage.setActualImageResource(R.mipmap.sign_up_top)
+        toolbarImage.setActualImageResource(R.mipmap.main_top3)
         actionbar?.setDisplayHomeAsUpEnabled(true)
-        //actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
-        actionbar?.title = getString(R.string.forgot_password)
-
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        toolbarTitle?.text = getString(R.string.forgot_password)
+        actionbar?.title = ""
 
     }
 
@@ -51,37 +54,23 @@ class SetPasswordFragment : BaseFragment(), Liv.Action {
         }
     }
 
-    /*private fun saveData() {
-
-        passwordLayout.saveText { viewModel.password = it }
-        confirmPasswordLayout.saveText { viewModel.confirmPassword = it }
-    }
-
-    private fun retrieveData() {
-        viewModel.email?.let { emailLayout.setText(it) }
-        viewModel.password?.let { passwordLayout.setText(it) }
-        viewModel.confirmPassword?.let { confirmPasswordLayout.setText(it) }
-    }
-*/
     private fun initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
         val emailRule = EmailRule(getString(R.string.invalid_email))
-        //val passwordRule = ConfirmPasswordRule(passwordLayout, confirmPasswordLayout)
+        val passwordRule = ConfirmPasswordRule(passwordLayout, confirmPasswordLayout)
         return Liv.Builder()
 
             .add(passwordLayout, notEmptyRule)
-           // .add(confirmPasswordLayout, passwordRule)
+            .add(confirmPasswordLayout, passwordRule)
             .submitAction(this)
             .build()
     }
 
     private fun bindData() {
-        observeResource(viewModel.updatedProfileData, {
+        observeResource(viewModel.resetData, {
             findNavController().navigate(R.id.action_setPasswordFragment_to_mainActivity)
             activity?.finish()
-      /*      val directions = SetPasswordFragmentDirections.actionSetPasswordFragmentToVerificationFragment(email = emailLayout.getText(), password = passwordLayout.getText())
-            findNavController().navigate(directions)
-      */  })
+        })
     }
 
 
@@ -91,7 +80,7 @@ class SetPasswordFragment : BaseFragment(), Liv.Action {
     }
 
     override fun performAction() {
-        viewModel.setProfile()
+        viewModel.resetPassword(passwordLayout.getText(), confirmPasswordLayout.getText())
     }
 
 

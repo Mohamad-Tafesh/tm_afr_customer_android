@@ -26,6 +26,7 @@ class HomeFragment : BaseFragment() {
     val balanceAdapter by lazy {
         BalanceAdapter(mutableListOf())
     }
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -58,6 +59,12 @@ class HomeFragment : BaseFragment() {
         bundleLayout.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
         }
+        lineRecharge.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
+        }
+        accountInfoLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
+        }
         setupRecyclerView()
         bindData()
         val balance = mutableListOf(
@@ -79,6 +86,7 @@ class HomeFragment : BaseFragment() {
                     .build()
             )
             setSlideOnFling(true)
+
         }
 
     }
@@ -119,7 +127,6 @@ class HomeFragment : BaseFragment() {
         runnable?.let {
             handler?.postDelayed(it, POST_DELAY)
         }
-
     }
 
     private fun stop() {

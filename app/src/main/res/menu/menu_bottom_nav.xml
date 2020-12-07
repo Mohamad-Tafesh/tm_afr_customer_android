@@ -17,7 +17,7 @@
 
 
     <item
-            android:id="@+id/smsFragment"
+            android:id="@+id/SMSFragment"
             android:icon="@drawable/tab_sms"
             android:title="@string/sms" />
 

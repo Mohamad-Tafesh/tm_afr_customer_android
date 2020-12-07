@@ -3,8 +3,10 @@ package com.tedmob.africell.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tedmob.africell.features.aboutus.AboutViewModel
+import com.tedmob.africell.features.accountInfo.AccountViewModel
 import com.tedmob.africell.features.authentication.LoginViewModel
 import com.tedmob.africell.features.authentication.RegisterViewModel
+import com.tedmob.africell.features.authentication.ResetPasswordViewModel
 import com.tedmob.africell.features.authentication.VerifyPinViewModel
 import com.tedmob.africell.features.bookNumber.BookNumberViewModel
 import com.tedmob.africell.features.bundles.BundlesViewModel
@@ -12,9 +14,12 @@ import com.tedmob.africell.features.customerCare.CustomerCareViewModel
 import com.tedmob.africell.features.faq.FaqViewModel
 import com.tedmob.africell.features.home.HomeViewModel
 import com.tedmob.africell.features.launch.SplashViewModel
+import com.tedmob.africell.features.lineRecharge.LineRechargeViewModel
 import com.tedmob.africell.features.location.LocationViewModel
+import com.tedmob.africell.features.profile.EditProfileViewModel
 import com.tedmob.africell.features.reportIncident.ReportIncidentViewModel
 import com.tedmob.africell.features.services.ServicesViewModel
+import com.tedmob.africell.features.sms.SMSViewModel
 import com.tedmob.africell.features.terms.TermsViewModel
 import com.tedmob.africell.features.usefulNumber.UsefulNumberViewModel
 import com.tedmob.africell.ui.BaseViewModel
@@ -57,6 +62,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RegisterViewModel::class)
     internal abstract fun registerViewModel(viewModel: RegisterViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResetPasswordViewModel::class)
+    internal abstract fun resetPasswordViewModel(viewModel: ResetPasswordViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -106,7 +116,29 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey( BundlesViewModel::class)
-    internal abstract fun  bundlesViewModel(viewModel: BundlesViewModel): ViewModel
+    @ViewModelKey(BundlesViewModel::class)
+    internal abstract fun bundlesViewModel(viewModel: BundlesViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SMSViewModel::class)
+    internal abstract fun smsViewModel(viewModel: SMSViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LineRechargeViewModel::class)
+    internal abstract fun lineRechargeViewModel(viewModel: LineRechargeViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AccountViewModel::class)
+    internal abstract fun accountViewModel(viewModel: AccountViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditProfileViewModel::class)
+    internal abstract fun editProfileViewModel(viewModel: EditProfileViewModel): ViewModel
 
 }

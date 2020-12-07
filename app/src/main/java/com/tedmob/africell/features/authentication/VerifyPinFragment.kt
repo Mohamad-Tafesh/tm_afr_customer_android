@@ -16,18 +16,24 @@ import javax.inject.Inject
 
 class VerifyPinFragment : BaseFragment(){
 
-
+    val isReset by lazy {
+        arguments?.getBoolean(MobileNumberFragment.IS_RESET)
+            ?: throw IllegalArgumentException("required Type arguments")
+    }
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by provideViewModel<VerifyPinViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_verification, 0, false)
+        return wrap(inflater.context, R.layout.fragment_verification, R.layout.toolbar_default, false)
     }
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.hide()
+        actionbar?.setDisplayHomeAsUpEnabled(false)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.title = getString(R.string.verification)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,13 +47,11 @@ class VerifyPinFragment : BaseFragment(){
 
     private fun bindData() {
         observeResource(viewModel.verifyData) {
-           if (it.isNewUser == false) {
-                findNavController().navigate(R.id.action_verifyPinFragment_to_mainActivity)
+           if (isReset) {
+                findNavController().navigate(R.id.action_verifyPinFragment_to_setPasswordFragment)
             } else {
                 findNavController().navigate(R.id.action_verifyPinFragment_to_registerFragment)
             }
-
-
     }
     }
 

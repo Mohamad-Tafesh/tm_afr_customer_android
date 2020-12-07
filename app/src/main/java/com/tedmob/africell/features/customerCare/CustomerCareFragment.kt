@@ -3,7 +3,6 @@ package com.tedmob.africell.features.customerCare
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.EmailRule
@@ -19,9 +18,7 @@ import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.intents.dial
-import com.tedmob.africell.util.intents.openWhatsAppWith
-import com.tedmob.africell.util.setTextWhenNotBlank
-import kotlinx.android.synthetic.main.fragment_report_incident.*
+import kotlinx.android.synthetic.main.fragment_customer_care.*
 import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
@@ -36,7 +33,7 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
     private val viewModel by provideViewModel<CustomerCareViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_report_incident, R.layout.toolbar_image, true)
+        return wrap(inflater.context, R.layout.fragment_customer_care, R.layout.toolbar_image, true)
     }
 
 
@@ -53,17 +50,14 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         liv.start()
-        setupUi()
+
         bindData()
         contactUsBtn.setOnClickListener {
             liv.submitWhenValid()
         }
     }
 
-    private fun setupUi() {
-        val user = sessionRepository.user
-        emailLayout.setTextWhenNotBlank(user?.email)
-      }
+
 
     private fun bindData() {
         viewModel.getSupportCategory()
@@ -75,8 +69,8 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
 
 
         observeResource(viewModel.contactUsData) {
-            showMessageDialog(it.msg.orEmpty(), "Close") {
-               findNavController().popBackStack()
+            showMessageDialog(it.resultText.orEmpty(), "Close") {
+                findNavController().popBackStack()
             }
         }
     }
@@ -90,15 +84,13 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
         builder.add(supportCategoryLayout, notEmptyRule)
             .add(messageLayout, notEmptyRule)
 
-        builder.add(emailLayout, notEmptyRule, emailRule)
 
         return builder.submitAction(this).build()
     }
 
     override fun performAction() {
-        val catId = (supportCategoryLayout.selectedItem as SupportCategoryDTO).id
+        val catId = (supportCategoryLayout.selectedItem as SupportCategoryDTO)
         viewModel.contactUs(
-            emailLayout.getText(),
             catId,
             messageLayout.getText()
         )

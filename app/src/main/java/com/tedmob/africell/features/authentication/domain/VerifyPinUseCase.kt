@@ -6,6 +6,8 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.dto.UserDTO
+import com.tedmob.africell.data.api.dto.VerifyOTPDTO
+import com.tedmob.africell.data.api.requests.VerifyOTPRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.util.identifyUser
 import io.reactivex.Observable
@@ -18,22 +20,16 @@ class VerifyPinUseCase
     private val firebaseAnalytics: FirebaseAnalytics,
     private val firebaseCrashlytics: FirebaseCrashlytics,
     schedulers: ExecutionSchedulers
-) : UseCase<UserDTO, VerifyPinUseCase.Params>(schedulers) {
+) : UseCase<VerifyOTPDTO, VerifyPinUseCase.Params>(schedulers) {
 
 
-    override fun buildUseCaseObservable(params: Params): Observable<UserDTO> {
-        return /*restApi.verifyPin(session.registrationId, params.pin).map {
+    override fun buildUseCaseObservable(params: Params): Observable<VerifyOTPDTO> {
+        return restApi.verifyOTP(VerifyOTPRequest( session.msisdn, params.pin))/*.map {
             session.accessToken = it.token.orEmpty()
             session.user = it
             session.identifyUser(firebaseAnalytics,firebaseCrashlytics)
             it
-        }*/ Observable.just(
-            UserDTO(null,null,null,null,null,
-
-                null,null,null,null,null,
-                null,null,null,"1234"
-            )
-        )
+        }*/
     }
 
     data class Params(

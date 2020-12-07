@@ -17,10 +17,13 @@ constructor(prefUtils: PrefUtils, gson: Gson) : SessionRepository {
 
     override fun invalidateSession() {
         accessToken = ""
+        refreshToken=""
         user = null
     }
 
     override var accessToken: String by RxPrefProperty(prefUtils.accessToken)
+    override var refreshToken: String by RxPrefProperty(prefUtils.refreshToken)
+    override var msisdn: String by RxPrefProperty(prefUtils.msisdn)
 
     override var user: UserDTO? by RxPrefObjectProperty(prefUtils.user, gson, UserDTO::class.java)
 

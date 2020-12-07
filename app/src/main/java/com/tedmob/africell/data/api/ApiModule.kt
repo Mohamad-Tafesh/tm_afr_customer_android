@@ -50,14 +50,14 @@ object ApiModule {
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
                         .header("Accept-Language", "en")
-                        .header("Authorization", credentials)
+                        .header("Authorization",  credentials)
 
                         .apply {
                             if (
                                 request.tag(String::class.java) != ApiContract.Params.NO_TOKEN_TAG &&
                                 session.isLoggedIn()
                             ) {
-                                header("access-token", session.accessToken)
+                                header("X-Authorization", "Bearer "+session.accessToken)
 
                             }
                         }

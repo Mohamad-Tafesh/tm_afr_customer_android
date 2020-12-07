@@ -14,6 +14,7 @@ import com.tedmob.africell.data.api.dto.UsefulNumberDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
+import com.tedmob.africell.util.intents.dial
 import kotlinx.android.synthetic.main.fragment_services.*
 import javax.inject.Inject
 
@@ -27,8 +28,7 @@ class UsefulNumberFragment : BaseFragment() {
     val adapter by lazy {
         UsefulNumberAdapter(mutableListOf(), object : UsefulNumberAdapter.Callback {
             override fun onItemClickListener(item: UsefulNumberDTO) {
-                /*     val bundle = bundleOf(Pair(LOCATION_DETAILS, item))
-                     findNavController().navigate(R.id.action_locationListFragment_to_locationDetailsFragment, bundle)*/
+                item.number?.let {  dial(item.number)}
             }
         })
     }

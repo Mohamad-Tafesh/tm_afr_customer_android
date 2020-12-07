@@ -5,5 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 
 data class StatusDTO(
-        @field:[Expose SerializedName("msg",alternate = ["status"])] val msg: String?
+        @field:[Expose SerializedName("resultCode")]
+        val resultCode: Int?,
+        @field:[Expose SerializedName("resultText")]
+        val resultText: String?
+
 )

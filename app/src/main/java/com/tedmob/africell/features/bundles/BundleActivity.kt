@@ -11,10 +11,10 @@ class BundleActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authentication, false, false,  0)
+        setContentView(R.layout.activity_bundle, false, false,  0)
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_login).goBack(this)
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_bundle).goBack(this)
 
 
 }

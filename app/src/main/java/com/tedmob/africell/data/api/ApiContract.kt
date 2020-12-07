@@ -6,6 +6,7 @@ object ApiContract {
     object Params {
         const val NO_TOKEN_TAG = "tag__do_not_send_token_header"
         const val PHONE_NUMBER="111"
+    const val SMS_FREE_MAX=5
     }
 
 }

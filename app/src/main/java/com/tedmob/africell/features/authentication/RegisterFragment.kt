@@ -15,11 +15,13 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observe
+import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.util.DatePickerFragment
-import com.tedmob.africell.util.saveText
+import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 import java.util.*
 import javax.inject.Inject
 
@@ -32,7 +34,7 @@ class RegisterFragment : BaseFragment(), Liv.Action {
     private val onDestinationChangedListener: NavController.OnDestinationChangedListener =
         NavController.OnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.loginFragment) {
-                hideKeyboard()
+                activity?.hideKeyboard()
             }
         }
 
@@ -42,10 +44,11 @@ class RegisterFragment : BaseFragment(), Liv.Action {
     }
 
     override fun configureToolbar() {
-        actionbar?.show()
-//        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        toolbarImage.setActualImageResource(R.mipmap.main_top3)
         actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.title = getString(R.string.register)
+        actionbar?.title = ""
+        toolbarTitle.text = getString(R.string.signing_up)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,9 +68,12 @@ class RegisterFragment : BaseFragment(), Liv.Action {
     }
 
     private fun bindData() {
-        retrieveData()
-        saveData()
+        observeResource(viewModel.updatedProfileData) {
+            findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
+            activity?.finish()
+        }
     }
+
 
     private fun setupDOB() {
         observe(viewModel.dobData, { timestamp ->
@@ -107,22 +113,15 @@ class RegisterFragment : BaseFragment(), Liv.Action {
 
 
     override fun performAction() {
-        findNavController().navigate(R.id.action_registerFragment_to_setPasswordFragment)
+        viewModel.setProfile(
+            firstName.getText(),
+            lastName.getText(),
+            emailLayout.getText(),
+            passwordLayout.getText(),
+            confirmPasswordLayout.getText()
+        )
     }
 
-    fun saveData() {
-
-        firstName.saveText { viewModel.firstName = it }
-        lastName.saveText { viewModel.lastName = it }
-        mobileNumberLayout.saveText { viewModel.mobileNumber = it }
-
-    }
-
-    fun retrieveData() {
-        viewModel.firstName?.let { firstName.setText(it) }
-        viewModel.lastName?.let { lastName.setText(it) }
-        viewModel.mobileNumber?.let { mobileNumberLayout.setText(it) }
-    }
 
     override fun onDestroy() {
         super.onDestroy()

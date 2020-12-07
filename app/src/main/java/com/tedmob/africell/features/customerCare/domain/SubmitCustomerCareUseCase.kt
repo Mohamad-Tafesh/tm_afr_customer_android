@@ -4,6 +4,7 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.dto.StatusDTO
+import com.tedmob.africell.data.api.requests.HelpRequest
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -14,13 +15,12 @@ class SubmitCustomerCareUseCase
 ) : UseCase<StatusDTO, SubmitCustomerCareUseCase.Params>(schedulers) {
 
     override fun buildUseCaseObservable(params: Params): Observable<StatusDTO> {
-          /*restApi.(params.firstName,params.lastName, params.email,params.phoneNumber,params.categoryId,params.message)*/
-        return Observable.just(StatusDTO("sk"))
+          return restApi.sendHelpMessage(HelpRequest(params.categoryId,params.categoryName,params.message))
     }
 
     data class Params(
-        val email: String?,
         val categoryId: Long?,
+        val categoryName:String?,
         val message: String
     )
 

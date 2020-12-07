@@ -122,6 +122,9 @@ class MainActivity : BaseActivity() {
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+
                 if (bottomNavFragmentIds.contains(destination.id)) {
                     if (destination.id == R.id.customerCareFragment) {
                         customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(

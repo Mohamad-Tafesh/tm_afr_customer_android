@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="maps_api_key" translatable="false">AIzaSyBWEIt-F7h1AFkiLhLYIWG5eC-mQt-TUYk</string>
-    <string name="copyright_notice">Tedmob © All Rights Reserved\nPowered by TEDMOB.COM</string>
+    <string name="copyright_notice">Affricell © All Rights Reserved\nPowered by TEDMOB.COM</string>
     <string name="error_unexpected">Unexpected error</string>
     <string name="error_network">No connection</string>
     <string name="open_app">Open App</string>

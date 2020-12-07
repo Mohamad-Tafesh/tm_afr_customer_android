@@ -13,4 +13,5 @@
     <color name="yellow">#eb7d00</color>
     <color name="darkGrey">#c9c9c9</color>
     <color name="darkPink">#861464</color>
+    <color name="blackTransparent">#26000000</color>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
@@ -11,6 +12,7 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
 import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.features.authentication.MobileNumberFragment.Companion.IS_RESET
 import com.tedmob.africell.ui.button.observeInView
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
@@ -40,8 +42,6 @@ class LoginFragment : BaseFragment(), Liv.Action {
 
     override fun configureToolbar() {
         actionbar?.hide()
-        actionbar?.setDisplayHomeAsUpEnabled(false)
-        actionbar?.title = getString(R.string.login)
     }
 
 
@@ -53,7 +53,14 @@ class LoginFragment : BaseFragment(), Liv.Action {
         viewModel.getCountries()
 
         loginButton.setOnClickListener { liv?.submitWhenValid() }
-
+        signInButton.setOnClickListener {
+            val bundle= bundleOf(Pair(IS_RESET,false))
+            findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment,bundle)
+        }
+        forgotPassword.setOnClickListener {
+            val bundle= bundleOf(Pair(IS_RESET,true))
+            findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment,bundle)
+        }
         bindUser()
         bindCountries()
         debugOnly {
@@ -92,7 +99,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
     }
 
     private fun navigateToMainScreen() {
-        findNavController().navigate(R.id.action_loginFragment_to_verifyPinFragment)
+        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
     }
 
     override fun performAction() {

@@ -32,7 +32,7 @@
     <string name="value_added_services">Value Added\nServices</string>
     <string name="subscribed">Subscribed</string>
     <string name="subscribe">Subscribe</string>
-    <string name="no_services_available">There is no services available</string>
+    <string name="no_services_available">There is no useful numbers available</string>
     <string name="speed_test">Speed Test</string>
     <string name="book_number">Book Your Number</string>
     <string name="useful_number">Useful Number</string>
@@ -50,4 +50,20 @@
     <string name="no_bundle_available">There is no bundle available right now!</string>
     <string name="sign_in">Sign In</string>
     <string name="new_here_sign_up">New Here! Sign Up</string>
+    <string name="send_free_sms">Send Free SMS</string>
+    <string name="your_free_message">Your Free Message</string>
+    <string name="all_recharge_cards">All Recharge Cards</string>
+    <string name="recharge">recharge</string>
+    <string name="number_here">Number Here</string>
+    <string name="my_airtime_scratch_card_number_is">My airtime scratch card number is:</string>
+    <string name="credit_transfer">Credit\nTransfer</string>
+    <string name="my_profile">My Profile</string>
+    <string name="please_enter_mobile_number">Please Enter your mobile number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset">Reset</string>
+    <string name="signing_up">Signing Up</string>
+    <string name="please_fill_your_information">Please Fill Your Information</string>
+    <string name="your_password">Your Password</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="change_password">Change Password</string>
 </resources>

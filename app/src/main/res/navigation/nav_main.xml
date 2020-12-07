@@ -10,6 +10,12 @@
         <action
                 android:id="@+id/action_homeFragment_to_bundleActivity"
                 app:destination="@id/bundleActivity" />
+        <action
+                android:id="@+id/action_homeFragment_to_lineRechargeFragment"
+                app:destination="@id/lineRechargeFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_accountInfoActivity"
+                app:destination="@id/accountInfoActivity" />
     </fragment>
     <fragment
             android:id="@+id/settingsFragment"
@@ -102,5 +108,19 @@
             tools:layout="@layout/activity_bundle"
             android:name="com.tedmob.africell.features.bundles.BundleActivity"
             android:label="BundleActivity" />
+    <fragment
+            android:id="@+id/SMSFragment"
+            tools:layout="@layout/fragment_sms"
+            android:name="com.tedmob.africell.features.sms.SMSFragment"
+            android:label="SMSFragment" />
+    <fragment
+            android:id="@+id/lineRechargeFragment"
+            android:name="com.tedmob.africell.features.lineRecharge.LineRechargeFragment"
+            android:label="LineRechargeFragment" />
+    <activity
+            android:id="@+id/accountInfoActivity"
+            android:name="com.tedmob.africell.features.accountInfo.AccountInfoActivity"
+            android:label=""
+            tools:layout="@layout/activity_account_info"/>
 
 </navigation>

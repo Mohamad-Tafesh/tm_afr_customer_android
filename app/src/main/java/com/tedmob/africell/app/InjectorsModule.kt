@@ -1,8 +1,11 @@
 package com.tedmob.africell.app
 
 import com.tedmob.africell.features.aboutus.AboutUsFragment
+import com.tedmob.africell.features.accountInfo.AccountFragment
+import com.tedmob.africell.features.accountInfo.AccountInfoActivity
 import com.tedmob.africell.features.authentication.*
 import com.tedmob.africell.features.bookNumber.BookNumberFragment
+import com.tedmob.africell.features.bundles.BundleActivity
 import com.tedmob.africell.features.bundles.BundlesFragment
 import com.tedmob.africell.features.customerCare.CustomerCareFragment
 import com.tedmob.africell.features.faq.FaqFragment
@@ -12,13 +15,16 @@ import com.tedmob.africell.features.home.MainActivity
 import com.tedmob.africell.features.launch.PushFragment
 import com.tedmob.africell.features.launch.RootActivity
 import com.tedmob.africell.features.launch.SplashFragment
+import com.tedmob.africell.features.lineRecharge.LineRechargeFragment
 import com.tedmob.africell.features.location.LocationDetailsFragment
 import com.tedmob.africell.features.location.LocationFragment
 import com.tedmob.africell.features.location.LocationMapFragment
+import com.tedmob.africell.features.profile.EditProfileFragment
 import com.tedmob.africell.features.reportIncident.ReportIncidentFragment
 import com.tedmob.africell.features.services.ServiceDetailsFragment
 import com.tedmob.africell.features.services.ServicesFragment
 import com.tedmob.africell.features.settings.SettingsFragment
+import com.tedmob.africell.features.sms.SMSFragment
 import com.tedmob.africell.features.terms.TermsFragment
 import com.tedmob.africell.features.usefulNumber.UsefulNumberFragment
 import dagger.Module
@@ -72,7 +78,7 @@ abstract class InjectorsModule {
     internal abstract fun mobileNumberFragment(): MobileNumberFragment
 
     @ContributesAndroidInjector
-    internal abstract fun setPasswordFragment(): SetPasswordFragment
+    internal abstract fun setPasswordFragment(): ResetPasswordFragment
 
     @ContributesAndroidInjector
     internal abstract fun locationMapFragment(): LocationMapFragment
@@ -96,12 +102,31 @@ abstract class InjectorsModule {
     internal abstract fun termsFragment(): TermsFragment
 
     @ContributesAndroidInjector
-    internal abstract fun customerCareFragment():CustomerCareFragment
+    internal abstract fun customerCareFragment(): CustomerCareFragment
 
     @ContributesAndroidInjector
-    internal abstract fun serviceDetailsFragment():ServiceDetailsFragment
+    internal abstract fun serviceDetailsFragment(): ServiceDetailsFragment
 
     @ContributesAndroidInjector
     internal abstract fun bundlesFragment(): BundlesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleActivity(): BundleActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun smsFragment(): SMSFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun lineRechargeFragment(): LineRechargeFragment
+
+
+    @ContributesAndroidInjector
+    internal abstract fun accountInfoActivity(): AccountInfoActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun accountFragment(): AccountFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun editProfileFragment(): EditProfileFragment
 
 }

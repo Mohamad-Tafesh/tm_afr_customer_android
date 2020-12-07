@@ -31,8 +31,9 @@ class UsefulNumberAdapter(
         val item = items[position]
 
         holder.itemView.run {
-            title.text = item?.title
-            description.text = item?.title
+            title.text = item?.name
+            description.text = item?.description
+            number.text=item?.number.orEmpty()
             setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)

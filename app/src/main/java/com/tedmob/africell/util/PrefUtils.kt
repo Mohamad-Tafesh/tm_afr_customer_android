@@ -11,6 +11,8 @@ constructor(preferences: RxSharedPreferences) {
 
     val userChangedLanguage = preferences.getBoolean("user_changed_language", false)
     val accessToken = preferences.getString("access_token", "")
+    val refreshToken = preferences.getString("refresh_token", "")
+    val msisdn = preferences.getString("msisdn", "")
     val language = preferences.getString("pref_language", "en")
 
     val user = preferences.getString("pref_user", "")

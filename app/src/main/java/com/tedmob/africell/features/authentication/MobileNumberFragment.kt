@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
 import com.tedmob.africell.data.entity.Country
-import com.tedmob.africell.ui.button.observeInView
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_mobile_number.*
 import javax.inject.Inject
 
 class MobileNumberFragment : BaseFragment(), Liv.Action {
@@ -30,19 +30,25 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by provideViewModel<LoginViewModel> { viewModelFactory }
 
+    val isReset by lazy {
+        arguments?.getBoolean(IS_RESET)
+            ?: throw IllegalArgumentException("required Type arguments")
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return wrap(inflater.context, R.layout.fragment_login, 0, false)
+    companion object {
+        const val IS_RESET = "is_reset"
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return wrap(inflater.context, R.layout.fragment_mobile_number, R.layout.toolbar_default, false)
     }
 
     override fun configureToolbar() {
-        actionbar?.hide()
+        super.configureToolbar()
         actionbar?.setDisplayHomeAsUpEnabled(false)
-        actionbar?.title = getString(R.string.login)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.title = ""
     }
 
 
@@ -53,14 +59,12 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
         liv?.start()
         viewModel.getCountries()
 
-        loginButton.setOnClickListener { liv?.submitWhenValid() }
+        sendButton.setOnClickListener { liv?.submitWhenValid() }
 
         bindUser()
         bindCountries()
         debugOnly {
             mobileNumberLayout.setText("70640164")
-            /*  username.setText("john.doe@tedmob.com")*/
-
         }
     }
 
@@ -69,7 +73,6 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
 
         return Liv.Builder()
             .add(mobileNumberLayout, notEmptyRule)
-            .add(password,notEmptyRule)
             .submitAction(this)
             .build()
     }
@@ -84,23 +87,19 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     }
 
     private fun bindUser() {
-        viewModel.loginData.observeInView(this, loginButton) {
-            onSuccess = {
-                button?.isClickable = false
-                navigateToMainScreen()
-            }
+        observeResource(viewModel.generateOTPData) {
+            val bundle = bundleOf(Pair(IS_RESET, isReset))
+            findNavController().navigate(R.id.action_mobileNumberFragment_to_verifyPinFragment, bundle)
         }
     }
 
-    private fun navigateToMainScreen() {
-        findNavController().navigate(R.id.action_loginFragment_to_verifyPinFragment)
-    }
 
     override fun performAction() {
         val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-        val formatted = PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())
+        val formatted =
+            PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
         formatted?.let {
-            viewModel.login(phoneCode.orEmpty(), mobileNumberLayout.getText())
+            viewModel.generateOTP(formatted)
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }

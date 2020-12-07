@@ -40,7 +40,7 @@ class FaqAdapter() :
         fun bind(item: FaqItem, isExpandedStates: MutableMap<Int, Boolean>) {
             itemView.run {
                 questionText.text = item.question
-                answerText.text = item.answer
+                answerText.text = item.response
 
                 questionLayout.isClickable = true
                 if (isExpandedStates[adapterPosition] == true) {
@@ -58,8 +58,28 @@ class FaqAdapter() :
                     arrow.rotation = 0f
                     arrow.setImageResource(R.mipmap.icon_arrow_pink_down)
                 }
-
-                setOnClickListener {
+                arrow.setOnClickListener {
+                    if (isExpandedStates[adapterPosition] == true) {
+                        questionLayout.isClickable = false
+                        arrow.isClickable = false
+                        isExpandedStates[adapterPosition] = false
+                        answerLayout.collapse {
+                            questionLayout.isClickable = true
+                            arrow.isClickable = true
+                        }
+                        arrow.rotateBackUp()
+                    } else {
+                        questionLayout.isClickable = false
+                        arrow.isClickable = false
+                        isExpandedStates[adapterPosition] = true
+                        answerLayout.expand {
+                            questionLayout.isClickable = true
+                            arrow.isClickable = true
+                        }
+                        arrow.rotateDown()
+                    }
+                }
+                layout.setOnClickListener {
                     if (isExpandedStates[adapterPosition] == true) {
                         questionLayout.isClickable = false
                         arrow.isClickable = false

@@ -24,4 +24,11 @@
         <attr name="toolbarLayoutStyle" format="reference" />
         <attr name="loadingViewStyle" format="reference" />
     </declare-styleable>
+    <declare-styleable name="ImageProgress">
+        <attr name="backgroundImage" format="reference"/>
+        <attr name="progressImage" format="reference"/>
+        <attr name="currentProgress" format="integer"/>
+        <!--TODO add clip gravity and orientation-->
+    </declare-styleable>
+
 </resources>

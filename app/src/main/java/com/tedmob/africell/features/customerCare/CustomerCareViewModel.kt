@@ -35,10 +35,10 @@ class CustomerCareViewModel
         }.execute()
     }
 
-    fun contactUs(email: String?, categoryId: Long?, message: String) {
+    fun contactUs( category: SupportCategoryDTO?, message: String) {
         ResourceUseCaseExecutor(
             submitCustomerCareUseCase,
-            SubmitCustomerCareUseCase.Params(email, categoryId, message),
+            SubmitCustomerCareUseCase.Params( category?.id,category?.name, message),
             contactUsData,
             appExceptionFactory
         ).execute()

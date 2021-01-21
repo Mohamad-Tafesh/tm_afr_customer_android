@@ -15,7 +15,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
-import com.tedmob.africell.data.api.dto.BookNumberDTO
+
 import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_DETAILS
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
@@ -36,7 +36,7 @@ class BookNumberFragment : BaseFragment() {
 
     val adapter by lazy {
         BookNumberAdapter(mutableListOf(), object : BookNumberAdapter.Callback {
-            override fun onItemClickListener(item: BookNumberDTO) {
+            override fun onItemClickListener(item: String) {
 
             }
         })

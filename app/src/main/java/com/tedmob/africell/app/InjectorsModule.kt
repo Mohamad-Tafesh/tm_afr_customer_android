@@ -1,12 +1,13 @@
 package com.tedmob.africell.app
 
 import com.tedmob.africell.features.aboutus.AboutUsFragment
-import com.tedmob.africell.features.accountInfo.AccountFragment
 import com.tedmob.africell.features.accountInfo.AccountInfoActivity
+import com.tedmob.africell.features.accountInfo.AccountInfoFragment
 import com.tedmob.africell.features.authentication.*
 import com.tedmob.africell.features.bookNumber.BookNumberFragment
 import com.tedmob.africell.features.bundles.BundleActivity
 import com.tedmob.africell.features.bundles.BundlesFragment
+import com.tedmob.africell.features.creditTransfer.CreditTransferFragment
 import com.tedmob.africell.features.customerCare.CustomerCareFragment
 import com.tedmob.africell.features.faq.FaqFragment
 import com.tedmob.africell.features.help.HelpFragment
@@ -19,6 +20,7 @@ import com.tedmob.africell.features.lineRecharge.LineRechargeFragment
 import com.tedmob.africell.features.location.LocationDetailsFragment
 import com.tedmob.africell.features.location.LocationFragment
 import com.tedmob.africell.features.location.LocationMapFragment
+import com.tedmob.africell.features.profile.ChangePasswordFragment
 import com.tedmob.africell.features.profile.EditProfileFragment
 import com.tedmob.africell.features.reportIncident.ReportIncidentFragment
 import com.tedmob.africell.features.services.ServiceDetailsFragment
@@ -124,9 +126,14 @@ abstract class InjectorsModule {
     internal abstract fun accountInfoActivity(): AccountInfoActivity
 
     @ContributesAndroidInjector
-    internal abstract fun accountFragment(): AccountFragment
+    internal abstract fun accountFragment(): AccountInfoFragment
 
     @ContributesAndroidInjector
     internal abstract fun editProfileFragment(): EditProfileFragment
 
+    @ContributesAndroidInjector
+    internal abstract fun changePasswordFragment(): ChangePasswordFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun creditTransferFragment(): CreditTransferFragment
 }

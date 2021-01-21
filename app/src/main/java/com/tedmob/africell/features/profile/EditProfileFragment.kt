@@ -54,7 +54,9 @@ class EditProfileFragment : BaseFragment(), Liv.Action {
         setupDOB()
         bindData()
         findNavController().addOnDestinationChangedListener(onDestinationChangedListener)
-
+        changePasswordButton.setOnClickListener {
+            findNavController().navigate(R.id.action_editProfileFragment_to_changePasswordFragment)
+        }
         updateProfileButton.setOnClickListener {
             liv?.submitWhenValid()
         }

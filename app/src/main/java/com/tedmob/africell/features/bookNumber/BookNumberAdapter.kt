@@ -5,16 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
-import com.tedmob.africell.data.api.dto.BookNumberDTO
+
 import kotlinx.android.synthetic.main.row_book_number.view.*
 
 class BookNumberAdapter(
-    private var items: List<BookNumberDTO>,
+    private var items: List<String>,
     val callback: Callback
 ) : RecyclerView.Adapter<BookNumberAdapter.HomeItemHolder>() {
 
     interface Callback {
-        fun onItemClickListener(item: BookNumberDTO)
+        fun onItemClickListener(item: String)
     }
 
     class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -30,7 +30,7 @@ class BookNumberAdapter(
         val item = items[position]
         holder.itemView.run {
             //image.setImageURI(item?.image)
-            title.text = item?.title
+            title.text = item
             setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)
@@ -40,7 +40,7 @@ class BookNumberAdapter(
     }
 
 
-    fun setItems(newItems: List<BookNumberDTO> = mutableListOf()) {
+    fun setItems(newItems: List<String> = mutableListOf()) {
         items = newItems.toMutableList()
         notifyDataSetChanged()
     }

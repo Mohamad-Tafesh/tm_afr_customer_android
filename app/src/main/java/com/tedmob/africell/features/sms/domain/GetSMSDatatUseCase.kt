@@ -5,7 +5,7 @@ import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
-import com.tedmob.africell.data.api.dto.BookNumberDTO
+
 import com.tedmob.africell.data.api.dto.SMSCountDTO
 import com.tedmob.africell.data.entity.SMSData
 import com.tedmob.africell.data.repository.domain.SessionRepository

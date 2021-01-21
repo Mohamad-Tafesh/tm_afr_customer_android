@@ -10,12 +10,14 @@ import com.tedmob.africell.features.authentication.ResetPasswordViewModel
 import com.tedmob.africell.features.authentication.VerifyPinViewModel
 import com.tedmob.africell.features.bookNumber.BookNumberViewModel
 import com.tedmob.africell.features.bundles.BundlesViewModel
+import com.tedmob.africell.features.creditTransfer.CreditTransferViewModel
 import com.tedmob.africell.features.customerCare.CustomerCareViewModel
 import com.tedmob.africell.features.faq.FaqViewModel
 import com.tedmob.africell.features.home.HomeViewModel
 import com.tedmob.africell.features.launch.SplashViewModel
 import com.tedmob.africell.features.lineRecharge.LineRechargeViewModel
 import com.tedmob.africell.features.location.LocationViewModel
+import com.tedmob.africell.features.profile.ChangePasswordViewModel
 import com.tedmob.africell.features.profile.EditProfileViewModel
 import com.tedmob.africell.features.reportIncident.ReportIncidentViewModel
 import com.tedmob.africell.features.services.ServicesViewModel
@@ -140,5 +142,16 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EditProfileViewModel::class)
     internal abstract fun editProfileViewModel(viewModel: EditProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChangePasswordViewModel::class)
+    internal abstract fun changePasswordViewModel(viewModel: ChangePasswordViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreditTransferViewModel::class)
+    internal abstract fun creditTransferViewModel(viewModel: CreditTransferViewModel): ViewModel
+
 
 }

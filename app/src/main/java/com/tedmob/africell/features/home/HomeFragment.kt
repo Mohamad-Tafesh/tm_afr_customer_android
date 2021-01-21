@@ -1,3 +1,4 @@
+
 package com.tedmob.africell.features.home
 
 import android.os.Bundle
@@ -6,15 +7,19 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BalanceDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.toolbar_home.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
@@ -92,6 +97,25 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun bindData() {
+        viewModel.getSubAccounts()
+        observeResourceWithoutProgress(viewModel.subAccountData) {
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
+            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            accountSpinner.adapter = arrayAdapter
+            accountSpinner.visibility=View.VISIBLE
+            accountSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+            accountSpinner.setSelection(0)
+
+        }
+
 /*
         observeResourceInline(viewModel.homeData) {
 */

@@ -3,7 +3,7 @@ package com.tedmob.africell.features.bookNumber
 import androidx.lifecycle.MutableLiveData
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
-import com.tedmob.africell.data.api.dto.BookNumberDTO
+
 import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.bookNumber.domain.GetBookNumberUseCase
@@ -18,7 +18,7 @@ class BookNumberViewModel
     private val appExceptionFactory: AppExceptionFactory
 ) : BaseViewModel() {
 
-    val locationData = MutableLiveData<Resource<List<BookNumberDTO>>>()
+    val locationData = MutableLiveData<Resource<List<String>>>()
 
     fun getBookNumber(search:String?) {
         ResourceUseCaseExecutor(getBookNumberUseCase,GetBookNumberUseCase.Params(search), locationData, appExceptionFactory) {

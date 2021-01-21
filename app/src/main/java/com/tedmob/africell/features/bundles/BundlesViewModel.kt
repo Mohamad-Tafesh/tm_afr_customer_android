@@ -3,7 +3,7 @@ package com.tedmob.africell.features.bundles
 import androidx.lifecycle.MutableLiveData
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
-import com.tedmob.africell.data.api.dto.BookNumberDTO
+
 import com.tedmob.africell.data.api.dto.BundlesDTO
 import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.exception.AppExceptionFactory

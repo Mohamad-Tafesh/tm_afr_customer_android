@@ -8,16 +8,28 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class LocationDTO(
-    @field:[Expose SerializedName("id")] val id: Int?,
-    @field:[Expose SerializedName("name")] val title: String?,
-    @field:[Expose SerializedName("description")] val description: String?,
-    @field:[Expose SerializedName("lat")] val latitude: Double?,
-    @field:[Expose SerializedName("lng")] val longitude: Double?,
-    @field:[Expose SerializedName("distance")] val distance: Double?,
-    @field:[Expose SerializedName("email")] val email: String?,
-    @field:[Expose SerializedName("phone_nb")] val phoneNb: String?
+
+
+
+    @field:[Expose SerializedName("idShopLocation")]
+    val idShopLocation: Int?,
+    @field:[Expose SerializedName("languageid")]
+    val languageid: Int?,
+    @field:[Expose SerializedName("latitude")]
+    val latitude: String?,
+    @field:[Expose SerializedName("longitude")]
+    val longitude: String?,
+    @field:[Expose SerializedName("shopName")]
+    val shopName: String?,
+    @field:[Expose SerializedName("shopOwner")]
+    val shopOwner: String?,
+    @field:[Expose SerializedName("telephone")]
+    val telephone: String?,
+    @field:[Expose SerializedName("telephoneNumber")]
+    val telephoneNumber: String?
+
 ) : Parcelable {
     fun displayDistance(): String {
-        return distance?.let { String.format("$distance Km") } ?: "N/A"
+        return /*distance?.let { String.format("$distance Km") } ?:*/ "N/A"
     }
 }

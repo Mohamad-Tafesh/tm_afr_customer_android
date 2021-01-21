@@ -66,4 +66,10 @@
     <string name="your_password">Your Password</string>
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="update">Update</string>
+    <string name="send_amount">Send Amount</string>
+    <string name="amount">Amount</string>
+    <string name="send_to_number">Send To Number</string>
 </resources>

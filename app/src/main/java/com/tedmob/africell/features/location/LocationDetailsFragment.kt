@@ -68,8 +68,8 @@ class LocationDetailsFragment : BaseFragment() {
 
         mapFragment?.getMapAsync { googleMap ->
             clearMap(googleMap)
-            location?.latitude?.let { latitude ->
-                location?.longitude?.let { longitude ->
+            location?.latitude?.toDoubleOrNull()?.let { latitude ->
+                location?.longitude?.toDoubleOrNull()?.let { longitude ->
                     val latLng = LatLng(latitude, longitude)
 
                     context?.let {
@@ -78,7 +78,7 @@ class LocationDetailsFragment : BaseFragment() {
                                 MarkerOptions().position(latLng)
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.maps_icon_selected))
                             )
-                        marker.title = "${location?.title}"
+                        marker.title = "${location?.shopName}"
                         marker.tag = location
 
                         fitBounds(googleMap, marker)
@@ -109,17 +109,17 @@ class LocationDetailsFragment : BaseFragment() {
 
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
         selectedLocation?.let { location ->
-            title.text = location.title
+            title.text = location.shopName
 
             distance.text = location.displayDistance()
-            description.text = location.description?.html()
+            description.text = location.shopOwner?.html()
             //   workingHrsValue.text= location.workingHrs?.joinToString(separator =", ")
             callUs.setOnClickListener {
-                location.phoneNb?.let { dial(it) } ?: showMessage("Phone number is not available")
+                location.telephoneNumber?.let { dial(it) } ?: showMessage("Phone number is not available")
             }
             getDirection.setOnClickListener {
-                if (location.latitude != null && location.longitude != null) {
-                    openGoogleMapNavigation(location.latitude!!, location.longitude!!)
+                if (location.latitude?.toDoubleOrNull() != null && location.longitude?.toDoubleOrNull() != null) {
+                    openGoogleMapNavigation(location.latitude?.toDoubleOrNull()!!, location.longitude?.toDoubleOrNull()!!)
                 } else {
                     showMessage(getString(R.string.direction_not_available))
                 }

@@ -1,6 +1,5 @@
 package com.tedmob.africell.features.location
 
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ class LocationAdapter(
     interface Callback {
         fun onItemClickListener(item: LocationDTO)
     }
+
     class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun getItemCount(): Int = items.size
@@ -30,16 +30,16 @@ class LocationAdapter(
         val item = items[position]
 
         holder.itemView.run {
-                //image.setImageURI(item?.image)
-                distance.text=item?.displayDistance()
-                title.text=item?.title
-                description.text=item?.description
-                setOnClickListener {
-                    item?.let {
-                        callback.onItemClickListener(it)
-                    }
-
+            //image.setImageURI(item?.image)
+            distance.text = item?.displayDistance()
+            title.text = item?.shopName
+            description.text = item?.shopOwner
+            setOnClickListener {
+                item?.let {
+                    callback.onItemClickListener(it)
                 }
+
+            }
 
         }
     }

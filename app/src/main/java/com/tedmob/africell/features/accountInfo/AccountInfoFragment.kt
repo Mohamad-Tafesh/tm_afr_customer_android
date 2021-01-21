@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_account_info.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 import javax.inject.Inject
 
-class AccountFragment : BaseFragment() {
+class AccountInfoFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_account_info, R.layout.toolbar_home, true)
@@ -41,6 +41,9 @@ class AccountFragment : BaseFragment() {
         myProfile.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_editProfileFragment)
         }
+        creditTransfer.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_creditTransferFragment)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,6 +59,7 @@ class AccountFragment : BaseFragment() {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
             arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
             accountSpinner.adapter = arrayAdapter
+            accountSpinner.visibility=View.VISIBLE
             accountSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     viewModel.getAccountInfo(it[position].account.orEmpty())

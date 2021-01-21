@@ -34,6 +34,11 @@ interface RestApi {
     ): Observable<ResetPasswordDTO>
 
 
+    @POST("SelfCare/ChangePassword")
+    fun changePassword(
+        @Body request: ChangePasswordRequest,
+    ): Observable<ChangePasswordDTO>
+
     @POST("SelfCare/SignUP")
     fun register(
         @Body request: RegisterRequest,
@@ -44,6 +49,10 @@ interface RestApi {
     fun editProfile(
         @Body request: EditProfileRequest
     ): Observable<StatusDTO>
+
+    @GET("SelfCare/GetShopLocation")
+    fun getShopLocation(
+    ): Observable<List<LocationDTO>>
 
     @GET("SelfCare/GetSMSCount")
     fun getSMSCount(
@@ -91,6 +100,17 @@ interface RestApi {
         @Query("voucherNumber" ) voucherNumber :String?,
     ): Observable<SMSCountDTO>
 
+    @POST("SelfCare/CreditTransfer")
+    fun creditTransfer(
+        @Query("Sendermsisdn") msisdn:String?,
+        @Query("receivermsisdn" ) receiverMsisdn:String?,
+        @Query("amount" ) amount :String?,
+    ): Observable<SMSCountDTO>
+
+    @POST("SelfCare/RefreshToken")
+    fun refreshToken(
+    ): Observable<LoginDTO>
+
     @GET("SelfCare/GetProfileInfo")
     fun getProfile(): Observable<UserDTO>
 
@@ -102,4 +122,10 @@ interface RestApi {
     fun getAccountBalance(
         @Query("SubMsisdn") msisdn:String?,
     ): Observable<AccountBalanceDTO>
+
+
+    @POST("SelfCare/GetFreeNumber")
+    fun getFreeNumber(
+        @Query("Searchmsisdn") Searchmsisdn:String?
+    ): Observable<List<String>>
 }

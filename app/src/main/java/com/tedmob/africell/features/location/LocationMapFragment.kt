@@ -19,7 +19,6 @@ import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
-import com.tedmob.africell.util.html.html
 import kotlinx.android.synthetic.main.fragment_location_map.*
 import javax.inject.Inject
 
@@ -74,8 +73,8 @@ class LocationMapFragment : BaseFragment() {
         googleMap?.let { googleMap ->
             locations.forEachIndexed { index, location ->
 
-                location.latitude?.let { latitude ->
-                    location.longitude?.let { longitude ->
+                location.latitude?.toDoubleOrNull()?.let { latitude ->
+                    location.longitude?.toDoubleOrNull()?.let { longitude ->
                         val latLng = LatLng(latitude, longitude)
                         context?.let {
                             val marker = googleMap.addMarker(
@@ -85,7 +84,7 @@ class LocationMapFragment : BaseFragment() {
                                     )
                               )
                             )
-                            marker.title = "${location.title}"
+                            marker.title = "${location.shopName}"
                             marker.tag = location
                             markers.add(marker)
 
@@ -212,10 +211,10 @@ class LocationMapFragment : BaseFragment() {
 
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
         selectedLocation?.let { location ->
-            title.text = location.title
+            title.text = location.shopName
 
             distance.text = location.displayDistance()
-            description.text = location.description
+            description.text = location.shopOwner
             /*  getDirection.setOnClickListener {
                   if (location.lat != null && location.lng != null) {
                       openGoogleMapNavigation(location.lat, location.lng)

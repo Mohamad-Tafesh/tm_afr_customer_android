@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderImageScaleType="fitXY"
+                app:actualImageScaleType="fitXY"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderImage="@mipmap/img_credit_trans"
+                app:viewAspectRatio="1.8" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_normal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobileNumberLayout"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    app:endIconMode="custom"
+                    app:endIconTint="@null"
+                    app:errorTextColor="@color/red_900"
+                    app:startIconDrawable="@mipmap/fields_empty"
+                    app:endIconDrawable="@mipmap/icon_contact_field"
+                    app:startIconTint="@null">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/send_to_number"
+                        android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/amountLayout"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:hint="@string/amount">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sendBtn"
+                    style="@style/Button.yellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:text="@string/send_amount" />
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+</ScrollView>

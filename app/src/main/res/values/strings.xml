@@ -72,4 +72,8 @@
     <string name="send_amount">Send Amount</string>
     <string name="amount">Amount</string>
     <string name="send_to_number">Send To Number</string>
+    <string name="activate">Activate</string>
+    <string name="activate_for_me">Activate Bundle For Me</string>
+    <string name="activate_bundle_for_someone_else">Activate Bundle For Someone Else</string>
+    <string name="active">Active</string>
 </resources>

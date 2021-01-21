@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_normal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderImageScaleType="fitXY"
+                app:actualImageScaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderImage="@mipmap/img_terms"
+                app:viewAspectRatio="1.8" />
+        <TextView
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:id="@+id/volumeTxt"
+                android:textColor="@color/darkPink"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="volume"/>
+
+        <TextView
+                android:id="@+id/validityTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="volume"/>
+        <TextView
+                android:autoLink="all"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:id="@+id/descriptionTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView"/>
+<TextView
+        android:id="@+id/priceTxt"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:textColor="@color/darkPink"
+        android:text="Price: 1$"
+        style="@style/TextAppearance.normalBold"/>
+        <TextView
+                android:id="@+id/isActivatedTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="match_parent"
+                android:textColor="@color/yellow"
+                android:layout_height="wrap_content"
+                android:text="@string/active"/>
+
+        <com.google.android.material.button.MaterialButton
+                style="@style/Button.yellow"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/activate_for_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="@dimen/spacing_normal"
+                style="@style/Button.purple"
+                android:text="@string/activate_bundle_for_someone_else"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

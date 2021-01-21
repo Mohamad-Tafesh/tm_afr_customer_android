@@ -128,4 +128,13 @@ interface RestApi {
     fun getFreeNumber(
         @Query("Searchmsisdn") Searchmsisdn:String?
     ): Observable<List<String>>
+
+    @GET("SelfCare/GetBundlesCategories")
+    fun getBundlesCategories(): Observable<List<BundleCategoriesDTO>>
+
+    @GET("SelfCare/GetBundlesByCategories/{categoriesid}")
+    fun getBundlesByCategories(
+        @Path("categoriesid") categoryId:Long?
+    ): Observable<List<BundlesDTO>>
+
 }

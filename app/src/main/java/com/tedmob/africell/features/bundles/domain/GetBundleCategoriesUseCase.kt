@@ -6,17 +6,17 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 
-import com.tedmob.africell.data.api.dto.BundlesDTO
+import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetBundlesUseCase
+class GetBundleCategoriesUseCase
 @Inject constructor(
         private val restApi: RestApi,
         schedulers: ExecutionSchedulers)
-    : UseCase<List<BundlesDTO>, Unit>(schedulers) {
+    : UseCase<List<BundleCategoriesDTO>, Unit>(schedulers) {
 
-    override fun buildUseCaseObservable(params: Unit): Observable<List<BundlesDTO>> {
-        return Observable.just(mutableListOf(BundlesDTO(1, "dsa", false)))
+    override fun buildUseCaseObservable(params: Unit): Observable<List<BundleCategoriesDTO>> {
+        return restApi.getBundlesCategories()
     }
 }

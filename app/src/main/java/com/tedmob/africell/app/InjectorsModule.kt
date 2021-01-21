@@ -6,6 +6,8 @@ import com.tedmob.africell.features.accountInfo.AccountInfoFragment
 import com.tedmob.africell.features.authentication.*
 import com.tedmob.africell.features.bookNumber.BookNumberFragment
 import com.tedmob.africell.features.bundles.BundleActivity
+import com.tedmob.africell.features.bundles.BundleCategoriesFragment
+import com.tedmob.africell.features.bundles.BundleDetailsFragment
 import com.tedmob.africell.features.bundles.BundlesFragment
 import com.tedmob.africell.features.creditTransfer.CreditTransferFragment
 import com.tedmob.africell.features.customerCare.CustomerCareFragment
@@ -29,6 +31,7 @@ import com.tedmob.africell.features.settings.SettingsFragment
 import com.tedmob.africell.features.sms.SMSFragment
 import com.tedmob.africell.features.terms.TermsFragment
 import com.tedmob.africell.features.usefulNumber.UsefulNumberFragment
+import com.tedmob.africelll.features.bundles.BundleVPFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -110,7 +113,7 @@ abstract class InjectorsModule {
     internal abstract fun serviceDetailsFragment(): ServiceDetailsFragment
 
     @ContributesAndroidInjector
-    internal abstract fun bundlesFragment(): BundlesFragment
+    internal abstract fun bundleCategoriesFragment(): BundleCategoriesFragment
 
     @ContributesAndroidInjector
     internal abstract fun bundleActivity(): BundleActivity
@@ -136,4 +139,13 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun creditTransferFragment(): CreditTransferFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleVPFragment(): BundleVPFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleFragment(): BundlesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleDetailsFragment(): BundleDetailsFragment
 }

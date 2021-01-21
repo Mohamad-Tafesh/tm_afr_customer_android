@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        bundleLayout.setOnClickListener {
+        bundlesLayout.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
         }
         lineRecharge.setOnClickListener {

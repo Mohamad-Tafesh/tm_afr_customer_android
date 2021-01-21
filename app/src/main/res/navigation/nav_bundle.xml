@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_bundle"
-        app:startDestination="@id/bundlesFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_bundle"
+        app:startDestination="@id/bundleCategoriesFragment">
     <fragment
-            android:id="@+id/bundlesFragment"
-            android:name="com.tedmob.africell.features.bundles.BundlesFragment"
-            android:label="BundlesFragment" />
+            android:id="@+id/bundleCategoriesFragment"
+            tools:layout="@layout/fragment_bundle_categories"
+            android:name="com.tedmob.africell.features.bundles.BundleCategoriesFragment"
+            android:label="BundleCategoriesFragment" >
+        <action
+                android:id="@+id/action_bundleCategoriesFragment_to_bundleVPFragment"
+                app:destination="@id/bundleVPFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/bundleVPFragment"
+            tools:layout="@layout/fragment_bundle_vp"
+            android:name="com.tedmob.africelll.features.bundles.BundleVPFragment"
+            android:label="BundleVPFragment" >
+        <action
+                android:id="@+id/action_bundleVPFragment_to_bundleDetailsFragment"
+                app:destination="@id/bundleDetailsFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/bundleDetailsFragment"
+            tools:layout="@layout/fragment_bundle_details"
+            android:name="com.tedmob.africell.features.bundles.BundleDetailsFragment"
+            android:label="BundleDetailsFragment" />
 </navigation>

@@ -8,9 +8,6 @@ import com.tedmob.africell.data.entity.SubAccount
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.accountInfo.domain.GetAccountInfoUseCase
 import com.tedmob.africell.features.accountInfo.domain.GetSubAccountUseCase
-import com.tedmob.africell.features.bookNumber.domain.GetBookNumberUseCase
-import com.tedmob.africell.features.bundles.domain.GetBundlesUseCase
-import com.tedmob.africell.features.location.domain.GetLocationsUseCase
 
 import com.tedmob.africell.ui.BaseViewModel
 import javax.inject.Inject

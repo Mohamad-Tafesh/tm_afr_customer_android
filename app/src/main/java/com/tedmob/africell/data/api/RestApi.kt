@@ -17,8 +17,7 @@ interface RestApi {
 
     @POST("SelfCare/GenerateOTP")
     fun generateOTP(
-        @Body request: GenerateOTPRequest,
-        @Tag tag: String = ApiContract.Params.NO_TOKEN_TAG
+        @Body request: GenerateOTPRequest
     ): Observable<GenerateOTPDTO>
 
     @POST("SelfCare/VerifyOTP")
@@ -52,18 +51,23 @@ interface RestApi {
 
     @GET("SelfCare/GetShopLocation")
     fun getShopLocation(
+        @Query("SearchShop") searchShop: String?,
     ): Observable<List<LocationDTO>>
+
+    @GET("SelfCare/GetAboutUs")
+    fun aboutUs(
+    ): Observable<AboutDTO>
 
     @GET("SelfCare/GetSMSCount")
     fun getSMSCount(
-        @Query("msisdn" ) msisdn:String
+        @Query("msisdn") msisdn: String
     ): Observable<SMSCountDTO>
 
     @POST("SelfCare/SendSMS")
     fun sendSMSCount(
-        @Query("msisdn") msisdn:String?,
-        @Query("receiverMsisdn" ) receiverMsisdn:String?,
-        @Query("message" ) message :String?,
+        @Query("msisdn") msisdn: String?,
+        @Query("receiverMsisdn") receiverMsisdn: String?,
+        @Query("message") message: String?,
     ): Observable<SMSCountDTO>
 
     @GET("SelfCare/GetSupportCategory")
@@ -76,7 +80,10 @@ interface RestApi {
 
 
     @GET("SelfCare/GetIncidentType")
-    fun getIncidentType(): Observable<List<SupportCategoryDTO>>
+    fun getIncidentType(): Observable<List<IncidentTypeDTO>>
+
+    @GET("SelfCare/GetTermConditions")
+    fun getTerms(): Observable<TermsDTO>
 
     @POST("SelfCare/SendIncident")
     fun sendIncident(
@@ -95,20 +102,21 @@ interface RestApi {
 
     @POST("SelfCare/VoucherRecharge")
     fun voucherRecharge(
-        @Query("Sendermsisdn") msisdn:String?,
-        @Query("receivermsisdn" ) receiverMsisdn:String?,
-        @Query("voucherNumber" ) voucherNumber :String?,
+        @Query("Sendermsisdn") msisdn: String?,
+        @Query("receivermsisdn") receiverMsisdn: String?,
+        @Query("voucherNumber") voucherNumber: String?,
     ): Observable<SMSCountDTO>
 
     @POST("SelfCare/CreditTransfer")
     fun creditTransfer(
-        @Query("Sendermsisdn") msisdn:String?,
-        @Query("receivermsisdn" ) receiverMsisdn:String?,
-        @Query("amount" ) amount :String?,
+        @Query("Sendermsisdn") msisdn: String?,
+        @Query("receivermsisdn") receiverMsisdn: String?,
+        @Query("amount") amount: String?,
     ): Observable<SMSCountDTO>
 
     @POST("SelfCare/RefreshToken")
     fun refreshToken(
+        @Body request: RefreshTokenRequest
     ): Observable<LoginDTO>
 
     @GET("SelfCare/GetProfileInfo")
@@ -118,23 +126,92 @@ interface RestApi {
     @GET("SelfCare/GetSubAccount")
     fun getSubAccount(): Observable<SubAccountDTO>
 
-    @GET("SelfCare/GetSubAccount")
+    @GET("SelfCare/GetAccountBalance")
     fun getAccountBalance(
-        @Query("SubMsisdn") msisdn:String?,
+        @Query("SubMsisdn") msisdn: String?,
     ): Observable<AccountBalanceDTO>
 
 
-    @POST("SelfCare/GetFreeNumber")
+    @GET("SelfCare/GetFreeNumber")
     fun getFreeNumber(
-        @Query("Searchmsisdn") Searchmsisdn:String?
+        @Query("Searchmsisdn") Searchmsisdn: String?
     ): Observable<List<String>>
+
+    @POST("SelfCare/BookingNumber")
+    fun bookNumber(
+        @Query("freeNumber") freeNumber: String?
+    ): Observable<StatusDTO>
 
     @GET("SelfCare/GetBundlesCategories")
     fun getBundlesCategories(): Observable<List<BundleCategoriesDTO>>
 
     @GET("SelfCare/GetBundlesByCategories/{categoriesid}")
     fun getBundlesByCategories(
-        @Path("categoriesid") categoryId:Long?
+        @Path("categoriesid") categoryId: Long?,
+        @Query("searchBundle") searchBundle: String?
     ): Observable<List<BundlesDTO>>
 
+    @GET("SelfCare/GetBundlesDetails/{BundleId}")
+    fun getBundleDetails(
+        @Path("BundleId") BundleId: Long?
+    ): Observable<BundlesDTO>
+
+
+
+    @POST("SelfCare/ActivateBundles")
+    fun activateBundle(
+        @Body request: ActivateBundleRequest,
+    ): Observable<StatusDTO>
+
+
+    @GET("SelfCare/DataCalculatorCriteria")
+    fun getDataCalculator(
+    ): Observable<DataCalculatorDTO>
+
+    @GET("SelfCare/GetMyBundlesandServices")
+    fun getMyBundlesAndServices(
+        @Query("submsisdn") msisdn: String?,
+    ): Observable<List<MyBundlesAndServices>>
+
+    @GET("/SelfCare/GetMyServices")
+    fun getMyServices(
+        @Query("submsisdn") msisdn: String?,
+    ): Observable<List<ServicesDTO>>
+
+    @GET("SelfCare/GetVasServices")
+    fun getVasServices(
+        @Query("submsisdn") msisdn: String?,
+    ): Observable<List<ServicesDTO>>
+
+
+    @DELETE("SelfCare/DeleteSubAccount/{subMsisdn}")
+    fun deleteSubAccount(
+        @Path("subMsisdn") msisdn: String?,
+    ): Observable<SubAccountDTO>
+
+
+    @POST("SelfCare/AddSubAccount")
+    fun addSubAccount(
+        @Query("verificationToken") verificationToken: String?,
+    ): Observable<SubAccountDTO>
+
+
+    @GET("SelfCare/GetImagesUrls/{imagetype}/{pageName}")
+    fun getImagesURls(
+        @Path("imagetype") imageType: String?,
+        @Path("pageName") pageName: String?,
+    ): Observable<List<String>>
+
+
+    @GET("SelfCare/ServiceSubscribe")
+    fun serviceSubscribe(
+        @Query("submsisdn") msisdn: String?,
+        @Query("sname") sname : String?,
+    ): Observable<StatusDTO>
+
+    @GET("SelfCare/ServiceUnSubscribe")
+    fun serviceUnSubscribe(
+        @Query("submsisdn") msisdn: String?,
+        @Query("sname") sname : String?,
+    ): Observable<StatusDTO>
 }

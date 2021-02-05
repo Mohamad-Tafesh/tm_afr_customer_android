@@ -1,5 +1,6 @@
 package com.tedmob.africell.features.creditTransfer
 
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class CreditTransferViewModel
 @Inject constructor(
     private val creditTransferUseCase: CreditTransferUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
 
@@ -23,7 +25,7 @@ class CreditTransferViewModel
             creditTransferUseCase,
             CreditTransferUseCase.Params(receiverMsisdn, voucher),
             creditTransferData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
         ).execute()
     }
 

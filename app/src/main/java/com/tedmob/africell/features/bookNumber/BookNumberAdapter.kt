@@ -14,7 +14,7 @@ class BookNumberAdapter(
 ) : RecyclerView.Adapter<BookNumberAdapter.HomeItemHolder>() {
 
     interface Callback {
-        fun onItemClickListener(item: String)
+        fun onBookNumberClickListener(item: String)
     }
 
     class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -31,12 +31,11 @@ class BookNumberAdapter(
         holder.itemView.run {
             //image.setImageURI(item?.image)
             title.text = item
-            setOnClickListener {
-                item?.let {
-                    callback.onItemClickListener(it)
+
+                bookBtn.setOnClickListener {
+                    callback.onBookNumberClickListener(item)
                 }
             }
-        }
     }
 
 

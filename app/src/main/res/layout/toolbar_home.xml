@@ -17,11 +17,13 @@
                 android:id="@+id/toolbarImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:actualImageScaleType="fitXY"
+                android:scaleType="fitXY"
                 app:actualImageResource="@mipmap/main_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:viewAspectRatio="1.78" />
+                app:viewAspectRatio="2" />
 
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -48,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.appcompat.widget.AppCompatSpinner
+            <TextView
                     android:id="@+id/accountSpinner"
                     style="@style/TextAppearance.normalBold"
                     android:layout_width="wrap_content"
@@ -56,11 +58,27 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/spacing_large"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:backgroundTint="@color/white"
-
+                    android:textColor="@color/white"
+                    android:padding="@dimen/spacing_tiny"
+                    android:drawablePadding="@dimen/spacing_medium"
+android:drawableTint="@color/white"
                     android:gravity="center"
-                    android:spinnerMode="dialog"
-                    android:visibility="invisible" />
+                    android:visibility="gone"
+                    app:drawableEndCompat="@mipmap/ic_dropdown_arrow_down" />
+            <TextView
+                    android:id="@+id/loginTxt"
+                    style="@style/TextAppearance.normalBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/spacing_tiny"
+                    android:drawablePadding="@dimen/spacing_medium"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:text="Login with africell"/>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

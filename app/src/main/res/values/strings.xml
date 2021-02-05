@@ -32,7 +32,7 @@
     <string name="value_added_services">Value Added\nServices</string>
     <string name="subscribed">Subscribed</string>
     <string name="subscribe">Subscribe</string>
-    <string name="no_services_available">There is no useful numbers available</string>
+    <string name="no_services_available">There are no services available</string>
     <string name="speed_test">Speed Test</string>
     <string name="book_number">Book Your Number</string>
     <string name="useful_number">Useful Number</string>
@@ -76,4 +76,17 @@
     <string name="activate_for_me">Activate Bundle For Me</string>
     <string name="activate_bundle_for_someone_else">Activate Bundle For Someone Else</string>
     <string name="active">Active</string>
+    <string name="submit">Submit</string>
+    <string name="auto_renewal">Auto-Renewal</string>
+    <string name="number">Number</string>
+    <string name="calculate">Calculate</string>
+    <string name="my_accounts">My Accounts</string>
+    <string name="account_management">Account Management</string>
+    <string name="add_new_account">+Add New Account</string>
+    <string name="free_balance">Free Balance</string>
+    <string name="account_statement">Account Statement</string>
+    <string name="hello_name">Hello  %s!</string>
+    <string name="your_account_type_is">Your Account Type is</string>
+    <string name="buy">Buy</string>
+    <string name="login_first">Login First</string>
 </resources>

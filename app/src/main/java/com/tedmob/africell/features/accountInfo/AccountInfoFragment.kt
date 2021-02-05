@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.features.home.BalanceAdapter
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.data.api.ApiContract
+import com.tedmob.africell.data.api.ApiContract.Params.PREPAID
+import com.tedmob.africell.data.entity.SubAccount
+import com.tedmob.africell.data.repository.domain.SessionRepository
+import com.tedmob.africell.data.toAccountBalanceCategories
+import com.tedmob.africell.features.accountsNumber.AccountsNumbersFragment
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -24,12 +26,9 @@ class AccountInfoFragment : BaseFragment() {
         return wrap(inflater.context, R.layout.fragment_account_info, R.layout.toolbar_home, true)
     }
 
-    val balanceAdapter by lazy {
-        BalanceAdapter(mutableListOf())
-    }
-
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var sessionRepository: SessionRepository
+
 
     private val viewModel by provideViewModel<AccountViewModel> { viewModelFactory }
 
@@ -48,32 +47,68 @@ class AccountInfoFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.ACCOUNT_INFO)
         //setupRecyclerView()
         bindData()
+        setUpUI()
+    }
 
+    private fun setUpUI() {
+        loginTxt.visibility = View.GONE
+        enrollBtn.visibility = View.VISIBLE
+        viewModel.getSubAccounts()
+        enrollBtn.setOnClickListener {
+            findNavController().navigate(R.id.addAccountActivity)
+        }
     }
 
     private fun bindData() {
-        viewModel.getSubAccounts()
-        observeResourceWithoutProgress(viewModel.subAccountData) {
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
-            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            accountSpinner.adapter = arrayAdapter
-            accountSpinner.visibility=View.VISIBLE
-            accountSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getAccountInfo(it[position].account.orEmpty())
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
 
-                }
+        observeResourceWithoutProgress(viewModel.subAccountData) { subAccounts ->
+            if (sessionRepository.selectedMsisdn.isEmpty()) {
+                sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
-            accountSpinner.setSelection(0)
+            accountSpinner.setText(sessionRepository.selectedMsisdn)
+            viewModel.getAccountInfo()
+            accountSpinner.setOnClickListener {
+                val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
+                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
+                    override fun addNewAccount() {
+                        findNavController().navigate(R.id.addAccountActivity)
+                    }
 
+                    override fun manageAccount() {
+                        findNavController().navigate(R.id.accountManagementActivity)
+                    }
+
+                    override fun setDefault(subAccount: SubAccount) {
+                        accountSpinner.text = subAccount.account
+                        subAccount.account?.let { account -> viewModel.getAccountInfo() }
+                    }
+                })
+                subAccounts[0].account?.let { subAccount -> viewModel.getAccountInfo() }
+            }
+            accountSpinner.visibility = View.VISIBLE
         }
 
         observeResourceInline(viewModel.accountInfoData) {
+            balanceCategoriesRecyclerView.adapter = AccountBalanceCategoriesAdapter(it.toAccountBalanceCategories())
+            helloTxt.text = String.format(getString(R.string.hello_name), sessionRepository.user?.firstName)
+            accountType.text = it.accountType
+            currentBalance.text = it.balance?.currentBalance + it.balance?.unit
+
+            balanceTitle?.text = it.balance?.title
+            balanceCategoriesRecyclerView.adapter = AccountBalanceCategoriesAdapter(it.toAccountBalanceCategories())
+            freeBalanceRecyclerView.adapter = FreeBalanceAdapter(
+                it.freeBalance?.listFreeBalance.orEmpty().toMutableList()
+            )
+            freeBalanceTxt.text = it.freeBalance?.title
+
+            postpaidLayout.visibility = if (it.accountType != PREPAID) View.VISIBLE else View.GONE
+            prepaidLayout.visibility = if (it.accountType == PREPAID) View.VISIBLE else View.GONE
+
 
         }
 

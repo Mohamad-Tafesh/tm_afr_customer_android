@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.authentication
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class RegisterViewModel
 @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+    private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
     companion object {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -35,7 +37,7 @@ class RegisterViewModel
     fun setProfile( firstName: String?, lastName: String?, email: String ?,  password: String ?, confirmPassword: String ?
     ) {
         val params = RegisterUseCase.Params(firstName, lastName, email,dobData.value?.toFormat(ISO_DATE_FORMAT), password, confirmPassword)
-        ResourceUseCaseExecutor(registerUseCase, params, updatedProfileData, appExceptionFactory, null).execute()
+        ResourceUseCaseExecutor(registerUseCase, params, updatedProfileData,appExceptionFactory, appSessionNavigator,null).execute()
     }
 
 

@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content"
                 app:placeholderImageScaleType="fitXY"
                 app:actualImageScaleType="fitXY"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:placeholderImage="@mipmap/img_settings"
@@ -28,59 +29,6 @@
 
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/languageLayout"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground">
-
-            <ImageView
-                    android:layout_marginStart="@dimen/spacing_normal"
-                    android:id="@+id/languageImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/settings_language"
-                    app:layout_constraintBottom_toBottomOf="@+id/languageSummaryText"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/languageTitleText" />
-
-            <TextView
-                    android:id="@+id/languageTitleText"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/language"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:layout_constraintBottom_toTopOf="@id/languageSummaryText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/languageImg"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_goneMarginBottom="8dp" />
-
-            <TextView
-                    android:id="@+id/languageSummaryText"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/languageImg"
-                    tools:text="English" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/listDivider" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/soundLayout"
@@ -94,40 +42,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:src="@mipmap/settings_sound"
-                    app:layout_constraintBottom_toBottomOf="@+id/soundSummaryText"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/soundTitleText" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                    android:layout_marginStart="@dimen/spacing_small"
                     android:id="@+id/soundTitleText"
                     style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="@dimen/spacing_small"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:text="@string/sound"
                     android:textColor="?android:attr/textColorPrimary"
 
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/soundSwitch"
                     app:layout_constraintStart_toEndOf="@+id/soundImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                    android:id="@+id/soundSummaryText"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintTop_toBottomOf="@id/soundTitleText"
-                    app:layout_constraintEnd_toStartOf="@id/soundSwitch"
-                    app:layout_constraintStart_toEndOf="@id/soundImg"
-                    tools:text="English" />
+
             <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/soundSwitch"
                     android:layout_width="wrap_content"
@@ -135,20 +69,18 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@null"
+                    android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:background="@null"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
         <View
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/listDivider" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/notificationsLayout"
                 android:layout_width="match_parent"

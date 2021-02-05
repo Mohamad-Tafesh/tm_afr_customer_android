@@ -20,8 +20,7 @@ class VerifyPinFragment : BaseFragment(){
         arguments?.getBoolean(MobileNumberFragment.IS_RESET)
             ?: throw IllegalArgumentException("required Type arguments")
     }
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<VerifyPinViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException
 import com.tedmob.africell.R
 import com.tedmob.africell.app.StringLoader
 import com.tedmob.africell.data.api.dto.ErrorDTO
+import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.exception.AppException.Code.DATA
 import com.tedmob.africell.exception.AppException.Code.NETWORK
 import com.tedmob.africell.exception.AppException.Code.UNEXPECTED
@@ -21,6 +22,7 @@ import javax.net.ssl.SSLHandshakeException
 class AppExceptionFactory
 @Inject constructor(
     strings: StringLoader,
+    private val sessionRepository: SessionRepository,
     @field:[Named("Api")] private val gson: Gson,
     private val logger: ExceptionLogger
 ) {
@@ -42,9 +44,9 @@ class AppExceptionFactory
                         apiResponse?.title, t
                     )
 
+
                     logger.saveLog("Api call url:\n${t.response()?.raw()?.request?.url}")
                     logger.logException(appException)
-
                     appException
                 } catch (e: IOException) {
                     val appException = AppException(DATA, unexpectedErrorMessage, t.message, e)

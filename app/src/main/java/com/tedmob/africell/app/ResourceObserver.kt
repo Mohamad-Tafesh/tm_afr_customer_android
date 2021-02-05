@@ -12,8 +12,9 @@ import io.reactivex.observers.DisposableObserver
 abstract class ResourceObserver<T>(
     private val liveData: MutableLiveData<Resource<T>>,
     appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator,
     private val action: (() -> Unit)? = null
-) : DefaultObserver<T>(appExceptionFactory) {
+) : DefaultObserver<T>(appExceptionFactory,appSessionNavigator) {
 
     final override fun onNext(t: T) {
         liveData.value = Resource.Success(t)

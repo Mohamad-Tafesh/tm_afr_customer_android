@@ -9,11 +9,13 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.launch.RootActivity
 import com.tedmob.africell.util.locale.LocaleHelper
 import com.tedmob.africell.util.removeUserIdentification
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment() {
@@ -41,7 +43,7 @@ class SettingsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setupImageBanner(imageView, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SETTINGS )
         bindOneSignalStateTo(notificationsLayout, notificationsSwitch)
         setupLanguage()
         bindAppVersionTo(appVersionLayout, appVersionSummaryText)
@@ -49,7 +51,7 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun setupLanguage() {
-        if (BuildConfig.MULTI_LANG) {
+      /*  if (BuildConfig.MULTI_LANG) {
             languageLayout.visibility = View.VISIBLE
             bindLanguageMenuTo(
                 languageLayout,
@@ -71,7 +73,7 @@ class SettingsFragment : BaseFragment() {
             }
         } else {
             languageLayout.visibility = View.GONE
-        }
+        }*/
     }
 
     private fun setupLoginLogout() {

@@ -21,8 +21,7 @@ import javax.inject.Inject
 
 class UsefulNumberFragment : BaseFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<UsefulNumberViewModel> { viewModelFactory }
 
     val adapter by lazy {

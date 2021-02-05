@@ -31,8 +31,7 @@ import javax.inject.Inject
 class LocationFragment : BaseFragment() {
     val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 102
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     var longitude: Double? = null
     var latitude: Double? = null
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }

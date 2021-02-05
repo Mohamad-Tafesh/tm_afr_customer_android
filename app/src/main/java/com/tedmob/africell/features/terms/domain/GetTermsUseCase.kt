@@ -14,6 +14,6 @@ class GetTermsUseCase
 ) : UseCase<TermsDTO, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<TermsDTO> {
-        return Observable.just(TermsDTO(10000,"",1,"","hi"))
+        return restApi.getTerms()
     }
 }

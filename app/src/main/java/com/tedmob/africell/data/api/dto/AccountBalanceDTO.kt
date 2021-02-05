@@ -5,79 +5,130 @@ import com.google.gson.annotations.SerializedName
 
 
 data class AccountBalanceDTO(
-    @field:[Expose SerializedName("accountInfo")]
-    val accountInfo: AccountInfo?,
     @field:[Expose SerializedName("accountStatmentInfo")]
     val accountStatmentInfo: AccountStatmentInfo?,
     @field:[Expose SerializedName("accountType")]
     val accountType: String?,
+    @field:[Expose SerializedName("balance")]
+    val balance: Balance?,
     @field:[Expose SerializedName("data")]
-    val mdata: List<Data>?,
+    val `data`: Data?,
+    @field:[Expose SerializedName("freeBalance")]
+    val freeBalance: FreeBalance?,
+    @field:[Expose SerializedName("homePage")]
+    val homePage: List<HomePage>?,
     @field:[Expose SerializedName("sms")]
-    val sms: List<Bundles>?,
+    val sms: Sms?,
     @field:[Expose SerializedName("voice")]
-    val voice: List<Bundles>?
+    val voice: Voice?
 ) {
-    data class AccountInfo(
-        @field:[Expose SerializedName("balance")]
-        val balance: String?,
-        @field:[Expose SerializedName("cos_name")]
-        val cosName: String?,
-        @field:[Expose SerializedName("cos_num")]
-        val cosNum: String?,
-        @field:[Expose SerializedName("creditLimit")]
-        val creditLimit: String?,
-        @field:[Expose SerializedName("cuG_Name")]
-        val cuGName: String?,
-        @field:[Expose SerializedName("cuG_Num")]
-        val cuGNum: String?,
-        @field:[Expose SerializedName("evC_Balance")]
-        val evCBalance: String?,
-        @field:[Expose SerializedName("first_used")]
-        val firstUsed: String?,
-        @field:[Expose SerializedName("free_money")]
-        val freeMoney: String?,
-        @field:[Expose SerializedName("free_sms")]
-        val freeSms: String?,
-        @field:[Expose SerializedName("free_time")]
-        val freeTime: String?,
-        @field:[Expose SerializedName("last_credited")]
-        val lastCredited: String?,
-        @field:[Expose SerializedName("last_outdial_call")]
-        val lastOutdialCall: String?,
-        @field:[Expose SerializedName("locked_flg")]
-        val lockedFlg: String?,
-        @field:[Expose SerializedName("loyalty_status")]
-        val loyaltyStatus: String?,
-        @field:[Expose SerializedName("msisdn")]
-        val msisdn: String?
-    )
-
     data class AccountStatmentInfo(
         @field:[Expose SerializedName("crediLimit")]
         val crediLimit: String?
     )
 
-    data class Data(
-        @field:[Expose SerializedName("allotment")]
-        val allotment: String?,
-        @field:[Expose SerializedName("expiresOn")]
-        val expiresOn: String?,
-        @field:[Expose SerializedName("productCatalogueOffer")]
-        val productCatalogueOffer: String?,
-        @field:[Expose SerializedName("remainder")]
-        val remainder: String?,
-        @field:[Expose SerializedName("validity")]
-        val validity: String?
+    data class Balance(
+        @field:[Expose SerializedName("currentBalance")]
+        val currentBalance: String?,
+        @field:[Expose SerializedName("maxValue")]
+        val maxValue: String?,
+        @field:[Expose SerializedName("title")]
+        val title: String?,
+        @field:[Expose SerializedName("unit")]
+        val unit: String?
     )
 
-    data class Bundles(
+    data class Data(
+        @field:[Expose SerializedName("dataInfos")]
+        val dataInfos: List<DataInfo>?,
+        @field:[Expose SerializedName("title")]
+        val title: String?
+    )
+
+    data class FreeBalance(
+        @field:[Expose SerializedName("listFreeBalance")]
+        val listFreeBalance: List<FreeBalanceX>?,
+        @field:[Expose SerializedName("title")]
+        val title: String?
+    )
+
+    data class HomePage(
         @field:[Expose SerializedName("expiryDate")]
         val expiryDate: String?,
         @field:[Expose SerializedName("name")]
         val name: String?,
         @field:[Expose SerializedName("originalValue")]
         val originalValue: String?,
+        @field:[Expose SerializedName("unit")]
+        val unit: String?,
+        @field:[Expose SerializedName("value")]
+        val value: String?
+    )
+
+    data class Sms(
+        @field:[Expose SerializedName("smsInfos")]
+        val smsInfos: List<SmsInfo>?,
+        @field:[Expose SerializedName("title")]
+        val title: String?
+    )
+
+    data class Voice(
+        @field:[Expose SerializedName("title")]
+        val title: String?,
+        @field:[Expose SerializedName("voiceInfos")]
+        val voiceInfos: List<VoiceInfo>?
+    )
+
+    data class DataInfo(
+        @field:[Expose SerializedName("expiryDate")]
+        val expiryDate: String?,
+        @field:[Expose SerializedName("name")]
+        val name: String?,
+        @field:[Expose SerializedName("originalValue")]
+        val originalValue: String?,
+        @field:[Expose SerializedName("unit")]
+        val unit: String?,
+        @field:[Expose SerializedName("validity")]
+        val validity: String?,
+        @field:[Expose SerializedName("value")]
+        val value: String?
+    )
+
+    data class FreeBalanceX(
+        @field:[Expose SerializedName("balance")]
+        val balance: String?,
+        @field:[Expose SerializedName("balanceUnit")]
+        val balanceUnit: String?,
+        @field:[Expose SerializedName("description")]
+        val description: String?,
+        @field:[Expose SerializedName("image")]
+        val image: String?,
+        @field:[Expose SerializedName("title")]
+        val title: String?
+    )
+
+    data class SmsInfo(
+        @field:[Expose SerializedName("expiryDate")]
+        val expiryDate: String?,
+        @field:[Expose SerializedName("name")]
+        val name: String?,
+        @field:[Expose SerializedName("originalValue")]
+        val originalValue: String?,
+        @field:[Expose SerializedName("unit")]
+        val unit: String?,
+        @field:[Expose SerializedName("value")]
+        val value: String?
+    )
+
+    data class VoiceInfo(
+        @field:[Expose SerializedName("expiryDate")]
+        val expiryDate: String?,
+        @field:[Expose SerializedName("name")]
+        val name: String?,
+        @field:[Expose SerializedName("originalValue")]
+        val originalValue: String?,
+        @field:[Expose SerializedName("unit")]
+        val unit: String?,
         @field:[Expose SerializedName("value")]
         val value: String?
     )

@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
-import com.tedmob.africell.data.api.dto.BalanceDTO
+import com.tedmob.africell.data.entity.MyAccountBalance
 import kotlinx.android.synthetic.main.row_balance.view.*
 
-class BalanceAdapter(
-    private var items: List<BalanceDTO>
-) : RecyclerView.Adapter<BalanceAdapter.HomeItemHolder>() {
+class HomeBalanceAdapter(
+    private var items: List<MyAccountBalance>
+) : RecyclerView.Adapter<HomeBalanceAdapter.HomeItemHolder>() {
     interface Callback {
-        fun onItemClickListener(item: BalanceDTO)
+        fun onItemClickListener(item: MyAccountBalance)
     }
 
     class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -35,18 +35,13 @@ class BalanceAdapter(
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
         holder.itemView.run {
-            val layoutParams = whiteView.layoutParams
-            layoutParams.width = progressBar.layoutParams.width
-            layoutParams.height = progressBar.layoutParams.width
-            whiteView.layoutParams = layoutParams
+            progressBar.max = item.maxValue?.toDoubleOrNull()?.toInt() ?:100
+            progressBar.progress = item?.currentBalance?.toDoubleOrNull()?.toInt() ?:0
 
-            progressBar.setProgress(50, true)
-            val ly = progressBar.layoutParams
-            ly.height = ly.width
-            progressBar.layoutParams = ly
-            progressBar.max = 100
-            progressBar.isIndeterminate = false
-            //                title.text=item?.name
+            nameTxt.text=item?.title
+            valueTxt.text=item?.currentBalance +" "+item?.unit
+            expiryDateTxt.text="Expiry Date: "+item?.expiryDate
+
             setOnClickListener {
                 item?.let {
                 }
@@ -58,7 +53,7 @@ class BalanceAdapter(
     }
 
 
-    fun setItems(newItems: List<BalanceDTO> = mutableListOf()) {
+    fun setItems(newItems: List<MyAccountBalance> = mutableListOf()) {
         items = newItems.toMutableList()
         notifyDataSetChanged()
     }

@@ -16,7 +16,9 @@ class SendFreeSmsUseCase
 ) : UseCase<SMSCountDTO, SendFreeSmsUseCase.Params>(schedulers) {
 
     override fun buildUseCaseObservable(params: Params): Observable<SMSCountDTO> {
-           return restApi.sendSMSCount(sessionRepository.msisdn,params.receiverMsisdn,params.message)
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
+
+        return restApi.sendSMSCount(subMsisdn,params.receiverMsisdn,params.message)
     }
 
     data class Params(

@@ -4,12 +4,8 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ErrorDTO(
-    @field:[Expose SerializedName("status")]
+    @field:[Expose SerializedName("Status",alternate = ["status"])]
     val status: Int?,
-    @field:[Expose SerializedName("title")]
-    val title: String?,
-    @field:[Expose SerializedName("traceId")]
-    val traceId: String?,
-    @field:[Expose SerializedName("type")]
-    val type: String?
+    @field:[Expose SerializedName("Title",alternate = ["title"])]
+    val title: String?
 )

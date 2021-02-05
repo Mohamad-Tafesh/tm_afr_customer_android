@@ -1,23 +1,16 @@
 package com.tedmob.africell.features.bookNumber
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.location.LocationServices
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
+import com.tedmob.africell.data.repository.domain.SessionRepository
 
-import com.tedmob.africell.data.api.dto.LocationDTO
-import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_DETAILS
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observe
 import com.tedmob.africell.ui.viewmodel.observeResource
@@ -30,20 +23,20 @@ import javax.inject.Inject
 
 
 class BookNumberFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by provideViewModel<BookNumberViewModel> { viewModelFactory }
 
+    private val viewModel by provideViewModel<BookNumberViewModel> { viewModelFactory }
+@Inject lateinit var sessionRepository: SessionRepository
     val adapter by lazy {
         BookNumberAdapter(mutableListOf(), object : BookNumberAdapter.Callback {
-            override fun onItemClickListener(item: String) {
-
+            override fun onBookNumberClickListener(item: String) {
+                viewModel.bookNumber(item)
             }
+
         })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_book_number, R.layout.toolbar_default, false)
+        return wrap(inflater.context, R.layout.fragment_book_number, R.layout.toolbar_default, true)
     }
 
     private fun searchRxTextView() {
@@ -53,7 +46,7 @@ class BookNumberFragment : BaseFragment() {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ charSequence ->
-                    viewModel.getBookNumber(charSequence.toString())
+                    viewModel.getFreeNumbers(charSequence.toString())
                 }) { t -> }
         }
     }
@@ -68,10 +61,17 @@ class BookNumberFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        searchRxTextView()
-        viewModel.getBookNumber(searchTextLayout.getText())
-        bindData()
+        if(sessionRepository.isLoggedIn()) {
+            setupRecyclerView()
+            searchRxTextView()
+            viewModel.getFreeNumbers(searchTextLayout.getText())
+            bindData()
+            showContent()
+        }else{
+            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+                redirectToLogin()
+            }
+        }
     }
 
 
@@ -90,7 +90,7 @@ class BookNumberFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        observe(viewModel.locationData) { res ->
+        observe(viewModel.freeNumbersData) { res ->
             when (res) {
                 is Resource.Loading -> {
                     swipeRefresh.isRefreshing = true
@@ -117,6 +117,14 @@ class BookNumberFragment : BaseFragment() {
             }
 
 
+        }
+
+
+        observeResource(viewModel.bookNumberData){
+            viewModel.getFreeNumbers(searchTextLayout.getText())
+            showMaterialMessageDialog(it.resultText ?:"",getString(R.string.close)) {
+
+            }
         }
     }
 

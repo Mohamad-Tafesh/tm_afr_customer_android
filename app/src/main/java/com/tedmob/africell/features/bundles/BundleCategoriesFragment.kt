@@ -13,14 +13,13 @@ import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
-import com.tedmob.africelll.features.bundles.BundleVPFragment.Companion.KEY_BUNDLE_CATEGORY
+import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_BUNDLE_CATEGORY
 import kotlinx.android.synthetic.main.fragment_bundle_categories.*
 import javax.inject.Inject
 
 
 class BundleCategoriesFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<BundlesViewModel> { viewModelFactory }
 
     val adapter by lazy {
@@ -33,7 +32,7 @@ class BundleCategoriesFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_bundle_categories, R.layout.toolbar_default, false)
+        return wrap(inflater.context, R.layout.fragment_bundle_categories, R.layout.toolbar_default, true)
     }
 
     override fun configureToolbar() {

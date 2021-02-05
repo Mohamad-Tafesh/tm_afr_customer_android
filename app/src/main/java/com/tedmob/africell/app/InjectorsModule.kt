@@ -3,6 +3,12 @@ package com.tedmob.africell.app
 import com.tedmob.africell.features.aboutus.AboutUsFragment
 import com.tedmob.africell.features.accountInfo.AccountInfoActivity
 import com.tedmob.africell.features.accountInfo.AccountInfoFragment
+import com.tedmob.africell.features.accountsNumber.AccountManagementActivity
+import com.tedmob.africell.features.accountsNumber.AccountsNumbersFragment
+import com.tedmob.africell.features.activateBundle.ActivateBundleFragment
+import com.tedmob.africell.features.addNewAccount.AddAccountActivity
+import com.tedmob.africell.features.addNewAccount.AddAccountFragment
+import com.tedmob.africell.features.addNewAccount.VerifyAccountFragment
 import com.tedmob.africell.features.authentication.*
 import com.tedmob.africell.features.bookNumber.BookNumberFragment
 import com.tedmob.africell.features.bundles.BundleActivity
@@ -31,7 +37,12 @@ import com.tedmob.africell.features.settings.SettingsFragment
 import com.tedmob.africell.features.sms.SMSFragment
 import com.tedmob.africell.features.terms.TermsFragment
 import com.tedmob.africell.features.usefulNumber.UsefulNumberFragment
-import com.tedmob.africelll.features.bundles.BundleVPFragment
+import com.tedmob.africell.features.bundles.BundleVPFragment
+import com.tedmob.africell.features.dataCalculator.DataCalculatorFragment
+import com.tedmob.africell.features.myBundlesAndServices.MyBundleDetailsFragment
+import com.tedmob.africell.features.myBundlesAndServices.MyBundleServicesVPFragment
+import com.tedmob.africell.features.myBundlesAndServices.MyBundlesAndServicesFragment
+import com.tedmob.africell.features.vasServices.VasServicesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -148,4 +159,37 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun bundleDetailsFragment(): BundleDetailsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun activateBundleFragment(): ActivateBundleFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun dataCalculatorFragment(): DataCalculatorFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun myBundlesAndServicesFragment(): MyBundlesAndServicesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun myBundleServicesVPFragment(): MyBundleServicesVPFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun vasServicesFragment(): VasServicesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun accountsNumbersFragment(): AccountsNumbersFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun accountManagementActivity(): AccountManagementActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun addAccountActivity(): AddAccountActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun addAccountFragment(): AddAccountFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun verifyAccountFragment(): VerifyAccountFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun myBundleDetailsFragment(): MyBundleDetailsFragment
 }

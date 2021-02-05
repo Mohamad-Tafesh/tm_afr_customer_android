@@ -22,24 +22,59 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:placeholderImage="@mipmap/img_terms"
                 app:viewAspectRatio="1.8" />
+        <TextView
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:id="@+id/subtitleTxt"
+                android:textColor="@color/darkPink"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="volume"/>
+        <TextView
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:id="@+id/volumeTxt"
+                android:textColor="@color/darkPink"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="volume"/>
 
+        <TextView
+                android:id="@+id/validityTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="volume"/>
         <TextView
                 android:autoLink="all"
                 style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_normal"
                 android:id="@+id/descriptionTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView"/>
+        <TextView
+                android:id="@+id/priceTxt"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkPink"
+                android:text="Price: 1$"
+                style="@style/TextAppearance.normalBold"/>
 
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/subscribeBtn"
                 style="@style/Button.yellow"
                 android:text="@string/subscribe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/unsubscribeBtn"
                 android:layout_marginTop="@dimen/spacing_normal"
                 style="@style/button.strokeViolet"
                 android:text="@string/unsubscribe"

@@ -1,9 +1,11 @@
 package com.tedmob.africell.features.reportIncident
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
+import com.tedmob.africell.data.api.dto.IncidentTypeDTO
 import com.tedmob.africell.data.api.dto.StatusDTO
 import com.tedmob.africell.data.api.dto.SupportCategoryDTO
 import com.tedmob.africell.exception.AppExceptionFactory
@@ -17,30 +19,32 @@ class ReportIncidentViewModel
 @Inject constructor(
     private val reportIncidentUseCase: ReportIncidentUseCase,
     private val getReportIncidentUseCase: GetReportCategoryUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
 
     val contactUsData = SingleLiveEvent<Resource<StatusDTO>>()
-    val supportCategoryData = MutableLiveData<Resource<List<SupportCategoryDTO>>>()
+    val supportCategoryData = MutableLiveData<Resource<List<IncidentTypeDTO>>>()
 
     fun getSupportCategory() {
         ResourceUseCaseExecutor(
             getReportIncidentUseCase,
             Unit,
             supportCategoryData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
         ) {
             getSupportCategory()
         }.execute()
     }
 
-    fun contactUs( category:SupportCategoryDTO?, message: String) {
+    fun contactUs( category:IncidentTypeDTO?, message: String) {
         ResourceUseCaseExecutor(
             reportIncidentUseCase,
-            ReportIncidentUseCase.Params(category?.id, category?.name, message),
+            ReportIncidentUseCase.Params(category?.idincidentType, category?.incidentTypeName, message),
             contactUsData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
+
         ).execute()
     }
 

@@ -1,5 +1,6 @@
 package com.tedmob.africell.util.locale
 
+import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences
@@ -49,7 +50,7 @@ constructor(private var context: Context) {
             val rxPrefs = RxSharedPreferences.create(prefs)
             val preUtils = PrefUtils(rxPrefs)
             val gson = Gson()//not used here
-            return PrefSessionRepository(preUtils, gson)
+            return PrefSessionRepository(preUtils, gson, Application())
         }
     }
 

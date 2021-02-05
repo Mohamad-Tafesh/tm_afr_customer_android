@@ -17,8 +17,7 @@ import javax.inject.Inject
 
 class FaqFragment : BaseFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<FaqViewModel> { viewModelFactory }
 
     private val adapter: FaqAdapter by lazy { FaqAdapter() }

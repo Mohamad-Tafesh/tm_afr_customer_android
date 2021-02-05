@@ -16,6 +16,15 @@
         <action
                 android:id="@+id/action_homeFragment_to_accountInfoActivity"
                 app:destination="@id/accountInfoActivity" />
+        <action
+                android:id="@+id/action_homeFragment_to_dataCalculatorFragment"
+                app:destination="@id/dataCalculatorFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_myBundleServicesVPFragment"
+                app:destination="@id/myBundleServicesVPFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_vasServicesFragment"
+                app:destination="@id/vasServicesFragment" />
     </fragment>
     <fragment
             android:id="@+id/settingsFragment"
@@ -41,6 +50,7 @@
             android:name="com.tedmob.africell.features.reportIncident.ReportIncidentFragment"
             tools:layout="@layout/fragment_report_incident"/>
     <fragment
+            tools:layout="@layout/fragment_location_map"
             android:id="@+id/locationMapFragment"
             android:name="com.tedmob.africell.features.location.LocationMapFragment"
             android:label="@string/location">
@@ -49,6 +59,7 @@
                 app:destination="@id/locationDetailsFragment" />
     </fragment>
     <fragment
+            tools:layout="@layout/fragment_location"
             android:id="@+id/locationListFragment"
             android:name="com.tedmob.africell.features.location.LocationFragment"
             android:label="@string/location">
@@ -69,6 +80,7 @@
             app:popUpTo="@+id/homeFragment"
             app:popUpToInclusive="false" />
     <fragment
+            tools:layout="@layout/fragment_location_details"
             android:id="@+id/locationDetailsFragment"
             android:name="com.tedmob.africell.features.location.LocationDetailsFragment" />
     <fragment
@@ -101,6 +113,7 @@
             android:label="CustomerCareFragment" />
     <fragment
             android:id="@+id/serviceDetailsFragment"
+            tools:layout="@layout/fragment_service_details"
             android:name="com.tedmob.africell.features.services.ServiceDetailsFragment"
             android:label="ServiceDetailsFragment" />
     <activity
@@ -115,6 +128,7 @@
             android:label="SMSFragment" />
     <fragment
             android:id="@+id/lineRechargeFragment"
+            tools:layout="@layout/fragment_line_recharge"
             android:name="com.tedmob.africell.features.lineRecharge.LineRechargeFragment"
             android:label="LineRechargeFragment" />
     <activity
@@ -122,5 +136,38 @@
             android:name="com.tedmob.africell.features.accountInfo.AccountInfoActivity"
             android:label=""
             tools:layout="@layout/activity_account_info"/>
+    <fragment
+            android:id="@+id/dataCalculatorFragment"
+            tools:layout="@layout/fragment_data_calculator"
+            android:name="com.tedmob.africell.features.dataCalculator.DataCalculatorFragment"
+            android:label="DataCalculatorFragment" />
+    <fragment
+            android:id="@+id/myBundleServicesVPFragment"
+            tools:layout="@layout/fragment_my_bundles_services_vp"
+            android:name="com.tedmob.africell.features.myBundlesAndServices.MyBundleServicesVPFragment"
+            android:label="MyBundleServicesVPFragment" >
+        <action
+                android:id="@+id/action_myBundleServicesVPFragment_to_myBundleDetailsFragment"
+                app:destination="@id/myBundleDetailsFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/vasServicesFragment"
+            android:name="com.tedmob.africell.features.vasServices.VasServicesFragment"
+            android:label="VasServicesFragment" />
+    <activity
+            android:id="@+id/accountManagementActivity"
+            tools:layout="@layout/activity_account_management"
+            android:name="com.tedmob.africell.features.accountsNumber.AccountManagementActivity"
+            android:label="" />
+    <activity
+            android:id="@+id/addAccountActivity"
+            tools:layout="@layout/activity_add_account"
+            android:name="com.tedmob.africell.features.addNewAccount.AddAccountActivity"
+            android:label="AddAccountActivity" />
+    <fragment
+            android:id="@+id/myBundleDetailsFragment"
+            tools:layout="@layout/fragment_my_bundle_details"
+            android:name="com.tedmob.africell.features.myBundlesAndServices.MyBundleDetailsFragment"
+            android:label="MyBundleDetailsFragment" />
 
 </navigation>

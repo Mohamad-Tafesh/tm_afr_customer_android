@@ -12,6 +12,7 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.*
 import com.tedmob.africell.util.*
@@ -21,8 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 class EditProfileFragment : BaseFragment(), Liv.Action {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideActivityViewModel<EditProfileViewModel> { viewModelFactory }
     private var liv: Liv? = null
 
@@ -48,7 +48,7 @@ class EditProfileFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.PROFILE    )
         liv = initLiv()
         liv?.start()
         setupDOB()

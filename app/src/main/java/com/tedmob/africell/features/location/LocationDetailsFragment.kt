@@ -31,8 +31,7 @@ class LocationDetailsFragment : BaseFragment() {
         const val LOCATION_DETAILS = "location_details"
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
 
     private var mapFragment: SupportMapFragment? = null
 
@@ -112,8 +111,7 @@ class LocationDetailsFragment : BaseFragment() {
             title.text = location.shopName
 
             distance.text = location.displayDistance()
-            description.text = location.shopOwner?.html()
-            //   workingHrsValue.text= location.workingHrs?.joinToString(separator =", ")
+            description.text = location.description?.html()
             callUs.setOnClickListener {
                 location.telephoneNumber?.let { dial(it) } ?: showMessage("Phone number is not available")
             }

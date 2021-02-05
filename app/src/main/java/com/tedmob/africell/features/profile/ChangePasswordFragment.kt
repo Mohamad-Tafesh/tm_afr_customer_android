@@ -23,8 +23,7 @@ class ChangePasswordFragment : BaseFragment(), Liv.Action {
 
     private var liv: Liv? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideActivityViewModel<ChangePasswordViewModel> { viewModelFactory }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_change_password, R.layout.toolbar_image, false)

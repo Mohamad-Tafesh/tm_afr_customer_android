@@ -1,0 +1,270 @@
+package com.tedmob.africell.features.activateBundle
+
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.os.Bundle
+import android.provider.ContactsContract
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.NotEmptyRule
+import com.tedmob.africell.R
+import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.dto.BundleInfo
+import com.tedmob.africell.data.api.requests.ActivateBundleRequest
+import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.features.authentication.CountriesAdapter
+import com.tedmob.africell.features.bundles.BundleDetailsFragment
+import com.tedmob.africell.ui.hideKeyboard
+import com.tedmob.africell.ui.spinner.MaterialSpinner
+import com.tedmob.africell.ui.spinner.OnItemSelectedListener
+import com.tedmob.africell.ui.viewmodel.observeResource
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
+import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
+import com.tedmob.africell.ui.viewmodel.provideViewModel
+import com.tedmob.africell.util.getText
+import com.tedmob.africell.util.setText
+import com.tedmob.africell.util.validation.PhoneNumberHelper
+import kotlinx.android.synthetic.main.fragment_activate_bundle.*
+
+
+class ActivateBundleFragment : BaseFragment(), Liv.Action {
+    private var liv: Liv? = null
+
+    val isActivateForMe by lazy {
+        arguments?.getBoolean(ACTIVATE_FOR_ME)
+            ?: throw IllegalArgumentException("required active for me argument")
+    }
+
+    val bundle by lazy {
+        arguments?.getParcelable<BundleInfo>(BundleDetailsFragment.BUNDLE_DETAILS)
+            ?: throw IllegalArgumentException("required bundle arguments")
+    }
+    val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
+
+
+    private val viewModel by provideViewModel<ActivateBundleViewModel> { viewModelFactory }
+
+    companion object {
+        const val ACTIVATE_FOR_ME = "activate_for_me"
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return wrap(inflater.context, R.layout.fragment_activate_bundle, R.layout.toolbar_default, true)
+    }
+
+    override fun configureToolbar() {
+        super.configureToolbar()
+        actionbar?.title = bundle.getTitle()
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        liv = initLiv()
+        liv?.start()
+        submitBtn.setOnClickListener {
+            activity?.hideKeyboard()
+            liv?.submitWhenValid()
+        }
+        bindData()
+
+        setupUI()
+    }
+
+    fun visibilityAutoRenew() {
+        if (isActivateForMe) {
+        isAutoRenew.visibility=View.VISIBLE
+            autoRenewVisibility()
+            toNumberLayout.onItemSelectedListener= object : OnItemSelectedListener {
+                override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
+                    autoRenewVisibility()
+                }
+
+                override fun onNothingSelected(parent: MaterialSpinner) {
+                }
+
+            }
+            fromLayout.onItemSelectedListener= object : OnItemSelectedListener {
+                override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
+                    autoRenewVisibility()
+                }
+
+                override fun onNothingSelected(parent: MaterialSpinner) {
+                }
+
+            }
+
+        } else {
+            hideAutoRenew()
+        }
+
+    }
+    private fun autoRenewVisibility(){
+        if(toNumberLayout.getText()==fromLayout.getText()){
+            isAutoRenew.visibility=View.VISIBLE
+        }else{
+            hideAutoRenew()
+        }
+    }
+    private fun hideAutoRenew(){
+        isAutoRenew.isChecked = false
+        isAutoRenew.visibility = View.GONE
+    }
+
+    private fun setupUI() {
+        if (isActivateForMe) {
+            toNumberLayout.visibility = View.VISIBLE
+            toSomeOneElseLayout.visibility = View.GONE
+            submitBtn.setBackgroundColor(resources.getColor(R.color.yellow))
+        } else {
+            toNumberLayout.visibility = View.GONE
+            toSomeOneElseLayout.visibility = View.VISIBLE
+            submitBtn.setBackgroundColor(resources.getColor(R.color.purple))
+        }
+
+        volumeTxt.text = bundle.getFormatVolume()
+        validityTxt.text = bundle.getFormatValidity()
+
+        mobileNumberLayout.setEndIconOnClickListener {
+            activity?.hideKeyboard()
+            phoneNumberPermission()
+        }
+    }
+
+    private fun initLiv(): Liv {
+        val notEmptyRule = NotEmptyRule()
+        val builder = Liv.Builder()
+        builder.add(fromLayout, notEmptyRule)
+        if (isActivateForMe) {
+            builder.add(toNumberLayout, notEmptyRule)
+        } else builder.add(mobileNumberLayout, notEmptyRule)
+        return builder
+            .submitAction(this)
+            .build()
+
+    }
+
+    private fun bindData() {
+        viewModel.getSubAccounts()
+        observeResourceInline(viewModel.subAccountData, {
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
+            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            fromLayout.adapter = arrayAdapter
+            fromLayout.selection=0
+            toNumberLayout.adapter = arrayAdapter
+            toNumberLayout.selection=0
+            visibilityAutoRenew()
+
+        })
+        viewModel.getCountries()
+        observeResourceWithoutProgress(viewModel.countriesData, {
+            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
+            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
+                countrySpinner.selection = it
+            }
+
+        })
+        observeResource(viewModel.activateBundleData) {
+            showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
+                findNavController().popBackStack()
+            }
+        }
+
+    }
+
+
+    override fun performAction() {
+        val toNumber = if (isActivateForMe) {
+            toNumberLayout.getText()
+        } else {
+            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
+            PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+        }
+
+        val request = ActivateBundleRequest(bundle.bundleId, isAutoRenew.isChecked, fromLayout.getText(), toNumber)
+        viewModel.activateBundle(request)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        liv?.dispose()
+    }
+
+    private fun phoneNumberPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+            startActivityForResult(intent, 1)
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_PHONE_NUMBER)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSIONS_REQUEST_PHONE_NUMBER -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+                    startActivityForResult(intent, 1)
+                } else {
+                    requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_PHONE_NUMBER)
+                }
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            data?.data?.let { contactData ->
+
+                val c: Cursor? = requireActivity().contentResolver.query(contactData, null, null, null, null)
+                c?.let { c ->
+
+                    if (c.moveToFirst()) {
+                        val id: String = c.getString(
+                            c.getColumnIndex(ContactsContract.Contacts._ID)
+                        )
+                        //  val name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+
+                        val hasPhone: Int = c.getInt(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                        if (hasPhone == 1) {
+                            val pCur: Cursor? = requireActivity().contentResolver.query(
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                null,
+                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
+                            )
+                            while (pCur?.moveToNext() == true) {
+                                val number = pCur?.getString(
+                                    pCur?.getColumnIndex(
+                                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                                    )
+                                )
+                                mobileNumberLayout.setText(number)
+
+                            }
+                            pCur?.close()
+                        }
+                    }
+                }
+            }
+        } else super.onActivityResult(requestCode, resultCode, data)
+    }
+}
+

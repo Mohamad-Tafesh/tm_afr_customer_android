@@ -1,14 +1,22 @@
 package com.tedmob.africell.features.creditTransfer
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
+import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -16,16 +24,19 @@ import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_credit_transfer.*
+import kotlinx.android.synthetic.main.fragment_credit_transfer.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_credit_transfer.sendBtn
+import kotlinx.android.synthetic.main.fragment_sms.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 
 class CreditTransferFragment : BaseFragment(), Liv.Action {
     private var liv: Liv? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by provideViewModel<CreditTransferViewModel> { viewModelFactory }
 
+    private val viewModel by provideViewModel<CreditTransferViewModel> { viewModelFactory }
+    val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_credit_transfer, R.layout.toolbar_default, false)
@@ -42,10 +53,16 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CREDIT_TRANSFER)
         liv = initLiv()
         liv?.start()
         sendBtn.setOnClickListener { liv?.submitWhenValid() }
         bindData()
+        mobileNumberLayout.setEndIconOnClickListener {
+            activity?.hideKeyboard()
+            phoneNumberPermission()
+        }
     }
 
     private fun initLiv(): Liv {
@@ -88,6 +105,71 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
     override fun onDestroyView() {
         super.onDestroyView()
         liv?.dispose()
+    }
+
+    private fun phoneNumberPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+            startActivityForResult(intent, 1)
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_PHONE_NUMBER)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSIONS_REQUEST_PHONE_NUMBER -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+                    startActivityForResult(intent, 1)
+                } else {
+                    requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_PHONE_NUMBER)
+                }
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            data?.data?.let { contactData ->
+
+                val c: Cursor? = requireActivity().contentResolver.query(contactData, null, null, null, null)
+                c?.let { c ->
+
+                    if (c.moveToFirst()) {
+                        val id: String = c.getString(
+                            c.getColumnIndex(ContactsContract.Contacts._ID)
+                        )
+                        //  val name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+
+                        val hasPhone: Int = c.getInt(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+                        if (hasPhone == 1) {
+                            val pCur: Cursor? = requireActivity().contentResolver.query(
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                null,
+                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
+                            )
+                            while (pCur?.moveToNext() == true) {
+                                val number = pCur?.getString(
+                                    pCur?.getColumnIndex(
+                                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                                    )
+                                )
+                                mobileNumberLayout.setText(number)
+
+                            }
+                            pCur?.close()
+                        }
+                    }
+                }
+            }
+        }else super.onActivityResult(requestCode, resultCode, data)
     }
 }
 

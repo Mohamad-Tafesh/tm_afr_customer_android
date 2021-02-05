@@ -35,8 +35,7 @@ class SplashFragment : BaseFragment() {
     @Inject
     lateinit var sessionRepo: SessionRepository
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<SplashViewModel> { viewModelFactory }
 
 

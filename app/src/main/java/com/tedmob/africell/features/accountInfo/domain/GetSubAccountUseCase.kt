@@ -18,8 +18,9 @@ class GetSubAccountUseCase
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<SubAccount>> {
         return restApi.getSubAccount().map {
-            val list = it.subAccount?.map { SubAccount(it,false)}?.toMutableList()?: mutableListOf()
+            val list =  mutableListOf<SubAccount>()
             it.mainAccount?.let { list.add(SubAccount(it,true))}
+            it.subAccount?.forEach { list.add(SubAccount(it,false)) }
             list
         }
     }

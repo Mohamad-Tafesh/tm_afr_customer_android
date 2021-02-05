@@ -31,6 +31,7 @@ class LineRechargeAdapter(
         holder.itemView.run {
             title.text = item?.rechargeCardName
             description.text = item?.rechargeCardDescription
+            priceTxt.text= item?.rechargeCardPrice
             image.setImageURI(item.rechargeCardImageName)
             setOnClickListener {
                 item?.let {
@@ -45,4 +46,6 @@ class LineRechargeAdapter(
         items = newItems.toMutableList()
         notifyDataSetChanged()
     }
+
+
 }

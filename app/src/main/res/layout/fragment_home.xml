@@ -5,12 +5,13 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgdColor"
-        android:fitsSystemWindows="true">
+        android:layout_gravity="bottom"
+        android:fillViewport="true"
+        android:background="@color/bgdColor">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="bottom"
             android:orientation="vertical">
 
@@ -26,8 +27,8 @@
                 android:padding="@dimen/spacing_small"
                 app:ci_animator="@anim/indicator_no_animation"
                 app:ci_animator_reverse="@anim/indicator_no_animation"
-                app:ci_drawable="@drawable/light_pink_cv"
-                app:ci_drawable_unselected="@drawable/dark_pink_cv"
+                app:ci_drawable_unselected="@drawable/light_pink_cv"
+                app:ci_drawable="@drawable/dark_pink_cv"
                 app:ci_height="5dp"
                 app:ci_width="5dp" />
 
@@ -75,12 +76,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/main_line_recharge"
                         android:drawablePadding="@dimen/spacing_small"
                         android:gravity="center"
                         android:padding="@dimen/spacing_tiny"
                         android:text="@string/line_recharge"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:drawableTopCompat="@mipmap/main_line_recharge" />
 
                 <View
                         android:layout_width="0.5dp"
@@ -88,7 +89,7 @@
                         android:background="@color/separator" />
 
                 <TextView
-
+android:id="@+id/myBundleServicesBtn"
                         style="@style/TextAppearance.small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -113,7 +114,7 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/garageBtn"
+                        android:id="@+id/dataCalculatorBtn"
                         style="@style/TextAppearance.small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -151,7 +152,7 @@
                         android:background="@color/separator" />
 
                 <TextView
-                        android:id="@+id/contactUsBtn"
+                        android:id="@+id/vasServicesBtn"
                         style="@style/TextAppearance.small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

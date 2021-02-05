@@ -24,7 +24,7 @@ class ResetPasswordUseCase
 
         return restApi.resetPassword(
             ForgotPasswordRequest(
-                session.msisdn,
+                session.verificationToken,
                 params.password,
                 params.confirmPassword
             )

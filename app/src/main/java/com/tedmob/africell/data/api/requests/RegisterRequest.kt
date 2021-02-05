@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class RegisterRequest(
-    @field:[Expose SerializedName("username")]
-    val username: String?,
+    @field:[Expose SerializedName("verificationToken")]
+    val verificationToken: String?,
     @field:[Expose SerializedName("firstName")]
     val firstName: String?,
     @field:[Expose SerializedName("lastName")]

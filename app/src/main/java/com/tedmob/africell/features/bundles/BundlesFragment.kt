@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.dto.AccountBalanceDTO
 import com.tedmob.africell.data.api.dto.BundleInfo
+import com.tedmob.africell.data.api.dto.BundlesDTO
 import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_DETAILS
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -17,12 +19,12 @@ import kotlinx.android.synthetic.main.fragment_bundles.*
 import javax.inject.Inject
 
 class BundlesFragment : BaseFragment() {
-    val bundle get() = arguments?.getParcelableArrayList<BundleInfo>(KEY_BUNDLE)
+    val bundle get() = arguments?.getParcelable<BundlesDTO>(KEY_BUNDLE)
 
 
     companion object {
         const val KEY_BUNDLE = "key_bundle"
-        fun newInstance(bundle: List<BundleInfo>?): BundlesFragment {
+        fun newInstance(bundle:BundlesDTO ?): BundlesFragment {
             return BundlesFragment().apply {
                 arguments = bundleOf(KEY_BUNDLE to bundle)
 
@@ -34,8 +36,7 @@ class BundlesFragment : BaseFragment() {
         return wrap(inflater.context, R.layout.fragment_bundles, 0, false)
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<BundlesViewModel> {
         viewModelFactory
     }
@@ -44,7 +45,7 @@ class BundlesFragment : BaseFragment() {
         super.configureToolbar()
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
-        actionbar?.title = ""
+
     }
 
 
@@ -68,7 +69,7 @@ class BundlesFragment : BaseFragment() {
         recyclerView.layoutManager = GridLayoutManager(context, 3)
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = true
-        adapter.setItems(bundle.orEmpty().toMutableList())
+        adapter.setItems(bundle?.bundleInfo.orEmpty().toMutableList())
     }
 
 

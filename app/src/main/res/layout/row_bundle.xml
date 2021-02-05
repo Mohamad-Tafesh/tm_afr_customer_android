@@ -44,11 +44,11 @@
             android:layout_height="wrap_content"
             android:text="@string/active"/>
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/activate"
+            android:id="@+id/activateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:text="@string/activate"
+            android:text="@string/buy"
             style="@style/Button.yellow.small"/>
 
 </LinearLayout>

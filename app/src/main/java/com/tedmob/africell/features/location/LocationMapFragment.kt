@@ -28,8 +28,7 @@ class LocationMapFragment : BaseFragment() {
         lateinit var currentLocation: CurrentLocation*/
     var googleMap: GoogleMap? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
 
     private var mapFragment: SupportMapFragment? = null

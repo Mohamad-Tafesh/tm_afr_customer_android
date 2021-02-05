@@ -5,13 +5,16 @@ import android.content.Intent
 import android.widget.Toast
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.exception.AppException
+import com.tedmob.africell.features.authentication.domain.RefreshTokenUseCase
 import com.tedmob.africell.features.launch.RootActivity
 import dagger.Reusable
+import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
 @Reusable
 class AppSessionNavigator
 @Inject constructor(
+    private val refreshTokenUseCase: RefreshTokenUseCase,
     private val session: SessionRepository,
     private val application: Application
 ) {
@@ -20,6 +23,22 @@ class AppSessionNavigator
         session.invalidateSession()
         Toast.makeText(application, exceptionToShow.userMessage, Toast.LENGTH_LONG).show()
         restart()
+    }
+
+    fun refreshToken(){
+        refreshTokenUseCase.execute(Unit,object:DisposableObserver<Unit>(){
+            override fun onNext(t: Unit) {
+                Toast.makeText(application,"refreshed Token",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onError(e: Throwable) {
+            }
+
+            override fun onComplete() {
+
+            }
+
+        })
     }
 
     fun invalidateSessionAndRestart() {

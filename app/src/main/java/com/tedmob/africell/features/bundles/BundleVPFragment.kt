@@ -1,4 +1,4 @@
-package com.tedmob.africelll.features.bundles
+package com.tedmob.africell.features.bundles
 
 import android.graphics.Typeface
 import android.os.Bundle
@@ -12,17 +12,19 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
 import com.tedmob.africell.data.api.dto.BundlesDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.features.bundles.BundlesFragment
-import com.tedmob.africell.features.bundles.BundlesViewModel
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_bundle_vp.*
+import kotlinx.android.synthetic.main.fragment_location.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -35,11 +37,10 @@ class BundleVPFragment : BaseFragment() {
     @Inject
     lateinit var sessionRepository: SessionRepository
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<BundlesViewModel> { viewModelFactory }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_bundle_vp, R.layout.toolbar_default, true)
+        return wrap(inflater.context, R.layout.fragment_bundle_vp, R.layout.toolbar_bundle_vp, true)
     }
 
     companion object {
@@ -49,20 +50,32 @@ class BundleVPFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.show()
-        actionbar?.title = ""
+        actionbar?.title = bundleCategory.categoryName + " Bundles"
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)
     }
-
+    private fun searchRxTextView() {
+        searchTxt?.let {
+            RxTextView.textChanges(it)
+                .skip(1)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ charSequence ->
+                    viewModel.getBundlesByCategory(bundleCategory.idBundleCategories,charSequence.toString())
+                }) { t -> }
+        }
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        searchRxTextView()
         bindData()
+
 
     }
 
     private fun bindData() {
-        viewModel.getBundlesByCategory(bundleCategory.idBundleCategories)
+        viewModel.getBundlesByCategory(bundleCategory.idBundleCategories,null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
             setupViewPager(bundles)
         }
@@ -78,7 +91,7 @@ class BundleVPFragment : BaseFragment() {
         viewPager.adapter = object : FragmentStateAdapter(this) {
 
             override fun createFragment(position: Int): Fragment {
-                return BundlesFragment.newInstance(bundles[position].bundleInfo)
+                return BundlesFragment.newInstance(bundles[position])
             }
 
             override fun getItemCount(): Int {

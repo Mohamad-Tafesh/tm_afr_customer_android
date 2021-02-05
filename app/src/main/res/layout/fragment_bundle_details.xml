@@ -49,24 +49,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView"/>
-<TextView
+        <TextView
+                android:id="@+id/validForTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="@string/active"/>
+
+        <TextView
         android:id="@+id/priceTxt"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:textColor="@color/darkPink"
+    android:textColor="@color/yellow"
         android:text="Price: 1$"
         style="@style/TextAppearance.normalBold"/>
-        <TextView
-                android:id="@+id/isActivatedTxt"
-                style="@style/TextAppearance.normal"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:layout_width="match_parent"
-                android:textColor="@color/yellow"
-                android:layout_height="wrap_content"
-                android:text="@string/active"/>
 
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/activateBundleBtn"
                 style="@style/Button.yellow"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:text="@string/activate_for_me"
@@ -75,12 +77,11 @@
 
         <com.google.android.material.button.MaterialButton
                 android:layout_marginTop="@dimen/spacing_normal"
+                android:id="@+id/activateBundleForSomeOneElseBtn"
                 style="@style/Button.purple"
                 android:text="@string/activate_bundle_for_someone_else"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.terms
 
 
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -13,13 +14,14 @@ import javax.inject.Inject
 class TermsViewModel
 @Inject constructor(
     private val getTermsUseCase: GetTermsUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
     val data = SingleLiveEvent<Resource<TermsDTO>>()
 
     fun getData() {
-        ResourceUseCaseExecutor(getTermsUseCase, Unit, data, appExceptionFactory) { getData() }.execute()
+        ResourceUseCaseExecutor(getTermsUseCase, Unit, data,appExceptionFactory, appSessionNavigator) { getData() }.execute()
     }
 
 

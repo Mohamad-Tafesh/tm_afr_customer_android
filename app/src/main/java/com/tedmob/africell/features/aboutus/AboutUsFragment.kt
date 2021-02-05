@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -12,10 +13,11 @@ import com.tedmob.africell.util.intents.email
 import com.tedmob.africell.util.intents.openWebsite
 import com.tedmob.africell.util.intents.share
 import kotlinx.android.synthetic.main.fragment_about_us.*
+import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 class AboutUsFragment : BaseFragment() {
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<AboutViewModel> { viewModelFactory }
     var message: String? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -24,6 +26,7 @@ class AboutUsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel.aboutUs()
         bindAboutData()
     }
@@ -54,7 +57,7 @@ class AboutUsFragment : BaseFragment() {
 
     private fun bindAboutData() {
         observeResourceInline(viewModel.aboutData) { about ->
-            message = about.message
+            message = about.description
             description.text = about.description.orEmpty().html()
           //  imageView.setImageURI(about.image)
 
@@ -62,7 +65,7 @@ class AboutUsFragment : BaseFragment() {
                 email(to = about.email)
             }
             insta.setOnClickListener {
-                openWebsite(about.instagram, "Requested URL is not valid", null)
+            //    openWebsite(about.insta, "Requested URL is not valid", null)
             }
             twitter.setOnClickListener {
                 openWebsite(about.twitter, "Requested URL is not valid", null)
@@ -71,7 +74,7 @@ class AboutUsFragment : BaseFragment() {
                 openWebsite(about.facebook, "Requested URL is not valid", null)
             }
             linkedIn.setOnClickListener {
-                openWebsite(about.linkedIn, "Requested URL is not valid", null)
+                openWebsite(about.linkedin, "Requested URL is not valid", null)
             }
         }
     }

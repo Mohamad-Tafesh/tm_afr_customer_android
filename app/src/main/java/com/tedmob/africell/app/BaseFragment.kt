@@ -2,6 +2,7 @@ package com.tedmob.africell.app
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +14,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
+import com.facebook.drawee.view.SimpleDraweeView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.tedmob.africell.R
+import com.tedmob.africell.features.authentication.AuthenticationActivity
+import com.tedmob.africell.features.home.ImageViewModel
 import com.tedmob.africell.ui.blocks.LoadingLayout
 import com.tedmob.africell.ui.blocks.LoadingView
 import com.tedmob.africell.ui.blocks.ToolbarLayout
 import com.tedmob.africell.ui.hideKeyboard
+import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
+import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.DialogUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
@@ -44,11 +51,18 @@ abstract class BaseFragment : DaggerFragment() {
     protected var progressDialog: ProgressDialog? = null
 
     private var rxDisposables: CompositeDisposable? = null
-
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     /**
      * Toolbar might be shared between multiple fragments. Configure it here.
      */
     open fun configureToolbar() {}
+    private val imageViewModel by provideViewModel<ImageViewModel> { viewModelFactory }
+    fun setupImageBanner(toolbar: SimpleDraweeView, imageType: String?, pageName: String? ){
+        imageViewModel.getImages(imageType, pageName)
+        observeResourceWithoutProgress(imageViewModel.imagesData,{
+            toolbar.setImageURI(it.getOrNull(0))
+        })
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -221,6 +235,24 @@ abstract class BaseFragment : DaggerFragment() {
                 .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
                 .show()
         }
+    }
+
+    fun showLoginMessage() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(getString(R.string.login_first))
+            .setCancelable(true)
+            .setPositiveButton(R.string.login) { dialog, which ->
+                redirectToLogin()
+            }
+            .setNegativeButton(R.string.close) { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+    fun redirectToLogin() {
+        activity?.startActivity(Intent(activity, AuthenticationActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
     }
 
     override fun onDestroyView() {

@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.main.fragment_terms.*
 import javax.inject.Inject
 
 class TermsFragment : BaseFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<TermsViewModel> { viewModelFactory}
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)

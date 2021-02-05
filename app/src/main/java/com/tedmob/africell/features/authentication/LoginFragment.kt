@@ -27,8 +27,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
 
     private var liv: Liv? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<LoginViewModel> { viewModelFactory }
 
 
@@ -60,6 +59,10 @@ class LoginFragment : BaseFragment(), Liv.Action {
         forgotPassword.setOnClickListener {
             val bundle= bundleOf(Pair(IS_RESET,true))
             findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment,bundle)
+        }
+        skip.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+            activity?.finish()
         }
         bindUser()
         bindCountries()

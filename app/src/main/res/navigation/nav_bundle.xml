@@ -16,7 +16,7 @@
     <fragment
             android:id="@+id/bundleVPFragment"
             tools:layout="@layout/fragment_bundle_vp"
-            android:name="com.tedmob.africelll.features.bundles.BundleVPFragment"
+            android:name="com.tedmob.africell.features.bundles.BundleVPFragment"
             android:label="BundleVPFragment" >
         <action
                 android:id="@+id/action_bundleVPFragment_to_bundleDetailsFragment"
@@ -26,5 +26,14 @@
             android:id="@+id/bundleDetailsFragment"
             tools:layout="@layout/fragment_bundle_details"
             android:name="com.tedmob.africell.features.bundles.BundleDetailsFragment"
-            android:label="BundleDetailsFragment" />
+            android:label="BundleDetailsFragment" >
+        <action
+                android:id="@+id/action_bundleDetailsFragment_to_activateBundleFragment"
+                app:destination="@id/activateBundleFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/activateBundleFragment"
+            tools:layout="@layout/fragment_activate_bundle"
+            android:name="com.tedmob.africell.features.activateBundle.ActivateBundleFragment"
+            android:label="" />
 </navigation>

@@ -34,7 +34,10 @@ data class BundleInfo(
         return volume + " " + unit
     }
     fun getFormatValidity(): String {
-        return validity + " " + validityUnit
+        return volume + unit+ "/"+ validity + validityUnit
+    }
+    fun getTitle():String{
+        return  "$category Bundles"
     }
 
 }

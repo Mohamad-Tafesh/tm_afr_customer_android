@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tedmob.africell.features.aboutus.AboutViewModel
 import com.tedmob.africell.features.accountInfo.AccountViewModel
+import com.tedmob.africell.features.activateBundle.ActivateBundleViewModel
+import com.tedmob.africell.features.addNewAccount.AddAccountViewModel
 import com.tedmob.africell.features.authentication.LoginViewModel
 import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.authentication.ResetPasswordViewModel
@@ -12,11 +14,14 @@ import com.tedmob.africell.features.bookNumber.BookNumberViewModel
 import com.tedmob.africell.features.bundles.BundlesViewModel
 import com.tedmob.africell.features.creditTransfer.CreditTransferViewModel
 import com.tedmob.africell.features.customerCare.CustomerCareViewModel
+import com.tedmob.africell.features.dataCalculator.DataCalculatorViewModel
 import com.tedmob.africell.features.faq.FaqViewModel
 import com.tedmob.africell.features.home.HomeViewModel
+import com.tedmob.africell.features.home.ImageViewModel
 import com.tedmob.africell.features.launch.SplashViewModel
 import com.tedmob.africell.features.lineRecharge.LineRechargeViewModel
 import com.tedmob.africell.features.location.LocationViewModel
+import com.tedmob.africell.features.myBundlesAndServices.MyBundlesAndServicesViewModel
 import com.tedmob.africell.features.profile.ChangePasswordViewModel
 import com.tedmob.africell.features.profile.EditProfileViewModel
 import com.tedmob.africell.features.reportIncident.ReportIncidentViewModel
@@ -24,6 +29,7 @@ import com.tedmob.africell.features.services.ServicesViewModel
 import com.tedmob.africell.features.sms.SMSViewModel
 import com.tedmob.africell.features.terms.TermsViewModel
 import com.tedmob.africell.features.usefulNumber.UsefulNumberViewModel
+import com.tedmob.africell.features.vasServices.VasServicesViewModel
 import com.tedmob.africell.ui.BaseViewModel
 import dagger.Binds
 import dagger.Module
@@ -153,5 +159,33 @@ abstract class ViewModelModule {
     @ViewModelKey(CreditTransferViewModel::class)
     internal abstract fun creditTransferViewModel(viewModel: CreditTransferViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(ActivateBundleViewModel::class)
+    internal abstract fun activateBundleViewModel(viewModel: ActivateBundleViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DataCalculatorViewModel::class)
+    internal abstract fun dataCalculatorViewModel(viewModel: DataCalculatorViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyBundlesAndServicesViewModel::class)
+    internal abstract fun myBundlesAndServicesViewModel(viewModel: MyBundlesAndServicesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VasServicesViewModel::class)
+    internal abstract fun vasServicesViewModel(viewModel: VasServicesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddAccountViewModel::class)
+    internal abstract fun addAccountViewModel(viewModel: AddAccountViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ImageViewModel::class)
+    internal abstract fun imageViewModel(viewModel: ImageViewModel): ViewModel
 }

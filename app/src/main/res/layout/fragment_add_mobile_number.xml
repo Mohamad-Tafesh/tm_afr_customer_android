@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_medium">
+
+
+        <TextView
+                style="@style/TextAppearance.big.title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/mobile_number" />
+
+        <TextView
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:gravity="center"
+                android:text="@string/please_enter_mobile_number"
+                android:textColor="@color/black" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+            <com.tedmob.africell.ui.spinner.MaterialSpinner
+                    android:id="@+id/countrySpinner"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_tiny"
+                    android:focusable="false"
+                    app:contentStyle="@style/TextInputEditText.grey"
+                    app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/purple"
+                    app:spinnerMode="searchableDialog" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobileNumberLayout"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_tiny"
+                    android:layout_weight="1"
+                    app:errorTextColor="@color/red_900"
+                    >
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="@string/mobile_number"
+                        android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.tedmob.africell.ui.button.LoadingProgressButton
+                android:id="@+id/sendButton"
+                style="@style/Button.purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/send" />
+    </LinearLayout>
+
+</ScrollView>

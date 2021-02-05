@@ -34,9 +34,11 @@ class BundleAdapter(
             validityTxt.text = item.getFormatValidity()
             priceTxt.text ="Price: "+ item.price
             isActivatedTxt.isVisible = item.activate == true
+            activateBtn.setOnClickListener {
+                callback.onItemClickListener(item)
+            }
             setOnClickListener {
                 callback.onItemClickListener(item)
-
             }
         }
     }

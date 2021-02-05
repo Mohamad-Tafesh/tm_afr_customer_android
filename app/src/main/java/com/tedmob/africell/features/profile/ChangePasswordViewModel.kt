@@ -1,5 +1,6 @@
 package com.tedmob.africell.features.profile
 
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -16,14 +17,15 @@ import javax.inject.Inject
 class ChangePasswordViewModel
 @Inject constructor(
     private val changePasswordUseCase: ChangePasswordUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
     val changePasswordData = SingleLiveEvent<Resource<ChangePasswordDTO>>()
 
     fun changePassword(oldPassword:String, password:String, confirmPassword:String) {
         val params = ChangePasswordUseCase.Params(oldPassword,password, confirmPassword)
-        ResourceUseCaseExecutor(changePasswordUseCase, params, changePasswordData, appExceptionFactory, null).execute()
+        ResourceUseCaseExecutor(changePasswordUseCase, params, changePasswordData,appExceptionFactory, appSessionNavigator, null).execute()
     }
 
 

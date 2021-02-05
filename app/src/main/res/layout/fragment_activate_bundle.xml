@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal">
+
+        <TextView
+                android:id="@+id/volumeTxt"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="volume"
+                android:textColor="@color/darkPink" />
+
+        <TextView
+                android:id="@+id/validityTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+
+                android:gravity="center"
+                android:text="volume" />
+
+        <TextView
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="Fom Number" />
+
+        <com.tedmob.africell.ui.spinner.MaterialSpinner
+                android:id="@+id/fromLayout"
+                style="@style/TextInputLayout.grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                app:contentStyle="@style/TextInputEditText.grey"
+                app:endIconDrawable="@mipmap/icon_arrow_pink_down"
+                app:endIconMode="custom"
+                app:endIconTint="@null"
+                app:spinnerMode="dialog"
+                app:startIconDrawable="@mipmap/fields_empty" />
+
+        <TextView
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="To Number" />
+
+        <LinearLayout
+                android:id="@+id/toSomeOneElseLayout"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <com.tedmob.africell.ui.spinner.MaterialSpinner
+                    android:id="@+id/countrySpinner"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_tiny"
+                    android:focusable="false"
+                    app:spinnerMode="dialog"
+                    app:contentStyle="@style/TextInputEditText.grey"
+                    app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/purple" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobileNumberLayout"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_tiny"
+                    android:layout_weight="1"
+                    app:endIconMode="custom"
+                    app:endIconTint="@null"
+                    app:endIconDrawable="@mipmap/icon_contact_field"
+                    app:errorTextColor="@color/red_900">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mobile_number"
+                        android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+
+        <com.tedmob.africell.ui.spinner.MaterialSpinner
+                android:id="@+id/toNumberLayout"
+                style="@style/TextInputLayout.grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                app:contentStyle="@style/TextInputEditText.grey"
+                app:endIconDrawable="@mipmap/icon_arrow_pink_down"
+                app:endIconMode="custom"
+                app:endIconTint="@null"
+                app:spinnerMode="dialog"
+                app:startIconDrawable="@mipmap/fields_empty" />
+
+        <CheckBox
+                android:id="@+id/isAutoRenew"
+                style="@style/TextAppearance.normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="@string/auto_renewal" />
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/submitBtn"
+                style="@style/Button.yellow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/submit" />
+
+    </LinearLayout>
+
+
+</ScrollView>

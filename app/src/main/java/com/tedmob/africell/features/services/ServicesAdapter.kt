@@ -32,11 +32,12 @@ class ServicesAdapter(
         holder.itemView.run {
             //image.setImageURI(item?.image)
             // distance.text=item?.displayDistance()
-            title.text = item?.title
 
-            subscribedTxt.visibility = if (item.isSubscribed == true) View.VISIBLE else View.GONE
-            subscribeBtn.visibility = if (item.isSubscribed == true) View.GONE else View.VISIBLE
-            description.text = item?.title
+            title.text = item?.name
+
+            subscribedTxt.visibility = if (item.isActive == true) View.VISIBLE else View.GONE
+            subscribeBtn.visibility = if (item.isActive == true) View.GONE else View.VISIBLE
+            description.text = item?.description
             setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)

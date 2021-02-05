@@ -12,6 +12,7 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observe
@@ -26,8 +27,7 @@ import java.util.*
 import javax.inject.Inject
 
 class RegisterFragment : BaseFragment(), Liv.Action {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideActivityViewModel<RegisterViewModel> { viewModelFactory }
     private var liv: Liv? = null
 
@@ -53,7 +53,7 @@ class RegisterFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SIGN_UP)
         liv = initLiv()
         liv?.start()
         setupDOB()
@@ -61,6 +61,7 @@ class RegisterFragment : BaseFragment(), Liv.Action {
         findNavController().addOnDestinationChangedListener(onDestinationChangedListener)
 
         nextButton.setOnClickListener {
+            activity?.hideKeyboard()
             liv?.submitWhenValid()
         }
 

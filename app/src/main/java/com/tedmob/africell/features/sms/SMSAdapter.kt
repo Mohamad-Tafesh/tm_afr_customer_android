@@ -37,7 +37,7 @@ class SMSAdapter(
 
             if (position == openPosition) {
                 backgroundId.setBackgroundResource(R.drawable.circle_bgd_transparent)
-            } else backgroundId.setBackgroundColor(resources.getColor(R.color.transparent,null))
+            } else backgroundId.setBackgroundColor(resources.getColor(R.color.transparent))
 
             textItem.alpha= if (position < openPosition) {
                 0.5f

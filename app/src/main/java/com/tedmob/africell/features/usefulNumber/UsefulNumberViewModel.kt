@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.usefulNumber
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.dto.LocationDTO
@@ -17,13 +18,14 @@ import javax.inject.Inject
 class UsefulNumberViewModel
 @Inject constructor(
     private val getUsefulUseCase: GetUsefulUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
     val usefulData = MutableLiveData<Resource<List<UsefulNumberDTO>>>()
 
      fun getUsefulNumber(){
-        ResourceUseCaseExecutor(getUsefulUseCase, Unit, usefulData, appExceptionFactory) {
+        ResourceUseCaseExecutor(getUsefulUseCase, Unit, usefulData,appExceptionFactory, appSessionNavigator) {
             getUsefulNumber()
         }.execute()
 

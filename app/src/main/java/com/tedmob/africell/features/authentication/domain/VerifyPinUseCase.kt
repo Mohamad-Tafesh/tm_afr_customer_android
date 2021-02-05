@@ -24,12 +24,10 @@ class VerifyPinUseCase
 
 
     override fun buildUseCaseObservable(params: Params): Observable<VerifyOTPDTO> {
-        return restApi.verifyOTP(VerifyOTPRequest( session.msisdn, params.pin))/*.map {
-            session.accessToken = it.token.orEmpty()
-            session.user = it
-            session.identifyUser(firebaseAnalytics,firebaseCrashlytics)
+        return restApi.verifyOTP(VerifyOTPRequest( session.msisdn, params.pin)).map {
+            session.verificationToken = it.verificationToken.orEmpty()
             it
-        }*/
+        }
     }
 
     data class Params(

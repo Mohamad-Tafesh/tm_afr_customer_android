@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/AppTheme.Toolbar"/>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple"
+            android:padding="@dimen/spacing_normal"
+            android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchTextLayout"
+                style="@style/TextInputLayout.SearchView.Purple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:focusedByDefault="false"
+                android:gravity="center"
+                android:paddingLeft="@dimen/spacing_normal"
+                android:paddingRight="@dimen/spacing_normal"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/white"
+                app:hintEnabled="false"
+                app:startIconDrawable="@mipmap/nav_search"
+                app:startIconTint="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableEnd="@mipmap/fields_empty"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="false"
+                    android:gravity="center"
+                    android:hint="@string/search"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:paddingLeft="@dimen/spacing_tiny"
+                    android:paddingTop="0dp"
+                    android:paddingRight="@dimen/spacing_tiny"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey_300"
+                    android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </FrameLayout>
+</LinearLayout>

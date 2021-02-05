@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.sms
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -16,14 +17,15 @@ class SMSViewModel
 @Inject constructor(
     private val getSMSDatatUseCase: GetSMSDatatUseCase,
     private val sendFreeSmsUseCase: SendFreeSmsUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
     val smsData = MutableLiveData<Resource<SMSData>>()
     val smsSentData = SingleLiveEvent<Resource<SMSCountDTO>>()
 
     fun getSmsCount() {
-        ResourceUseCaseExecutor(getSMSDatatUseCase, Unit, smsData, appExceptionFactory) {
+        ResourceUseCaseExecutor(getSMSDatatUseCase, Unit, smsData,appExceptionFactory, appSessionNavigator) {
             getSmsCount()
         }.execute()
     }
@@ -33,7 +35,7 @@ class SMSViewModel
             sendFreeSmsUseCase,
             SendFreeSmsUseCase.Params(receiverMsisdn, message),
             smsSentData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
         ).execute()
     }
 

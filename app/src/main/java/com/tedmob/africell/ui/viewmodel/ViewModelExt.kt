@@ -247,35 +247,8 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
     })
 }
 
-fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResource(
-    liveData: L?,
-    body: (T) -> Unit
-) {
-    liveData?.observe(this, Observer {
-        it?.let { resource ->
-            when (resource) {
-                is Resource.Loading -> {
-                }
-                is Resource.Success -> {
-                    body.invoke(resource.data)
-                }
-                is Resource.Error -> {
-                    if (resource.action == null) {
-                        showMessage(resource.message)
-                    } else {
-                        showMessageWithAction(
-                            resource.message,
-                            getString(R.string.retry),
-                            resource.action
-                        )
-                    }
-                }
-            }
-        }
-    })
-}
 
-fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceProgress(
+fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResource(
     liveData: L?,
     body: (T) -> Unit
 ) {

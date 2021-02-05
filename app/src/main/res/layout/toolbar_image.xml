@@ -18,11 +18,13 @@
                 android:id="@+id/toolbarImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:actualImageScaleType="fitXY"
+                android:scaleType="fitXY"
                 app:actualImageResource="@mipmap/main_top_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:viewAspectRatio="1.78" />
+                app:viewAspectRatio="2" />
 
         <TextView
                 android:id="@+id/toolbarTitle"

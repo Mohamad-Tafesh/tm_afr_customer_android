@@ -24,6 +24,7 @@
                 app:placeholderImage="@mipmap/img_terms"
                 app:viewAspectRatio="1.8" />
         <TextView
+                android:layout_marginTop="@dimen/spacing_normal"
                 android:autoLink="all"
                 style="@style/TextAppearance.normal"
                 android:id="@+id/descriptionTxt"

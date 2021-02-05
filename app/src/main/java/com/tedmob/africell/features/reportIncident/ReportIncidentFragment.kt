@@ -9,8 +9,9 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.PHONE_NUMBER
-import com.tedmob.africell.data.api.dto.SupportCategoryDTO
+import com.tedmob.africell.data.api.dto.IncidentTypeDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
@@ -30,8 +31,7 @@ class ReportIncidentFragment : BaseFragment(), Liv.Action {
 
     private val liv by lazy { initLiv() }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<ReportIncidentViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,10 +51,17 @@ class ReportIncidentFragment : BaseFragment(), Liv.Action {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        liv.start()
-        bindData()
-        contactUsBtn.setOnClickListener {
-            liv.submitWhenValid()
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.REPORT_INCIDENT)
+        if(sessionRepository.isLoggedIn()) {
+            liv.start()
+            bindData()
+            contactUsBtn.setOnClickListener {
+                liv.submitWhenValid()
+            }
+        }else{
+            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+                redirectToLogin()
+            }
         }
     }
 
@@ -89,7 +96,7 @@ class ReportIncidentFragment : BaseFragment(), Liv.Action {
 
     override fun performAction() {
         activity?.hideKeyboard()
-        val category = (supportCategoryLayout.selectedItem as SupportCategoryDTO)
+        val category = (supportCategoryLayout.selectedItem as IncidentTypeDTO)
         viewModel.contactUs(
             category,
             messageLayout.getText()

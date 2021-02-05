@@ -1,5 +1,6 @@
 package com.tedmob.africell.features.authentication
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,20 +12,18 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.util.getText
 import kotlinx.android.synthetic.main.fragment_set_password.*
 import kotlinx.android.synthetic.main.toolbar_image.*
-import javax.inject.Inject
 
 class ResetPasswordFragment : BaseFragment(), Liv.Action {
 
     private var liv: Liv? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideActivityViewModel<ResetPasswordViewModel> { viewModelFactory }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_set_password, R.layout.toolbar_image, false)
@@ -42,7 +41,7 @@ class ResetPasswordFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.FORGOT_PASSWORD)
         liv = initLiv()
         liv?.start()
         bindData()

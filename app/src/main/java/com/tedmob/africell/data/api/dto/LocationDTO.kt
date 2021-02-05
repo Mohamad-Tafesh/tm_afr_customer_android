@@ -17,6 +17,8 @@ data class LocationDTO(
     val languageid: Int?,
     @field:[Expose SerializedName("latitude")]
     val latitude: String?,
+    @field:[Expose SerializedName("description")]
+    val description: String?,
     @field:[Expose SerializedName("longitude")]
     val longitude: String?,
     @field:[Expose SerializedName("shopName")]

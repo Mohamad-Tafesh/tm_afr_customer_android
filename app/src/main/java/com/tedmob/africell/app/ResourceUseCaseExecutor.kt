@@ -12,8 +12,8 @@ open class ResourceUseCaseExecutor<T, in Params>(
     useCase: UseCase<T, Params>,
     params: Params,
     private val liveData: MutableLiveData<Resource<T>>,
-    private val appExceptionFactory: AppExceptionFactory,
-    private val appSessionNavigator: AppSessionNavigator? = null,
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator,
     private val action: (() -> Unit)? = null
 ) : UseCaseExecutor<T, Params>(useCase, params) {
 
@@ -30,6 +30,7 @@ open class ResourceUseCaseExecutor<T, in Params>(
 
             override fun onError(e: AppException) {
                 liveData.value = Resource.Error(e.userMessage, action)
+
                 afterError(e)
             }
         }

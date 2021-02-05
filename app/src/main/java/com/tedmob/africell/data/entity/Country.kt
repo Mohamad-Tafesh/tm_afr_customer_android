@@ -8,7 +8,7 @@ data class Country(
         @field:[Expose SerializedName("name")] val name: String,
         @field:[Expose SerializedName("dial_code")] val phonecode: String
 ) {
-    override fun toString(): String = "$phonecode"
+    override fun toString(): String = "$phonecode "
 
     companion object {
         const val LEBANON_CODE = "+961"

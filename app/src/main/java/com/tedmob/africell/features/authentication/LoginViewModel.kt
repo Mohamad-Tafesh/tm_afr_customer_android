@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.authentication
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -19,7 +20,8 @@ class LoginViewModel
     private val getCountries: GetCountriesUseCase,
     private val loginUseCase: LoginUseCase,
     private val generateOTPUseCase: GenerateOTPUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
 
@@ -32,7 +34,7 @@ val generateOTPData=SingleLiveEvent<Resource<GenerateOTPDTO>>()
             Unit,
             countriesData,
             appExceptionFactory,
-            null,
+            appSessionNavigator,
             null
         ).execute()
     }
@@ -44,19 +46,19 @@ val generateOTPData=SingleLiveEvent<Resource<GenerateOTPDTO>>()
             params,
             loginData,
             appExceptionFactory,
-            null,
+            appSessionNavigator,
             null
         ).execute()
     }
 
-    fun generateOTP(mobileNumber:String) {
-        val params = GenerateOTPUseCase.Params(mobileNumber)
+    fun generateOTP(mobileNumber:String,otp:Int) {
+        val params = GenerateOTPUseCase.Params(mobileNumber,otp)
         ResourceUseCaseExecutor(
             generateOTPUseCase,
             params,
             generateOTPData,
             appExceptionFactory,
-            null,
+            appSessionNavigator,
             null
         ).execute()
 

@@ -35,4 +35,14 @@
             android:id="@+id/creditTransferFragment"
             android:name="com.tedmob.africell.features.creditTransfer.CreditTransferFragment"
             android:label="CreditTransferFragment" />
+    <activity
+            android:id="@+id/addAccountActivity"
+            tools:layout="@layout/activity_add_account"
+            android:name="com.tedmob.africell.features.addNewAccount.AddAccountActivity"
+            android:label="AddAccountActivity" />
+    <activity
+            android:id="@+id/accountManagementActivity"
+            tools:layout="@layout/activity_account_management"
+            android:name="com.tedmob.africell.features.accountsNumber.AccountManagementActivity"
+            android:label="AccountManagementActivity" />
 </navigation>

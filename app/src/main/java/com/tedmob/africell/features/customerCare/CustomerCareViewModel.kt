@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.customerCare
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
@@ -17,7 +18,8 @@ class CustomerCareViewModel
 @Inject constructor(
     private val submitCustomerCareUseCase: SubmitCustomerCareUseCase,
     private val getCustomerCareCategoryUseCase: GetCustomerCareCategoryUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
 
@@ -29,7 +31,7 @@ class CustomerCareViewModel
             getCustomerCareCategoryUseCase,
             Unit,
             supportCategoryData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
         ) {
             getSupportCategory()
         }.execute()
@@ -40,7 +42,7 @@ class CustomerCareViewModel
             submitCustomerCareUseCase,
             SubmitCustomerCareUseCase.Params( category?.id,category?.name, message),
             contactUsData,
-            appExceptionFactory
+            appExceptionFactory,appSessionNavigator
         ).execute()
     }
 

@@ -15,8 +15,7 @@ class AboutUsUseCase
 ) : UseCase<AboutDTO, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<AboutDTO> {
-        return /*restApi.aboutUs()*/Observable.just(AboutDTO(1212,"djskajda","test@t.com","","",
-        123,"","","","","","",""))
+        return restApi.aboutUs()
     }
 
 }

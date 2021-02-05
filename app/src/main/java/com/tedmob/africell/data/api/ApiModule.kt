@@ -49,6 +49,7 @@ object ApiModule {
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
+                        .header("accept","text/plain")
                         .header("Accept-Language", "en")
                         .header("Authorization",  credentials)
 

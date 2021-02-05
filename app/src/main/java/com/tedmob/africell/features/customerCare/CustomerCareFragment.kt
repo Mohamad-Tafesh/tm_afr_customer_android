@@ -9,10 +9,11 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.PHONE_NUMBER
 import com.tedmob.africell.data.api.dto.SupportCategoryDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -28,8 +29,7 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
 
     private val liv by lazy { initLiv() }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<CustomerCareViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,14 +49,20 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        liv.start()
-
-        bindData()
-        contactUsBtn.setOnClickListener {
-            liv.submitWhenValid()
+        if (sessionRepository.isLoggedIn()) {
+            liv.start()
+            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CUSTOMER_CARE)
+            bindData()
+            contactUsBtn.setOnClickListener {
+                activity?.hideKeyboard()
+                liv.submitWhenValid()
+            }
+        } else {
+            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+                redirectToLogin()
+            }
         }
     }
-
 
 
     private fun bindData() {

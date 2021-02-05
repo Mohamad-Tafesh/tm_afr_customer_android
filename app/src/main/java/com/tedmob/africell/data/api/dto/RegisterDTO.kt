@@ -8,6 +8,10 @@ data class RegisterDTO(
         @field:[Expose SerializedName("resultCode")]
         val resultCode: Int?,
         @field:[Expose SerializedName("resultText")]
-        val resultText: String?
+        val resultText: String?,
+        @field:[Expose SerializedName("authenticationToken")]
+        val authenticationToken: String?,
+        @field:[Expose SerializedName("refreshToken")]
+        val refreshToken: String?,
 
 )

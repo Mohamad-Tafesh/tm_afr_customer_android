@@ -8,6 +8,8 @@ data class VerifyOTPDTO(
         @field:[Expose SerializedName("resultCode")]
         val resultCode: Int?,
         @field:[Expose SerializedName("resultText")]
-        val resultText: String?
+        val resultText: String?,
+        @field:[Expose SerializedName("verificationToken")]
+        val verificationToken: String?
 
 )

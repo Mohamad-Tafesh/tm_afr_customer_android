@@ -1,6 +1,7 @@
 package com.tedmob.africell.features.faq
 
 import androidx.lifecycle.MutableLiveData
+import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.exception.AppExceptionFactory
@@ -11,7 +12,8 @@ import javax.inject.Inject
 class FaqViewModel
 @Inject constructor(
     private val getFaqItems: GetFaqItemsUseCase,
-    private val appExceptionFactory: AppExceptionFactory
+        private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator
 ) : BaseViewModel() {
 
     val items: MutableLiveData<Resource<List<FaqItem>>> = MutableLiveData()
@@ -23,7 +25,7 @@ class FaqViewModel
             Unit,
             items,
             appExceptionFactory,
-            null,
+            appSessionNavigator,
             { getItems() }
         ).execute()
     }

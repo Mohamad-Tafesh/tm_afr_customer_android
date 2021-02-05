@@ -9,19 +9,20 @@ import io.reactivex.observers.DisposableObserver
  */
 abstract class DefaultObserver<T>(
     private val appExceptionFactory: AppExceptionFactory,
-    private val appSessionNavigator: AppSessionNavigator? = null
+    private val appSessionNavigator: AppSessionNavigator,
 ) : DisposableObserver<T>() {
 
     override fun onComplete() {
         // no-op by default.
+
     }
 
     override fun onError(t: Throwable) {
         val appException = appExceptionFactory.make(t)
-        if (appException.code == AppException.Code.INVALID_TOKEN && appSessionNavigator != null) {
-            onInvalidToken(appException)
-        } else {
-            onError(appException)
+        when (appException.message) {
+           "Invalid_token" -> onInvalidToken(appException)
+            "Expired_token" -> appSessionNavigator.refreshToken()
+            else -> onError(appException)
         }
     }
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/spacing_normal"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_accounts"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_normal"
+            style="@style/TextAppearance.Title"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator"
+            android:layout_marginTop="@dimen/spacing_normal"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/recyclerView"
+            android:orientation="vertical"
+            tools:listitem="@layout/row_accounts"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            style="@style/Button.yellow"
+            android:id="@+id/addNewAccount"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_account"/>
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            style="@style/Button.purple"
+            android:id="@+id/accountManagement"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_height="wrap_content"
+            android:text="@string/account_management"/>
+</LinearLayout>

@@ -25,23 +25,8 @@
 
       </LinearLayout>
 
-  <!--  <TextView
-            android:id="@+id/subscribedTxt"
-            style="@style/TextAppearance.normalBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:drawablePadding="@dimen/spacing_tiny"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:textColor="@color/yellow"
-            android:visibility="gone"
-            app:drawableStartCompat="@mipmap/icon_subscribe"
-            android:text="@string/subscribed" />
--->
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/subscribeBtn"
+            android:id="@+id/bookBtn"
             style="@style/Button.yellow.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

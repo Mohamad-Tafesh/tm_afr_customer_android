@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
 import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.data.api.dto.UsefulNumberDTO
-import kotlinx.android.synthetic.main.row_services.view.*
+import kotlinx.android.synthetic.main.row_useful_number.view.*
 
 class UsefulNumberAdapter(
     private var items: List<UsefulNumberDTO>,

@@ -27,7 +27,7 @@ class OffersBannerAdapter(
 
     override fun onBindViewHolder(holder: ItemVH, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+       with( holder.itemView) {
             image.setImageURI(item)
         }
 

@@ -56,8 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_tiny"
                     android:layout_weight="1"
-                    app:errorTextColor="@color/red_900"
-                    app:hintTextColor="@color/white">
+                    app:errorTextColor="@color/red_900">
 
                 <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextInputEditText.grey"

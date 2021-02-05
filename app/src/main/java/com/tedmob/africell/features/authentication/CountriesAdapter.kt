@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.core.widget.TextViewCompat
 import com.tedmob.africell.R
 import com.tedmob.africell.data.entity.Country
 
@@ -20,7 +19,7 @@ class CountriesAdapter(context: Context, countries: List<Country>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent) as TextView
         val country = getItem(position)
-        view.text = "(${country?.phonecode})"
+        view.text = "${country?.phonecode}"
         return view
     }
 
@@ -29,8 +28,8 @@ class CountriesAdapter(context: Context, countries: List<Country>) :
         val country = getItem(position)
         //view.text = country.phoneCode
         val context = view.context
-            val flagRes = context.resources.getIdentifier("ic_country_flag_${country?.code?.toLowerCase()}", "mipmap", context.packageName)
-        TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(view, flagRes, 0, 0, 0)
+        //    val flagRes = context.resources.getIdentifier("ic_country_flag_${country.code.toLowerCase()}", "mipmap", context.packageName)
+        //TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(view, flagRes, 0, 0, 0)
         view.text = "${country?.name} (${country?.phonecode})"
         return view
     }

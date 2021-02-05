@@ -6,6 +6,8 @@ interface SessionRepository {
     var accessToken: String
     var refreshToken: String
     var msisdn:String
+    var selectedMsisdn:String
+    var verificationToken:String
 
     var user: UserDTO?
 
@@ -16,4 +18,6 @@ interface SessionRepository {
     fun invalidateSession()
 
     fun isLoggedIn(): Boolean
+
+    fun redirectToLogin()
 }

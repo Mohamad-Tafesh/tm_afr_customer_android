@@ -16,7 +16,8 @@ class CreditTransferUseCase
 ) : UseCase<SMSCountDTO, CreditTransferUseCase.Params>(schedulers) {
 
     override fun buildUseCaseObservable(params: Params): Observable<SMSCountDTO> {
-           return restApi.creditTransfer(sessionRepository.msisdn,params.receiverMsisdn,params.amount)
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        return restApi.creditTransfer(subMsisdn,params.receiverMsisdn,params.amount)
     }
 
     data class Params(

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+        app:titleEnabled="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/toolbarImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:actualImageScaleType="fitXY"
+                app:actualImageResource="@mipmap/main_top_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewAspectRatio="2" />
+
+        <TextView
+                android:id="@+id/toolbarTitle"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                tools:text="FAQ" />
+
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frame_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tabIconTint="@null"
+                app:tabIndicatorColor="@color/purple"
+                app:tabIndicatorHeight="4dp"
+                app:tabInlineLabel="true"
+                app:tabMode="scrollable"
+                android:paddingTop="@dimen/spacing_small"
+                android:paddingRight="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_normal"
+                app:tabSelectedTextColor="@color/purple"
+                app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:tabTextColor="@color/purple" />
+        <View
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/transparent"
+            android:theme="@style/AppTheme.Toolbar.transparent"
+            app:layout_collapseMode="pin" />
+    <ImageView
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+        android:src="@mipmap/main_logo_top"
+            android:layout_height="wrap_content"/>
+</com.google.android.material.appbar.CollapsingToolbarLayout>

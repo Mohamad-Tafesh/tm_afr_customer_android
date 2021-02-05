@@ -11,6 +11,8 @@ import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
+import com.tedmob.africell.data.api.ApiContract.Params.FORGOT_PASSWORD_TYPE
+import com.tedmob.africell.data.api.ApiContract.Params.NEW_USER_TYPE
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
@@ -26,8 +28,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
 
     private var liv: Liv? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by provideViewModel<LoginViewModel> { viewModelFactory }
 
     val isReset by lazy {
@@ -64,7 +65,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
         bindUser()
         bindCountries()
         debugOnly {
-            mobileNumberLayout.setText("70640164")
+            mobileNumberLayout.setText("790790077")
         }
     }
 
@@ -80,7 +81,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+961" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
         })
@@ -98,8 +99,9 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
         val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
         val formatted =
             PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+        val otpType= if(isReset==true) FORGOT_PASSWORD_TYPE else NEW_USER_TYPE
         formatted?.let {
-            viewModel.generateOTP(formatted)
+            viewModel.generateOTP(formatted,otpType)
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }

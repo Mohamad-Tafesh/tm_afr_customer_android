@@ -1,4 +1,3 @@
-
 package com.tedmob.africell.features.home
 
 import android.os.Bundle
@@ -7,14 +6,18 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.data.api.dto.BalanceDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.data.api.ApiContract
+import com.tedmob.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
+import com.tedmob.africell.data.api.ApiContract.Params.SLIDERS
+import com.tedmob.africell.data.entity.SubAccount
+import com.tedmob.africell.data.repository.domain.SessionRepository
+import com.tedmob.africell.data.toHomeBalance
+import com.tedmob.africell.features.accountInfo.AccountViewModel
+import com.tedmob.africell.features.accountsNumber.AccountsNumbersFragment
 import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
@@ -29,11 +32,9 @@ class HomeFragment : BaseFragment() {
     }
 
     val balanceAdapter by lazy {
-        BalanceAdapter(mutableListOf())
+        HomeBalanceAdapter(mutableListOf())
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by provideViewModel<HomeViewModel> { viewModelFactory }
     val handler = Handler(Looper.getMainLooper())
@@ -41,6 +42,8 @@ class HomeFragment : BaseFragment() {
     val POST_DELAY = 3000L
     private val infiniteBalanceAdapter by lazy { InfiniteScrollAdapter.wrap(balanceAdapter) }
 
+
+    private val accountViewModel by provideViewModel<AccountViewModel> { viewModelFactory }
     private val offersAdapter by lazy {
         OffersBannerAdapter(mutableListOf(), object : OffersBannerAdapter.Callback {
             override fun onItemClick(item: String) {
@@ -61,23 +64,58 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.HOME_PAGE)
         bundlesLayout.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
         }
         lineRecharge.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
+            if(sessionRepository.isLoggedIn()) {
+                findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
+            }else showLoginMessage()
         }
         accountInfoLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
+            if(sessionRepository.isLoggedIn()) {
+                findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
+            }else showLoginMessage()
         }
-        setupRecyclerView()
-        bindData()
-        val balance = mutableListOf(
-            BalanceDTO(1, "2"), BalanceDTO(1, "2"), BalanceDTO(1, "2"),
-            BalanceDTO(1, "2"), BalanceDTO(1, "2"), BalanceDTO(1, "2")
-        )
+        dataCalculatorBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_dataCalculatorFragment)
+        }
+        myBundleServicesBtn.setOnClickListener {
+            if(sessionRepository.isLoggedIn()) {
+                findNavController().navigate(R.id.action_homeFragment_to_myBundleServicesVPFragment)
+            }else showLoginMessage()
+        }
+        vasServicesBtn.setOnClickListener {
+            if(sessionRepository.isLoggedIn()) {
+                findNavController().navigate(R.id.action_homeFragment_to_vasServicesFragment)
+            }else showLoginMessage()
+        }
 
-        balanceAdapter.setItems(balance)
+        setupRecyclerView()
+        setupUI()
+        bindData()
+
+        //balanceAdapter.setItems(balance)
+    }
+
+    private fun setupUI() {
+        if (sessionRepository.isLoggedIn()) {
+            viewModel.getSubAccounts()
+            accountViewModel.getAccountInfo()
+            loginTxt.visibility = View.GONE
+            enrollBtn.visibility=View.VISIBLE
+            enrollBtn.setOnClickListener {
+                findNavController().navigate(R.id.addAccountActivity)
+            }
+        } else {
+            loginTxt.visibility = View.VISIBLE
+            loginTxt.setOnClickListener {
+                showLoginMessage()
+            }
+            accountSpinner.visibility=View.GONE
+            enrollBtn.visibility=View.GONE
+        }
     }
 
     private fun setupRecyclerView() {
@@ -86,7 +124,7 @@ class HomeFragment : BaseFragment() {
             setItemTransformer(
                 com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
                     .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
-                    .setMaxScale(1.2f)
+                    .setMaxScale(1.1f)
                     //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
                     .build()
             )
@@ -96,36 +134,50 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    @Inject
+    lateinit var sessionRepository: SessionRepository
+
     private fun bindData() {
-        viewModel.getSubAccounts()
-        observeResourceWithoutProgress(viewModel.subAccountData) {
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
-            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            accountSpinner.adapter = arrayAdapter
-            accountSpinner.visibility=View.VISIBLE
-            accountSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        viewModel.getImages(SLIDERS, HOME_PAGE)
 
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
+        observeResourceWithoutProgress(viewModel.subAccountData) { subAccounts ->
+            if (sessionRepository.selectedMsisdn.isEmpty()) {
+                sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
-            accountSpinner.setSelection(0)
+            accountSpinner.setText(sessionRepository.selectedMsisdn)
+            accountSpinner.setOnClickListener {
+                val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
+                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
+                    override fun addNewAccount() {
+                        findNavController().navigate(R.id.addAccountActivity)
+                    }
+
+                    override fun manageAccount() {
+                        findNavController().navigate(R.id.accountManagementActivity)
+                    }
+
+                    override fun setDefault(subAccount: SubAccount) {
+                        accountSpinner.setText(subAccount.account)
+                        accountViewModel.getAccountInfo()
+                    }
+                })
+            }
+            accountSpinner.visibility = View.VISIBLE
 
         }
 
-/*
-        observeResourceInline(viewModel.homeData) {
-*/
-        viewPager.adapter = offersAdapter
-        val banners = mutableListOf<String>("1")
-        offersAdapter.setItems(banners)
-        pageIndicator.setViewPager(viewPager)
-        autoScroll(banners.size)
+        observeResourceWithoutProgress(accountViewModel.accountInfoData) {
+            balanceAdapter.setItems(it.homePage?.toHomeBalance().orEmpty())
+        }
 
 
+        observeResourceWithoutProgress(viewModel.imagesData) {
+            viewPager.adapter = offersAdapter
+            offersAdapter.setItems(it)
+            pageIndicator.setViewPager(viewPager)
+            autoScroll(it.size)
+        }
     }
 
 

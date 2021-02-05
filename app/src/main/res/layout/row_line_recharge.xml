@@ -42,6 +42,14 @@
                 android:autoLink="all"
                 android:gravity="center_vertical"
                 tools:text="testdtsdtsfdtsfdyf" />
+        <TextView
+                android:id="@+id/priceTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:gravity="center_vertical"
+                tools:text="testdtsdtsfdtsfdyf" />
     </LinearLayout>
 
 

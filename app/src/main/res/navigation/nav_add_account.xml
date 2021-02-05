@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_add_account"
+        app:startDestination="@id/addAccountFragment">
+
+
+    <fragment
+            android:id="@+id/addAccountFragment"
+            android:name="com.tedmob.africell.features.addNewAccount.AddAccountFragment"
+            android:label="AddAccountFragment" >
+        <action
+                android:id="@+id/action_addAccountFragment_to_verifyAccountFragment"
+                app:destination="@id/verifyAccountFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/verifyAccountFragment"
+            android:name="com.tedmob.africell.features.addNewAccount.VerifyAccountFragment"
+            android:label="VerifyAccountFragment" />
+</navigation>

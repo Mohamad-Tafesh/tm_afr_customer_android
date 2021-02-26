@@ -8,6 +8,7 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.util.removeTime
 import kotlinx.android.synthetic.main.fragment_my_bundle_details.*
 import javax.inject.Inject
 
@@ -58,7 +59,7 @@ titleTxt.text=bundle.name.orEmpty()
         subtitle.text=bundle.subTitle.orEmpty()
         descriptionTxt.text=bundle.description.orEmpty()
         balanceTitle.text=bundle.currentValue.orEmpty()+"/"+bundle.maxValue.orEmpty()
-        expiryDateTxt.text="EXP:" + bundle.expiryDate.orEmpty()
+        expiryDateTxt.text="EXP:" + bundle.expiryDate.orEmpty().removeTime()
         progressBar.max=bundle.maxValue?.toDoubleOrNull()?.toInt()?:100
         progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt()?:0)
 

@@ -20,7 +20,7 @@
                 app:actualImageScaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:placeholderImage="@mipmap/img_terms"
+
                 app:viewAspectRatio="1.8" />
         <TextView
                 android:layout_marginTop="@dimen/spacing_normal"

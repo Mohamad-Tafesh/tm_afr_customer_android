@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
 import com.tedmob.africell.data.entity.MyAccountBalance
+import com.tedmob.africell.util.removeTime
 import kotlinx.android.synthetic.main.row_balance.view.*
 
 class AccountBalanceAdapter(
@@ -46,7 +47,7 @@ class AccountBalanceAdapter(
 
             nameTxt.text=item?.title
             valueTxt.text=item?.currentBalance +" "+item?.unit
-            expiryDateTxt.text="Expiry Date: "+item?.expiryDate
+            expiryDateTxt.text="Expiry Date: "+item?.expiryDate?.removeTime()
 
             setOnClickListener {
                 item?.let {

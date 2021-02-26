@@ -45,3 +45,7 @@ fun String.toFormat(dateformat: String): String {
     val date = format1.format(this)
     return date
 }
+
+fun String.removeTime():String{
+    return this.split(delimiters =  charArrayOf(' '))?.getOrNull(0) ?: this
+}

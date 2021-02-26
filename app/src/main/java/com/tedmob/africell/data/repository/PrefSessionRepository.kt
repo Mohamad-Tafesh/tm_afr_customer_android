@@ -22,7 +22,10 @@ constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : Session
     override fun invalidateSession() {
         accessToken = ""
         refreshToken=""
+        verificationToken=""
         user = null
+        msisdn=""
+        selectedMsisdn=""
     }
 
     override var accessToken: String by RxPrefProperty(prefUtils.accessToken)
@@ -40,13 +43,6 @@ constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : Session
         return accessToken.isNotBlank()
     }
 
-    override fun redirectToLogin() {
-        invalidateSession()
-        context.startActivity(Intent(context, AuthenticationActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        })
-        Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show()
-    }
 
     override var verificationToken: String by RxPrefProperty(prefUtils.verificationToken)
 

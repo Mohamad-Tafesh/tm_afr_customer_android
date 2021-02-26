@@ -19,5 +19,4 @@ interface SessionRepository {
 
     fun isLoggedIn(): Boolean
 
-    fun redirectToLogin()
 }

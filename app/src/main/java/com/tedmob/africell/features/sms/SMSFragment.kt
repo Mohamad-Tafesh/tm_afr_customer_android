@@ -97,6 +97,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
             countries.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
+            countrySpinner.isEnabled=false
         }
 
         observeResource(viewModel.smsSentData) {

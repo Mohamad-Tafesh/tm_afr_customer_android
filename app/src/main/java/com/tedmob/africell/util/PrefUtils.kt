@@ -18,4 +18,5 @@ constructor(preferences: RxSharedPreferences) {
     val language = preferences.getString("pref_language", "en")
 
     val user = preferences.getString("pref_user", "")
+    val showHelp=preferences.getBoolean("show_help", true)
 }

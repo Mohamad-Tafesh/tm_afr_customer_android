@@ -2,39 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout"
+        tools:background="@drawable/africell_bgd_login1"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
 
-        <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_medium">
+
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/nextBtn"
                 style="@style/Button.purple"
-                android:text="Next Step"
 
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints" />
+                android:text="Next Step"
+                app:layout_constraintBottom_toTopOf="@+id/pageIndicator" />
+
+
         <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/pageIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:id="@+id/pageIndicator"
+                android:padding="@dimen/spacing_small"
                 app:ci_animator="@anim/indicator_no_animation"
                 app:ci_animator_reverse="@anim/indicator_no_animation"
-                android:padding="@dimen/spacing_small"
                 app:ci_drawable="@drawable/white_cv"
                 app:ci_drawable_unselected="@drawable/light_grey_cv"
                 app:ci_height="5dp"
@@ -42,7 +51,5 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </LinearLayout>
 </LinearLayout>

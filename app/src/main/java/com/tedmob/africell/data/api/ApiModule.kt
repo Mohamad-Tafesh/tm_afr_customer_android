@@ -77,6 +77,53 @@ object ApiModule {
         return builder.build()
     }
 
+
+    @Provides
+    @Singleton
+    @Named("FrescoClient")
+    internal fun provideFrescoClient(client: OkHttpClient, session: SessionRepository): OkHttpClient {
+        val builder = client.newBuilder()
+            .connectTimeout(60L, TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .writeTimeout(60L, TimeUnit.SECONDS)
+        //In case Retrofit or OkHttp were updated, this allows relying on TLSv1 and TLSv1.1 in case needed.
+        //.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))
+
+        builder.addInterceptor {//addNetworkInterceptor in case you don't want to handle redirections, but logs will not show "access-token"
+            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+            it.proceed(
+                it.request().let { request ->
+                    request.newBuilder()
+                        .header("User-Agent", System.getProperty("http.agent").orEmpty())
+                        .header("Content-Type", "application/json")
+                        .header("accept","text/plain")
+                        .header("Accept-Language", "en")
+
+                        .apply {
+                            if (
+                                request.tag(String::class.java) != ApiContract.Params.NO_TOKEN_TAG &&
+                                session.isLoggedIn()
+                            ) {
+                                header("X-Authorization", "Bearer "+session.accessToken)
+
+                            }
+                        }
+                        .build()
+                }
+            )
+        }
+
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor =
+                HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(loggingInterceptor)
+        }
+
+        return builder.build()
+    }
+
+
     @Provides
     @Singleton
     internal fun provideRetrofit(

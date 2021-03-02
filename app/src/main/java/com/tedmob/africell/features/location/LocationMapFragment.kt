@@ -16,11 +16,10 @@ import com.google.android.gms.maps.model.*
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.LocationDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
+import com.tedmob.africell.util.intents.openGoogleMapNavigation
 import kotlinx.android.synthetic.main.fragment_location_map.*
-import javax.inject.Inject
 
 
 class LocationMapFragment : BaseFragment() {
@@ -42,7 +41,6 @@ class LocationMapFragment : BaseFragment() {
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         getUserLocationPermission()
@@ -51,10 +49,11 @@ class LocationMapFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.title = ""
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
     }
+
     private fun setupLayout() {
         setUpMapConfiguration()
         bindLocationsData()
@@ -81,7 +80,7 @@ class LocationMapFragment : BaseFragment() {
                                     BitmapDescriptorFactory.fromResource(
                                         R.mipmap.maps_icon
                                     )
-                              )
+                                )
                             )
                             marker.title = "${location.shopName}"
                             marker.tag = location
@@ -163,7 +162,7 @@ class LocationMapFragment : BaseFragment() {
                     task.result?.longitude?.let { longitude ->
                         task.result?.latitude?.let { latitude ->
                             val latLng = LatLng(latitude, longitude)
-                            viewModel.getLocations(null,  task.result?.latitude, task.result?.longitude)
+                            viewModel.getLocations(null, task.result?.latitude, task.result?.longitude)
                             /*context?.let {
                                 //googleMap.addMarker(MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.user_location)))
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
@@ -193,7 +192,7 @@ class LocationMapFragment : BaseFragment() {
                 }
                 val bounds = builder.build()
                 val cu = CameraUpdateFactory.newLatLngBounds(bounds, 30)
-                cu?.let{
+                cu?.let {
                     googleMap.moveCamera(cu)
                 }
             }
@@ -214,19 +213,21 @@ class LocationMapFragment : BaseFragment() {
 
             distance.text = location.displayDistance()
             description.text = location.shopOwner
-            /*  getDirection.setOnClickListener {
-                  if (location.lat != null && location.lng != null) {
-                      openGoogleMapNavigation(location.lat, location.lng)
-                  } else {
-                      showMessage(getString(R.string.direction_not_available))
-                  }
-              }
-              callUs.setOnClickListener {
-                  location.phoneNb?.let { dial(it) } ?: showMessage("Phone number is not available")
-              }
-              email.setOnClickListener {
-                  location.email?.let{email(it)} ?: showMessage("Email is not available")
-              }*/
+            getDirection.setOnClickListener {
+                val lat = location.latitude?.toDoubleOrNull()
+                val long = location.longitude?.toDoubleOrNull()
+
+                if (lat != null && long != null) {
+                    openGoogleMapNavigation(lat, long)
+                } else {
+                    showMessage(getString(R.string.direction_not_available))
+                }
+            }
+            callUs.setOnClickListener {
+                if (location.numbers().isNotEmpty()) {
+                    promptCallUs(location.numbers())
+                } else showMessage("Phone number is not available")
+            }
             locationRootInfo.setOnClickListener {
                 // viewModelLocationDetails.details.value=location
                 //   findNavController().navigate(R.id.action_locationMapFragment_to_locationDetailsFragment)
@@ -277,6 +278,7 @@ class LocationMapFragment : BaseFragment() {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_location_map, menu)
         super.onCreateOptionsMenu(menu, inflater)

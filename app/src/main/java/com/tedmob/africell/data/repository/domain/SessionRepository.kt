@@ -14,9 +14,11 @@ interface SessionRepository {
     var language: String
 
     var userChangedLanguage: Boolean
+    var showHelp: Boolean
 
     fun invalidateSession()
 
     fun isLoggedIn(): Boolean
+
 
 }

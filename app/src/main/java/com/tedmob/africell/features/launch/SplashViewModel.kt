@@ -1,10 +1,12 @@
 package com.tedmob.africell.features.launch
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import com.tedmob.africell.R
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.repository.domain.SessionRepository
+import com.tedmob.africell.features.help.HelpActivity
 import com.tedmob.africell.ui.BaseViewModel
 import javax.inject.Inject
 
@@ -26,10 +28,10 @@ class SplashViewModel
                     navigate(R.id.action_splashFragment_to_authenticationActivity)
 
                 }
-                /* if(session.showHelp) {
+                 if(session.showHelp) {
                      activity?.startActivity(Intent(activity, HelpActivity::class.java))
                  }
- */
+
                 activity?.finish()
             }
         )

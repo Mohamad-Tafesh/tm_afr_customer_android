@@ -95,6 +95,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
             it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
+            countrySpinner.isEnabled=false
 
         })
         observeResourceInline(viewModel.cardsData) {

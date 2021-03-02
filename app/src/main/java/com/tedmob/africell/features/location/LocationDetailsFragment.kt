@@ -113,7 +113,10 @@ class LocationDetailsFragment : BaseFragment() {
             distance.text = location.displayDistance()
             description.text = location.description?.html()
             callUs.setOnClickListener {
-                location.telephoneNumber?.let { dial(it) } ?: showMessage("Phone number is not available")
+                if (location.numbers().isNotEmpty()) {
+                    promptCallUs(location.numbers())
+                } else showMessage("Phone number is not available")
+
             }
             getDirection.setOnClickListener {
                 if (location.latitude?.toDoubleOrNull() != null && location.longitude?.toDoubleOrNull() != null) {

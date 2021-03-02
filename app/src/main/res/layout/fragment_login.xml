@@ -82,9 +82,6 @@
                         android:layout_marginEnd="@dimen/spacing_tiny"
                         android:focusable="false"
                         app:contentStyle="@style/TextInputEditText.grey"
-                        app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
-                        app:endIconMode="custom"
-                        app:endIconTint="@color/purple"
                         app:spinnerMode="dialog" />
 
                 <com.google.android.material.textfield.TextInputLayout

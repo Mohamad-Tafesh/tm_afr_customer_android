@@ -34,4 +34,14 @@ data class LocationDTO(
     fun displayDistance(): String {
         return /*distance?.let { String.format("$distance Km") } ?:*/ "N/A"
     }
+    fun numbers():List<String>{
+        val numbers=mutableListOf<String>()
+        if(telephoneNumber!=null) {
+            numbers.add(telephoneNumber)
+        }
+        if(telephone!=null) {
+            numbers.add(telephone)
+        }
+        return numbers
+    }
 }

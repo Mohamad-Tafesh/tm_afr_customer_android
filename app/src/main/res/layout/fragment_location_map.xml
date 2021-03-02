@@ -94,6 +94,7 @@
                     <com.google.android.material.button.MaterialButton
                             style="@style/Button.yellow.small"
                             android:layout_width="0dp"
+                            android:id="@+id/callUs"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_small"
                             android:layout_weight="1"
@@ -104,6 +105,7 @@
                     <com.google.android.material.button.MaterialButton
                             style="@style/Button.yellow.small"
                             android:layout_width="0dp"
+                            android:id="@+id/getDirection"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/spacing_tiny"
                             android:layout_weight="1"

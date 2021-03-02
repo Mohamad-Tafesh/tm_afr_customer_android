@@ -14,12 +14,14 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.hideKeyboard
-import com.tedmob.africell.ui.viewmodel.*
+import com.tedmob.africell.ui.viewmodel.observe
+import com.tedmob.africell.ui.viewmodel.observeResource
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
+import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.util.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.toolbar_image.*
 import java.util.*
-import javax.inject.Inject
 
 class EditProfileFragment : BaseFragment(), Liv.Action {
 
@@ -48,7 +50,7 @@ class EditProfileFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.PROFILE    )
+        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.PROFILE)
         liv = initLiv()
         liv?.start()
         setupDOB()
@@ -73,8 +75,9 @@ class EditProfileFragment : BaseFragment(), Liv.Action {
             viewModel.dobData.value = it.dateOfBirth?.toTimeInMillis(DOB_DATE_FORMAT)
         }
         observeResource(viewModel.updatedProfileData) {
-            findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
-            activity?.finish()
+            showMessageDialog("your profile has been updated successfully", getString(R.string.close)) {
+                findNavController().popBackStack()
+            }
         }
     }
 

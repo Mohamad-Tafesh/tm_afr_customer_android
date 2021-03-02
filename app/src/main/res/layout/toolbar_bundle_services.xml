@@ -19,6 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:actualImageScaleType="fitXY"
+                android:scaleType="fitXY"
+                android:background="@mipmap/main_top_2"
+                app:backgroundImage="@mipmap/main_top_2"
                 app:actualImageResource="@mipmap/main_top_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,20 +64,27 @@
                 android:layout_height="1dp"
                 android:background="@color/separator"/>
 
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/AppTheme.Toolbar.transparent"
+                app:layout_collapseMode="pin" />
+
+        <ImageView
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintStart_toStartOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="@id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:src="@mipmap/main_logo_top" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/transparent"
-            android:theme="@style/AppTheme.Toolbar.transparent"
-            app:layout_collapseMode="pin" />
-    <ImageView
-            android:layout_marginTop="@dimen/spacing_small"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-        android:src="@mipmap/main_logo_top"
-            android:layout_height="wrap_content"/>
 </com.google.android.material.appbar.CollapsingToolbarLayout>

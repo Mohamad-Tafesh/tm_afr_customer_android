@@ -39,6 +39,7 @@
         <activity android:name=".features.accountInfo.AccountInfoActivity" />
         <activity android:name=".features.accountsNumber.AccountManagementActivity" />
         <activity android:name=".features.addNewAccount.AddAccountActivity" />
+        <activity android:name=".features.help.HelpActivity" />
 
         <service
                 android:name="com.tedmob.africell.notification.NotificationService"

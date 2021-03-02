@@ -6,8 +6,10 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseActivity
+import com.tedmob.africell.app.BaseBottomSheetFragment
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.ui.button.LoadingProgressButton
@@ -306,3 +308,92 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceInline(
         }
     })
 }
+
+fun <T : Any, L : LiveData<Resource<T>>> BaseBottomSheetFragment.observeResource(
+    liveData: L?,
+    body: (T) -> Unit
+) {
+    liveData?.observe(viewLifecycleOwner, Observer {
+        it?.let { resource ->
+            when (resource) {
+                is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    body.invoke(resource.data)
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    if (resource.action == null) {
+                        showMessage(resource.message)
+                    } else {
+                        showMessageWithAction(
+                            resource.message,
+                            getString(R.string.retry),
+                            resource.action
+                        )
+                    }
+                }
+            }
+        }
+    })
+}
+
+fun <T : Any, L : LiveData<Resource<T>>> BaseBottomSheetFragment.observeResourceInline(
+    liveData: L?,
+    body: (T) -> Unit
+) {
+    liveData?.observe(viewLifecycleOwner, Observer {
+        it?.let { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    showInlineLoading()
+                }
+                is Resource.Success -> {
+                    showContent()
+                    body.invoke(resource.data)
+                }
+                is Resource.Error -> {
+                    if (resource.action == null) {
+                        showInlineMessage(resource.message)
+                    } else {
+                        showInlineMessageWithAction(
+                            resource.message,
+                            getString(R.string.retry),
+                            resource.action
+                        )
+                    }
+                }
+            }
+        }
+    })
+}
+
+fun <T : Any, L : LiveData<Resource<T>>> BaseBottomSheetFragment.observeResourceWithoutProgress(
+    liveData: L?,
+    body: (T) -> Unit
+) {
+    liveData?.observe(viewLifecycleOwner, Observer {
+        it?.let { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    body.invoke(resource.data)
+                }
+                is Resource.Error -> {
+                    if (resource.action == null) {
+                        showMessage(resource.message)
+                    } else {
+                        showMessageWithAction(
+                            resource.message,
+                            getString(R.string.retry),
+                            resource.action
+                        )
+                    }
+                }
+            }
+        }
+    })
+}
+
+

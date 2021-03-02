@@ -21,7 +21,10 @@ import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_mobile_number.*
+import kotlinx.android.synthetic.main.fragment_mobile_number.countrySpinner
+import kotlinx.android.synthetic.main.fragment_mobile_number.mobileNumberLayout
 import javax.inject.Inject
 
 class MobileNumberFragment : BaseFragment(), Liv.Action {
@@ -84,6 +87,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
             it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
+            countrySpinner.isEnabled=false
         })
     }
 

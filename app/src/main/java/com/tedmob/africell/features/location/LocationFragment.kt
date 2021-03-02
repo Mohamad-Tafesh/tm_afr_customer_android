@@ -63,7 +63,7 @@ class LocationFragment : BaseFragment() {
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.title = ""
+        actionbar?.title = getString(R.string.location)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)

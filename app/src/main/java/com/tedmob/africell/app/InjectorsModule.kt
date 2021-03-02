@@ -39,6 +39,7 @@ import com.tedmob.africell.features.terms.TermsFragment
 import com.tedmob.africell.features.usefulNumber.UsefulNumberFragment
 import com.tedmob.africell.features.bundles.BundleVPFragment
 import com.tedmob.africell.features.dataCalculator.DataCalculatorFragment
+import com.tedmob.africell.features.help.HelpActivity
 import com.tedmob.africell.features.myBundlesAndServices.MyBundleDetailsFragment
 import com.tedmob.africell.features.myBundlesAndServices.MyBundleServicesVPFragment
 import com.tedmob.africell.features.myBundlesAndServices.MyBundlesAndServicesFragment
@@ -192,4 +193,7 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun myBundleDetailsFragment(): MyBundleDetailsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun helpActivity(): HelpActivity
 }

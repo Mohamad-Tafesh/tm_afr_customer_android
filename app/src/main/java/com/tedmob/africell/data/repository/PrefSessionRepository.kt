@@ -43,6 +43,7 @@ constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : Session
         return accessToken.isNotBlank()
     }
 
+    override var showHelp: Boolean by RxPrefProperty(prefUtils.showHelp)
 
     override var verificationToken: String by RxPrefProperty(prefUtils.verificationToken)
 

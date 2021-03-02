@@ -9,19 +9,19 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
-import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.app.BaseBottomSheetFragment
 import com.tedmob.africell.data.api.dto.BundleInfo
 import com.tedmob.africell.data.api.requests.ActivateBundleRequest
 import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.features.bundles.BundleDetailsFragment
+import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_DETAILS
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.spinner.MaterialSpinner
 import com.tedmob.africell.ui.spinner.OnItemSelectedListener
@@ -33,9 +33,13 @@ import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_activate_bundle.*
+import kotlinx.android.synthetic.main.fragment_activate_bundle.countrySpinner
+import kotlinx.android.synthetic.main.fragment_activate_bundle.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_login.*
+import javax.inject.Inject
 
 
-class ActivateBundleFragment : BaseFragment(), Liv.Action {
+class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     private var liv: Liv? = null
 
     val isActivateForMe by lazy {
@@ -49,23 +53,26 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
     }
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
+    @Inject
+    lateinit var sessionRepository: SessionRepository
 
     private val viewModel by provideViewModel<ActivateBundleViewModel> { viewModelFactory }
 
     companion object {
         const val ACTIVATE_FOR_ME = "activate_for_me"
+        fun newInstance(bundle: BundleInfo, isActivateForMe: Boolean): ActivateBundleFragment {
+            return ActivateBundleFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(BUNDLE_DETAILS, bundle)
+                    putBoolean(ACTIVATE_FOR_ME, isActivateForMe)
+                }
+            }
+        }
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_activate_bundle, R.layout.toolbar_default, true)
-    }
-
-    override fun configureToolbar() {
-        super.configureToolbar()
-        actionbar?.title = bundle.getTitle()
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-        setHasOptionsMenu(true)
+        return wrap(inflater.context, R.layout.fragment_activate_bundle, 0, true)
     }
 
 
@@ -84,9 +91,9 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
 
     fun visibilityAutoRenew() {
         if (isActivateForMe) {
-        isAutoRenew.visibility=View.VISIBLE
+            isAutoRenew.visibility = View.VISIBLE
             autoRenewVisibility()
-            toNumberLayout.onItemSelectedListener= object : OnItemSelectedListener {
+            toNumberLayout.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
                     autoRenewVisibility()
                 }
@@ -95,29 +102,29 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
                 }
 
             }
-            fromLayout.onItemSelectedListener= object : OnItemSelectedListener {
+            fromLayout.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
                     autoRenewVisibility()
                 }
 
                 override fun onNothingSelected(parent: MaterialSpinner) {
                 }
-
             }
-
         } else {
             hideAutoRenew()
         }
 
     }
-    private fun autoRenewVisibility(){
-        if(toNumberLayout.getText()==fromLayout.getText()){
-            isAutoRenew.visibility=View.VISIBLE
-        }else{
+
+    private fun autoRenewVisibility() {
+        if (toNumberLayout.getText() == fromLayout.getText()) {
+            isAutoRenew.visibility = View.VISIBLE
+        } else {
             hideAutoRenew()
         }
     }
-    private fun hideAutoRenew(){
+
+    private fun hideAutoRenew() {
         isAutoRenew.isChecked = false
         isAutoRenew.visibility = View.GONE
     }
@@ -132,7 +139,7 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
             toSomeOneElseLayout.visibility = View.VISIBLE
             submitBtn.setBackgroundColor(resources.getColor(R.color.purple))
         }
-
+        titleTxt.text = bundle.getTitle()
         volumeTxt.text = bundle.getFormatVolume()
         validityTxt.text = bundle.getFormatValidity()
 
@@ -161,9 +168,14 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
             arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
             fromLayout.adapter = arrayAdapter
-            fromLayout.selection=0
             toNumberLayout.adapter = arrayAdapter
-            toNumberLayout.selection=0
+
+            it.indexOfFirst { it.account == sessionRepository.selectedMsisdn }?.takeIf { it != -1 }?.let {
+                fromLayout.selection = it
+                toNumberLayout.selection = it
+            }
+
+
             visibilityAutoRenew()
 
         })
@@ -173,11 +185,13 @@ class ActivateBundleFragment : BaseFragment(), Liv.Action {
             it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
+            countrySpinner.isEnabled=false
 
         })
         observeResource(viewModel.activateBundleData) {
             showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
-                findNavController().popBackStack()
+                this.dismiss()
+                // findNavController().popBackStack()
             }
         }
 

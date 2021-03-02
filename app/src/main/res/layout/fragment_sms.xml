@@ -45,9 +45,7 @@ android:paddingStart="@dimen/spacing_tiny"
                 android:focusable="false"
                 app:spinnerMode="dialog"
                 app:contentStyle="@style/TextInputEditText.grey"
-                app:endIconDrawable="@mipmap/ic_dropdown_arrow_down"
-                app:endIconMode="custom"
-                app:endIconTint="@color/purple" />
+                />
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/mobileNumberLayout"

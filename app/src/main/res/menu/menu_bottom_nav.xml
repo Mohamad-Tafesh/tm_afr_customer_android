@@ -22,7 +22,7 @@
             android:title="@string/sms" />
 
     <item
-            android:id="@+id/locationMapFragment"
+            android:id="@+id/locationListFragment"
             android:icon="@drawable/tab_location"
             android:title="@string/location" />
 

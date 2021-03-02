@@ -2,7 +2,6 @@ package com.tedmob.africell.app
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,33 +14,30 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import com.facebook.drawee.view.SimpleDraweeView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.tedmob.africell.R
 import com.tedmob.africell.features.authentication.AuthenticationActivity
-import com.tedmob.africell.features.home.ImageViewModel
 import com.tedmob.africell.ui.blocks.LoadingLayout
 import com.tedmob.africell.ui.blocks.LoadingView
 import com.tedmob.africell.ui.blocks.ToolbarLayout
-import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
-import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
-import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.DialogUtils
-import com.tedmob.africell.util.intents.dial
+import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment() {
+abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    protected val actionbar: ActionBar? get() =  getActionBar()
+    protected val actionbar: ActionBar? by lazy { getActionBar() }
+
     private var toolbarLayout: ToolbarLayout? = null
     protected var toolbar: Toolbar? = null
         get() = toolbarLayout?.toolbar
@@ -54,18 +50,14 @@ abstract class BaseFragment : DaggerFragment() {
 
     private var rxDisposables: CompositeDisposable? = null
     @Inject lateinit var viewModelFactory: ViewModelFactory
+
     /**
      * Toolbar might be shared between multiple fragments. Configure it here.
      */
-    open fun configureToolbar() {}
-    private val imageViewModel by provideViewModel<ImageViewModel> { viewModelFactory }
-    fun setupImageBanner(toolbar: SimpleDraweeView, imageType: String?, pageName: String? ){
-        imageViewModel.getImages(imageType, pageName)
-        observeResourceWithoutProgress(imageViewModel.imagesData,{
-            toolbar.setImageURI(it.getOrNull(0))
-        })
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -78,8 +70,7 @@ abstract class BaseFragment : DaggerFragment() {
         )
         //fixme Manifest: can make "google_analytics_automatic_screen_reporting_enabled" false
 
-        configureToolbar()
-    }
+     }
 
     fun wrap(context: Context, view: View): View {
         loadingLayout = LoadingLayout(context)
@@ -115,7 +106,6 @@ abstract class BaseFragment : DaggerFragment() {
                     ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                 )
                 v = it
-                (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
             }
         }
 
@@ -238,7 +228,6 @@ abstract class BaseFragment : DaggerFragment() {
                 .show()
         }
     }
-
     fun showLoginMessage() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.login_first))
@@ -255,18 +244,5 @@ abstract class BaseFragment : DaggerFragment() {
         activity?.startActivity(Intent(activity, AuthenticationActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
-    }
-     fun promptCallUs(phones:List<String>) {
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setItems(phones.toTypedArray()
-            ) { dialog, which -> dial(phones[which]) }
-            .setNegativeButton(R.string.close, null)
-            .create()
-        dialog.show()
-    }
-    override fun onDestroyView() {
-        activity?.hideKeyboard()
-        super.onDestroyView()
     }
 }

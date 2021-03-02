@@ -17,18 +17,12 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.hideKeyboard
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_credit_transfer.*
-import kotlinx.android.synthetic.main.fragment_credit_transfer.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_credit_transfer.sendBtn
-import kotlinx.android.synthetic.main.fragment_sms.*
-import kotlinx.android.synthetic.main.toolbar_image.*
-import javax.inject.Inject
 
 
 class CreditTransferFragment : BaseFragment(), Liv.Action {
@@ -54,7 +48,7 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CREDIT_TRANSFER)
+        setupImageBanner(imageView, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CREDIT_TRANSFER)
         liv = initLiv()
         liv?.start()
         sendBtn.setOnClickListener { liv?.submitWhenValid() }
@@ -77,17 +71,17 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
     }
 
     private fun bindData() {
-     /*   observeResourceInline(viewModel.cardsData) {
-            recyclerView.adapter = adapter
-            adapter.setItems(it)
-        }
-*/
+        /*   observeResourceInline(viewModel.cardsData) {
+               recyclerView.adapter = adapter
+               adapter.setItems(it)
+           }
+   */
         observeResource(viewModel.creditTransferData) {
             showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
-             /*   liv?.dispose()
-                amountLayout.setText("")
-                mobileNumberLayout.setText("")
-                liv?.start()*/
+                /*   liv?.dispose()
+                   amountLayout.setText("")
+                   mobileNumberLayout.setText("")
+                   liv?.start()*/
                 findNavController().popBackStack()
             }
         }
@@ -169,7 +163,7 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
                     }
                 }
             }
-        }else super.onActivityResult(requestCode, resultCode, data)
+        } else super.onActivityResult(requestCode, resultCode, data)
     }
 }
 

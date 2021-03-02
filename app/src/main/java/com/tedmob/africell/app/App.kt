@@ -24,7 +24,7 @@ import javax.inject.Named
 class App : DaggerApplication() {
 
     @Inject
-    @Named("Api")
+    @Named("FrescoClient")
     lateinit var okHttpClient: OkHttpClient
 
     @Inject

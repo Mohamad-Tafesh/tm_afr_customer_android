@@ -1,5 +1,6 @@
 package com.tedmob.africell.features.dataCalculator
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,14 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.DataCalculatorDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_data_calculator.*
-import kotlinx.android.synthetic.main.fragment_data_calculator.recyclerView
-import kotlinx.android.synthetic.main.fragment_services.*
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 class DataCalculatorFragment : BaseFragment() {
     @Inject
@@ -29,16 +31,25 @@ class DataCalculatorFragment : BaseFragment() {
                 var total: Double = 0.0
 
                 for ((key, value) in seekbarValueItems) {
-                    total = +value.toDouble()
+                    total += value.toDouble()
                 }
-                val suggestion = bundleSuggestion?.firstOrNull { it.volume?.toDoubleOrNull() ?: 0.0 >= total } ?: bundleSuggestion?.getOrNull(0)
-                usageTxt.text = suggestion?.getFormatVolume()
-                validityTxt.text= suggestion?.getFormatValidity()
+
+                var suggestion = bundleSuggestion?.firstOrNull()
+                bundleSuggestion?.forEach {
+                    if (total<(it.volume?.toDoubleOrNull() ?: 0.0)) {
+                        suggestion=it
+                    }else{
+                        return@forEach
+                    }
+                }
+
+                val df =     DecimalFormat("#,##0.######", DecimalFormatSymbols(Locale.ENGLISH))
+                usageTxt.text = "${df.format(total)}  ${suggestion?.unit}"
+                validityTxt.text = suggestion?.getFormatValidity()
             }
 
         })
     }
-
 
 
     private val viewModel by provideViewModel<DataCalculatorViewModel> { viewModelFactory }
@@ -63,7 +74,7 @@ class DataCalculatorFragment : BaseFragment() {
 
     }
 
-    fun setupRecyclerView(){
+    fun setupRecyclerView() {
         recyclerView.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
@@ -77,10 +88,10 @@ class DataCalculatorFragment : BaseFragment() {
         viewModel.getDataCalculator()
         observeResourceInline(viewModel.dataCalculatorData) { dataCalc ->
             adapter.setItems(dataCalc.datacalculators.orEmpty().toMutableList())
-            bundleSuggestion = dataCalc.bundleSuggestion?.sortedBy { it.volume }
-            val suggestion=bundleSuggestion?.getOrNull(0)
-            usageTxt.text = suggestion?.getFormatVolume()
-            validityTxt.text= suggestion?.getFormatValidity()
+            bundleSuggestion = dataCalc.bundleSuggestion?.sortedByDescending { it.volume }
+            val suggestion = bundleSuggestion?.lastOrNull()
+            usageTxt.text = "0 ${suggestion?.unit.orEmpty()}"
+            validityTxt.text = suggestion?.getFormatValidity()
         }
     }
 

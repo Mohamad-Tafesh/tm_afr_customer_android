@@ -22,6 +22,8 @@ data class AboutDTO(
     val title: String?,
     @field:[Expose SerializedName("twitter")]
     val twitter: String?,
+    @field:[Expose SerializedName("instagram")]
+    val instagram: String?,
     @field:[Expose SerializedName("youtube")]
     val youtube: String?
 )

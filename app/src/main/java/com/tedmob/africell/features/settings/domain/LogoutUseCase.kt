@@ -17,7 +17,7 @@ class LogoutUseCase
 ) : UseCase<Unit, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<Unit> {
-        return /*restApi.logout()*/Observable.just(params)
+        return restApi.logout()
     }
 
 

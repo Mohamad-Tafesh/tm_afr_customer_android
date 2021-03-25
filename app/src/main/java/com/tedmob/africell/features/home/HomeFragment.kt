@@ -6,10 +6,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
 import com.tedmob.africell.data.api.ApiContract.Params.SLIDERS
@@ -18,6 +20,8 @@ import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.data.toHomeBalance
 import com.tedmob.africell.features.accountInfo.AccountViewModel
 import com.tedmob.africell.features.accountsNumber.AccountsNumbersFragment
+import com.tedmob.africell.ui.blocks.showLoading
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
@@ -28,7 +32,7 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_home, R.layout.toolbar_home, false)
+        return wrap(inflater.context, R.layout.fragment_home, R.layout.toolbar_home, true)
     }
 
     val balanceAdapter by lazy {
@@ -69,27 +73,27 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
         }
         lineRecharge.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
+            if (sessionRepository.isLoggedIn()) {
                 findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
-            }else showLoginMessage()
+            } else showLoginMessage()
         }
         accountInfoLayout.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
+            if (sessionRepository.isLoggedIn()) {
                 findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
-            }else showLoginMessage()
+            } else showLoginMessage()
         }
         dataCalculatorBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_dataCalculatorFragment)
         }
         myBundleServicesBtn.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
+            if (sessionRepository.isLoggedIn()) {
                 findNavController().navigate(R.id.action_homeFragment_to_myBundleServicesVPFragment)
-            }else showLoginMessage()
+            } else showLoginMessage()
         }
         vasServicesBtn.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
+            if (sessionRepository.isLoggedIn()) {
                 findNavController().navigate(R.id.action_homeFragment_to_vasServicesFragment)
-            }else showLoginMessage()
+            } else showLoginMessage()
         }
 
         setupRecyclerView()
@@ -104,17 +108,19 @@ class HomeFragment : BaseFragment() {
             viewModel.getSubAccounts()
             accountViewModel.getAccountInfo()
             loginTxt.visibility = View.GONE
-            enrollBtn.visibility=View.VISIBLE
+            enrollBtn.visibility = View.VISIBLE
             enrollBtn.setOnClickListener {
                 findNavController().navigate(R.id.addAccountActivity)
             }
         } else {
+            showContent()
+            loading.showContent()
             loginTxt.visibility = View.VISIBLE
             loginTxt.setOnClickListener {
                 showLoginMessage()
             }
-            accountSpinner.visibility=View.GONE
-            enrollBtn.visibility=View.GONE
+            accountSpinner.visibility = View.GONE
+            enrollBtn.visibility = View.GONE
         }
     }
 
@@ -140,7 +146,7 @@ class HomeFragment : BaseFragment() {
     private fun bindData() {
         viewModel.getImages(SLIDERS, HOME_PAGE)
 
-        observeResourceWithoutProgress(viewModel.subAccountData) { subAccounts ->
+        observeResourceInline(viewModel.subAccountData) { subAccounts ->
             if (sessionRepository.selectedMsisdn.isEmpty()) {
                 sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
@@ -167,9 +173,27 @@ class HomeFragment : BaseFragment() {
 
         }
 
-        observeResourceWithoutProgress(accountViewModel.accountInfoData) {
-            balanceAdapter.setItems(it.homePage?.toHomeBalance().orEmpty())
-        }
+
+        accountViewModel.accountInfoData?.observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        loading.showLoading()
+                    }
+                    is Resource.Success -> {
+
+                        loading.showContent()
+                        val data = resource.data
+                        balanceAdapter.setItems(data.homePage?.toHomeBalance().orEmpty())
+                    }
+                    is Resource.Error -> {
+
+                        showMessage(resource.message)
+                    }
+                }
+            }
+        })
+
 
 
         observeResourceWithoutProgress(viewModel.imagesData) {

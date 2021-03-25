@@ -26,6 +26,7 @@ import com.tedmob.africell.features.profile.ChangePasswordViewModel
 import com.tedmob.africell.features.profile.EditProfileViewModel
 import com.tedmob.africell.features.reportIncident.ReportIncidentViewModel
 import com.tedmob.africell.features.services.ServicesViewModel
+import com.tedmob.africell.features.settings.SettingsViewModel
 import com.tedmob.africell.features.sms.SMSViewModel
 import com.tedmob.africell.features.terms.TermsViewModel
 import com.tedmob.africell.features.usefulNumber.UsefulNumberViewModel
@@ -188,4 +189,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ImageViewModel::class)
     internal abstract fun imageViewModel(viewModel: ImageViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    internal abstract fun settingsViewModel(viewModel: SettingsViewModel): ViewModel
 }

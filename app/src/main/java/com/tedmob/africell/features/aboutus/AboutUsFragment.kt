@@ -65,7 +65,7 @@ class AboutUsFragment : BaseFragment() {
                 email(to = about.email)
             }
             insta.setOnClickListener {
-            //   openWebsite(about.ins, "Requested URL is not valid", null)
+            openWebsite(about.instagram, "Requested URL is not valid", null)
             }
             twitter.setOnClickListener {
                 openWebsite(about.twitter, "Requested URL is not valid", null)

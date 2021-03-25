@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.row_accounts.view.*
 
 class AccountAdapter(
     private var items: MutableList<SubAccount> = mutableListOf(),
+    private val mainAccount:String?,
     private val showDeleteIcon:Boolean,
     private val callback: CallBack
 ) : RecyclerView.Adapter<AccountAdapter.ItemVH>() {
@@ -30,7 +31,7 @@ class AccountAdapter(
         val item = items[position]
         with(holder.itemView) {
             title.text = item.account
-            deleteIcon.isVisible = showDeleteIcon
+            deleteIcon.isVisible = showDeleteIcon  && item.account!= mainAccount
             deleteIcon.setOnClickListener {
                 callback.deleteAccount(item)
             }

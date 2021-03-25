@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseActivity
 import com.tedmob.africell.data.entity.SubAccount
+import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.accountInfo.AccountViewModel
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
@@ -19,10 +20,10 @@ import javax.inject.Inject
 class AccountManagementActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
+@Inject lateinit var sessionRepository: SessionRepository
     private val viewModel by provideViewModel<AccountViewModel> { viewModelFactory }
     val adapter by lazy {
-        AccountAdapter(mutableListOf(),true, object : AccountAdapter.CallBack {
+        AccountAdapter(mutableListOf(),sessionRepository.msisdn,true, object : AccountAdapter.CallBack {
             override fun onItemClick(item: SubAccount) {
             }
 

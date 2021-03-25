@@ -1,6 +1,7 @@
 package com.tedmob.africell.data.api
 
 object ApiContract {
+
     const val BASE_URL = "https://selfcareapp.africell.ug/"
 
     object Params {

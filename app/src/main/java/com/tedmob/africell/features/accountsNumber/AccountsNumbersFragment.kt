@@ -37,7 +37,7 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
     }
 
     val adapter by lazy {
-        AccountAdapter(mutableListOf(), false, object : AccountAdapter.CallBack {
+        AccountAdapter(mutableListOf(), null,false, object : AccountAdapter.CallBack {
             override fun onItemClick(item: SubAccount) {
                 this@AccountsNumbersFragment.dismiss()
                 sessionRepository.selectedMsisdn=item.account.orEmpty()

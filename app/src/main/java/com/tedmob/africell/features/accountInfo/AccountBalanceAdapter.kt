@@ -49,11 +49,6 @@ class AccountBalanceAdapter(
             valueTxt.text=item?.currentBalance +" "+item?.unit
             expiryDateTxt.text="Expiry Date: "+item?.expiryDate?.removeTime()
 
-            setOnClickListener {
-                item?.let {
-                }
-
-            }
 
 
         }

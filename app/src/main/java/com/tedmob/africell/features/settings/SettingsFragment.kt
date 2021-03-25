@@ -11,7 +11,11 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.repository.domain.SessionRepository
+import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.launch.RootActivity
+import com.tedmob.africell.ui.viewmodel.observeResource
+import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
+import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.locale.LocaleHelper
 import com.tedmob.africell.util.removeUserIdentification
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -25,6 +29,8 @@ class SettingsFragment : BaseFragment() {
 
     @Inject
     lateinit var firebaseCrashlytics: FirebaseCrashlytics
+
+    private val viewModel by provideViewModel<SettingsViewModel> { viewModelFactory }
 
 
     override fun onCreateView(
@@ -80,12 +86,24 @@ class SettingsFragment : BaseFragment() {
         //loginLogoutTitleText.setText(if (session.isLoggedIn()) R.string.logout else R.string.login)
         loginLogoutLayout.visibility = if (session.isLoggedIn()) View.VISIBLE else View.GONE
         loginLogoutLayout.setOnClickListener {
+            if(session.isLoggedIn()){
+                viewModel.logout()
+            }else {
+                session.invalidateSession()
+                removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
+                startRootActivity()
+            }
+        }
+        bindData()
+    }
+
+    private fun bindData(){
+        observeResource(viewModel.logoutData,{
             session.invalidateSession()
             removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
             startRootActivity()
-        }
+        })
     }
-
 
     private fun startRootActivity() {
         startActivity(Intent(activity, RootActivity::class.java).apply {

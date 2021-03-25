@@ -34,25 +34,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="accountManagementActivity2">
+                  <entry key="accountManagementActivity">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="236" />
-                            <option name="y" value="521" />
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="addAccountActivity2">
+                  <entry key="addAccountActivity">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-119" />
-                            <option name="y" value="-379" />
+                            <option name="x" value="-19" />
+                            <option name="y" value="-301" />
                           </Point>
                         </option>
                       </LayoutPositions>

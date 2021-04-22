@@ -144,7 +144,7 @@ class HomeFragment : BaseFragment() {
     lateinit var sessionRepository: SessionRepository
 
     private fun bindData() {
-        viewModel.getImages(SLIDERS, HOME_PAGE)
+
 
         observeResourceInline(viewModel.subAccountData) { subAccounts ->
             if (sessionRepository.selectedMsisdn.isEmpty()) {
@@ -195,7 +195,7 @@ class HomeFragment : BaseFragment() {
         })
 
 
-
+        viewModel.getImages(SLIDERS, HOME_PAGE)
         observeResourceWithoutProgress(viewModel.imagesData) {
             viewPager.adapter = offersAdapter
             offersAdapter.setItems(it)

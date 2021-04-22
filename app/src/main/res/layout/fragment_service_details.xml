@@ -14,6 +14,7 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/imageView"
+                app:placeholderImage="@color/grey_300"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:placeholderImageScaleType="fitXY"
@@ -31,22 +32,14 @@
                 android:layout_height="wrap_content"
                 android:text="volume"/>
         <TextView
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:id="@+id/volumeTxt"
-                android:textColor="@color/darkPink"
-                style="@style/TextAppearance.normalBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="volume"/>
-
-        <TextView
-                android:id="@+id/validityTxt"
-                style="@style/TextAppearance.normal"
                 android:layout_marginTop="@dimen/spacing_small"
+                android:id="@+id/volumeTxt"
+               style="@style/TextAppearance.normal"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:text="volume"/>
+
+
         <TextView
                 android:autoLink="all"
                 style="@style/TextAppearance.normal"
@@ -58,11 +51,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView"/>
         <TextView
+                android:id="@+id/validityTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:text="volume"/>
+        <TextView
                 android:id="@+id/priceTxt"
-                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/darkPink"
+                android:textColor="@color/yellow"
                 android:text="Price: 1$"
                 style="@style/TextAppearance.normalBold"/>
 

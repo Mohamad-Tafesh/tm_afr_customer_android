@@ -56,7 +56,7 @@ class BundleDetailsFragment : BaseFragment() {
         validityTxt.text = bundle.getFormatValidity()
         descriptionTxt.text = bundle.commercialName
         priceTxt.text ="Price: "+ bundle.price
-        validForTxt.text = "Valid for: "+ bundle.getFormatValidity()
+        validForTxt.text = "Valid for: "+  bundle.validity + bundle.validityUnit
         activateBundleForSomeOneElseBtn.setOnClickListener {
             if(sessionRepository.isLoggedIn()) {
                 navigateToBundleActive(false)

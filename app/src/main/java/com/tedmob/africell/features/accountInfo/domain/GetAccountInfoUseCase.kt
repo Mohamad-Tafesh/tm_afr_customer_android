@@ -20,7 +20,7 @@ class GetAccountInfoUseCase
 ) : UseCase<AccountBalanceDTO, String?>(schedulers) {
 
     override fun buildUseCaseObservable(params: String?): Observable<AccountBalanceDTO> {
-       val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+       val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
         return Observable.zip(
             getProfileUseCase.buildUseCaseObservable(Unit),
             restApi.getAccountBalance(subMsisdn),

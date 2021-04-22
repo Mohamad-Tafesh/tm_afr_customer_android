@@ -76,7 +76,7 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false

@@ -7,9 +7,7 @@ import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.dto.ChangePasswordDTO
 import com.tedmob.africell.data.api.requests.ChangePasswordRequest
-import com.tedmob.africell.data.api.requests.ForgotPasswordRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.util.identifyUser
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -31,17 +29,15 @@ class ChangePasswordUseCase
                 params.confirmPassword
             )
         ).map {
-            // save session
-            //todo fix below
-        /*    session.accessToken = it.authenticationToken.orEmpty()
-            session.refreshToken = it.refreshToken.orEmpty()*/
+            session.accessToken = it.authenticationToken.orEmpty()
+            session.refreshToken = it.refreshToken.orEmpty()
             it
         }
 
     }
 
     data class Params(
-        val oldPassword:String?,
+        val oldPassword: String?,
         val password: String?,
         val confirmPassword: String?
     )

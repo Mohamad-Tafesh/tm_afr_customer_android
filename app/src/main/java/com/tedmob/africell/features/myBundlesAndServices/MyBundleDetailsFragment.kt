@@ -55,8 +55,8 @@ class MyBundleDetailsFragment : BaseFragment() {
     private fun setUpUI() {
         validityTxt.text=bundle.validity
         activatedOnValue.text=bundle.activateDate.orEmpty()
-titleTxt.text=bundle.name.orEmpty()
-        subtitle.text=bundle.subTitle.orEmpty()
+subtitle.text=bundle.name.orEmpty()
+        titleTxt.text=bundle.subTitle.orEmpty()
         descriptionTxt.text=bundle.description.orEmpty()
         balanceTitle.text=bundle.currentValue.orEmpty()+"/"+bundle.maxValue.orEmpty()
         expiryDateTxt.text="EXP:" + bundle.expiryDate.orEmpty().removeTime()

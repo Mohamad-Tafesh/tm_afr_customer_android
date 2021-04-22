@@ -61,11 +61,11 @@ class ServiceDetailsFragment : BaseFragment() {
 
     private fun setUpUI() {
         imageView.setImageURI(service.image)
-        volumeTxt.text = service.maxValue.orEmpty()
-        validityTxt.text = service.validity.orEmpty()
+        volumeTxt.text = service.name.orEmpty()+"/"+service.validity.orEmpty()
+        validityTxt.text ="Valid for a "+  service.validity.orEmpty()
         descriptionTxt.text = service.description.orEmpty()
-        priceTxt.text ="Price: "+ service.price.orEmpty() + service.priceUnit
-        subtitleTxt.text=service.subTitle.orEmpty()
+        priceTxt.text ="Price: "+ service.price.orEmpty() + service.priceUnit.orEmpty()
+        subtitleTxt.text=service.name.orEmpty()
 
         subscribeBtn.setOnClickListener {
             service.sname?.let { viewModel.subscribe(it) }

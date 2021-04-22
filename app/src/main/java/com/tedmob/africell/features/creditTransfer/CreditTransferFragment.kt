@@ -16,13 +16,20 @@ import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
+import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.observeResource
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_credit_transfer.*
+import kotlinx.android.synthetic.main.fragment_credit_transfer.countrySpinner
+import kotlinx.android.synthetic.main.fragment_credit_transfer.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_credit_transfer.sendBtn
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class CreditTransferFragment : BaseFragment(), Liv.Action {
@@ -53,6 +60,7 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
         liv?.start()
         sendBtn.setOnClickListener { liv?.submitWhenValid() }
         bindData()
+        bindCountries()
         mobileNumberLayout.setEndIconOnClickListener {
             activity?.hideKeyboard()
             phoneNumberPermission()
@@ -87,6 +95,16 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
         }
     }
 
+    private fun bindCountries() {
+        viewModel.getCountries()
+        observeResourceInline(viewModel.countriesData, {
+            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
+            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
+                countrySpinner.selection = it
+            }
+            countrySpinner.isEnabled=false
+        })
+    }
 
     override fun performAction() {
         val formatted = PhoneNumberHelper.getFormattedIfValid("", mobileNumberLayout.getText())?.replace("+", "")
@@ -155,7 +173,12 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
-                                mobileNumberLayout.setText(number)
+                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                formatted?.let {
+                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
                             pCur?.close()

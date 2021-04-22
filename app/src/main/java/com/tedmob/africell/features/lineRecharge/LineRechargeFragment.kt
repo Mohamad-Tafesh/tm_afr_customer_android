@@ -92,7 +92,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
         viewModel.getCountries()
         observeResourceWithoutProgress(viewModel.countriesData,{
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false
@@ -184,7 +184,13 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
-                                mobileNumberLayout.setText(number)
+                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                formatted?.let {
+                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                } ?: showMessage(getString(R.string.phone_number_not_valid))
+
 
                             }
                             pCur?.close()

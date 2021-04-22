@@ -2,7 +2,8 @@ package com.tedmob.africell.data.api
 
 object ApiContract {
 
-    const val BASE_URL = "https://selfcareapp.africell.ug/"
+    const val UGANDA_BASE_URL = "https://selfcareapp.africell.ug/"
+    const val GAMBIA_BASE_URL = "https://selfcareapp.africell.gm/"
 
     object Params {
         const val NO_TOKEN_TAG = "tag__do_not_send_token_header"
@@ -14,6 +15,7 @@ object ApiContract {
         const val PREPAID = "Prepaid"
         const val BANNERS = "banners"
         const val SLIDERS = "sliders"
+   const val UG_PHONE_NUMBER="+256"
     }
 
     object ImagePageName {

@@ -133,7 +133,7 @@ object ApiModule {
         return Retrofit.Builder()
 
             .client(client)
-            .baseUrl(ApiContract.BASE_URL)
+            .baseUrl(ApiContract.GAMBIA_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .build()

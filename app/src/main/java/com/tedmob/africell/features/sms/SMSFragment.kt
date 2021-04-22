@@ -18,7 +18,6 @@ import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.ui.hideKeyboard
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -39,7 +38,9 @@ class SMSFragment : BaseFragment(), Liv.Action {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_sms, R.layout.toolbar_default, true)
     }
-@Inject lateinit var  sessionRepository: SessionRepository
+
+    @Inject
+    lateinit var sessionRepository: SessionRepository
     override fun configureToolbar() {
         super.configureToolbar()
 
@@ -52,7 +53,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if(sessionRepository.isLoggedIn()) {
+        if (sessionRepository.isLoggedIn()) {
             liv = initLiv()
             liv?.start()
             viewModel.getSmsCount()
@@ -64,9 +65,8 @@ class SMSFragment : BaseFragment(), Liv.Action {
                 activity?.hideKeyboard()
                 phoneNumberPermission()
             }
-        }
-        else{
-            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+        } else {
+            showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
                 redirectToLogin()
             }
         }
@@ -74,7 +74,6 @@ class SMSFragment : BaseFragment(), Liv.Action {
         bindData()
 
     }
-
 
 
     private fun initLiv(): Liv {
@@ -94,10 +93,10 @@ class SMSFragment : BaseFragment(), Liv.Action {
             recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
             val countries = it.countries
             countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
-            countries.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
+            countries.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
-            countrySpinner.isEnabled=false
+            countrySpinner.isEnabled = false
         }
 
         observeResource(viewModel.smsSentData) {
@@ -115,7 +114,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
     override fun performAction() {
         val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
         val formatted =
-            PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())
+            PhoneNumberHelper.getFormattedIfValid(phoneCode, mobileNumberLayout.getText())
                 ?.replace("+", "")
         formatted?.let {
             viewModel.sendSMS(it, messageLayout.getText())
@@ -151,6 +150,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             data?.data?.let { contactData ->
@@ -177,7 +177,12 @@ class SMSFragment : BaseFragment(), Liv.Action {
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
-                                mobileNumberLayout.setText(number)
+                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                formatted?.let {
+                                   val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                        mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                    } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
                             pCur?.close()
@@ -185,7 +190,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
                     }
                 }
             }
-        }else super.onActivityResult(requestCode, resultCode, data)
+        } else super.onActivityResult(requestCode, resultCode, data)
     }
 
 

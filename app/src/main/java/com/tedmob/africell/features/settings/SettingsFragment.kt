@@ -9,10 +9,12 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.launch.RootActivity
+import com.tedmob.africell.ui.viewmodel.observeNotNull
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -98,13 +100,28 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun bindData(){
-        observeResource(viewModel.logoutData,{
-            session.invalidateSession()
-            removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
-            startRootActivity()
+        observeNotNull(viewModel.logoutData,{
+                resource ->
+            when (resource) {
+                is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+            }
+
         })
     }
 
+    fun invalidateAndRestart(){
+        session.invalidateSession()
+        removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
+        startRootActivity()
+    }
     private fun startRootActivity() {
         startActivity(Intent(activity, RootActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

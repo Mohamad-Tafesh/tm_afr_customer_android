@@ -54,9 +54,11 @@ object DataModule {
     @Provides
     @Singleton
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
-        return ( UnsafeOkHttpClient.getUnsafeOkHttpClient()?.newBuilder() ?:
+        return ( /*UnsafeOkHttpClient.getUnsafeOkHttpClient()?.newBuilder() ?:*/
         OkHttpClient.Builder())
             .callTimeout(60L, TimeUnit.SECONDS)
+            .readTimeout(60L,TimeUnit.SECONDS)
+            .writeTimeout(60,TimeUnit.SECONDS)
             .cache(cache)
             .build()
     }

@@ -44,7 +44,7 @@ class DataCalculatorFragment : BaseFragment() {
                 }
 
                 val df =     DecimalFormat("#,##0.######", DecimalFormatSymbols(Locale.ENGLISH))
-                usageTxt.text = "${df.format(total)}  ${suggestion?.unit}"
+                usageTxt.text = "${df.format(total)}  ${suggestion?.unit.orEmpty()}"
                 validityTxt.text = suggestion?.getFormatValidity()
             }
 

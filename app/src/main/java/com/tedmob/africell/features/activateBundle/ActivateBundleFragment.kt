@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_activate_bundle.*
 import kotlinx.android.synthetic.main.fragment_activate_bundle.countrySpinner
 import kotlinx.android.synthetic.main.fragment_activate_bundle.mobileNumberLayout
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_sms.*
 import javax.inject.Inject
 
 
@@ -182,7 +183,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
         viewModel.getCountries()
         observeResourceWithoutProgress(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+256" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false
@@ -270,7 +271,12 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
-                                mobileNumberLayout.setText(number)
+                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                formatted?.let {
+                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
                             pCur?.close()

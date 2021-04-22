@@ -56,7 +56,7 @@ object DataModule {
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
         return ( /*UnsafeOkHttpClient.getUnsafeOkHttpClient()?.newBuilder() ?:*/
         OkHttpClient.Builder())
-            .callTimeout(60L, TimeUnit.SECONDS)
+            .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L,TimeUnit.SECONDS)
             .writeTimeout(60,TimeUnit.SECONDS)
             .cache(cache)

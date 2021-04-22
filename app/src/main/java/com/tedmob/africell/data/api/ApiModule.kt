@@ -6,9 +6,10 @@ import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
-import okhttp3.Credentials
-import okhttp3.OkHttpClient
+import okhttp3.*
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.EOFException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,40 +40,82 @@ object ApiModule {
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(60L, TimeUnit.SECONDS)
-        //In case Retrofit or OkHttp were updated, this allows relying on TLSv1 and TLSv1.1 in case needed.
-        //.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))
+            /*.authenticator { route, response ->
+                val hasEmptyBody = try {
+                    response.body?.source()?.peek()?.readUtf8()
+                    false
+                } catch (e: EOFException) {
+                    true
+                }
 
-        builder.addInterceptor {//addNetworkInterceptor in case you don't want to handle redirections, but logs will not show "access-token"
-            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
-            it.proceed(
+                if (response.code == 401 && hasEmptyBody) {
+                    //fixing bug with most apis from Africell server. There is no other way to solve it app-side.
+                    response.newBuilder()
+                        .body(
+                            "{\"status\":401,\"title\":\"Invalid_token\"}".toResponseBody()
+                        )
+                        .build()
+                } else {
+                    response
+                }
+
+            }*/
+
+        val block: (chain: Interceptor.Chain) -> Response = {
+            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI")
+
+            val response = it.proceed(
                 it.request().let { request ->
+                    Timber.tag("OkHttp-test").v("Request: ${request.url}")
+
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
-                        .header("accept","text/plain")
+                        .header("accept", "text/plain")
                         .header("Accept-Language", "en")
-                        .header("Authorization",  credentials)
+                        .header("Authorization", credentials)
 
                         .apply {
                             if (
                                 request.tag(String::class.java) != ApiContract.Params.NO_TOKEN_TAG &&
                                 session.isLoggedIn()
                             ) {
-                                header("X-Authorization", "Bearer "+session.accessToken)
-
+                                header("X-Authorization", "Bearer " + session.accessToken)
+                                Timber.tag("OkHttp").v("Access-Token: ${session.accessToken}")
                             }
                         }
                         .build()
                 }
             )
-        }
 
-        if (BuildConfig.DEBUG) {
+            Timber.tag("OkHttp-test").v("Response: $response")
+            Timber.tag("OkHttp-test").v("Response code: ${response.code}")
+
+            val hasEmptyBody = try {
+                response.body?.source()?.peek()?.readUtf8()
+                false
+            } catch (e: EOFException) {
+                true
+            }
+            if (response.code == 401 && hasEmptyBody) {
+                //fixing bug with most apis from Africell server. There is no other way to solve it app-side.
+                response.newBuilder()
+                    .body(
+                        "{\"status\":401,\"title\":\"Invalid_token\"}".toResponseBody()
+                    )
+                    .build()
+            } else {
+                response
+            }
+        }
+        builder.addInterceptor(block)
+
+        /*if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
-        }
+        }*/
 
         return builder.build()
     }
@@ -96,7 +139,7 @@ object ApiModule {
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
-                        .header("accept","text/plain")
+                        .header("accept", "text/plain")
                         .header("Accept-Language", "en")
 
                         .apply {
@@ -104,7 +147,7 @@ object ApiModule {
                                 request.tag(String::class.java) != ApiContract.Params.NO_TOKEN_TAG &&
                                 session.isLoggedIn()
                             ) {
-                                header("X-Authorization", "Bearer "+session.accessToken)
+                                header("X-Authorization", "Bearer " + session.accessToken)
 
                             }
                         }

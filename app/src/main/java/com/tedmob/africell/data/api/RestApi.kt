@@ -64,7 +64,7 @@ interface RestApi {
 
     @GET("SelfCare/GetSMSCount")
     fun getSMSCount(
-        @Query("msisdn") msisdn: String
+        @Query("msisdn") msisdn: String?
     ): Observable<SMSCountDTO>
 
     @POST("SelfCare/SendSMS")

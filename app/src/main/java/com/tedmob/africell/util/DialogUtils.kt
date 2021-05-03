@@ -7,6 +7,7 @@ import com.tedmob.africell.R
 
 object DialogUtils {
 
+
     fun loadingDialog(context: Context, message: String): ProgressDialog {
         val dialog = ProgressDialog(context)
         dialog.setMessage(message)

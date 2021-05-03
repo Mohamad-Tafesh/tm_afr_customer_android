@@ -23,7 +23,7 @@ class GetSMSDatatUseCase
     : UseCase<SMSData, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<SMSData> {
-        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
 
         return Observable.zip(restApi.getSMSCount(subMsisdn),
             getCountriesUseCase.buildUseCaseObservable(params),

@@ -138,7 +138,7 @@ dependencies {
     implementation "androidx.dynamicanimation:dynamicanimation-ktx:1.0.0-alpha03"
 
     // remote
-    def okHttpVersion = '4.9.0'
+    def okHttpVersion = '5.0.0-alpha.2'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"

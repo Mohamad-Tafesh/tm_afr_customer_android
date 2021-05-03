@@ -24,7 +24,7 @@ interface RestApi {
     fun logout(
     ): Observable<Unit>
 
-    @POST("SelfCare/SignOUT")
+    @POST("SelfCare/VerifyOTP")
     fun verifyOTP(
         @Body request: VerifyOTPRequest,
         @Tag tag: String = ApiContract.Params.NO_TOKEN_TAG

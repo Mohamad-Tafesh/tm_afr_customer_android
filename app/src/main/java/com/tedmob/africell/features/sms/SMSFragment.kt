@@ -24,7 +24,11 @@ import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
+import kotlinx.android.synthetic.main.fragment_credit_transfer.*
 import kotlinx.android.synthetic.main.fragment_sms.*
+import kotlinx.android.synthetic.main.fragment_sms.countrySpinner
+import kotlinx.android.synthetic.main.fragment_sms.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_sms.sendBtn
 import javax.inject.Inject
 
 
@@ -171,21 +175,26 @@ class SMSFragment : BaseFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
+                            val allMobileNumber= mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur?.getString(
                                     pCur?.getColumnIndex(
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
+                                allMobileNumber.add(number)
+                            }
+
+                            pCur?.close()
+                            selectPhoneNumber(allMobileNumber) { number ->
                                 val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
                                 val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
                                 formatted?.let {
-                                   val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                        mobileNumberLayout.setText(pairNumber?.second ?: formatted)
-                                    } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
-                            pCur?.close()
                         }
                     }
                 }

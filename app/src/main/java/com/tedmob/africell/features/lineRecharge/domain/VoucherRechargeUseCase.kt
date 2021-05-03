@@ -16,7 +16,7 @@ class VoucherRechargeUseCase
 ) : UseCase<SMSCountDTO, VoucherRechargeUseCase.Params>(schedulers) {
 
     override fun buildUseCaseObservable(params: Params): Observable<SMSCountDTO> {
-        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
         return restApi.voucherRecharge(subMsisdn,params.receiverMsisdn,params.voucherNumber)
     }
 

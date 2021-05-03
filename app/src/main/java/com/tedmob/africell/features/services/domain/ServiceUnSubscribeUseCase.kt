@@ -20,7 +20,7 @@ class ServiceUnSubscribeUseCase
 
     override fun buildUseCaseObservable(params: String): Observable<StatusDTO> {
 
-        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
         return restApi.serviceUnSubscribe(subMsisdn,params)
     }
 }

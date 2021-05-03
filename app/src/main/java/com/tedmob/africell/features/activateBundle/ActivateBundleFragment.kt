@@ -35,6 +35,7 @@ import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_activate_bundle.*
 import kotlinx.android.synthetic.main.fragment_activate_bundle.countrySpinner
 import kotlinx.android.synthetic.main.fragment_activate_bundle.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_credit_transfer.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_sms.*
 import javax.inject.Inject
@@ -265,12 +266,18 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
+                            val allMobileNumber= mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur?.getString(
                                     pCur?.getColumnIndex(
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
+                                allMobileNumber.add(number)
+                            }
+
+                            pCur?.close()
+                            selectPhoneNumber(allMobileNumber) { number ->
                                 val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
                                 val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
                                 formatted?.let {
@@ -279,7 +286,6 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
                                 } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
-                            pCur?.close()
                         }
                     }
                 }

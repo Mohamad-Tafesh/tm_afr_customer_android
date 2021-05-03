@@ -9,6 +9,7 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
@@ -17,19 +18,18 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
+import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_credit_transfer.*
-import kotlinx.android.synthetic.main.fragment_credit_transfer.countrySpinner
-import kotlinx.android.synthetic.main.fragment_credit_transfer.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_credit_transfer.sendBtn
-import kotlinx.android.synthetic.main.fragment_login.*
+import javax.inject.Inject
 
 
 class CreditTransferFragment : BaseFragment(), Liv.Action {
@@ -40,7 +40,7 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_credit_transfer, R.layout.toolbar_default, false)
+        return wrap(inflater.context, R.layout.fragment_credit_transfer, R.layout.toolbar_default, true)
     }
 
     override fun configureToolbar() {
@@ -51,7 +51,8 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
         setHasOptionsMenu(true)
     }
 
-
+    @Inject
+    lateinit var sessionRepository: SessionRepository
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -84,6 +85,16 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
                adapter.setItems(it)
            }
    */
+        viewModel.getSubAccounts()
+        observeResourceInline(viewModel.subAccountData) {
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
+            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            fromNumberLayout.adapter = arrayAdapter
+            it.indexOfFirst { it.account == sessionRepository.selectedMsisdn }?.takeIf { it != -1 }?.let {
+                fromNumberLayout.selection = it
+            }
+
+        }
         observeResource(viewModel.creditTransferData) {
             showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
                 /*   liv?.dispose()
@@ -97,19 +108,20 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
 
     private fun bindCountries() {
         viewModel.getCountries()
-        observeResourceInline(viewModel.countriesData, {
+        observeResourceWithoutProgress(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
             it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
-            countrySpinner.isEnabled=false
+            countrySpinner.isEnabled = false
         })
     }
 
     override fun performAction() {
-        val formatted = PhoneNumberHelper.getFormattedIfValid("", mobileNumberLayout.getText())?.replace("+", "")
+        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+        val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, mobileNumberLayout.getText())?.replace("+", "")
         formatted?.let {
-            viewModel.creditTransfer(it, amountLayout.getText())
+            viewModel.creditTransfer(fromNumberLayout.getText(), it, amountLayout.getText())
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }
@@ -167,12 +179,18 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
+                            val allMobileNumber= mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur?.getString(
                                     pCur?.getColumnIndex(
                                         ContactsContract.CommonDataKinds.Phone.NUMBER
                                     )
                                 )
+                                allMobileNumber.add(number)
+                            }
+
+                            pCur?.close()
+                            selectPhoneNumber(allMobileNumber) { number ->
                                 val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
                                 val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
                                 formatted?.let {
@@ -181,7 +199,6 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
                                 } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
-                            pCur?.close()
                         }
                     }
                 }

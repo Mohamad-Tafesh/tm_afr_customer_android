@@ -19,7 +19,7 @@ class GetMyBundlesServicesUseCase
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<MyBundlesAndServices>> {
 
-        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
         return restApi.getMyBundlesAndServices(subMsisdn)
     }
 }

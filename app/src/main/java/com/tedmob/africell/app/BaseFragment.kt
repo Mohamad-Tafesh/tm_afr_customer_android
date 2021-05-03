@@ -2,7 +2,6 @@ package com.tedmob.africell.app
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,7 +40,7 @@ abstract class BaseFragment : DaggerFragment() {
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    protected val actionbar: ActionBar? get() =  getActionBar()
+    protected val actionbar: ActionBar? get() = getActionBar()
     private var toolbarLayout: ToolbarLayout? = null
     protected var toolbar: Toolbar? = null
         get() = toolbarLayout?.toolbar
@@ -53,15 +52,17 @@ abstract class BaseFragment : DaggerFragment() {
     protected var progressDialog: ProgressDialog? = null
 
     private var rxDisposables: CompositeDisposable? = null
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     /**
      * Toolbar might be shared between multiple fragments. Configure it here.
      */
     open fun configureToolbar() {}
     private val imageViewModel by provideViewModel<ImageViewModel> { viewModelFactory }
-    fun setupImageBanner(toolbar: SimpleDraweeView, imageType: String?, pageName: String? ){
+    fun setupImageBanner(toolbar: SimpleDraweeView, imageType: String?, pageName: String?) {
         imageViewModel.getImages(imageType, pageName)
-        observeResourceWithoutProgress(imageViewModel.imagesData,{
+        observeResourceWithoutProgress(imageViewModel.imagesData, {
             toolbar.setImageURI(it.getOrNull(0))
         })
     }
@@ -251,20 +252,42 @@ abstract class BaseFragment : DaggerFragment() {
             }
             .show()
     }
+
     fun redirectToLogin() {
         activity?.startActivity(Intent(activity, AuthenticationActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
     }
-     fun promptCallUs(phones:List<String>) {
+
+    fun promptCallUs(phones: List<String>) {
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setItems(phones.toTypedArray()
+            .setItems(
+                phones.toTypedArray()
             ) { dialog, which -> dial(phones[which]) }
             .setNegativeButton(R.string.close, null)
             .create()
         dialog.show()
     }
+
+    fun selectPhoneNumber(allPhones: List<String>, action: ((String) -> Unit)) {
+        val phones= allPhones.distinct()
+        if(phones.size<=1){
+            action.invoke(phones[0])
+        }else {
+            val dialog = AlertDialog.Builder(requireContext())
+                .setItems(
+                    phones.toTypedArray()
+                ) { dialog, which ->
+                    action.invoke(phones[which])
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.close, null)
+                .create()
+            dialog.show()
+        }
+    }
+
     override fun onDestroyView() {
         activity?.hideKeyboard()
         super.onDestroyView()

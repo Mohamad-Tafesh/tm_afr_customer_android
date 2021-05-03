@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.util.removeTime
 import kotlinx.android.synthetic.main.fragment_my_bundle_details.*
-import javax.inject.Inject
 
 
 class MyBundleDetailsFragment : BaseFragment() {
@@ -26,12 +24,11 @@ class MyBundleDetailsFragment : BaseFragment() {
     }
 
 
-
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.title=bundle?.name
+        actionbar?.title = bundle?.name
         setHasOptionsMenu(true)
     }
 
@@ -51,17 +48,16 @@ class MyBundleDetailsFragment : BaseFragment() {
     }
 
 
-
     private fun setUpUI() {
-        validityTxt.text=bundle.validity
-        activatedOnValue.text=bundle.activateDate.orEmpty()
-subtitle.text=bundle.name.orEmpty()
-        titleTxt.text=bundle.subTitle.orEmpty()
-        descriptionTxt.text=bundle.description.orEmpty()
-        balanceTitle.text=bundle.currentValue.orEmpty()+"/"+bundle.maxValue.orEmpty()
-        expiryDateTxt.text="EXP:" + bundle.expiryDate.orEmpty().removeTime()
-        progressBar.max=bundle.maxValue?.toDoubleOrNull()?.toInt()?:100
-        progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt()?:0)
+        validityTxt.text = bundle.expiryDate.orEmpty().removeTime()
+        activatedOnValue.text = bundle.activateDate.orEmpty()
+        subtitle.text = bundle.name.orEmpty()
+        titleTxt.text = bundle.subTitle.orEmpty()
+        descriptionTxt.text = bundle.description.orEmpty()
+        balanceTitle.text = bundle.currentValue.orEmpty() + "/" + bundle.maxValue.orEmpty()
+        expiryDateTxt.text = "EXP:" + bundle.expiryDate.orEmpty().removeTime()
+        progressBar.max = bundle.maxValue?.toDoubleOrNull()?.toInt() ?: 100
+        progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt() ?: 0)
 
 
     }

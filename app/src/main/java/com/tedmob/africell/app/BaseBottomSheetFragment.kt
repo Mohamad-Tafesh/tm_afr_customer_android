@@ -245,4 +245,23 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
     }
+
+
+    fun selectPhoneNumber(allPhones: List<String>, action: ((String) -> Unit)) {
+        val phones= allPhones.distinct()
+        if(phones.size<=1){
+            action.invoke(phones[0])
+        }else {
+            val dialog = AlertDialog.Builder(requireContext())
+                .setItems(
+                    phones.toTypedArray()
+                ) { dialog, which ->
+                    action.invoke(phones[which])
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.close, null)
+                .create()
+            dialog.show()
+        }
+    }
 }

@@ -98,12 +98,14 @@ class LoginFragment : BaseFragment(), Liv.Action {
             onSuccess = {
                 button?.isClickable = false
                 navigateToMainScreen()
+
             }
         }
     }
 
     private fun navigateToMainScreen() {
         findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+        activity?.finish()
     }
 
     override fun performAction() {

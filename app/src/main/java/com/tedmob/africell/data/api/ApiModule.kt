@@ -6,7 +6,10 @@ import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
-import okhttp3.*
+import okhttp3.Credentials
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.EOFException
@@ -40,33 +43,34 @@ object ApiModule {
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(60L, TimeUnit.SECONDS)
-            /*.authenticator { route, response ->
-                val hasEmptyBody = try {
-                    response.body?.source()?.peek()?.readUtf8()
-                    false
-                } catch (e: EOFException) {
-                    true
-                }
+        /*.authenticator { route, response ->
+            val hasEmptyBody = try {
+                response.body?.source()?.peek()?.readUtf8()
+                false
+            } catch (e: EOFException) {
+                true
+            }
 
-                if (response.code == 401 && hasEmptyBody) {
-                    //fixing bug with most apis from Africell server. There is no other way to solve it app-side.
-                    response.newBuilder()
-                        .body(
-                            "{\"status\":401,\"title\":\"Invalid_token\"}".toResponseBody()
-                        )
-                        .build()
-                } else {
-                    response
-                }
+            if (response.code == 401 && hasEmptyBody) {
+                //fixing bug with most apis from Africell server. There is no other way to solve it app-side.
+                response.newBuilder()
+                    .body(
+                        "{\"status\":401,\"title\":\"Invalid_token\"}".toResponseBody()
+                    )
+                    .build()
+            } else {
+                response
+            }
 
-            }*/
+        }*/
 
         val block: (chain: Interceptor.Chain) -> Response = {
             val credentials: String = Credentials.basic("TestingAPI", "TestingAPI")
 
             val response = it.proceed(
                 it.request().let { request ->
-                    Timber.tag("OkHttp-test").v("Request: ${request.url}")
+
+                    Timber.tag("OkHttp").v("Request: ${request.url}")
 
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
@@ -87,16 +91,23 @@ object ApiModule {
                         .build()
                 }
             )
-
-            Timber.tag("OkHttp-test").v("Response: $response")
-            Timber.tag("OkHttp-test").v("Response code: ${response.code}")
-
+            val body = try {
+                response.body?.source()?.peek()?.readUtf8()
+            } catch (e: EOFException) {
+                null
+            }
+            if (BuildConfig.DEBUG) {
+                Timber.tag("OkHttp-test").v("Response: $response")
+                Timber.tag("OkHttp-test").v("Response code: ${response.code}")
+                Timber.tag("OkHttp-test").v("Response code: ${body.orEmpty()}")
+            }
             val hasEmptyBody = try {
                 response.body?.source()?.peek()?.readUtf8()
                 false
             } catch (e: EOFException) {
                 true
             }
+
             if (response.code == 401 && hasEmptyBody) {
                 //fixing bug with most apis from Africell server. There is no other way to solve it app-side.
                 response.newBuilder()
@@ -109,13 +120,15 @@ object ApiModule {
             }
         }
         builder.addInterceptor(block)
+/*
 
-        /*if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
-        }*/
+        }
+*/
 
         return builder.build()
     }

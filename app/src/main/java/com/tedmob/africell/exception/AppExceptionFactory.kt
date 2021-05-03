@@ -43,8 +43,6 @@ class AppExceptionFactory
                         apiResponse?.title ?: unexpectedErrorMessage,
                         apiResponse?.title, t
                     )
-
-
                     logger.saveLog("Api call url:\n${t.response()?.raw()?.request?.url}")
                     logger.logException(appException)
                     appException

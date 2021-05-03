@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
 import com.tedmob.africell.data.api.dto.DataCalculatorDTO
@@ -16,11 +15,11 @@ import kotlinx.android.synthetic.main.row_data_calculator.view.*
 
 class DataCalculatorAdapter(
     private var items: List<DataCalculatorDTO.DataCalculator>,
-    private val seekbarValueItems: HashMap<String, Int>,
+    private var seekbarValueItems: HashMap<String, Double>,
     private val callback: Callback?,
 ) : RecyclerView.Adapter<DataCalculatorAdapter.HomeItemHolder>() {
     interface Callback {
-        fun onItemChangedListener(seekbarValueItems: HashMap<String, Int>)
+        fun onItemChangedListener(seekbarValueItems: HashMap<String, Double>)
     }
 
     class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -51,11 +50,14 @@ class DataCalculatorAdapter(
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    seekbarValueItems.put(item.idDataCalculator, progress)
+                    val progressPerUnit =progress.toDouble() * (item.costPerUnit?.toDouble() ?:0.0)
+                    seekbarValueItems.put(item.idDataCalculator, progressPerUnit)
                     callback?.onItemChangedListener(seekbarValueItems)
                     valueTxt.text = progress.toString() + item.variableUnit
                 }
             })
+
+
 
             valueTxt.text = item.minimumValue + item.variableUnit
             if (position % 2 == 0) {
@@ -72,8 +74,12 @@ class DataCalculatorAdapter(
     }
 
 
-    fun setItems(newItems: List<DataCalculatorDTO.DataCalculator> = mutableListOf()) {
+    fun setItems(
+        newItems: List<DataCalculatorDTO.DataCalculator> = mutableListOf(),
+        seekbarValueItems: HashMap<String, Double>
+    ) {
         items = newItems.toMutableList()
+        this.seekbarValueItems=seekbarValueItems
         notifyDataSetChanged()
     }
 }

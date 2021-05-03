@@ -18,7 +18,7 @@ class GetServicesUseCase
     : UseCase<List<ServicesDTO>, Unit>(schedulers) {
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<ServicesDTO>> {
-        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else ""
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
         return restApi.getMyServices(subMsisdn)
     }
 

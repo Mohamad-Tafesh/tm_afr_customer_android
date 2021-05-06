@@ -2,17 +2,17 @@ package com.tedmob.africell.notification
 
 import android.content.Context
 import androidx.navigation.NavDeepLinkBuilder
-import com.onesignal.OSNotificationOpenResult
+import com.onesignal.OSNotificationOpenedResult
 import com.onesignal.OneSignal
 import com.tedmob.africell.R
 import com.tedmob.africell.features.launch.PushFragmentArgs
 import timber.log.Timber
 
 class NotificationOpenedHandler(private val context: Context) :
-    OneSignal.NotificationOpenedHandler {
-    override fun notificationOpened(result: OSNotificationOpenResult) {
+    OneSignal.OSNotificationOpenedHandler  {
+    override fun notificationOpened(result: OSNotificationOpenedResult) {
         Timber.d("Notification opened")
-        val payload = result.notification.payload
+        val payload = result.notification
 
         val additionalData = payload.additionalData
         val imageWidth = additionalData?.optDouble("image_width", -1.0)?.takeIf { it >= 0.0 }

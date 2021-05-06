@@ -5,7 +5,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.9'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.10'
     }
 }
 
@@ -41,11 +41,9 @@ android {
         versionCode generateVersionCode()
         versionName generateVersionName()
         multiDexEnabled true
-        manifestPlaceholders = [onesignal_app_id               : "21dc83f1-4b58-4d8f-b3bf-bea383641a76",
-                                // Project number pulled from dashboard, local value is ignored.
-                                onesignal_google_project_number: "REMOTE"]
-        manifestPlaceholders["enableFirebaseCrashlytics"] = true
 
+        manifestPlaceholders["enableFirebaseCrashlytics"] = true
+        resValue 'string', 'onesignal_app_id', "8251e44f-a70c-4402-a1d4-d8a37fe2758d"
         resValue 'string', 'app_version_name', "$versionName"
     }
 
@@ -167,7 +165,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // push
-    implementation "com.onesignal:OneSignal:[3.15.4, 3.99.99]"
+    implementation "com.onesignal:OneSignal:4.3.0"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "me.relex:circleindicator:2.1.4@aar"

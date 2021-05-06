@@ -41,14 +41,8 @@
         <activity android:name=".features.addNewAccount.AddAccountActivity" />
         <activity android:name=".features.help.HelpActivity" />
 
-        <service
-                android:name="com.tedmob.africell.notification.NotificationService"
-                android:exported="false"
-                android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="com.onesignal.NotificationExtender"/>
-            </intent-filter>
-        </service>
+        <meta-data android:name="com.onesignal.NotificationServiceExtension"
+                android:value="${applicationId}.notification.NotificationServiceExtension" />
 
         <meta-data
                 android:name="com.onesignal.NotificationOpened.DEFAULT"

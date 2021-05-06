@@ -218,4 +218,9 @@ interface RestApi {
         @Query("submsisdn") msisdn: String?,
         @Query("sname") sname : String?,
     ): Observable<StatusDTO>
+
+    @POST("SelfCare/SetPlayerId")
+    fun setUserPush(
+        @Body request: PlayerPushRequest,
+    ): Observable<Unit>
 }

@@ -22,11 +22,10 @@ import com.tedmob.africell.R
 import com.tedmob.africell.features.settings.menu.SettingsMenuPopupWindow
 
 fun bindOneSignalStateTo(container: ViewGroup, switch: SwitchCompat) {
-    switch.isChecked =
-        OneSignal.getPermissionSubscriptionState()?.subscriptionStatus?.subscribed == true
+    switch.isChecked = OneSignal.getDeviceState()?.isSubscribed == true
 
     container.setOnClickListener {
-        OneSignal.setSubscription(!switch.isChecked)
+        OneSignal.disablePush(switch.isChecked) //newState = !switch.isChecked, disabling is !newState.
         switch.toggle()
     }
 }

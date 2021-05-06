@@ -30,6 +30,8 @@ import kotlinx.android.synthetic.main.toolbar_home.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
+    @Inject
+    lateinit var sessionRepository: SessionRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_home, R.layout.toolbar_home, true)
@@ -99,8 +101,14 @@ class HomeFragment : BaseFragment() {
         setupRecyclerView()
         setupUI()
         bindData()
-
+        bindPush()
         //balanceAdapter.setItems(balance)
+    }
+
+    private fun bindPush() {
+        if (sessionRepository.isLoggedIn()) {
+            viewModel.setUserPush()
+        }
     }
 
     private fun setupUI() {
@@ -140,8 +148,6 @@ class HomeFragment : BaseFragment() {
 
     }
 
-    @Inject
-    lateinit var sessionRepository: SessionRepository
 
     private fun bindData() {
 

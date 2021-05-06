@@ -10,8 +10,8 @@ import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.exception.AppException
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.accountInfo.domain.GetSubAccountUseCase
-import com.tedmob.africell.features.authentication.domain.SetUserPushUseCase
 import com.tedmob.africell.features.home.domain.GetImagesUseCase
+import com.tedmob.africell.features.home.domain.SetUserPushUseCase
 import com.tedmob.africell.ui.BaseViewModel
 import javax.inject.Inject
 

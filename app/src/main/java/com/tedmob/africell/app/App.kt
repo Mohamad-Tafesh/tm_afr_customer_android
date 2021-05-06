@@ -9,6 +9,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.onesignal.OneSignal
 import com.tedmob.africell.BuildConfig
+import com.tedmob.africell.R
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.notification.NotificationOpenedHandler
 import com.tedmob.africell.util.identifyUser
@@ -75,12 +76,10 @@ class App : DaggerApplication() {
     }
 
     private fun initOneSignal() {
-        OneSignal.startInit(this)
-            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-            .setNotificationOpenedHandler(NotificationOpenedHandler(this))
-            .unsubscribeWhenNotificationsAreDisabled(true)
-            .init()
-
+        OneSignal.setAppId(getString(R.string.onesignal_app_id))
+        OneSignal.initWithContext(this)
+        OneSignal.setNotificationOpenedHandler(NotificationOpenedHandler(this))
+        OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
         OneSignal.setLocationShared(false)
     }
 

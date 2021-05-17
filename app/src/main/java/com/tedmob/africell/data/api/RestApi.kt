@@ -160,8 +160,6 @@ interface RestApi {
         @Path("BundleId") BundleId: Long?
     ): Observable<BundleInfo>
 
-
-
     @POST("SelfCare/ActivateBundles")
     fun activateBundle(
         @Body request: ActivateBundleRequest,

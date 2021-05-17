@@ -17,8 +17,8 @@
                 app:placeholderImage="@color/grey_300"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:placeholderImageScaleType="fitXY"
-                app:actualImageScaleType="fitXY"
+                app:placeholderImageScaleType="fitCenter"
+                app:actualImageScaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
 

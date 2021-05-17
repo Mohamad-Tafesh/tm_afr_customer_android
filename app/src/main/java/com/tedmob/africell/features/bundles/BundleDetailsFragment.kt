@@ -9,6 +9,8 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BundleInfo
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.activateBundle.ActivateBundleFragment
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
+import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_bundle_details.*
 import javax.inject.Inject
 
@@ -16,20 +18,25 @@ import javax.inject.Inject
 class BundleDetailsFragment : BaseFragment() {
 
 
-    val bundle by lazy {
+    val bundleParcelable by lazy {
         arguments?.getParcelable<BundleInfo>(BUNDLE_DETAILS)
             ?: throw IllegalArgumentException("required bundle arguments")
+    }
+
+    private val viewModel by provideViewModel<BundleDetailsViewModel> {
+        viewModelFactory
     }
 
     companion object {
         const val BUNDLE_DETAILS = "bundle_details"
     }
 
-@Inject lateinit var  sessionRepository: SessionRepository
+    @Inject
+    lateinit var sessionRepository: SessionRepository
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.title = bundle.getTitle()
+        actionbar?.title = bundleParcelable.getTitle()
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
@@ -41,39 +48,46 @@ class BundleDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_bundle_details, R.layout.toolbar_default, false)
+            return wrap(inflater.context, R.layout.fragment_bundle_details, R.layout.toolbar_default, true)
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpUI()
+        bindData()
     }
 
-    private fun setUpUI() {
+    private fun bindData() {
+        viewModel.getBundlesDetails(bundleParcelable.bundleId)
+        observeResourceInline(viewModel.bundlesData,{
+            setUpUI(it)
+        })
+    }
+
+    private fun setUpUI(bundle:BundleInfo) {
         imageView.setImageURI(bundle.image)
         volumeTxt.text = bundle.getFormatVolume()
         validityTxt.text = bundle.getFormatValidity()
         descriptionTxt.text = bundle.commercialName
-        priceTxt.text ="Price: "+ bundle.price
-        validForTxt.text = "Valid for: "+  bundle.validity + bundle.validityUnit
+        priceTxt.text = "Price: " + bundle.price
+        validForTxt.text = "Valid for: " + bundle.validity + bundle.validityUnit
         activateBundleForSomeOneElseBtn.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(false)
-            }else showLoginMessage()
+            if (sessionRepository.isLoggedIn()) {
+                navigateToBundleActive(false,bundle)
+            } else showLoginMessage()
         }
         activateBundleBtn.setOnClickListener {
-            if(sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(true)
-            }else showLoginMessage()
+            if (sessionRepository.isLoggedIn()) {
+                navigateToBundleActive(true,bundle)
+            } else showLoginMessage()
         }
     }
 
-    private fun navigateToBundleActive(isActiveForMe:Boolean) {
-    //    val bundle= bundleOf(Pair(BUNDLE_DETAILS,bundle),Pair(ACTIVATE_FOR_ME,isActiveForMe))
-        val bottomSheetFragment =  ActivateBundleFragment.newInstance(bundle,isActiveForMe)
+    private fun navigateToBundleActive(isActiveForMe: Boolean, bundle: BundleInfo) {
+        //    val bundle= bundleOf(Pair(BUNDLE_DETAILS,bundle),Pair(ACTIVATE_FOR_ME,isActiveForMe))
+        val bottomSheetFragment = ActivateBundleFragment.newInstance(bundle, isActiveForMe)
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-      //  findNavController().navigate(R.id.action_bundleDetailsFragment_to_activateBundleFragment,bundle)
+        //  findNavController().navigate(R.id.action_bundleDetailsFragment_to_activateBundleFragment,bundle)
     }
 
 

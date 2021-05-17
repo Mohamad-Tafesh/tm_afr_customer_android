@@ -10,7 +10,7 @@ data class BundleInfo(
     @field:[Expose SerializedName("activate")]
     val activate: Boolean?,
     @field:[Expose SerializedName("bundleId")]
-    val bundleId: Int?,
+    val bundleId: Long?,
     @field:[Expose SerializedName("category")]
     val category: String?,
     @field:[Expose SerializedName("commercialName")]

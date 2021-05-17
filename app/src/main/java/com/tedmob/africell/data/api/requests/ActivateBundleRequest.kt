@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ActivateBundleRequest(
     @field:[Expose SerializedName("bundleId")]
-    val bundleId: Int?,
+    val bundleId: Long?,
     @field:[Expose SerializedName("isAutoRenew")]
     val isAutoRenew: Boolean?,
     @field:[Expose SerializedName("senderMSISDN")]

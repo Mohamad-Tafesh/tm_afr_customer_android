@@ -11,6 +11,7 @@ import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.authentication.ResetPasswordViewModel
 import com.tedmob.africell.features.authentication.VerifyPinViewModel
 import com.tedmob.africell.features.bookNumber.BookNumberViewModel
+import com.tedmob.africell.features.bundles.BundleDetailsViewModel
 import com.tedmob.africell.features.bundles.BundlesViewModel
 import com.tedmob.africell.features.creditTransfer.CreditTransferViewModel
 import com.tedmob.africell.features.customerCare.CustomerCareViewModel
@@ -194,4 +195,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     internal abstract fun settingsViewModel(viewModel: SettingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BundleDetailsViewModel::class)
+    internal abstract fun bundleDetailsViewModel(viewModel: BundleDetailsViewModel): ViewModel
 }

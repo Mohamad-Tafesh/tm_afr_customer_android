@@ -158,7 +158,7 @@ interface RestApi {
     @GET("SelfCare/GetBundlesDetails/{BundleId}")
     fun getBundleDetails(
         @Path("BundleId") BundleId: Long?
-    ): Observable<BundlesDTO>
+    ): Observable<BundleInfo>
 
 
 

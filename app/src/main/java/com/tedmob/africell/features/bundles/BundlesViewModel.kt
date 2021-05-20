@@ -37,7 +37,7 @@ class BundlesViewModel
         }.execute()
     }
 
-    fun getBundlesByCategory(categoryId: Long?, search: String?) {
+    fun getBundlesByCategory(categoryId: String, search: String?) {
         getBundlesByCategoryUseCase.clear()
         ResourceUseCaseExecutor(
             getBundlesByCategoryUseCase,

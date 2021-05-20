@@ -23,14 +23,18 @@ class AppSessionNavigator
 
     fun invalidateSessionAndRestart(exceptionToShow: AppException) {
         session.invalidateSession()
-        Toast.makeText(application, exceptionToShow.userMessage, Toast.LENGTH_LONG).show()
+        debugOnly {
+            Toast.makeText(application, exceptionToShow.userMessage, Toast.LENGTH_LONG).show()
+        }
         restart()
     }
 
     fun refreshToken() {
         refreshTokenUseCase.execute(Unit, object : DisposableObserver<Unit>() {
             override fun onNext(t: Unit) {
-                Toast.makeText(application, "refreshed Token", Toast.LENGTH_LONG).show()
+                debugOnly {
+                    Toast.makeText(application, "refreshed Token", Toast.LENGTH_LONG).show()
+                }
             }
 
             override fun onError(e: Throwable) {

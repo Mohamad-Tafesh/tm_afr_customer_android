@@ -35,7 +35,7 @@
                 android:screenOrientation="portrait"
                 android:label="@string/home"/>
         <activity android:name=".features.authentication.AuthenticationActivity" />
-        <activity android:name=".features.bundles.BundleActivity" />
+        <activity android:name=".features.bundles.BundleActivity"/>
         <activity android:name=".features.accountInfo.AccountInfoActivity" />
         <activity android:name=".features.accountsNumber.AccountManagementActivity" />
         <activity android:name=".features.addNewAccount.AddAccountActivity" />

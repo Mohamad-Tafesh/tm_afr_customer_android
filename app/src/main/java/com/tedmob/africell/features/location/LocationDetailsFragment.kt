@@ -11,26 +11,27 @@ import com.google.android.gms.maps.model.*
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.LocationDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
+import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.html.html
-import com.tedmob.africell.util.intents.dial
 import com.tedmob.africell.util.intents.openGoogleMapNavigation
 import kotlinx.android.synthetic.main.fragment_location_details.*
-import javax.inject.Inject
 
 
 class LocationDetailsFragment : BaseFragment() {
 
-
-    val location by lazy {
-        arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
-            ?: throw IllegalArgumentException("required Type arguments")
+    private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
+     val locationParams by lazy {
+         arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
+     }
+    val locationId by lazy {
+        arguments?.getString(LOCATION_ID)
     }
 
     companion object {
         const val LOCATION_DETAILS = "location_details"
+        const val LOCATION_ID = "location_id"
     }
-
 
 
     private var mapFragment: SupportMapFragment? = null
@@ -44,7 +45,16 @@ class LocationDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpMapConfiguration()
+        bindData()
+
+    }
+
+    private fun bindData() {
+        viewModel.getLocationDetails(locationId,locationParams)
+        observeResourceInline(viewModel.locationdetailsData,{
+            setUpMapConfiguration(it)
+            fillLocationInfo(it)
+        })
     }
 
     override fun onCreateView(
@@ -58,7 +68,7 @@ class LocationDetailsFragment : BaseFragment() {
     }
 
 
-    private fun setUpMapConfiguration() {
+    private fun setUpMapConfiguration(location: LocationDTO) {
         if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance()
         }
@@ -83,9 +93,10 @@ class LocationDetailsFragment : BaseFragment() {
                         fitBounds(googleMap, marker)
                     }
                 }
-                fillLocationInfo(location)
+
             }
         }
+
     }
 
     private fun clearMap(googleMap: GoogleMap) {
@@ -120,7 +131,10 @@ class LocationDetailsFragment : BaseFragment() {
             }
             getDirection.setOnClickListener {
                 if (location.latitude?.toDoubleOrNull() != null && location.longitude?.toDoubleOrNull() != null) {
-                    openGoogleMapNavigation(location.latitude?.toDoubleOrNull()!!, location.longitude?.toDoubleOrNull()!!)
+                    openGoogleMapNavigation(
+                        location.latitude?.toDoubleOrNull()!!,
+                        location.longitude?.toDoubleOrNull()!!
+                    )
                 } else {
                     showMessage(getString(R.string.direction_not_available))
                 }

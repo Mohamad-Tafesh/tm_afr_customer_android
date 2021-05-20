@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_BUNDLE_CATEGORY_ID
+import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_CATEGORY_NAME
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
-import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_BUNDLE_CATEGORY
 import kotlinx.android.synthetic.main.fragment_bundle_categories.*
-import javax.inject.Inject
 
 
 class BundleCategoriesFragment : BaseFragment() {
@@ -25,7 +24,10 @@ class BundleCategoriesFragment : BaseFragment() {
     val adapter by lazy {
         BundleCategoriesAdapter(mutableListOf(), object : BundleCategoriesAdapter.Callback {
             override fun onItemClickListener(item: BundleCategoriesDTO) {
-                val bundle = bundleOf(Pair(KEY_BUNDLE_CATEGORY, item))
+                val bundle = bundleOf(
+                    Pair(KEY_BUNDLE_CATEGORY_ID, item.idBundleCategories?.toString()),
+                    Pair(KEY_CATEGORY_NAME, item.categoryName),
+                )
                 findNavController().navigate(R.id.action_bundleCategoriesFragment_to_bundleVPFragment, bundle)
             }
         })

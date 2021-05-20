@@ -21,6 +21,8 @@ data class BundleInfo(
     val price: String?,
     @field:[Expose SerializedName("subCategory")]
     val subCategory: String?,
+    @field:[Expose SerializedName("subTitles")]
+    val subTitles: String?,
     @field:[Expose SerializedName("unit")]
     val unit: String?,
     @field:[Expose SerializedName("validity")]

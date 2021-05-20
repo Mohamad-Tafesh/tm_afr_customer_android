@@ -7,33 +7,29 @@ import android.view.ViewGroup
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
+import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.fragment_bundle_details.*
+
 import kotlinx.android.synthetic.main.fragment_service_details.*
-import kotlinx.android.synthetic.main.fragment_service_details.descriptionTxt
-import kotlinx.android.synthetic.main.fragment_service_details.imageView
-import kotlinx.android.synthetic.main.fragment_service_details.priceTxt
-import kotlinx.android.synthetic.main.fragment_service_details.validityTxt
-import kotlinx.android.synthetic.main.fragment_service_details.volumeTxt
-import javax.inject.Inject
 
 
 class ServiceDetailsFragment : BaseFragment() {
 
-
     val service by lazy {
         arguments?.getParcelable<ServicesDTO>(SERVICE_DETAILS)
-            ?: throw IllegalArgumentException("required Type arguments")
+    }
+
+    val sname by lazy {
+        arguments?.getString(KEY_SNAME)
     }
 
     companion object {
+        const val KEY_SNAME = "sname"
         const val SERVICE_DETAILS = "service_details"
     }
 
     private val viewModel by provideViewModel<ServicesViewModel> { viewModelFactory }
-
 
 
     override fun configureToolbar() {
@@ -56,16 +52,23 @@ class ServiceDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpUI()
+        bindData()
     }
 
-    private fun setUpUI() {
+    private fun bindData() {
+        viewModel.getServiceDetails(sname,service)
+        observeResourceInline(viewModel.serviceDetailsData, {
+            setUpUI(it)
+        })
+    }
+
+    private fun setUpUI(service: ServicesDTO) {
         imageView.setImageURI(service.image)
-        volumeTxt.text = service.name.orEmpty()+"/"+service.validity.orEmpty()
-        validityTxt.text ="Valid for a "+  service.validity.orEmpty()
+        volumeTxt.text = service.name.orEmpty() + "/" + service.validity.orEmpty()
+        validityTxt.text = "Valid for a " + service.validity.orEmpty()
         descriptionTxt.text = service.description.orEmpty()
-        priceTxt.text ="Price: "+ service.price.orEmpty() + service.priceUnit.orEmpty()
-        subtitleTxt.text=service.name.orEmpty()
+        priceTxt.text = "Price: " + service.price.orEmpty() + service.priceUnit.orEmpty()
+        subtitleTxt.text = service.name.orEmpty()
 
         subscribeBtn.setOnClickListener {
             service.sname?.let { viewModel.subscribe(it) }
@@ -77,8 +80,9 @@ class ServiceDetailsFragment : BaseFragment() {
             }
         }
         subscribeBtn.visibility = if (service.isActive == false) View.VISIBLE else View.GONE
-        unsubscribeBtn.visibility = if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
-        unsubscribeBtn.setText(service.buttonLabel?: "Unsubscribe")
+        unsubscribeBtn.visibility =
+            if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
+        unsubscribeBtn.setText(service.buttonLabel ?: "Unsubscribe")
         observeResource(viewModel.subscribeData) {
             unsubscribeBtn.visibility = View.GONE
             subscribeBtn.visibility = View.GONE

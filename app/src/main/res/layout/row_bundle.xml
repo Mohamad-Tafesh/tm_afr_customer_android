@@ -18,7 +18,7 @@
             android:text="volume"/>
 
     <TextView
-            android:id="@+id/validityTxt"
+            android:id="@+id/subtitleTxt"
             style="@style/TextAppearance.normal"
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_width="match_parent"

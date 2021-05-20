@@ -23,7 +23,7 @@ class BundleDetailsViewModel
     val bundlesData = MutableLiveData<Resource<BundleInfo>>()
 
 
-    fun getBundlesDetails(bundleId: Long?) {
+    fun getBundlesDetails(bundleId: String) {
         ResourceUseCaseExecutor(
             getBundleDetailsUseCase,
             GetBundleDetailsUseCase.Params(bundleId),

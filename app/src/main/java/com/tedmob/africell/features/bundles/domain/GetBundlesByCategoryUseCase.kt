@@ -19,7 +19,7 @@ class GetBundlesByCategoryUseCase
     }
 
     data class Params(
-        val categoryId: Long?,
+        val categoryId: String,
         val searchBundle: String?
     )
 }

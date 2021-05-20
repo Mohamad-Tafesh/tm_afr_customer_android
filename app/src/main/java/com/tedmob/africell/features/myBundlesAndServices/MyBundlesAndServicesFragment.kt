@@ -12,13 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
-import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_DETAILS
 import com.tedmob.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.tedmob.africell.features.services.ServicesAdapter
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_services.*
-import javax.inject.Inject
 
 
 class MyBundlesAndServicesFragment : BaseFragment() {
@@ -41,10 +38,10 @@ class MyBundlesAndServicesFragment : BaseFragment() {
         ServicesAdapter(mutableListOf(), object : ServicesAdapter.Callback {
             override fun onItemClickListener(item: ServicesDTO) {
                 if (item.isServices == true) {
-                     val bundle = bundleOf(Pair(SERVICE_DETAILS, item))
-                         findNavController().navigate(R.id.serviceDetailsFragment, bundle)
+                    val bundle = bundleOf(Pair(SERVICE_DETAILS, item))
+                    findNavController().navigate(R.id.serviceDetailsFragment, bundle)
                 } else {
-                    val bundle = bundleOf(Pair(BUNDLE_DETAILS, item))
+                    val bundle = bundleOf(Pair(MyBundleDetailsFragment.BUNDLE_DETAILS, item))
                     findNavController().navigate(
                         R.id.action_myBundleServicesVPFragment_to_myBundleDetailsFragment,
                         bundle

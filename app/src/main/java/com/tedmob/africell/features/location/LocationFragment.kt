@@ -17,15 +17,13 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_DETAILS
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_ID
 import com.tedmob.africell.ui.viewmodel.observe
-import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_location.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
 class LocationFragment : BaseFragment() {
@@ -56,7 +54,7 @@ class LocationFragment : BaseFragment() {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ charSequence ->
-                    viewModel.getLocations(charSequence.toString(),  latitude, longitude)
+                    viewModel.getLocations(charSequence.toString(), latitude, longitude)
                 }) { t -> }
         }
     }

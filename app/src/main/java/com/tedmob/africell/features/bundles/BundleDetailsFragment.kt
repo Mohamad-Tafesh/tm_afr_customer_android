@@ -18,8 +18,8 @@ import javax.inject.Inject
 class BundleDetailsFragment : BaseFragment() {
 
 
-    val bundleParcelable by lazy {
-        arguments?.getParcelable<BundleInfo>(BUNDLE_DETAILS)
+    val bundleId by lazy {
+        arguments?.getString(BUNDLE_ID)
             ?: throw IllegalArgumentException("required bundle arguments")
     }
 
@@ -28,7 +28,7 @@ class BundleDetailsFragment : BaseFragment() {
     }
 
     companion object {
-        const val BUNDLE_DETAILS = "bundle_details"
+        const val BUNDLE_ID = "bundle_id"
     }
 
     @Inject
@@ -36,7 +36,6 @@ class BundleDetailsFragment : BaseFragment() {
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.title = bundleParcelable.getTitle()
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
@@ -58,7 +57,7 @@ class BundleDetailsFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        viewModel.getBundlesDetails(bundleParcelable.bundleId)
+        viewModel.getBundlesDetails(bundleId)
         observeResourceInline(viewModel.bundlesData,{
             setUpUI(it)
         })
@@ -66,8 +65,9 @@ class BundleDetailsFragment : BaseFragment() {
 
     private fun setUpUI(bundle:BundleInfo) {
         imageView.setImageURI(bundle.image)
+        actionbar?.title = bundle.getTitle()
         volumeTxt.text = bundle.getFormatVolume()
-        validityTxt.text = bundle.getFormatValidity()
+        subtitleTxt.text = bundle.subTitles
         descriptionTxt.text = bundle.commercialName
         priceTxt.text = "Price: " + bundle.price
         validForTxt.text = "Valid for: " + bundle.validity + bundle.validityUnit

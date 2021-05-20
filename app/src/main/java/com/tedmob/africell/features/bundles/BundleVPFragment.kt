@@ -15,10 +15,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
 import com.tedmob.africell.data.api.dto.BundlesDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,11 +27,15 @@ import javax.inject.Inject
 
 
 class BundleVPFragment : BaseFragment() {
-    val bundleCategory by lazy {
-        arguments?.getParcelable<BundleCategoriesDTO>(KEY_BUNDLE_CATEGORY)
+
+
+    val bundleId by lazy {
+        arguments?.getString(KEY_BUNDLE_CATEGORY_ID)
             ?: throw IllegalArgumentException("required bundle arguments")
     }
-
+    val bundleName by lazy {
+        arguments?.getString(KEY_CATEGORY_NAME)
+    }
     @Inject
     lateinit var sessionRepository: SessionRepository
 
@@ -44,13 +46,14 @@ class BundleVPFragment : BaseFragment() {
     }
 
     companion object {
-        const val KEY_BUNDLE_CATEGORY = "bundle_category"
+        const val KEY_CATEGORY_NAME = "key_category_name"
+        const val KEY_BUNDLE_CATEGORY_ID= "bundle_category_id"
     }
 
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.show()
-        actionbar?.title = bundleCategory.categoryName + " Bundles"
+        actionbar?.title = bundleName.orEmpty()+ " Bundles"
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)
@@ -62,7 +65,7 @@ class BundleVPFragment : BaseFragment() {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ charSequence ->
-                    viewModel.getBundlesByCategory(bundleCategory.idBundleCategories,charSequence.toString())
+                    viewModel.getBundlesByCategory(bundleId,charSequence.toString())
                 }) { t -> }
         }
     }
@@ -75,14 +78,13 @@ class BundleVPFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        viewModel.getBundlesByCategory(bundleCategory.idBundleCategories,null)
+        viewModel.getBundlesByCategory(bundleId,null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
             setupViewPager(bundles)
         }
     }
 
     private fun setupViewPager(bundles: List<BundlesDTO>) {
-
 
         viewPager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL

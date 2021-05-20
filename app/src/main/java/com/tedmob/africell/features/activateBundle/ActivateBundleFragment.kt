@@ -21,7 +21,7 @@ import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.features.bundles.BundleDetailsFragment
-import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_DETAILS
+
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.spinner.MaterialSpinner
 import com.tedmob.africell.ui.spinner.OnItemSelectedListener
@@ -50,7 +50,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     }
 
     val bundle by lazy {
-        arguments?.getParcelable<BundleInfo>(BundleDetailsFragment.BUNDLE_DETAILS)
+        arguments?.getParcelable<BundleInfo>(BUNDLE_DETAILS)
             ?: throw IllegalArgumentException("required bundle arguments")
     }
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
@@ -61,6 +61,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     private val viewModel by provideViewModel<ActivateBundleViewModel> { viewModelFactory }
 
     companion object {
+        const val BUNDLE_DETAILS="bundle_details"
         const val ACTIVATE_FOR_ME = "activate_for_me"
         fun newInstance(bundle: BundleInfo, isActivateForMe: Boolean): ActivateBundleFragment {
             return ActivateBundleFragment().apply {

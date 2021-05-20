@@ -58,6 +58,11 @@ interface RestApi {
         @Query("SearchShop") searchShop: String?,
     ): Observable<List<LocationDTO>>
 
+    @GET("SelfCare/GetShopLocation/{id}")
+    fun getShopLocationDetails(
+        @Path("id") shopId: String?
+    ): Observable<LocationDTO>
+
     @GET("SelfCare/GetAboutUs")
     fun aboutUs(
     ): Observable<AboutDTO>
@@ -151,13 +156,13 @@ interface RestApi {
 
     @GET("SelfCare/GetBundlesByCategories/{categoriesid}")
     fun getBundlesByCategories(
-        @Path("categoriesid") categoryId: Long?,
+        @Path("categoriesid") categoryId: String?,
         @Query("searchBundle") searchBundle: String?
     ): Observable<List<BundlesDTO>>
 
     @GET("SelfCare/GetBundlesDetails/{BundleId}")
     fun getBundleDetails(
-        @Path("BundleId") BundleId: Long?
+        @Path("BundleId") BundleId: String
     ): Observable<BundleInfo>
 
     @POST("SelfCare/ActivateBundles")
@@ -221,4 +226,10 @@ interface RestApi {
     fun setUserPush(
         @Body request: PlayerPushRequest,
     ): Observable<Unit>
+
+    @GET("GetVasServices/{sname}")
+    fun getVasServiceDetails(
+        @Path("sname") sname: String?
+    ): Observable<ServicesDTO>
+
 }

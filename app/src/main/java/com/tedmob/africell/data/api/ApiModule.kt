@@ -70,7 +70,8 @@ object ApiModule {
             val response = it.proceed(
                 it.request().let { request ->
 
-                    Timber.tag("OkHttp").v("Request: ${request.url}")
+                    Timber.tag("OkHttp").d("Request: ${request.url}")
+                    Timber.tag("OkHttp").d("BasicToken: ${credentials}")
 
                     request.newBuilder()
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
@@ -85,7 +86,9 @@ object ApiModule {
                                 session.isLoggedIn()
                             ) {
                                 header("X-Authorization", "Bearer " + session.accessToken)
-                                Timber.tag("OkHttp").v("Access-Token: ${session.accessToken}")
+
+                                Timber.tag("OkHttp").d("Access-Token: ${session.accessToken}")
+
                             }
                         }
                         .build()

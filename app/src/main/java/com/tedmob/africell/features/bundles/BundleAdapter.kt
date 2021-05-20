@@ -31,8 +31,8 @@ class BundleAdapter(
         val item = items[position]
         holder.itemView.run {
             volumeTxt.text = item.getFormatVolume()
-            validityTxt.text = item.getFormatValidity()
-            priceTxt.text ="Price: "+ item.price
+            subtitleTxt.text = item.subTitles
+            priceTxt.text = item.price
             isActivatedTxt.isVisible = item.activate == true
             activateBtn.setOnClickListener {
                 callback.onItemClickListener(item)

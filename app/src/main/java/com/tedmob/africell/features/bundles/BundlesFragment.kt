@@ -12,8 +12,8 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.AccountBalanceDTO
 import com.tedmob.africell.data.api.dto.BundleInfo
 import com.tedmob.africell.data.api.dto.BundlesDTO
-import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_DETAILS
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
+import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_ID
+
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_bundles.*
 import javax.inject.Inject
@@ -52,7 +52,7 @@ class BundlesFragment : BaseFragment() {
     val adapter by lazy {
         BundleAdapter(mutableListOf(),object : BundleAdapter.Callback{
             override fun onItemClickListener(item: BundleInfo) {
-              val bundle = bundleOf(BUNDLE_DETAILS to item)
+              val bundle = bundleOf(BUNDLE_ID to item.bundleId?.toString())
                 findNavController().navigate(R.id.action_bundleVPFragment_to_bundleDetailsFragment,bundle)
             }
         })

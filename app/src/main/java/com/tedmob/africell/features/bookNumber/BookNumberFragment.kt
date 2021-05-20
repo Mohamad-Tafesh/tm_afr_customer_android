@@ -1,7 +1,9 @@
 package com.tedmob.africell.features.bookNumber
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +12,6 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.repository.domain.SessionRepository
-
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observe
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -25,7 +25,9 @@ import javax.inject.Inject
 class BookNumberFragment : BaseFragment() {
 
     private val viewModel by provideViewModel<BookNumberViewModel> { viewModelFactory }
-@Inject lateinit var sessionRepository: SessionRepository
+
+    @Inject
+    lateinit var sessionRepository: SessionRepository
     val adapter by lazy {
         BookNumberAdapter(mutableListOf(), object : BookNumberAdapter.Callback {
             override fun onBookNumberClickListener(item: String) {
@@ -61,14 +63,14 @@ class BookNumberFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(sessionRepository.isLoggedIn()) {
+        if (sessionRepository.isLoggedIn()) {
             setupRecyclerView()
             searchRxTextView()
             viewModel.getFreeNumbers(searchTextLayout.getText())
             bindData()
             showContent()
-        }else{
-            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+        } else {
+            showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
                 redirectToLogin()
             }
         }
@@ -120,14 +122,13 @@ class BookNumberFragment : BaseFragment() {
         }
 
 
-        observeResource(viewModel.bookNumberData){
+        observeResource(viewModel.bookNumberData) {
             viewModel.getFreeNumbers(searchTextLayout.getText())
-            showMaterialMessageDialog(it.resultText ?:"",getString(R.string.close)) {
+            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
 
             }
         }
     }
-
 
 
 }

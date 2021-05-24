@@ -25,7 +25,6 @@ class NotificationOpenedHandler(private val context: Context) :
     override fun notificationOpened(result: OSNotificationOpenedResult) {
         Timber.d("Notification opened")
         val payload = result.notification
-
         val additionalData = payload.additionalData
         val imageWidth = additionalData?.optDouble("image_width", -1.0)?.takeIf { it >= 0.0 }
         val imageHeight = additionalData?.optDouble("image_height", -1.0)?.takeIf { it >= 0.0 }
@@ -54,7 +53,7 @@ class NotificationOpenedHandler(private val context: Context) :
                 pendingIntent.send()
             }
             "new_service" -> {
-                val bundle = bundleOf(ServiceDetailsFragment.SERVICE_DETAILS to itemId)
+                val bundle = bundleOf(ServiceDetailsFragment.KEY_SNAME to itemId)
                 val pendingIntent = NavDeepLinkBuilder(context)
                     .setGraph(R.navigation.nav_main)
                     .setComponentName(MainActivity::class.java)

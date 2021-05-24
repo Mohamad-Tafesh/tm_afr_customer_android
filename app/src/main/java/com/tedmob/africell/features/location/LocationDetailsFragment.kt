@@ -63,7 +63,7 @@ class LocationDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_location_details, R.layout.toolbar_default, false)
+            return wrap(inflater.context, R.layout.fragment_location_details, R.layout.toolbar_default, true)
         }
     }
 

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_service_details.*
 
 class ServiceDetailsFragment : BaseFragment() {
 
-    val service by lazy {
+    val serviceParam by lazy {
         arguments?.getParcelable<ServicesDTO>(SERVICE_DETAILS)
     }
 
@@ -46,7 +46,7 @@ class ServiceDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_service_details, R.layout.toolbar_default, false)
+            return wrap(inflater.context, R.layout.fragment_service_details, R.layout.toolbar_default, true)
         }
     }
 
@@ -56,7 +56,7 @@ class ServiceDetailsFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        viewModel.getServiceDetails(sname,service)
+        viewModel.getServiceDetails(sname,serviceParam)
         observeResourceInline(viewModel.serviceDetailsData, {
             setUpUI(it)
         })

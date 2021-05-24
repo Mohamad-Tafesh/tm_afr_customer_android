@@ -180,7 +180,7 @@ interface RestApi {
         @Query("submsisdn") msisdn: String?,
     ): Observable<List<MyBundlesAndServices>>
 
-    @GET("/SelfCare/GetMyServices")
+    @GET("SelfCare/GetMyServices")
     fun getMyServices(
         @Query("submsisdn") msisdn: String?,
     ): Observable<List<ServicesDTO>>
@@ -227,7 +227,7 @@ interface RestApi {
         @Body request: PlayerPushRequest,
     ): Observable<Unit>
 
-    @GET("GetVasServices/{sname}")
+    @GET("SelfCare/GetVasServices/{sname}")
     fun getVasServiceDetails(
         @Path("sname") sname: String?
     ): Observable<ServicesDTO>

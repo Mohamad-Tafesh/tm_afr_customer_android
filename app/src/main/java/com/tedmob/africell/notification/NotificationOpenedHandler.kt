@@ -142,7 +142,7 @@ class NotificationOpenedHandler(private val context: Context) :
     }
 
     private fun openAppInGooglePlay(context: Context) {
-        val packageName = context.packageName
+        val packageName = /*context.packageName*/ "com.africell.africell.africellapp"
         try {
             PendingIntent.getActivity(
                 context,

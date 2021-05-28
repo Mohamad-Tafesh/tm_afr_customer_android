@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.tedmob.africell.R
 import com.tedmob.africell.features.authentication.AuthenticationActivity
@@ -26,7 +25,6 @@ import com.tedmob.africell.ui.blocks.ToolbarLayout
 import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.util.DialogUtils
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -49,7 +47,8 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     protected var progressDialog: ProgressDialog? = null
 
     private var rxDisposables: CompositeDisposable? = null
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Toolbar might be shared between multiple fragments. Configure it here.
@@ -58,6 +57,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -70,7 +70,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         )
         //fixme Manifest: can make "google_analytics_automatic_screen_reporting_enabled" false
 
-     }
+    }
 
     fun wrap(context: Context, view: View): View {
         loadingLayout = LoadingLayout(context)
@@ -184,15 +184,27 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun showMessage(message: String) {
-        view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setMessage(message)
+                .setPositiveButton(R.string.close) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
     fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
-        view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-                .setAction(actionName) { action?.invoke() }
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setMessage(message)
+                .setNegativeButton(R.string.close) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(actionName) { dialog, _ ->
+                    action?.invoke()
+                    dialog.dismiss()
+                }
                 .show()
         }
     }
@@ -228,6 +240,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
                 .show()
         }
     }
+
     fun showLoginMessage() {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.login_first))
@@ -240,6 +253,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
             }
             .show()
     }
+
     fun redirectToLogin() {
         activity?.startActivity(Intent(activity, AuthenticationActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -248,10 +262,10 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
 
 
     fun selectPhoneNumber(allPhones: List<String>, action: ((String) -> Unit)) {
-        val phones= allPhones.distinct()
-        if(phones.size<=1){
+        val phones = allPhones.distinct()
+        if (phones.size <= 1) {
             action.invoke(phones[0])
-        }else {
+        } else {
             val dialog = AlertDialog.Builder(requireContext())
                 .setItems(
                     phones.toTypedArray()

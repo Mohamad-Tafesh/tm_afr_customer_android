@@ -80,6 +80,10 @@ class BundleVPFragment : BaseFragment() {
     private fun bindData() {
         viewModel.getBundlesByCategory(bundleId,null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
+
+            if(bundleName.isNullOrEmpty()) {
+                actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + " Bundles"
+            }
             setupViewPager(bundles)
         }
     }

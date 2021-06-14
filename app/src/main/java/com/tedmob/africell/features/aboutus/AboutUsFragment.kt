@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.*
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.data.api.ApiContract
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.html.html
@@ -13,8 +11,6 @@ import com.tedmob.africell.util.intents.email
 import com.tedmob.africell.util.intents.openWebsite
 import com.tedmob.africell.util.intents.share
 import kotlinx.android.synthetic.main.fragment_about_us.*
-import kotlinx.android.synthetic.main.toolbar_image.*
-import javax.inject.Inject
 
 class AboutUsFragment : BaseFragment() {
 

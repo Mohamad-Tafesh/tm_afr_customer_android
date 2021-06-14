@@ -15,14 +15,12 @@ import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.features.authentication.MobileNumberFragment.Companion.IS_RESET
 import com.tedmob.africell.ui.button.observeInView
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_login.*
-import javax.inject.Inject
 
 class LoginFragment : BaseFragment(), Liv.Action {
 

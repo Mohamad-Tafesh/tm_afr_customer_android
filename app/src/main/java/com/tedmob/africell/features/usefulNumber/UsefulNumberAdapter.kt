@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
-import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.data.api.dto.UsefulNumberDTO
 import kotlinx.android.synthetic.main.row_useful_number.view.*
 

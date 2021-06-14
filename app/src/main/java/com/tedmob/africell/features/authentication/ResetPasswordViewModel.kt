@@ -1,6 +1,5 @@
 package com.tedmob.africell.features.authentication
 
-import androidx.lifecycle.MutableLiveData
 import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
@@ -8,12 +7,9 @@ import com.tedmob.africell.data.SingleLiveEvent
 
 
 import com.tedmob.africell.exception.AppExceptionFactory
-import com.tedmob.africell.features.authentication.domain.RegisterUseCase
 import com.tedmob.africell.features.authentication.domain.ResetPasswordUseCase
 
 import com.tedmob.africell.ui.BaseViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 

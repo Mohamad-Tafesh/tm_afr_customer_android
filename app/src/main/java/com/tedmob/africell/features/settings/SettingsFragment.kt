@@ -6,22 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.tedmob.africell.BuildConfig
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.features.authentication.RegisterViewModel
 import com.tedmob.africell.features.launch.RootActivity
 import com.tedmob.africell.ui.viewmodel.observeNotNull
-import com.tedmob.africell.ui.viewmodel.observeResource
-import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.locale.LocaleHelper
 import com.tedmob.africell.util.removeUserIdentification
 import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment() {

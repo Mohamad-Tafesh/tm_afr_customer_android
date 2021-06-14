@@ -7,7 +7,6 @@ import com.tedmob.africell.data.Resource
 
 import com.tedmob.africell.data.api.dto.MyBundlesAndServices
 import com.tedmob.africell.exception.AppExceptionFactory
-import com.tedmob.africell.features.bundles.domain.GetBundlesByCategoryUseCase
 import com.tedmob.africell.features.myBundlesAndServices.domain.GetMyBundlesServicesUseCase
 
 import com.tedmob.africell.ui.BaseViewModel

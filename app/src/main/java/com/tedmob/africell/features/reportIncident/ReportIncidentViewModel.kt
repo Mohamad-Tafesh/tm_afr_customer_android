@@ -7,7 +7,6 @@ import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.api.dto.IncidentTypeDTO
 import com.tedmob.africell.data.api.dto.StatusDTO
-import com.tedmob.africell.data.api.dto.SupportCategoryDTO
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.reportIncident.domain.GetReportCategoryUseCase
 import com.tedmob.africell.features.reportIncident.domain.ReportIncidentUseCase

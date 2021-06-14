@@ -25,17 +25,11 @@ import com.tedmob.africell.ui.viewmodel.*
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_account_numbers.*
-import kotlinx.android.synthetic.main.fragment_credit_transfer.*
 import kotlinx.android.synthetic.main.fragment_line_recharge.*
 import kotlinx.android.synthetic.main.fragment_line_recharge.countrySpinner
 import kotlinx.android.synthetic.main.fragment_line_recharge.mobileNumberLayout
 import kotlinx.android.synthetic.main.fragment_line_recharge.recyclerView
 import kotlinx.android.synthetic.main.fragment_line_recharge.sendBtn
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_mobile_number.*
-import kotlinx.android.synthetic.main.fragment_sms.*
-import javax.inject.Inject
 
 
 class LineRechargeFragment : BaseFragment(), Liv.Action {

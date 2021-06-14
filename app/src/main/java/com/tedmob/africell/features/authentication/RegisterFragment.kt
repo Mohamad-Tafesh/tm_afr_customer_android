@@ -14,7 +14,6 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.ui.hideKeyboard
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observe
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
@@ -24,7 +23,6 @@ import com.tedmob.africell.util.setText
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.toolbar_image.*
 import java.util.*
-import javax.inject.Inject
 
 class RegisterFragment : BaseFragment(), Liv.Action {
 

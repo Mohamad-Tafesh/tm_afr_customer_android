@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import kotlinx.android.synthetic.main.fragment_verification.*
-import javax.inject.Inject
 
 class VerifyAccountFragment : BaseFragment() {
 

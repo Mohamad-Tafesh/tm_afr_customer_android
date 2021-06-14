@@ -6,7 +6,6 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseActivity
 import com.tedmob.africell.app.BaseBottomSheetFragment

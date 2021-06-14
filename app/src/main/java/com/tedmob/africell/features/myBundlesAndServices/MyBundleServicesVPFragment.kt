@@ -17,13 +17,11 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.dto.MyBundlesAndServices
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_my_bundles_services_vp.*
 import kotlinx.android.synthetic.main.toolbar_bundle_services.*
 import kotlinx.android.synthetic.main.toolbar_bundle_services.toolbarImage
-import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 

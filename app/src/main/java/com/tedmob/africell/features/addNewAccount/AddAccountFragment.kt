@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
@@ -15,18 +14,15 @@ import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.SUB_ACCOUNT_TYPE
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.features.authentication.CountriesAdapter
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_mobile_number.*
 import kotlinx.android.synthetic.main.fragment_mobile_number.countrySpinner
 import kotlinx.android.synthetic.main.fragment_mobile_number.mobileNumberLayout
-import javax.inject.Inject
 
 class AddAccountFragment : BaseFragment(), Liv.Action {
 

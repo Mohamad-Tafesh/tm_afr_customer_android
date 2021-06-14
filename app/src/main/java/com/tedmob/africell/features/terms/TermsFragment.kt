@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.R
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.html.html
 import kotlinx.android.synthetic.main.fragment_terms.*
-import javax.inject.Inject
 
 class TermsFragment : BaseFragment() {
 

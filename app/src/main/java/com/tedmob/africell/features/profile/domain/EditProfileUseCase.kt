@@ -4,7 +4,6 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.requests.EditProfileRequest
-import com.tedmob.africell.data.api.requests.RegisterRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import io.reactivex.Observable
 import javax.inject.Inject

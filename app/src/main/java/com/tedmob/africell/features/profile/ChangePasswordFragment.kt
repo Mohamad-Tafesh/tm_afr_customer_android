@@ -11,13 +11,11 @@ import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideActivityViewModel
 import com.tedmob.africell.util.getText
 import kotlinx.android.synthetic.main.fragment_change_password.*
 import kotlinx.android.synthetic.main.toolbar_image.*
-import javax.inject.Inject
 
 class ChangePasswordFragment : BaseFragment(), Liv.Action {
 

@@ -8,12 +8,10 @@ import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.api.dto.RechargeCardDTO
 import com.tedmob.africell.data.api.dto.SMSCountDTO
 import com.tedmob.africell.data.entity.Country
-import com.tedmob.africell.data.entity.SMSData
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.authentication.domain.GetCountriesUseCase
 import com.tedmob.africell.features.lineRecharge.domain.GetRechargeCardUseCase
 import com.tedmob.africell.features.lineRecharge.domain.VoucherRechargeUseCase
-import com.tedmob.africell.features.sms.domain.SendFreeSmsUseCase
 import com.tedmob.africell.ui.BaseViewModel
 import javax.inject.Inject
 

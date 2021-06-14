@@ -17,7 +17,6 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_DETAILS
-import com.tedmob.africell.features.location.LocationDetailsFragment.Companion.LOCATION_ID
 import com.tedmob.africell.ui.viewmodel.observe
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText

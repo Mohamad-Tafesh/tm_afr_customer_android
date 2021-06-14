@@ -5,7 +5,6 @@ import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
 
-import com.tedmob.africell.data.api.dto.MyBundlesAndServices
 import com.tedmob.africell.data.api.dto.StatusDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import io.reactivex.Observable

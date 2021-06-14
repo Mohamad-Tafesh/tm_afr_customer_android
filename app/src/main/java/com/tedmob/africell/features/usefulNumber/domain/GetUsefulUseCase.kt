@@ -1,11 +1,9 @@
 package com.tedmob.africell.features.usefulNumber.domain
 
 
-import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
-import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.data.api.dto.UsefulNumberDTO
 import io.reactivex.Observable
 import javax.inject.Inject

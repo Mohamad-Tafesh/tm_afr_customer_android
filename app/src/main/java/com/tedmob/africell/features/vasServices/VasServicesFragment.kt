@@ -15,13 +15,10 @@ import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.tedmob.africell.features.services.ServicesAdapter
-import com.tedmob.africell.features.services.ServicesViewModel
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_services.*
 import kotlinx.android.synthetic.main.toolbar_image.*
-import javax.inject.Inject
 
 
 class VasServicesFragment : BaseFragment() {

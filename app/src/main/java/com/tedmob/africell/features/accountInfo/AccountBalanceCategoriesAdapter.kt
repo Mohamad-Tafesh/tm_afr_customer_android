@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tedmob.africell.R
 import com.tedmob.africell.data.entity.MyAccountBalanceCategories
-import com.tedmob.africell.features.home.HomeBalanceAdapter
 import kotlinx.android.synthetic.main.row_account_balance_categories.view.*
 
 

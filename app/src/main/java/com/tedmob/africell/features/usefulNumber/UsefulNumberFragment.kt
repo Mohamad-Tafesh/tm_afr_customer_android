@@ -9,14 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.data.api.dto.ServicesDTO
 import com.tedmob.africell.data.api.dto.UsefulNumberDTO
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.intents.dial
 import kotlinx.android.synthetic.main.fragment_services.*
-import javax.inject.Inject
 
 
 class UsefulNumberFragment : BaseFragment() {

@@ -9,14 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.data.api.dto.AccountBalanceDTO
 import com.tedmob.africell.data.api.dto.BundleInfo
 import com.tedmob.africell.data.api.dto.BundlesDTO
 import com.tedmob.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_ID
 
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_bundles.*
-import javax.inject.Inject
 
 class BundlesFragment : BaseFragment() {
     val bundle get() = arguments?.getParcelable<BundlesDTO>(KEY_BUNDLE)

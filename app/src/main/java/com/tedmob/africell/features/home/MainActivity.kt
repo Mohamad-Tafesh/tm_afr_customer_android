@@ -1,7 +1,6 @@
 package com.tedmob.africell.features.home
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import androidx.activity.addCallback
 import androidx.core.view.GravityCompat
@@ -10,7 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseActivity
 import com.tedmob.africell.util.navigation.setupWithNavController

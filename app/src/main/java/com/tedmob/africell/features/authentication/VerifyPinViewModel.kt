@@ -1,14 +1,11 @@
 package com.tedmob.africell.features.authentication
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.features.authentication.domain.VerifyPinUseCase
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
-import com.tedmob.africell.data.api.dto.LoginDTO
-import com.tedmob.africell.data.api.dto.UserDTO
 import com.tedmob.africell.data.api.dto.VerifyOTPDTO
 import com.tedmob.africell.exception.AppExceptionFactory
 import javax.inject.Inject

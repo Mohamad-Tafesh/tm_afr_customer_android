@@ -25,7 +25,6 @@ import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_credit_transfer.*
 import kotlinx.android.synthetic.main.fragment_sms.*
 import kotlinx.android.synthetic.main.fragment_sms.countrySpinner
 import kotlinx.android.synthetic.main.fragment_sms.mobileNumberLayout

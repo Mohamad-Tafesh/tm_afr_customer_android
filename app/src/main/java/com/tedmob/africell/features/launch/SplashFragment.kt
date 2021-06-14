@@ -17,7 +17,6 @@ import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_splash.*
 import javax.inject.Inject

@@ -1,13 +1,9 @@
 package com.tedmob.africell.data.repository
 
 import android.app.Application
-import android.content.Intent
-import android.widget.Toast
 import com.google.gson.Gson
 import com.tedmob.africell.data.api.dto.UserDTO
-import com.tedmob.africell.data.entity.User
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.features.authentication.AuthenticationActivity
 import com.tedmob.africell.util.PrefUtils
 import com.tedmob.africell.util.preference.RxPrefObjectProperty
 import com.tedmob.africell.util.preference.RxPrefProperty

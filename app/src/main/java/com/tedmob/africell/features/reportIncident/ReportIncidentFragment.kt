@@ -14,7 +14,6 @@ import com.tedmob.africell.data.api.ApiContract.Params.PHONE_NUMBER
 import com.tedmob.africell.data.api.dto.IncidentTypeDTO
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.ui.hideKeyboard
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel

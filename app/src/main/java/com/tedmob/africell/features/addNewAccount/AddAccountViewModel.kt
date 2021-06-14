@@ -7,14 +7,11 @@ import com.tedmob.africell.data.Resource
 import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.api.dto.GenerateOTPDTO
 import com.tedmob.africell.data.api.dto.SubAccountDTO
-import com.tedmob.africell.data.api.dto.VerifyOTPDTO
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.exception.AppExceptionFactory
 import com.tedmob.africell.features.addNewAccount.domain.AddSubAccountUseCase
 import com.tedmob.africell.features.authentication.domain.GenerateOTPUseCase
 import com.tedmob.africell.features.authentication.domain.GetCountriesUseCase
-import com.tedmob.africell.features.authentication.domain.LoginUseCase
-import com.tedmob.africell.features.authentication.domain.VerifyPinUseCase
 import com.tedmob.africell.ui.BaseViewModel
 import javax.inject.Inject
 

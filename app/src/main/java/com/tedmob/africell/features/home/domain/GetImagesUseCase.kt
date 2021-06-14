@@ -1,12 +1,8 @@
 package com.tedmob.africell.features.home.domain
 
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
-import com.tedmob.africell.data.api.dto.SubAccountDTO
-import com.tedmob.africell.data.api.requests.VerifyOTPRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import io.reactivex.Observable
 import javax.inject.Inject

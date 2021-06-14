@@ -5,10 +5,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi
-import com.tedmob.africell.data.api.requests.LoginRequest
 import com.tedmob.africell.data.api.requests.RefreshTokenRequest
 import com.tedmob.africell.data.repository.domain.SessionRepository
-import com.tedmob.africell.util.identifyUser
 import io.reactivex.Observable
 import javax.inject.Inject
 

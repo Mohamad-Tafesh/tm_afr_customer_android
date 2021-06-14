@@ -1,7 +1,6 @@
 package com.tedmob.africell.features.bundles.domain
 
 
-import com.tedmob.africell.data.api.dto.LocationDTO
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
 import com.tedmob.africell.data.api.RestApi

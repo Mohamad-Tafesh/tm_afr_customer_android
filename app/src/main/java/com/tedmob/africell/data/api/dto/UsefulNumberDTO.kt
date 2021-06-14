@@ -1,10 +1,7 @@
 package com.tedmob.africell.data.api.dto
 
-import android.content.Context
-import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 data class UsefulNumberDTO(
     @field:[Expose SerializedName("description")]

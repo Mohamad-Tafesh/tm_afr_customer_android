@@ -15,18 +15,15 @@ import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.FORGOT_PASSWORD_TYPE
 import com.tedmob.africell.data.api.ApiContract.Params.NEW_USER_TYPE
 import com.tedmob.africell.data.entity.Country
-import com.tedmob.africell.ui.viewmodel.ViewModelFactory
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_mobile_number.*
 import kotlinx.android.synthetic.main.fragment_mobile_number.countrySpinner
 import kotlinx.android.synthetic.main.fragment_mobile_number.mobileNumberLayout
-import javax.inject.Inject
 
 class MobileNumberFragment : BaseFragment(), Liv.Action {
 

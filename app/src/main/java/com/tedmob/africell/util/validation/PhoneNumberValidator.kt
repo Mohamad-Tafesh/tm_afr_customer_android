@@ -1,6 +1,5 @@
 package com.tedmob.africell.util.validation
 
-import android.widget.Spinner
 import com.benitobertoli.liv.validator.ValidationTime
 import com.benitobertoli.liv.validator.Validator
 import com.benitobertoli.liv.validator.ValidatorState

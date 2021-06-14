@@ -4,6 +4,7 @@ object ApiContract {
 
     const val UGANDA_BASE_URL = "https://selfcareapp.africell.ug/"
     const val GAMBIA_BASE_URL = "https://selfcareapp.africell.gm/"
+    const val SIERRA_LEONE_BASE_URL = "https://selfcareapp.africell.sl/"
 
     object Params {
         const val NO_TOKEN_TAG = "tag__do_not_send_token_header"
@@ -15,7 +16,9 @@ object ApiContract {
         const val PREPAID = "Prepaid"
         const val BANNERS = "banners"
         const val SLIDERS = "sliders"
-   const val UG_PHONE_NUMBER="+256"
+        const val GM_PHONE_NUMBER="+220"
+        const val UG_PHONE_NUMBER = "+256"
+        const val SL_PHONE_NUMBER = "+232"
     }
 
     object ImagePageName {

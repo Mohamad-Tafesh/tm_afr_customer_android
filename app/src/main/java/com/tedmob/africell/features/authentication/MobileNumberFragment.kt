@@ -11,6 +11,7 @@ import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.FORGOT_PASSWORD_TYPE
 import com.tedmob.africell.data.api.ApiContract.Params.NEW_USER_TYPE
 import com.tedmob.africell.data.entity.Country
@@ -84,7 +85,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == ApiContract.Params.SL_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false

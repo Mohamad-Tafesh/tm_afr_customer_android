@@ -14,6 +14,7 @@ import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
@@ -97,7 +98,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
             recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
             val countries = it.countries
             countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
-            countries.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
+            countries.indexOfFirst { it.phonecode == ApiContract.Params.SL_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled = false

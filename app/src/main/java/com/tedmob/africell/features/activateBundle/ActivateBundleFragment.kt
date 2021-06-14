@@ -15,13 +15,12 @@ import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseBottomSheetFragment
+import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.dto.BundleInfo
 import com.tedmob.africell.data.api.requests.ActivateBundleRequest
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import com.tedmob.africell.features.authentication.CountriesAdapter
-import com.tedmob.africell.features.bundles.BundleDetailsFragment
-
 import com.tedmob.africell.ui.hideKeyboard
 import com.tedmob.africell.ui.spinner.MaterialSpinner
 import com.tedmob.africell.ui.spinner.OnItemSelectedListener
@@ -61,7 +60,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     private val viewModel by provideViewModel<ActivateBundleViewModel> { viewModelFactory }
 
     companion object {
-        const val BUNDLE_DETAILS="bundle_details"
+        const val BUNDLE_DETAILS = "bundle_details"
         const val ACTIVATE_FOR_ME = "activate_for_me"
         fun newInstance(bundle: BundleInfo, isActivateForMe: Boolean): ActivateBundleFragment {
             return ActivateBundleFragment().apply {
@@ -185,10 +184,10 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
         viewModel.getCountries()
         observeResourceWithoutProgress(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == "+220" }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == ApiContract.Params.SL_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
-            countrySpinner.isEnabled=false
+            countrySpinner.isEnabled = false
 
         })
         observeResource(viewModel.activateBundleData) {
@@ -267,7 +266,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
-                            val allMobileNumber= mutableListOf<String>()
+                            val allMobileNumber = mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur?.getString(
                                     pCur?.getColumnIndex(

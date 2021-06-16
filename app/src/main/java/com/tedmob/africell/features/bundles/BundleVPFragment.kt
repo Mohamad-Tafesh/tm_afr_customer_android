@@ -1,10 +1,13 @@
 package com.tedmob.africell.features.bundles
 
+import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -21,7 +24,7 @@ import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_bundle_vp.*
-import kotlinx.android.synthetic.main.fragment_location.*
+import kotlinx.android.synthetic.main.toolbar_bundle_vp.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -36,6 +39,15 @@ class BundleVPFragment : BaseFragment() {
     val bundleName by lazy {
         arguments?.getString(KEY_CATEGORY_NAME)
     }
+
+    val primaryColor by lazy {
+        arguments?.getString(KEY_PRIMARY_COLOR_HEX)
+    }
+
+    val secondaryColor by lazy {
+        arguments?.getString(KEY_SECONDARY_COLOR_HEX)
+    }
+
     @Inject
     lateinit var sessionRepository: SessionRepository
 
@@ -47,17 +59,21 @@ class BundleVPFragment : BaseFragment() {
 
     companion object {
         const val KEY_CATEGORY_NAME = "key_category_name"
-        const val KEY_BUNDLE_CATEGORY_ID= "bundle_category_id"
+        const val KEY_BUNDLE_CATEGORY_ID = "bundle_category_id"
+        const val KEY_PRIMARY_COLOR_HEX = "primary_color"
+        const val KEY_SECONDARY_COLOR_HEX = "secondary_color"
     }
 
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.show()
-        actionbar?.title = bundleName.orEmpty()+ " Bundles"
+        actionbar?.title = bundleName.orEmpty() + " Bundles"
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)
+
     }
+
     private fun searchRxTextView() {
         searchTxt?.let {
             RxTextView.textChanges(it)
@@ -65,23 +81,34 @@ class BundleVPFragment : BaseFragment() {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ charSequence ->
-                    viewModel.getBundlesByCategory(bundleId,charSequence.toString())
+                    viewModel.getBundlesByCategory(bundleId, charSequence.toString())
                 }) { t -> }
         }
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         searchRxTextView()
         bindData()
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                activity?.window?.statusBarColor = Color.parseColor(primaryColor)
+            }
+            tabLayout.setBackgroundColor(Color.parseColor(primaryColor))
+            toolbarLayout.setBackgroundColor(Color.parseColor(primaryColor))
+            titleTxt.setTextColor(Color.parseColor(primaryColor))
+            searchTextLayout.boxBackgroundColor=Color.parseColor(secondaryColor)
+        } catch (e: Exception) {
 
-
+        }
     }
 
     private fun bindData() {
-        viewModel.getBundlesByCategory(bundleId,null)
+        viewModel.getBundlesByCategory(bundleId, null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
 
-            if(bundleName.isNullOrEmpty()) {
+            if (bundleName.isNullOrEmpty()) {
                 actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + " Bundles"
             }
             setupViewPager(bundles)
@@ -97,7 +124,7 @@ class BundleVPFragment : BaseFragment() {
         viewPager.adapter = object : FragmentStateAdapter(this) {
 
             override fun createFragment(position: Int): Fragment {
-                return BundlesFragment.newInstance(bundles[position])
+                return BundlesFragment.newInstance(bundles[position],primaryColor)
             }
 
             override fun getItemCount(): Int {

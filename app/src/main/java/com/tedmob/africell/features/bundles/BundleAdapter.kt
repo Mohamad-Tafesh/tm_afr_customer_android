@@ -1,5 +1,6 @@
 package com.tedmob.africell.features.bundles
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.row_bundle.view.*
 
 class BundleAdapter(
     private var items: List<BundleInfo>,
+    private val primaryColor: String?,
     val callback: Callback
 ) : RecyclerView.Adapter<BundleAdapter.HomeItemHolder>() {
 
@@ -30,6 +32,17 @@ class BundleAdapter(
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
         holder.itemView.run {
+            try {
+                val primaryCol=Color.parseColor(primaryColor)
+                cardViewLayout.strokeColor = primaryCol
+                volumeTxt.setTextColor(primaryCol)
+                subtitleTxt.setTextColor(primaryCol)
+                priceTxt.setTextColor(primaryCol)
+                isActivatedTxt.setTextColor(primaryCol)
+                activateBtn.setBackgroundColor(primaryCol)
+            } catch (e: Exception) {
+
+            }
             volumeTxt.text = item.getFormatVolume()
             subtitleTxt.text = item.subTitles
             priceTxt.text = item.price

@@ -18,13 +18,17 @@ import kotlinx.android.synthetic.main.fragment_bundles.*
 
 class BundlesFragment : BaseFragment() {
     val bundle get() = arguments?.getParcelable<BundlesDTO>(KEY_BUNDLE)
+    val primaryColor by lazy {
+        arguments?.getString(KEY_PRIMARY_COLOR)
+    }
 
 
     companion object {
         const val KEY_BUNDLE = "key_bundle"
-        fun newInstance(bundle:BundlesDTO ?): BundlesFragment {
+        const val KEY_PRIMARY_COLOR = "key_primary_color"
+        fun newInstance(bundle: BundlesDTO?, primaryColor: String?): BundlesFragment {
             return BundlesFragment().apply {
-                arguments = bundleOf(KEY_BUNDLE to bundle)
+                arguments = bundleOf(KEY_BUNDLE to bundle,KEY_PRIMARY_COLOR to primaryColor)
 
             }
         }
@@ -48,7 +52,7 @@ class BundlesFragment : BaseFragment() {
 
 
     val adapter by lazy {
-        BundleAdapter(mutableListOf(),object : BundleAdapter.Callback{
+        BundleAdapter(mutableListOf(),primaryColor,object : BundleAdapter.Callback{
             override fun onItemClickListener(item: BundleInfo) {
               val bundle = bundleOf(BUNDLE_ID to item.bundleId?.toString())
                 findNavController().navigate(R.id.action_bundleVPFragment_to_bundleDetailsFragment,bundle)

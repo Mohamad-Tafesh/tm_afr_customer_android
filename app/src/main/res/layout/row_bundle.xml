@@ -1,54 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/frame_white"
-        android:layout_marginTop="@dimen/spacing_normal"
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/cardViewLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:strokeColor="@color/purple"
+        app:strokeWidth="1dp"
+        app:cardCornerRadius="@dimen/field_corner_radius"
+        android:layout_marginTop="@dimen/spacing_tiny"
         android:layout_marginStart="@dimen/spacing_tiny"
         android:layout_marginEnd="@dimen/spacing_tiny"
-        android:padding="@dimen/spacing_small"
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/volumeTxt"
-            android:textColor="@color/darkPink"
-            style="@style/TextAppearance.normalBold"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="volume"/>
 
-    <TextView
-            android:id="@+id/subtitleTxt"
-            style="@style/TextAppearance.normal"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="volume"/>
-    <TextView
-            android:id="@+id/priceTxt"
-            android:textColor="@color/darkPink"
-            style="@style/TextAppearance.normalBold"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="volume"/>
 
-    <TextView
-            android:id="@+id/isActivatedTxt"
-            style="@style/TextAppearance.normal"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:textColor="@color/yellow"
-            android:layout_height="wrap_content"
-            android:text="@string/active"/>
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/activateBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:text="@string/buy"
-            style="@style/Button.yellow.small"/>
 
-</LinearLayout>
+            android:background="@drawable/frame_white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_small">
+
+        <TextView
+                android:id="@+id/volumeTxt"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="volume"
+                android:textColor="@color/darkPink" />
+
+        <TextView
+                android:id="@+id/subtitleTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                android:text="volume" />
+
+        <TextView
+                android:id="@+id/priceTxt"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="volume"
+                android:textColor="@color/darkPink" />
+
+        <TextView
+                android:id="@+id/isActivatedTxt"
+                style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                android:text="@string/active"
+                android:textColor="@color/yellow" />
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/activateBtn"
+                style="@style/Button.yellow.small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/buy" />
+
+    </LinearLayout>
+
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>

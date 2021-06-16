@@ -12,6 +12,8 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BundleCategoriesDTO
 import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_BUNDLE_CATEGORY_ID
 import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_CATEGORY_NAME
+import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_PRIMARY_COLOR_HEX
+import com.tedmob.africell.features.bundles.BundleVPFragment.Companion.KEY_SECONDARY_COLOR_HEX
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_bundle_categories.*
@@ -27,6 +29,8 @@ class BundleCategoriesFragment : BaseFragment() {
                 val bundle = bundleOf(
                     Pair(KEY_BUNDLE_CATEGORY_ID, item.idBundleCategories?.toString()),
                     Pair(KEY_CATEGORY_NAME, item.categoryName),
+                    Pair(KEY_PRIMARY_COLOR_HEX, item.primaryColor),
+                    Pair(KEY_SECONDARY_COLOR_HEX,item.secondaryColor)
                 )
                 findNavController().navigate(R.id.action_bundleCategoriesFragment_to_bundleVPFragment, bundle)
             }

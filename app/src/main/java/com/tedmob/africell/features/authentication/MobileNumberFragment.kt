@@ -82,7 +82,7 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == ApiContract.Params.SL_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == ApiContract.Params.GM_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false

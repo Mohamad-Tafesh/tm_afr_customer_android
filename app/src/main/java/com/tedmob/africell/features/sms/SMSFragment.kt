@@ -97,7 +97,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
             recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
             val countries = it.countries
             countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
-            countries.indexOfFirst { it.phonecode == ApiContract.Params.SL_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
+            countries.indexOfFirst { it.phonecode == ApiContract.Params.GM_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled = false

@@ -18,5 +18,9 @@ data class BundleCategoriesDTO(
     @field:[Expose SerializedName("languageId")]
     val languageId: Int?,
     @field:[Expose SerializedName("status")]
-    val status: Int?
+    val status: Int?,
+    @field:[Expose SerializedName("primaryColor")]
+    val primaryColor: String?,
+    @field:[Expose SerializedName("secondaryColor")]
+    val secondaryColor: String?,
 ):Parcelable

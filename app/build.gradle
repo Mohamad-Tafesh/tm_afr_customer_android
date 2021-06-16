@@ -25,9 +25,7 @@ ext.buildToolsVersion = '30.0.2'
 ext.minimumSdkVersion = 21
 ext.targetSdkVersion = 30
 ext.compileSdkVersion = 30
-ext.versionMajor = 1
-ext.versionMinor = 0
-ext.versionPatch = 0
+
 ext.isSnapshot = false
 
 android {
@@ -38,13 +36,11 @@ android {
         applicationId "com.tedmob.africell"
         minSdkVersion project.ext.minimumSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
-        versionCode generateVersionCode()
-        versionName generateVersionName()
+
         multiDexEnabled true
 
         manifestPlaceholders["enableFirebaseCrashlytics"] = true
-        resValue 'string', 'onesignal_app_id', "8251e44f-a70c-4402-a1d4-d8a37fe2758d"
-        resValue 'string', 'app_version_name', "$versionName"
+
     }
 
     buildTypes {
@@ -52,7 +48,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
-
             manifestPlaceholders["enableFirebaseCrashlytics"] = false
         }
         release {
@@ -68,9 +63,41 @@ android {
     flavorDimensions "scope"
 
     productFlavors {
-        prod {
+        uganda {
+            def versionMajor = 1
+            def versionMinor = 0
+            def versionPatch = 0
+            versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+            versionName generateVersionName(versionMajor, versionMinor, versionPatch)
+            applicationId "com.tedmob.africell.uganda"
             dimension "scope"
+            resValue 'string', 'onesignal_app_id', "e9af51e4-f06c-4249-b281-091470591362"
+            resValue 'string', 'app_version_name', "$versionName"
         }
+        gambia {
+            def versionMajor = 1
+            def versionMinor = 0
+            def versionPatch = 0
+            versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+            versionName generateVersionName(versionMajor, versionMinor, versionPatch)
+            applicationId "com.tedmob.africell.gambia"
+            dimension "scope"
+            resValue 'string', 'onesignal_app_id', "8251e44f-a70c-4402-a1d4-d8a37fe2758d"
+            resValue 'string', 'app_version_name', "$versionName"
+        }
+        sl {
+            def versionMajor = 1
+            def versionMinor = 0
+            def versionPatch = 0
+            versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+            versionName generateVersionName(versionMajor, versionMinor, versionPatch)
+            applicationId "com.tedmob.africell.sl"
+            dimension "scope"
+            resValue 'string', 'onesignal_app_id', "c933598b-0a8f-4bb3-9864-032193f92511"
+            resValue 'string', 'app_version_name', "$versionName"
+        }
+
+
     }
 
     lintOptions {
@@ -98,12 +125,12 @@ android {
     }
 }
 
-private Integer generateVersionCode() {
-    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+private Integer generateVersionCode(versionMajor,versionMinor,versionPatch) {
+    return ext.minimumSdkVersion * 10000000 + versionMajor * 10000 + versionMinor * 100 + versionPatch
 }
 
-private String generateVersionName() {
-    return "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+private String generateVersionName(versionMajor,versionMinor,versionPatch) {
+    return "${versionMajor}.${versionMinor}.${versionPatch}"
 }
 
 dependencies {

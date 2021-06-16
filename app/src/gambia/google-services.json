@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761897452065:android:2142ce14bc8673f1d09960",
+        "mobilesdk_app_id": "1:761897452065:android:e8319dcf147140acd09960",
         "android_client_info": {
-          "package_name": "com.tedmob.africell"
+          "package_name": "com.tedmob.africell.gambia"
         }
       },
       "oauth_client": [
@@ -30,6 +30,13 @@
             {
               "client_id": "761897452065-m1k35e21uhfdlffi0s3le10586hk0r8q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "761897452065-65ou6kpsnbq6tp86fb8lg2dnmu1sga7g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.africell.AfricellApp"
+              }
             }
           ]
         }

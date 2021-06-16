@@ -3,6 +3,7 @@ package com.tedmob.africell.data.api
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tedmob.africell.BuildConfig
+import com.tedmob.africell.Constant.BASE_URL
 import com.tedmob.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
@@ -192,7 +193,7 @@ object ApiModule {
         return Retrofit.Builder()
 
             .client(client)
-            .baseUrl(ApiContract.GAMBIA_BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .build()

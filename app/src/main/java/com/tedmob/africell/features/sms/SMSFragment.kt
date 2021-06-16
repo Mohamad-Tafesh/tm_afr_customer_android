@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import com.tedmob.africell.Constant.STATIC_PHONE_NUMBER
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
@@ -97,7 +98,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
             recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
             val countries = it.countries
             countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
-            countries.indexOfFirst { it.phonecode == ApiContract.Params.GM_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
+            countries.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled = false

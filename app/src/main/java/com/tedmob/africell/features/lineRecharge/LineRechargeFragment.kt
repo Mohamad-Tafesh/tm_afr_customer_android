@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import com.tedmob.africell.Constant.STATIC_PHONE_NUMBER
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.ApiContract
@@ -88,7 +89,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
         viewModel.getCountries()
         observeResourceWithoutProgress(viewModel.countriesData,{
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == ApiContract.Params.GM_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
             countrySpinner.isEnabled=false

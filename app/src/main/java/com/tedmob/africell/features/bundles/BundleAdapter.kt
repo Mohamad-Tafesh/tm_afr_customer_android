@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.row_bundle.view.*
 
 class BundleAdapter(
     private var items: List<BundleInfo>,
-    private val primaryColor: String?,
     val callback: Callback
 ) : RecyclerView.Adapter<BundleAdapter.HomeItemHolder>() {
 
@@ -33,13 +32,13 @@ class BundleAdapter(
         val item = items[position]
         holder.itemView.run {
             try {
-                val primaryCol=Color.parseColor(primaryColor)
-                cardViewLayout.strokeColor = primaryCol
-                volumeTxt.setTextColor(primaryCol)
-                subtitleTxt.setTextColor(primaryCol)
-                priceTxt.setTextColor(primaryCol)
-                isActivatedTxt.setTextColor(primaryCol)
-                activateBtn.setBackgroundColor(primaryCol)
+                val secondaryColor=Color.parseColor(item.secondaryColor)
+                cardViewLayout.strokeColor = secondaryColor
+                volumeTxt.setTextColor(secondaryColor)
+                subtitleTxt.setTextColor(secondaryColor)
+                priceTxt.setTextColor(secondaryColor)
+                isActivatedTxt.setTextColor(secondaryColor)
+                activateBtn.setBackgroundColor(secondaryColor)
             } catch (e: Exception) {
 
             }

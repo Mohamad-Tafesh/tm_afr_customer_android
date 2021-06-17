@@ -7,79 +7,86 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/spacing_normal"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_normal">
 
         <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:placeholderImageScaleType="fitCenter"
                 app:actualImageScaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:placeholderImageScaleType="fitCenter"
                 app:viewAspectRatio="1.8" />
+
         <TextView
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:id="@+id/volumeTxt"
-                android:textColor="@color/darkPink"
                 style="@style/TextAppearance.normalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="volume"/>
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="volume"
+                android:textColor="@color/darkPink" />
 
         <TextView
                 android:id="@+id/subtitleTxt"
                 style="@style/TextAppearance.normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
-                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="volume" />
 
-                android:layout_height="wrap_content"
-                android:text="volume"/>
         <TextView
-                android:autoLink="all"
-                style="@style/TextAppearance.normal"
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:id="@+id/descriptionTxt"
+                style="@style/TextAppearance.normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:autoLink="all"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView" />
+
         <TextView
                 android:id="@+id/validForTxt"
                 style="@style/TextAppearance.normal"
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:layout_width="match_parent"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
-                android:text="@string/active"/>
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="@string/active"
+                android:textColor="@color/black" />
 
         <TextView
-        android:id="@+id/priceTxt"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/yellow"
-        android:text="Price: 1$"
-        style="@style/TextAppearance.normalBold"/>
+                android:id="@+id/priceTxt"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:text="Price: 1$"
+                android:textColor="@color/yellow" />
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/activateBundleBtn"
                 style="@style/Button.yellow"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:text="@string/activate_for_me"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/activate_for_me" />
 
         <com.google.android.material.button.MaterialButton
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:id="@+id/activateBundleForSomeOneElseBtn"
                 style="@style/Button.purple"
-                android:text="@string/activate_bundle_for_someone_else"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/activate_bundle_for_someone_else" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

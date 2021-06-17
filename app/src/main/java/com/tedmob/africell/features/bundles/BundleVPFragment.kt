@@ -90,6 +90,12 @@ class BundleVPFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         searchRxTextView()
         bindData()
+
+
+        changeBgdColor(primaryColor, secondaryColor)
+    }
+
+    private fun changeBgdColor(primaryColor:String?,secondaryColor:String?) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -97,8 +103,8 @@ class BundleVPFragment : BaseFragment() {
             }
             tabLayout.setBackgroundColor(Color.parseColor(primaryColor))
             toolbarLayout.setBackgroundColor(Color.parseColor(primaryColor))
-            titleTxt.setTextColor(Color.parseColor(primaryColor))
-            searchTextLayout.boxBackgroundColor=Color.parseColor(secondaryColor)
+            searchTextLayout.boxBackgroundColor = Color.parseColor(secondaryColor)
+            titleTxt.setTextColor(Color.parseColor(secondaryColor))
         } catch (e: Exception) {
 
         }
@@ -107,7 +113,9 @@ class BundleVPFragment : BaseFragment() {
     private fun bindData() {
         viewModel.getBundlesByCategory(bundleId, null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
-
+            val firstPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.get(0)?.primaryColor ?: primaryColor
+            val firstSecondaryPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.secondaryColor ?: secondaryColor
+          changeBgdColor(firstPrimaryKey,firstSecondaryPrimaryKey)
             if (bundleName.isNullOrEmpty()) {
                 actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + " Bundles"
             }
@@ -124,7 +132,7 @@ class BundleVPFragment : BaseFragment() {
         viewPager.adapter = object : FragmentStateAdapter(this) {
 
             override fun createFragment(position: Int): Fragment {
-                return BundlesFragment.newInstance(bundles[position],primaryColor)
+                return BundlesFragment.newInstance(bundles[position])
             }
 
             override fun getItemCount(): Int {

@@ -16,7 +16,7 @@ class BundleActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bundle, false, false, 0)
         findNavController(R.id.nav_host_bundle).addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id != R.id.bundleVPFragment) {
+            if (destination.id != R.id.bundleVPFragment && destination.id!=R.id.bundleDetailsFragment) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                     window?.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)

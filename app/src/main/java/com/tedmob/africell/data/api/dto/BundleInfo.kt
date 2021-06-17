@@ -30,7 +30,11 @@ data class BundleInfo(
     @field:[Expose SerializedName("validityUnit")]
     val validityUnit: String?,
     @field:[Expose SerializedName("volume")]
-    val volume: String?
+    val volume: String?,
+    @field:[Expose SerializedName("primaryColor")]
+    val primaryColor: String?,
+    @field:[Expose SerializedName("secondaryColor")]
+    val secondaryColor: String?,
 ) : Parcelable {
     fun getFormatVolume(): String {
         return volume + " " + unit

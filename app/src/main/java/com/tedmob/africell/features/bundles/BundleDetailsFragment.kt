@@ -1,9 +1,13 @@
 package com.tedmob.africell.features.bundles
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.BundleInfo
@@ -23,12 +27,22 @@ class BundleDetailsFragment : BaseFragment() {
             ?: throw IllegalArgumentException("required bundle arguments")
     }
 
+    val primaryColor by lazy {
+        arguments?.getString(KEY_PRIMARY_COLOR_HEX)
+    }
+
+    val secondaryColor by lazy {
+        arguments?.getString(KEY_SECONDARY_COLOR_HEX)
+    }
+
     private val viewModel by provideViewModel<BundleDetailsViewModel> {
         viewModelFactory
     }
 
     companion object {
         const val BUNDLE_ID = "bundle_id"
+        const val KEY_PRIMARY_COLOR_HEX = "primary_color"
+        const val KEY_SECONDARY_COLOR_HEX = "secondary_color"
     }
 
     @Inject
@@ -54,16 +68,30 @@ class BundleDetailsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindData()
+        changeBackgroundColor(primaryColor)
     }
 
     private fun bindData() {
         viewModel.getBundlesDetails(bundleId)
-        observeResourceInline(viewModel.bundlesData,{
+        observeResourceInline(viewModel.bundlesData, {
             setUpUI(it)
         })
     }
 
-    private fun setUpUI(bundle:BundleInfo) {
+    private fun setUpUI(bundle: BundleInfo) {
+        try {
+            changeBackgroundColor(bundle.primaryColor)
+            val secondaryColor = Color.parseColor(bundle.secondaryColor)
+            volumeTxt.setTextColor(secondaryColor)
+            subtitleTxt.setTextColor(secondaryColor)
+            descriptionTxt.setTextColor(secondaryColor)
+            priceTxt.setTextColor(secondaryColor)
+            validForTxt.setTextColor(secondaryColor)
+            activateBundleForSomeOneElseBtn.setBackgroundColor(secondaryColor)
+            activateBundleBtn.setBackgroundColor(secondaryColor)
+        } catch (e: Exception) {
+
+        }
         imageView.setImageURI(bundle.image)
         actionbar?.title = bundle.getTitle()
         volumeTxt.text = bundle.getFormatVolume()
@@ -73,14 +101,23 @@ class BundleDetailsFragment : BaseFragment() {
         validForTxt.text = "Valid for: " + bundle.validity + bundle.validityUnit
         activateBundleForSomeOneElseBtn.setOnClickListener {
             if (sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(false,bundle)
+                navigateToBundleActive(false, bundle)
             } else showLoginMessage()
         }
         activateBundleBtn.setOnClickListener {
             if (sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(true,bundle)
+                navigateToBundleActive(true, bundle)
             } else showLoginMessage()
         }
+    }
+
+    private fun changeBackgroundColor(primaryColor: String?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            activity?.window?.statusBarColor = Color.parseColor(primaryColor)
+        }
+        toolbar?.setBackgroundColor(Color.parseColor(primaryColor))
+        toolbar?.backgroundTintList = ColorStateList.valueOf(Color.parseColor(primaryColor))
     }
 
     private fun navigateToBundleActive(isActiveForMe: Boolean, bundle: BundleInfo) {

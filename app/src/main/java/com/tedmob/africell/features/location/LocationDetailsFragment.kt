@@ -40,6 +40,7 @@ class LocationDetailsFragment : BaseFragment() {
         super.configureToolbar()
         actionbar?.title = getString(R.string.location)
         actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)
     }
 
@@ -120,7 +121,7 @@ class LocationDetailsFragment : BaseFragment() {
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
         selectedLocation?.let { location ->
             title.text = location.shopName
-
+            addressTxt.text= location.address
             distance.text = location.displayDistance()
             description.text = location.description?.html()
             callUs.setOnClickListener {

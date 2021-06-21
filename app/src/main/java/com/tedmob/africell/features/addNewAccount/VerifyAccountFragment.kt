@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDeepLinkBuilder
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
+import com.tedmob.africell.features.home.MainActivity
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
@@ -38,8 +40,14 @@ class VerifyAccountFragment : BaseFragment() {
 
     private fun bindData() {
         observeResource(viewModel.verifyData) {
-            showMaterialMessageDialog("Your Account has been added successfully",getString(R.string.close)) {
-              activity?.finish()
+            showMaterialMessageDialog("Your Account has been added successfully", getString(R.string.close)) {
+                val pendingIntent = NavDeepLinkBuilder(requireContext())
+                    .setGraph(R.navigation.nav_main)
+                    .setComponentName(MainActivity::class.java)
+                    .setDestination(R.id.homeFragment)
+                    .createPendingIntent()
+                pendingIntent.send()
+                activity?.finish()
             }
         }
     }

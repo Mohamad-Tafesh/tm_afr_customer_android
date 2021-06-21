@@ -212,7 +212,7 @@ class LocationMapFragment : BaseFragment() {
             title.text = location.shopName
 
             distance.text = location.displayDistance()
-            description.text = location.shopOwner
+            description.text = location.address
             getDirection.setOnClickListener {
                 val lat = location.latitude?.toDoubleOrNull()
                 val long = location.longitude?.toDoubleOrNull()

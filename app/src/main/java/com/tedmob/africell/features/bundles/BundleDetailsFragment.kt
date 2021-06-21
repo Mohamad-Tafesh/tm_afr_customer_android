@@ -68,7 +68,7 @@ class BundleDetailsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindData()
-        changeBackgroundColor(primaryColor)
+        primaryColor?.let { changeBackgroundColor(it) }
     }
 
     private fun bindData() {
@@ -80,7 +80,7 @@ class BundleDetailsFragment : BaseFragment() {
 
     private fun setUpUI(bundle: BundleInfo) {
         try {
-            changeBackgroundColor(bundle.primaryColor)
+            bundle.primaryColor?.let { changeBackgroundColor(it) }
             val secondaryColor = Color.parseColor(bundle.secondaryColor)
             volumeTxt.setTextColor(secondaryColor)
             subtitleTxt.setTextColor(secondaryColor)
@@ -111,13 +111,17 @@ class BundleDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun changeBackgroundColor(primaryColor: String?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            activity?.window?.statusBarColor = Color.parseColor(primaryColor)
+    private fun changeBackgroundColor(primaryColor: String) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                activity?.window?.statusBarColor = Color.parseColor(primaryColor)
+            }
+            toolbar?.setBackgroundColor(Color.parseColor(primaryColor))
+            toolbar?.backgroundTintList = ColorStateList.valueOf(Color.parseColor(primaryColor))
+        } catch (e: Exception) {
+
         }
-        toolbar?.setBackgroundColor(Color.parseColor(primaryColor))
-        toolbar?.backgroundTintList = ColorStateList.valueOf(Color.parseColor(primaryColor))
     }
 
     private fun navigateToBundleActive(isActiveForMe: Boolean, bundle: BundleInfo) {

@@ -11,7 +11,6 @@ import com.tedmob.africell.Constant.STATIC_PHONE_NUMBER
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
-import com.tedmob.africell.data.api.ApiContract
 import com.tedmob.africell.data.api.ApiContract.Params.SUB_ACCOUNT_TYPE
 import com.tedmob.africell.data.entity.Country
 import com.tedmob.africell.features.authentication.CountriesAdapter
@@ -22,8 +21,6 @@ import com.tedmob.africell.util.getText
 import com.tedmob.africell.util.setText
 import com.tedmob.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_mobile_number.*
-import kotlinx.android.synthetic.main.fragment_mobile_number.countrySpinner
-import kotlinx.android.synthetic.main.fragment_mobile_number.mobileNumberLayout
 
 class AddAccountFragment : BaseFragment(), Liv.Action {
 
@@ -53,7 +50,9 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
         liv?.start()
         viewModel.getCountries()
 
-        sendButton.setOnClickListener { liv?.submitWhenValid() }
+        sendButton.setOnClickListener {
+            liv?.submitWhenValid()
+        }
 
         bindUser()
         bindCountries()
@@ -74,10 +73,10 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
             countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode ==STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
+            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
                 countrySpinner.selection = it
             }
-            countrySpinner.isEnabled=false
+            countrySpinner.isEnabled = false
         })
     }
 
@@ -93,7 +92,7 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
         val formatted =
             PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
         formatted?.let {
-            viewModel.generateOTP(formatted,SUB_ACCOUNT_TYPE)
+            viewModel.generateOTP(formatted, SUB_ACCOUNT_TYPE)
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }

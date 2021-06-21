@@ -71,7 +71,14 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:text="test" />
-
+                        <TextView
+                                android:id="@+id/addressTxt"
+                                style="@style/TextAppearance.AppCompat.Body1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:autoLink="phone"
+                                tools:text="=shdsajd" />
                         <TextView
                                 android:id="@+id/description"
                                 style="@style/TextAppearance.AppCompat.Body1"

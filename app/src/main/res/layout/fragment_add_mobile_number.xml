@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
 
                         android:hint="@string/mobile_number"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

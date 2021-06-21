@@ -99,7 +99,7 @@
                             android:layout_marginEnd="@dimen/spacing_small"
                             android:layout_weight="1"
                             android:text="@string/call_us"
-                            android:textSize="10dp"
+                            android:textSize="12sp"
                             app:icon="@mipmap/icon_contact_us" />
 
                     <com.google.android.material.button.MaterialButton
@@ -110,7 +110,7 @@
                             android:layout_marginStart="@dimen/spacing_tiny"
                             android:layout_weight="1"
                             android:text="@string/get_direction"
-                            android:textSize="10dp"
+                            android:textSize="12sp"
                             app:icon="@mipmap/icon_direction"
                             app:iconTint="@color/white" />
 

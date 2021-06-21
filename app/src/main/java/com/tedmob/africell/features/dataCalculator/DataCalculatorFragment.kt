@@ -52,7 +52,7 @@ class DataCalculatorFragment : BaseFragment() {
 
         val df = DecimalFormat("#,##0.######", DecimalFormatSymbols(Locale.ENGLISH))
         usageTxt.text = "${df.format(total)}  ${suggestion?.unit.orEmpty()}"
-        validityTxt.text = suggestion?.getFormatValidity()
+        validityTxt.text = suggestion?.getFormatVolume()
     }
 
 
@@ -68,6 +68,7 @@ class DataCalculatorFragment : BaseFragment() {
         setHasOptionsMenu(true)
         actionbar?.title = getString(R.string.data_calculator)
         actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
     }
 
 

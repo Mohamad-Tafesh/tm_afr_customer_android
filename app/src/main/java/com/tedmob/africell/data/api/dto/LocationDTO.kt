@@ -23,6 +23,8 @@ data class LocationDTO(
     val longitude: String?,
     @field:[Expose SerializedName("shopName")]
     val shopName: String?,
+    @field:[Expose SerializedName("address")]
+    val address: String?,
     @field:[Expose SerializedName("shopOwner")]
     val shopOwner: String?,
     @field:[Expose SerializedName("telephone")]

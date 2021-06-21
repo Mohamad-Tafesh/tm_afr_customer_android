@@ -47,25 +47,25 @@ android:paddingStart="@dimen/spacing_tiny"
                 app:contentStyle="@style/TextInputEditText.grey"
                 />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mobileNumberLayout"
-                style="@style/TextInputLayout.grey"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_tiny"
-                android:layout_weight="1"
-                app:endIconMode="custom"
-                app:endIconTint="@null"
-                app:endIconDrawable="@mipmap/icon_directory"
-                app:errorTextColor="@color/red_900">
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobileNumberLayout"
+                    style="@style/TextInputLayout.grey"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/spacing_tiny"
+                    android:layout_weight="1"
+                    app:endIconDrawable="@mipmap/icon_directory"
+                    app:endIconMode="custom"
+                    app:endIconTint="@null"
+                    app:errorTextColor="@color/red_900">
 
-            <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputEditText.grey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/mobile_number"
-                    android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputEditText.grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mobile_number"
+                        android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>

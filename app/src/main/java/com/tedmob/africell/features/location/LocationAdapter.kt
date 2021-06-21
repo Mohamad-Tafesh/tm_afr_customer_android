@@ -33,7 +33,7 @@ class LocationAdapter(
             //image.setImageURI(item?.image)
             distance.text = item?.displayDistance()
             title.text = item?.shopName
-            description.text = item?.shopOwner
+            description.text = item?.address
             setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)

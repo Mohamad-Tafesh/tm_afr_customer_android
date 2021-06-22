@@ -55,8 +55,8 @@ class AddAccountViewModel
     val verifyData = SingleLiveEvent<Resource<SubAccountDTO>>()
 
 
-    fun verifyPin(pin: String) {
-        val params = AddSubAccountUseCase.Params(pin)
+    fun verifyPin(msisdn:String,pin: String) {
+        val params = AddSubAccountUseCase.Params(msisdn,pin)
         ResourceUseCaseExecutor(addSubAccountUseCase, params, verifyData,appExceptionFactory, appSessionNavigator).execute()
     }
 

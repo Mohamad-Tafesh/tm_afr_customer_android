@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
@@ -13,6 +14,7 @@ import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.app.debugOnly
 import com.tedmob.africell.data.api.ApiContract.Params.SUB_ACCOUNT_TYPE
 import com.tedmob.africell.data.entity.Country
+import com.tedmob.africell.features.addNewAccount.VerifyAccountFragment.Companion.MSISDN_KEY
 import com.tedmob.africell.features.authentication.CountriesAdapter
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
@@ -28,7 +30,7 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
 
 
     private val viewModel by provideViewModel<AddAccountViewModel> { viewModelFactory }
-
+    var formatted: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return wrap(inflater.context, R.layout.fragment_add_mobile_number, R.layout.toolbar_default, false)
@@ -82,17 +84,18 @@ class AddAccountFragment : BaseFragment(), Liv.Action {
 
     private fun bindUser() {
         observeResource(viewModel.generateOTPData) {
-            findNavController().navigate(R.id.action_addAccountFragment_to_verifyAccountFragment)
+            val bundle = bundleOf(Pair(MSISDN_KEY,formatted))
+            findNavController().navigate(R.id.action_addAccountFragment_to_verifyAccountFragment,bundle)
         }
     }
 
 
     override fun performAction() {
         val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-        val formatted =
+        formatted =
             PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
         formatted?.let {
-            viewModel.generateOTP(formatted, SUB_ACCOUNT_TYPE)
+            viewModel.generateOTP(it, SUB_ACCOUNT_TYPE)
         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
     }

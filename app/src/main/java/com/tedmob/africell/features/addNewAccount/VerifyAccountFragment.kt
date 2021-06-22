@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavDeepLinkBuilder
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
-import com.tedmob.africell.features.home.MainActivity
 import com.tedmob.africell.ui.viewmodel.observeResource
 import com.tedmob.africell.ui.viewmodel.provideViewModel
 import com.tedmob.africell.util.getText
@@ -15,6 +13,15 @@ import kotlinx.android.synthetic.main.fragment_verification.*
 
 class VerifyAccountFragment : BaseFragment() {
 
+
+    val msisdn by lazy {
+        arguments?.getString(MSISDN_KEY)
+            ?: throw IllegalArgumentException("required msisdn arguments")
+    }
+
+    companion object {
+        const val MSISDN_KEY = "msisdn_key"
+    }
 
     private val viewModel by provideViewModel<AddAccountViewModel> { viewModelFactory }
 
@@ -33,7 +40,7 @@ class VerifyAccountFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        verifyButton.setOnClickListener { viewModel.verifyPin(pinLayout.getText()) }
+        verifyButton.setOnClickListener { viewModel.verifyPin(msisdn,pinLayout.getText()) }
         bindData()
     }
 

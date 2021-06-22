@@ -2,6 +2,8 @@ package com.tedmob.africell.features.authentication.domain
 
 import com.tedmob.africell.app.ExecutionSchedulers
 import com.tedmob.africell.app.UseCase
+import com.tedmob.africell.data.api.ApiContract.Params.FORGOT_PASSWORD_TYPE
+import com.tedmob.africell.data.api.ApiContract.Params.NEW_USER_TYPE
 import com.tedmob.africell.data.api.RestApi
 import com.tedmob.africell.data.api.dto.GenerateOTPDTO
 import com.tedmob.africell.data.api.requests.GenerateOTPRequest
@@ -18,7 +20,9 @@ class GenerateOTPUseCase
 
     override fun buildUseCaseObservable(params: Params): Observable<GenerateOTPDTO> {
         return api.generateOTP(GenerateOTPRequest(params.username, params.typeOfOTP)).map {
-            session.msisdn = params.username
+            if(params.typeOfOTP== NEW_USER_TYPE || params.typeOfOTP== FORGOT_PASSWORD_TYPE ){
+                session.msisdn = params.username
+            }
             it
         }
 

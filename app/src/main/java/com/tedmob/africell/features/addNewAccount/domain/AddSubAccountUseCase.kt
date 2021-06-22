@@ -18,12 +18,13 @@ class AddSubAccountUseCase
 
 
     override fun buildUseCaseObservable(params: Params): Observable<SubAccountDTO> {
-        return restApi.verifyOTP(VerifyOTPRequest( session.msisdn, params.pin)).flatMap {
+        return restApi.verifyOTP(VerifyOTPRequest( params.msisdn, params.pin)).flatMap {
          verify-> restApi.addSubAccount(verify?.verificationToken)
         }
     }
 
     data class Params(
+        val msisdn:String,
         val pin: String
     )
 }

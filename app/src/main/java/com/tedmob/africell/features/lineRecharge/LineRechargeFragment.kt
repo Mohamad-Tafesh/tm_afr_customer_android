@@ -52,7 +52,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.title = getString(R.string.line_recharge)
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
     }

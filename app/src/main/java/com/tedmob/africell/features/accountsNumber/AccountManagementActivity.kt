@@ -20,10 +20,11 @@ import javax.inject.Inject
 class AccountManagementActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-@Inject lateinit var sessionRepository: SessionRepository
+    @Inject
+    lateinit var sessionRepository: SessionRepository
     private val viewModel by provideViewModel<AccountViewModel> { viewModelFactory }
     val adapter by lazy {
-        AccountAdapter(mutableListOf(),sessionRepository.msisdn,true, object : AccountAdapter.CallBack {
+        AccountAdapter(mutableListOf(), sessionRepository.msisdn, true, object : AccountAdapter.CallBack {
             override fun onItemClick(item: SubAccount) {
             }
 
@@ -34,22 +35,25 @@ class AccountManagementActivity : BaseActivity() {
 
         })
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_management, true, true, R.layout.toolbar_default)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.account_management)
+        supportActionBar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setupRecyclerView()
         bindData()
     }
 
     private fun bindData() {
         viewModel.getSubAccounts()
-        observeResourceInline(viewModel.subAccountData, {accounts->
+        observeResourceInline(viewModel.subAccountData, { accounts ->
             adapter.setItems(accounts.toMutableList())
         })
 
-        observeResource(viewModel.deleteAccountData){accounts->
+        observeResource(viewModel.deleteAccountData) { accounts ->
             adapter.setItems(accounts.toMutableList())
         }
 

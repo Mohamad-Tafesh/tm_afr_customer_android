@@ -98,9 +98,6 @@ class HomeFragment : BaseFragment() {
             } else showLoginMessage()
         }
 
-        setupRecyclerView()
-        setupUI()
-        bindData()
         bindPush()
         //balanceAdapter.setItems(balance)
     }
@@ -111,6 +108,14 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupRecyclerView()
+        setupUI()
+        bindData()
+
+
+    }
     private fun setupUI() {
         if (sessionRepository.isLoggedIn()) {
             viewModel.getSubAccounts()

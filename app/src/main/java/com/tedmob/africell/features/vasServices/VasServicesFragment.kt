@@ -43,7 +43,7 @@ class VasServicesFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.title = ""
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
     }

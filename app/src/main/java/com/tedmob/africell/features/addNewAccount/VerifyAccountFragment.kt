@@ -41,12 +41,6 @@ class VerifyAccountFragment : BaseFragment() {
     private fun bindData() {
         observeResource(viewModel.verifyData) {
             showMaterialMessageDialog("Your Account has been added successfully", getString(R.string.close)) {
-                val pendingIntent = NavDeepLinkBuilder(requireContext())
-                    .setGraph(R.navigation.nav_main)
-                    .setComponentName(MainActivity::class.java)
-                    .setDestination(R.id.homeFragment)
-                    .createPendingIntent()
-                pendingIntent.send()
                 activity?.finish()
             }
         }

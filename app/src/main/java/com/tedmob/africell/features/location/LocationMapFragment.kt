@@ -27,6 +27,8 @@ class LocationMapFragment : BaseFragment() {
         lateinit var currentLocation: CurrentLocation*/
     var googleMap: GoogleMap? = null
 
+    var longitude: Double? = null
+    var latitude: Double? = null
 
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
 
@@ -159,10 +161,11 @@ class LocationMapFragment : BaseFragment() {
             val locationResult = mFusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    task.result?.longitude?.let { longitude ->
-                        task.result?.latitude?.let { latitude ->
-                            val latLng = LatLng(latitude, longitude)
-                            viewModel.getLocations(null, task.result?.latitude, task.result?.longitude)
+                    task.result?.longitude?.let { lng ->
+                        task.result?.latitude?.let { lat ->
+                            latitude = lat
+                            longitude = lng
+                            viewModel.getLocations(null, latitude, longitude)
                             /*context?.let {
                                 //googleMap.addMarker(MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.mipmap.user_location)))
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
@@ -211,7 +214,7 @@ class LocationMapFragment : BaseFragment() {
         selectedLocation?.let { location ->
             title.text = location.shopName
 
-            distance.text = location.displayDistance()
+            distance.text = location.displayDistance(latitude,longitude)
             description.text = location.address
             getDirection.setOnClickListener {
                 val lat = location.latitude?.toDoubleOrNull()

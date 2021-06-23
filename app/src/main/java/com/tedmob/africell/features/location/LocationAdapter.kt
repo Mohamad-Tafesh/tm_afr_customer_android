@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.row_location.view.*
 
 class LocationAdapter(
     private var items: List<LocationDTO>,
+    private var latitude: Double?,
+    private var longitude: Double?,
     val callback: Callback
 ) : RecyclerView.Adapter<LocationAdapter.HomeItemHolder>() {
 
@@ -31,7 +33,7 @@ class LocationAdapter(
 
         holder.itemView.run {
             //image.setImageURI(item?.image)
-            distance.text = item?.displayDistance()
+           distance.text = item?.displayDistance(latitude,longitude)
             title.text = item?.shopName
             description.text = item?.address
             setOnClickListener {
@@ -45,8 +47,10 @@ class LocationAdapter(
     }
 
 
-    fun setItems(newItems: List<LocationDTO> = mutableListOf()) {
+    fun setItems(newItems: List<LocationDTO> = mutableListOf(), lat: Double?, lng: Double?) {
         items = newItems.toMutableList()
+        latitude=lat
+        longitude=lng
         notifyDataSetChanged()
     }
 }

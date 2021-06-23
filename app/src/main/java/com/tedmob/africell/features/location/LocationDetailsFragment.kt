@@ -1,9 +1,11 @@
 package com.tedmob.africell.features.location
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -21,9 +23,9 @@ import kotlinx.android.synthetic.main.fragment_location_details.*
 class LocationDetailsFragment : BaseFragment() {
 
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
-     val locationParams by lazy {
-         arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
-     }
+    val locationParams by lazy {
+        arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
+    }
     val locationId by lazy {
         arguments?.getString(LOCATION_ID)
     }
@@ -51,10 +53,11 @@ class LocationDetailsFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        viewModel.getLocationDetails(locationId,locationParams)
-        observeResourceInline(viewModel.locationdetailsData,{
+        viewModel.getLocationDetails(locationId, locationParams)
+        observeResourceInline(viewModel.locationdetailsData, {
             setUpMapConfiguration(it)
             fillLocationInfo(it)
+
         })
     }
 
@@ -90,7 +93,7 @@ class LocationDetailsFragment : BaseFragment() {
                             )
                         marker.title = "${location?.shopName}"
                         marker.tag = location
-
+                        getUserLocation(googleMap, location)
                         fitBounds(googleMap, marker)
                     }
                 }
@@ -99,6 +102,28 @@ class LocationDetailsFragment : BaseFragment() {
         }
 
     }
+
+    private fun getUserLocation(googleMap: GoogleMap, location: LocationDTO) {
+        try {
+            googleMap.isMyLocationEnabled = true
+            googleMap.uiSettings.isMyLocationButtonEnabled = true
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message.orEmpty())
+        }
+        try {
+            val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+            val locationResult = mFusedLocationProviderClient.lastLocation
+            locationResult.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    distance.text = location.displayDistance(task.result?.latitude, task.result?.longitude)
+                }
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message, e)
+        }
+
+    }
+
 
     private fun clearMap(googleMap: GoogleMap) {
         googleMap.clear()
@@ -121,8 +146,8 @@ class LocationDetailsFragment : BaseFragment() {
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
         selectedLocation?.let { location ->
             title.text = location.shopName
-            addressTxt.text= location.address
-            distance.text = location.displayDistance()
+            addressTxt.text = location.address
+
             description.text = location.description?.html()
             callUs.setOnClickListener {
                 if (location.numbers().isNotEmpty()) {

@@ -27,9 +27,8 @@ class VerifyPinFragment : BaseFragment(){
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.setDisplayHomeAsUpEnabled(false)
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         actionbar?.title = getString(R.string.verification)
     }
 

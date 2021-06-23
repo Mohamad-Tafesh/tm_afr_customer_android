@@ -55,7 +55,7 @@ interface RestApi {
 
     @GET("SelfCare/GetShopLocation")
     fun getShopLocation(
-        @Query("SearchShop") searchShop: String?,
+        @Query("SearchShop") searchShop: String?
     ): Observable<List<LocationDTO>>
 
     @GET("SelfCare/GetShopLocation/{id}")

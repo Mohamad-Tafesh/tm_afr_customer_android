@@ -1,14 +1,16 @@
 package com.tedmob.africell.data.api.dto
 
-import android.content.Context
+import android.location.Location
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 @Parcelize
 data class LocationDTO(
-
 
 
     @field:[Expose SerializedName("idShopLocation")]
@@ -33,15 +35,37 @@ data class LocationDTO(
     val telephoneNumber: String?
 
 ) : Parcelable {
-    fun displayDistance(): String {
-        return /*distance?.let { String.format("$distance Km") } ?:*/ "N/A"
+    fun displayDistance(userLatitude: Double?, userLongitude: Double?): String {
+        return try {
+            val lat = latitude?.toDoubleOrNull()
+            val lng = longitude?.toDoubleOrNull()
+            if (userLatitude != null && userLongitude != null && lng != null && lat != null) {
+                val startPoint = Location("locationA")
+                startPoint.latitude = userLatitude
+                startPoint.longitude = userLongitude
+
+                val endPoint = Location("locationB")
+                endPoint.latitude = lat
+                endPoint.longitude = lng
+
+                val distanceMeters: Float = startPoint.distanceTo(endPoint)
+                val distanceKilometers = distanceMeters / 1000.00
+
+                val df = DecimalFormat("#,##0.##", DecimalFormatSymbols(Locale.ENGLISH))
+
+                df.format(distanceKilometers).toString() + "KM"
+            } else ""
+        } catch (e: Exception) {
+            ""
+        }
     }
-    fun numbers():List<String>{
-        val numbers=mutableListOf<String>()
-        if(telephoneNumber!=null) {
+
+    fun numbers(): List<String> {
+        val numbers = mutableListOf<String>()
+        if (telephoneNumber != null) {
             numbers.add(telephoneNumber)
         }
-        if(telephone!=null) {
+        if (telephone != null) {
             numbers.add(telephone)
         }
         return numbers

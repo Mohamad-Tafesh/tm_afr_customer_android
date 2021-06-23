@@ -34,7 +34,7 @@ class LocationFragment : BaseFragment() {
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
 
     val adapter by lazy {
-        LocationAdapter(mutableListOf(), object : LocationAdapter.Callback {
+        LocationAdapter(mutableListOf(),latitude,longitude, object : LocationAdapter.Callback {
             override fun onItemClickListener(item: LocationDTO) {
                 val bundle = bundleOf(Pair(LOCATION_DETAILS, item))
                 findNavController().navigate(R.id.action_locationListFragment_to_locationDetailsFragment, bundle)
@@ -108,7 +108,7 @@ class LocationFragment : BaseFragment() {
                     } else {
                         emptyMessage.text = ""
                     }
-                    adapter.setItems(data)
+                    adapter.setItems(data,latitude,longitude)
                     swipeRefresh.isRefreshing = false
                 }
                 else -> {
@@ -131,8 +131,8 @@ class LocationFragment : BaseFragment() {
             val locationResult = mFusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    longitude = task.result?.longitude
                     latitude = task.result?.latitude
+                    longitude = task.result?.longitude
                 }
                 viewModel.getLocations(searchTextLayout.getText(), latitude, longitude)
 

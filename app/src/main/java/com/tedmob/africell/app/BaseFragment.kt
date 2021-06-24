@@ -234,6 +234,7 @@ abstract class BaseFragment : DaggerFragment() {
     ) {
         activity?.let {
             MaterialAlertDialogBuilder(it)
+                .setCancelable(false)
                 .setMessage(message)
                 .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
                 .show()

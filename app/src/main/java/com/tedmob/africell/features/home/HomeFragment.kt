@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.tedmob.africell.R
@@ -21,6 +20,7 @@ import com.tedmob.africell.data.toHomeBalance
 import com.tedmob.africell.features.accountInfo.AccountViewModel
 import com.tedmob.africell.features.accountsNumber.AccountsNumbersFragment
 import com.tedmob.africell.ui.blocks.showLoading
+import com.tedmob.africell.ui.viewmodel.observeNotNull
 import com.tedmob.africell.ui.viewmodel.observeResourceInline
 import com.tedmob.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.tedmob.africell.ui.viewmodel.provideViewModel
@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment() {
     private val viewModel by provideViewModel<HomeViewModel> { viewModelFactory }
     val handler = Handler(Looper.getMainLooper())
     var runnable: Runnable? = null
-    val POST_DELAY = 3000L
+    val POST_DELAY = 5000L
     private val infiniteBalanceAdapter by lazy { InfiniteScrollAdapter.wrap(balanceAdapter) }
 
 
@@ -102,24 +102,28 @@ class HomeFragment : BaseFragment() {
         //balanceAdapter.setItems(balance)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+          setupRecyclerView()
+        setupUI()
+        bindData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupUI()
+    }
     private fun bindPush() {
         if (sessionRepository.isLoggedIn()) {
             viewModel.setUserPush()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        setupRecyclerView()
-        setupUI()
-        bindData()
 
-
-    }
     private fun setupUI() {
         if (sessionRepository.isLoggedIn()) {
             viewModel.getSubAccounts()
-            accountViewModel.getAccountInfo()
+
             loginTxt.visibility = View.GONE
             enrollBtn.visibility = View.VISIBLE
             enrollBtn.setOnClickListener {
@@ -158,9 +162,10 @@ class HomeFragment : BaseFragment() {
 
 
         observeResourceInline(viewModel.subAccountData) { subAccounts ->
-            if (sessionRepository.selectedMsisdn.isEmpty()) {
+            if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
                 sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
+            accountViewModel.getAccountInfo()
             accountSpinner.setText(sessionRepository.selectedMsisdn)
             accountSpinner.setOnClickListener {
                 val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
@@ -184,15 +189,13 @@ class HomeFragment : BaseFragment() {
 
         }
 
-
-        accountViewModel.accountInfoData?.observe(viewLifecycleOwner, Observer {
+        observeNotNull(accountViewModel.accountInfoData, {
             it?.let { resource ->
                 when (resource) {
                     is Resource.Loading -> {
                         loading.showLoading()
                     }
                     is Resource.Success -> {
-
                         loading.showContent()
                         val data = resource.data
                         balanceAdapter.setItems(data.homePage?.toHomeBalance().orEmpty())

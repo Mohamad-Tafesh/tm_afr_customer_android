@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tedmob.africell.app.AppSessionNavigator
 import com.tedmob.africell.app.ResourceUseCaseExecutor
 import com.tedmob.africell.data.Resource
+import com.tedmob.africell.data.SingleLiveEvent
 import com.tedmob.africell.data.api.dto.AccountBalanceDTO
 import com.tedmob.africell.data.entity.SubAccount
 import com.tedmob.africell.exception.AppExceptionFactory
@@ -24,7 +25,7 @@ class AccountViewModel
 
     val accountInfoData = MutableLiveData<Resource<AccountBalanceDTO>>()
     val subAccountData = MutableLiveData<Resource<List<SubAccount>>>()
-    val deleteAccountData = MutableLiveData<Resource<List<SubAccount>>>()
+    val deleteAccountData = SingleLiveEvent<Resource<List<SubAccount>>>()
 
     fun getSubAccounts() {
         ResourceUseCaseExecutor(getSubAccountUseCase, Unit, subAccountData,appExceptionFactory,appSessionNavigator) {

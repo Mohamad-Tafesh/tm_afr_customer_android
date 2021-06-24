@@ -66,7 +66,7 @@ class AccountInfoFragment : BaseFragment() {
 
 
         observeResourceWithoutProgress(viewModel.subAccountData) { subAccounts ->
-            if (sessionRepository.selectedMsisdn.isEmpty()) {
+            if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account== sessionRepository.selectedMsisdn}==null) {
                 sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
             accountSpinner.setText(sessionRepository.selectedMsisdn)

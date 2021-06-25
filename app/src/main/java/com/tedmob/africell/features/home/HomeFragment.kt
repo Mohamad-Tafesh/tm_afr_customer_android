@@ -104,8 +104,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-          setupRecyclerView()
-        setupUI()
+        setupRecyclerView()
         bindData()
     }
 
@@ -113,6 +112,7 @@ class HomeFragment : BaseFragment() {
         super.onStart()
         setupUI()
     }
+
     private fun bindPush() {
         if (sessionRepository.isLoggedIn()) {
             viewModel.setUserPush()

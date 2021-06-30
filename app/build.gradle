@@ -96,6 +96,17 @@ android {
             resValue 'string', 'onesignal_app_id', "c933598b-0a8f-4bb3-9864-032193f92511"
             resValue 'string', 'app_version_name', "$versionName"
         }
+        drc {
+            def versionMajor = 1
+            def versionMinor = 0
+            def versionPatch = 0
+            versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+            versionName generateVersionName(versionMajor, versionMinor, versionPatch)
+            applicationId "com.tedmob.africell.drc"
+            dimension "scope"
+            resValue 'string', 'onesignal_app_id', "f012444e-6865-4e00-adf4-dcac979d95f1"
+            resValue 'string', 'app_version_name', "$versionName"
+        }
     }
 
     lintOptions {

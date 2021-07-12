@@ -33,7 +33,7 @@ android {
     buildToolsVersion project.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.tedmob.africell"
+        applicationId "com.africell.africell"
         minSdkVersion project.ext.minimumSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
 
@@ -69,7 +69,7 @@ android {
             def versionPatch = 0
             versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
             versionName generateVersionName(versionMajor, versionMinor, versionPatch)
-            applicationId "com.tedmob.africell.uganda"
+            applicationId "com.africell.africell.uganda"
             dimension "scope"
             resValue 'string', 'onesignal_app_id', "e9af51e4-f06c-4249-b281-091470591362"
             resValue 'string', 'app_version_name', "$versionName"
@@ -80,7 +80,7 @@ android {
             def versionPatch = 0
             versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
             versionName generateVersionName(versionMajor, versionMinor, versionPatch)
-            applicationId "com.tedmob.africell.gambia"
+            applicationId "com.africell.africell.africellapp"
             dimension "scope"
             resValue 'string', 'onesignal_app_id', "8251e44f-a70c-4402-a1d4-d8a37fe2758d"
             resValue 'string', 'app_version_name', "$versionName"
@@ -91,7 +91,7 @@ android {
             def versionPatch = 0
             versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
             versionName generateVersionName(versionMajor, versionMinor, versionPatch)
-            applicationId "com.tedmob.africell.sl"
+            applicationId "com.africell.africell.africellSL"
             dimension "scope"
             resValue 'string', 'onesignal_app_id', "c933598b-0a8f-4bb3-9864-032193f92511"
             resValue 'string', 'app_version_name', "$versionName"
@@ -102,7 +102,7 @@ android {
             def versionPatch = 0
             versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
             versionName generateVersionName(versionMajor, versionMinor, versionPatch)
-            applicationId "com.tedmob.africell.drc"
+            applicationId "com.africell.africell.drc"
             dimension "scope"
             resValue 'string', 'onesignal_app_id', "f012444e-6865-4e00-adf4-dcac979d95f1"
             resValue 'string', 'app_version_name', "$versionName"

@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/splashFragment"
-            android:name="com.tedmob.africell.features.launch.SplashFragment"
+            android:name="com.africell.africell.features.launch.SplashFragment"
             android:label="SplashFragment"
             tools:layout="@layout/fragment_splash">
         <action
@@ -20,20 +20,20 @@
     </fragment>
     <activity
             android:id="@+id/mainActivity"
-            android:name="com.tedmob.africell.features.home.MainActivity"
+            android:name="com.africell.africell.features.home.MainActivity"
             android:label="MainActivity"
             tools:layout="@layout/activity_main" />
     <fragment
             android:id="@+id/pushFragment"
-            android:name="com.tedmob.africell.features.launch.PushFragment"
+            android:name="com.africell.africell.features.launch.PushFragment"
             android:label="PushFragment">
         <argument
                 android:name="notificationData"
-                app:argType="com.tedmob.africell.notification.NotificationData" />
+                app:argType="com.africell.africell.notification.NotificationData" />
     </fragment>
     <activity
             android:id="@+id/authenticationActivity"
-            android:name="com.tedmob.africell.features.authentication.AuthenticationActivity"
+            android:name="com.africell.africell.features.authentication.AuthenticationActivity"
             android:label="AuthenticationActivity" />
 
 </navigation>

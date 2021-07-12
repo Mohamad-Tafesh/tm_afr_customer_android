@@ -10,7 +10,7 @@
 -keep class androidx.appcompat.graphics.** { *; }
 
 # Classes accessed inside navigation component files (any parcelable, serializable, or enum)
--keepnames class com.tedmob.africell.notification.NotificationData
+-keepnames class com.africell.africell.notification.NotificationData
 
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**

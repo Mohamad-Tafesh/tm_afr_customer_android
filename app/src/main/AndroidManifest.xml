@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.tedmob.africell">
+          package="com.africell.africell">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,14 +13,14 @@
                  android:roundIcon="@mipmap/ic_launcher_round"
                      android:supportsRtl="true"
             android:usesCleartextTraffic="true"
-                 android:name="com.tedmob.africell.app.App"
+                 android:name="com.africell.africell.app.App"
                  android:theme="@style/AppTheme"
                  tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
         <uses-library
                 android:name="org.apache.http.legacy"
                 android:required="false"/>
        <activity
-                android:name="com.tedmob.africell.features.launch.RootActivity"
+                android:name="com.africell.africell.features.launch.RootActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.Launch">
             <intent-filter>
@@ -31,15 +31,15 @@
         </activity>
 
         <activity
-                android:name="com.tedmob.africell.features.home.MainActivity"
+                android:name="com.africell.africell.features.home.MainActivity"
                 android:screenOrientation="portrait"
                 android:label="@string/home"/>
-        <activity android:name=".features.authentication.AuthenticationActivity" />
-        <activity android:name=".features.bundles.BundleActivity"/>
-        <activity android:name=".features.accountInfo.AccountInfoActivity" />
-        <activity android:name=".features.accountsNumber.AccountManagementActivity" />
-        <activity android:name=".features.addNewAccount.AddAccountActivity" />
-        <activity android:name=".features.help.HelpActivity" />
+        <activity android:name="com.africell.africell.features.authentication.AuthenticationActivity" />
+        <activity android:name="com.africell.africell.features.bundles.BundleActivity"/>
+        <activity android:name="com.africell.africell.features.accountInfo.AccountInfoActivity" />
+        <activity android:name="com.africell.africell.features.accountsNumber.AccountManagementActivity" />
+        <activity android:name="com.africell.africell.features.addNewAccount.AddAccountActivity" />
+        <activity android:name="com.africell.africell.features.help.HelpActivity" />
 
         <meta-data android:name="com.onesignal.NotificationServiceExtension"
                 android:value="${applicationId}.notification.NotificationServiceExtension" />

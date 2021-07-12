@@ -36,7 +36,7 @@ android:paddingStart="@dimen/spacing_tiny"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-        <com.tedmob.africell.ui.spinner.MaterialSpinner
+        <com.africell.africell.ui.spinner.MaterialSpinner
                 android:id="@+id/countrySpinner"
                 style="@style/TextInputLayout.grey"
                 android:layout_width="wrap_content"

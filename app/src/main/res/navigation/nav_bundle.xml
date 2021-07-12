@@ -7,7 +7,7 @@
     <fragment
             android:id="@+id/bundleCategoriesFragment"
             tools:layout="@layout/fragment_bundle_categories"
-            android:name="com.tedmob.africell.features.bundles.BundleCategoriesFragment"
+            android:name="com.africell.africell.features.bundles.BundleCategoriesFragment"
             android:label="BundleCategoriesFragment" >
         <action
                 android:id="@+id/action_bundleCategoriesFragment_to_bundleVPFragment"
@@ -16,7 +16,7 @@
     <fragment
             android:id="@+id/bundleVPFragment"
             tools:layout="@layout/fragment_bundle_vp"
-            android:name="com.tedmob.africell.features.bundles.BundleVPFragment"
+            android:name="com.africell.africell.features.bundles.BundleVPFragment"
             android:label="BundleVPFragment" >
         <action
                 android:id="@+id/action_bundleVPFragment_to_bundleDetailsFragment"
@@ -25,7 +25,7 @@
     <fragment
             android:id="@+id/bundleDetailsFragment"
             tools:layout="@layout/fragment_bundle_details"
-            android:name="com.tedmob.africell.features.bundles.BundleDetailsFragment"
+            android:name="com.africell.africell.features.bundles.BundleDetailsFragment"
             android:label="BundleDetailsFragment" >
         <action
                 android:id="@+id/action_bundleDetailsFragment_to_activateBundleFragment"
@@ -34,6 +34,6 @@
     <fragment
             android:id="@+id/activateBundleFragment"
             tools:layout="@layout/fragment_activate_bundle"
-            android:name="com.tedmob.africell.features.activateBundle.ActivateBundleFragment"
+            android:name="com.africell.africell.features.activateBundle.ActivateBundleFragment"
             android:label="" />
 </navigation>

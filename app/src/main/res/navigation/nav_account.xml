@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/accountFragment"
-            android:name="com.tedmob.africell.features.accountInfo.AccountInfoFragment"
+            android:name="com.africell.africell.features.accountInfo.AccountInfoFragment"
             android:label=""
             tools:layout="@layout/fragment_account_info">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
             android:id="@+id/editProfileFragment"
-            android:name="com.tedmob.africell.features.profile.EditProfileFragment"
+            android:name="com.africell.africell.features.profile.EditProfileFragment"
             android:label="EditProfileFragment"
             tools:layout="@layout/fragment_edit_profile">
         <action
@@ -28,21 +28,21 @@
     </fragment>
     <fragment
             android:id="@+id/changePasswordFragment"
-            android:name="com.tedmob.africell.features.profile.ChangePasswordFragment"
+            android:name="com.africell.africell.features.profile.ChangePasswordFragment"
             android:label="ChangePasswordFragment"
             tools:layout="@layout/fragment_change_password"/>
     <fragment
             android:id="@+id/creditTransferFragment"
-            android:name="com.tedmob.africell.features.creditTransfer.CreditTransferFragment"
+            android:name="com.africell.africell.features.creditTransfer.CreditTransferFragment"
             android:label="CreditTransferFragment" />
     <activity
             android:id="@+id/addAccountActivity"
             tools:layout="@layout/activity_add_account"
-            android:name="com.tedmob.africell.features.addNewAccount.AddAccountActivity"
+            android:name="com.africell.africell.features.addNewAccount.AddAccountActivity"
             android:label="AddAccountActivity" />
     <activity
             android:id="@+id/accountManagementActivity"
             tools:layout="@layout/activity_account_management"
-            android:name="com.tedmob.africell.features.accountsNumber.AccountManagementActivity"
+            android:name="com.africell.africell.features.accountsNumber.AccountManagementActivity"
             android:label="AccountManagementActivity" />
 </navigation>

@@ -22,7 +22,7 @@
 
 
 
-            <com.tedmob.africell.ui.spinner.MaterialSpinner
+            <com.africell.africell.ui.spinner.MaterialSpinner
                     android:id="@+id/supportCategoryLayout"
                     style="@style/TextInputLayout.grey"
                     android:layout_width="match_parent"

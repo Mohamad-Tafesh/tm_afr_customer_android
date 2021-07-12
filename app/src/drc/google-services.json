@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:411848107588:android:c8a48353118645ad697e11",
+        "mobilesdk_app_id": "1:411848107588:android:358f4094599cc500697e11",
         "android_client_info": {
-          "package_name": "com.tedmob.africell.drc"
+          "package_name": "com.africell.africell.drc"
         }
       },
       "oauth_client": [

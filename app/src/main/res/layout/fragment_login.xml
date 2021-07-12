@@ -74,7 +74,7 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:orientation="horizontal">
 
-                <com.tedmob.africell.ui.spinner.MaterialSpinner
+                <com.africell.africell.ui.spinner.MaterialSpinner
                         android:id="@+id/countrySpinner"
                         style="@style/TextInputLayout.grey"
                         android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.tedmob.africell.ui.button.LoadingProgressButton
+            <com.africell.africell.ui.button.LoadingProgressButton
                     android:id="@+id/loginButton"
                     style="@style/Button.yellow"
                     android:layout_width="match_parent"
@@ -143,7 +143,7 @@
                     android:textColor="@color/white" />
 
 
-            <com.tedmob.africell.ui.button.LoadingProgressButton
+            <com.africell.africell.ui.button.LoadingProgressButton
                     android:id="@+id/signInButton"
                     style="@style/Widget.MaterialComponents.StrokeViolet"
                     android:layout_width="match_parent"

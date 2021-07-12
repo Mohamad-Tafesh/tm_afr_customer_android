@@ -29,7 +29,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_normal">
-            <com.tedmob.africell.ui.spinner.MaterialSpinner
+            <com.africell.africell.ui.spinner.MaterialSpinner
                     android:id="@+id/fromNumberLayout"
                     android:hint="Account Number"
                     style="@style/TextInputLayout.grey"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     >
-                <com.tedmob.africell.ui.spinner.MaterialSpinner
+                <com.africell.africell.ui.spinner.MaterialSpinner
                         android:id="@+id/countrySpinner"
                         style="@style/TextInputLayout.grey"
                         android:layout_width="wrap_content"

@@ -8,7 +8,7 @@
 
     <fragment
             android:id="@+id/addAccountFragment"
-            android:name="com.tedmob.africell.features.addNewAccount.AddAccountFragment"
+            android:name="com.africell.africell.features.addNewAccount.AddAccountFragment"
             android:label="AddAccountFragment" >
         <action
                 android:id="@+id/action_addAccountFragment_to_verifyAccountFragment"
@@ -16,6 +16,6 @@
     </fragment>
     <fragment
             android:id="@+id/verifyAccountFragment"
-            android:name="com.tedmob.africell.features.addNewAccount.VerifyAccountFragment"
+            android:name="com.africell.africell.features.addNewAccount.VerifyAccountFragment"
             android:label="VerifyAccountFragment" />
 </navigation>

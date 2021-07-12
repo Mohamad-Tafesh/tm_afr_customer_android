@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.tedmob.africell.R
 import com.tedmob.africell.app.BaseFragment
 import com.tedmob.africell.data.api.dto.ServicesDTO
@@ -64,8 +65,8 @@ class ServiceDetailsFragment : BaseFragment() {
 
     private fun setUpUI(service: ServicesDTO) {
         imageView.setImageURI(service.image)
-        volumeTxt.text = service.name.orEmpty() + "/" + service.validity.orEmpty()
-        validityTxt.text = "Valid for a " + service.validity.orEmpty()
+        volumeTxt.text = service.subTitle.orEmpty()
+        validityTxt.text =  service.validity.orEmpty()
         descriptionTxt.text = service.description.orEmpty()
         priceTxt.text = "Price: " + service.price.orEmpty() + service.priceUnit.orEmpty()
         subtitleTxt.text = service.name.orEmpty()
@@ -84,13 +85,20 @@ class ServiceDetailsFragment : BaseFragment() {
             if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
         unsubscribeBtn.setText(service.buttonLabel ?: "Unsubscribe")
         observeResource(viewModel.subscribeData) {
-            unsubscribeBtn.visibility = View.GONE
-            subscribeBtn.visibility = View.GONE
+           /* unsubscribeBtn.visibility = View.GONE
+            subscribeBtn.visibility = View.GONE*/
+            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
+                findNavController().popBackStack()
+            }
+
         }
 
         observeResource(viewModel.unSubscribeData) {
-            unsubscribeBtn.visibility = View.GONE
-            subscribeBtn.visibility = View.GONE
+          /*  unsubscribeBtn.visibility = View.GONE
+            subscribeBtn.visibility = View.GONE*/
+            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
+                findNavController().popBackStack()
+            }
         }
         //   imageView.setImageURI(service.title)
     }

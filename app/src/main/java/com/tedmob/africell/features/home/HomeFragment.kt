@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment() {
     private val viewModel by provideViewModel<HomeViewModel> { viewModelFactory }
     val handler = Handler(Looper.getMainLooper())
     var runnable: Runnable? = null
-    val POST_DELAY = 5000L
+    val POST_DELAY = 8000L
     private val infiniteBalanceAdapter by lazy { InfiniteScrollAdapter.wrap(balanceAdapter) }
 
 
@@ -239,14 +239,21 @@ class HomeFragment : BaseFragment() {
     private fun start() {
         stop()
         runnable?.let {
-            handler?.postDelayed(it, POST_DELAY)
+            handler.postDelayed(it, POST_DELAY)
         }
     }
 
     private fun stop() {
         runnable?.let {
-            handler?.removeCallbacks(it)
+            handler.removeCallbacks(it)
         }
+    }
+
+    override fun onDestroyView() {
+        runnable?.let {
+            handler.removeCallbacks(it)
+        }
+        super.onDestroyView()
     }
 
 }

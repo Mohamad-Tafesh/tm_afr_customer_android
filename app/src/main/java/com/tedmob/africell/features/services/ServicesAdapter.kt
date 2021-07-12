@@ -39,10 +39,10 @@ class ServicesAdapter(
             subscribeBtn.visibility = if (item.isActive == true) View.GONE else View.VISIBLE
             description.text = item?.subTitle
             setOnClickListener {
-                item?.let {
-                    callback.onItemClickListener(it)
-                }
-
+                callback.onItemClickListener(item)
+            }
+            subscribedTxt.setOnClickListener {
+                callback.onItemClickListener(item)
             }
 
         }

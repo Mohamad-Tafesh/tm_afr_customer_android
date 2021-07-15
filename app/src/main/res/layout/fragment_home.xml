@@ -23,6 +23,8 @@
         <me.relex.circleindicator.CircleIndicator3
                 android:id="@+id/pageIndicator"
                 android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:scrollbars="horizontal"
                 android:layout_height="25dp"
                 android:padding="@dimen/spacing_small"
                 app:ci_animator="@anim/indicator_no_animation"

@@ -44,8 +44,6 @@ class HomeBalanceAdapter(
             expiryDateTxt.text="Expiry Date: "+item?.expiryDate?.removeTime()
 
             setOnClickListener {
-                item?.let {
-                }
 
             }
 

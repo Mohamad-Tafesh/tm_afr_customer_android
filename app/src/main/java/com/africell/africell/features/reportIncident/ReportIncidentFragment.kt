@@ -45,6 +45,7 @@ class ReportIncidentFragment : BaseFragment(), Liv.Action {
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
         toolbarImage.setActualImageResource(R.mipmap.img_report)
+        toolbarTitle.setText(R.string.report_incident)
     }
 
 

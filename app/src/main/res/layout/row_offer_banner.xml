@@ -2,20 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/spacing_normal"
         android:paddingLeft="@dimen/spacing_normal"
-        android:paddingRight="@dimen/spacing_normal"
-        android:layout_height="match_parent">
+        android:paddingRight="@dimen/spacing_normal">
 
 
     <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:actualImageScaleType="centerCrop"
+            app:actualImageScaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             app:placeholderImage="@color/greyFields"
             app:viewAspectRatio="2" />
 

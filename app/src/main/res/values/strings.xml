@@ -24,7 +24,7 @@
     <string name="search">Search</string>
     <string name="sms">SMS</string>
     <string name="services">Services</string>
-    <string name="customerCare">Customer Care</string>
+    <string name="customer_care">Customer Care</string>
     <string name="my_account_info">My Account\nInfo</string>
     <string name="line_recharge">Line\nRecharge</string>
     <string name="my_bundles_services"><![CDATA[My\nBundles & Services]]></string>
@@ -91,4 +91,6 @@
     <string name="login_first">Login First</string>
     <string name="help_message_1">Africell aim at making a difference not only through the communication sector but also in the community</string>
     <string name="help_message_2">Africell aim at making a difference not only through the communication sector but also in the community</string>
+    <string name="how_can_we_help_you">How Can We Help You?</string>
+    <string name="support_category">Support Category</string>
 </resources>

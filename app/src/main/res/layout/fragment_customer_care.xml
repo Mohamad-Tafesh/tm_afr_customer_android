@@ -18,7 +18,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/let_us_know" />
+                    android:text="@string/how_can_we_help_you" />
 
 
 
@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
 
-                    android:hint="@string/incident_type"
+                    android:hint="@string/support_category"
                     app:contentStyle="@style/TextInputEditText.grey"
                     app:endIconDrawable="@mipmap/icon_arrow_pink_down"
                     app:endIconMode="custom"

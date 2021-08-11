@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.toolbar_image.*
 import javax.inject.Inject
 
 class CustomerCareFragment : BaseFragment(), Liv.Action {
+
     @Inject
     lateinit var sessionRepository: SessionRepository
 

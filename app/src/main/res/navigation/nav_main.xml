@@ -30,11 +30,7 @@
             android:id="@+id/settingsFragment"
             android:name="com.africell.africell.features.settings.SettingsFragment"
             android:label="@string/settings"/>
-    <fragment
-            android:id="@+id/helpFragment"
-            android:name="com.africell.africell.features.help.HelpFragment"
-            android:label="@string/help"
-            tools:layout="@layout/fragment_help"/>
+
     <fragment
             android:id="@+id/faqFragment"
             android:name="com.africell.africell.features.faq.FaqFragment"

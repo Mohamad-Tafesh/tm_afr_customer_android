@@ -89,8 +89,11 @@
     <string name="your_account_type_is">Your Account Type is</string>
     <string name="buy">Buy</string>
     <string name="login_first">Login First</string>
-    <string name="help_message_1">Africell aim at making a difference not only through the communication sector but also in the community</string>
+    <string name="help_message_1">Africell aims at making a difference not only through the communication sector but also in the community</string>
     <string name="help_message_2">Africell aim at making a difference not only through the communication sector but also in the community</string>
     <string name="how_can_we_help_you">How Can We Help You?</string>
     <string name="support_category">Support Category</string>
+    <string name="get_started">Get Started</string>
+    <string name="next">Next</string>
+    <string name="next_step">Next Step</string>
 </resources>

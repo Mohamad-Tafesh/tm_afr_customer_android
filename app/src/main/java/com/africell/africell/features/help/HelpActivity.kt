@@ -1,31 +1,38 @@
 package com.africell.africell.features.help
 
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.africell.africell.R
 import com.africell.africell.app.BaseActivity
+import com.africell.africell.data.Resource
+import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.features.home.ImageViewModel
+import com.africell.africell.ui.viewmodel.ViewModelFactory
+import com.africell.africell.ui.viewmodel.observeNotNull
+import com.africell.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.activity_help.*
-import kotlinx.android.synthetic.main.item_help.view.*
 import javax.inject.Inject
 
 class HelpActivity : BaseActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by provideViewModel<ImageViewModel> { viewModelFactory }
+
     @Inject
     lateinit var sessionRepository: SessionRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help, false, false, 0)
-        setupUI()
+        getImage()
         sessionRepository.showHelp = false
     }
-    companion object {
 
-        val helpList = listOf(
-            Help(R.drawable.africell_bgd_login1, R.string.help_message_1),
-            Help(R.drawable.africell_bgd_login2, R.string.help_message_2)
-        )
+
+/*
+    companion object {
+        val helpList = listOf(Help(R.drawable.africell_bgd_login1, R.string.help_message_1))
     }
 
 
@@ -44,18 +51,42 @@ class HelpActivity : BaseActivity() {
         }
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-               val item= helpList[position]
+                val item= helpList[position]
                 layout.background = ContextCompat.getDrawable(this@HelpActivity, item.image)
 
                 nextBtn.text = if (position == adapter.itemCount - 1) {
-                    "Let's Get Started"
+                    getString(R.string.get_started)
                 } else {
-                    "Next"
+                    getString(R.string.next)
                 }
                 super.onPageSelected(position)
             }
         })
         pageIndicator.setViewPager(viewPager)
+    }
+*/
+
+    fun getImage() {
+        nextBtn.setOnClickListener {
+            activity.finish()
+        }
+        viewModel.getImages(ApiContract.Params.BACKGROUND, ApiContract.ImagePageName.LAUNCH)
+        observeNotNull(viewModel.imagesData) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val data = resource.data
+                    imageView.setImageURI(data.getOrNull(0))
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    showMessage(resource.message)
+                }
+            }
+        }
+
     }
 
 }

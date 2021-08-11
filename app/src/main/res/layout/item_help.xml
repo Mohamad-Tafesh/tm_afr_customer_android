@@ -8,13 +8,13 @@
         tools:background="@drawable/africell_bgd_login1"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:layout_marginStart="@dimen/spacing_normal"
+    <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/imageView"
-            android:src="@mipmap/africell_logo_splash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:actualImageResource="@drawable/africell_bgd_login1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

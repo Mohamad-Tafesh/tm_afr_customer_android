@@ -14,6 +14,7 @@ object ApiContract {
         const val PREPAID = "Prepaid"
         const val BANNERS = "banners"
         const val SLIDERS = "sliders"
+        const val BACKGROUND="background"
     }
 
     object ImagePageName {
@@ -29,6 +30,7 @@ object ApiContract {
         const val PROFILE = "profile"
         const val CREDIT_TRANSFER = "credit_transfer"
         const val SETTINGS = "settings"
+        const val LAUNCH="launch"
     }
 
 }

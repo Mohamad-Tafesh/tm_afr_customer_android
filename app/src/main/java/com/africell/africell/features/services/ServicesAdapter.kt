@@ -41,7 +41,7 @@ class ServicesAdapter(
             setOnClickListener {
                 callback.onItemClickListener(item)
             }
-            subscribedTxt.setOnClickListener {
+            subscribeBtn.setOnClickListener {
                 callback.onItemClickListener(item)
             }
 

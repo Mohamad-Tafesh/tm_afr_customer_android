@@ -5,7 +5,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.10'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.13.4'
     }
 }
 
@@ -21,7 +21,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-android-extensions'
 
-ext.buildToolsVersion = '30.0.2'
+ext.buildToolsVersion = '30.0.3'
 ext.minimumSdkVersion = 21
 ext.targetSdkVersion = 30
 ext.compileSdkVersion = 30
@@ -149,22 +149,22 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    implementation "com.google.firebase:firebase-analytics-ktx:17.6.0"
-    implementation "com.google.firebase:firebase-crashlytics-ktx:17.2.2"
+    implementation "com.google.firebase:firebase-analytics-ktx:19.0.1"
+    implementation "com.google.firebase:firebase-crashlytics-ktx:18.2.1"
 
     //ui
-    implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "com.google.android.material:material:1.2.1"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.2"
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation("com.benitobertoli:liv:0.3.0", {
         exclude group: 'com.android.support'
     })
-    //implementation "me.relex:circleindicator:2.1.4@aar"
 
-    def lifecycleVersion = "2.2.0"
+
+    def lifecycleVersion = "2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
@@ -180,7 +180,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    def frescoVersion = '2.3.0'
+    def frescoVersion = '2.5.0'
     implementation "com.facebook.fresco:fresco:$frescoVersion"
     implementation "com.facebook.fresco:imagepipeline-okhttp3:$frescoVersion"
 
@@ -201,11 +201,11 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // push
-    implementation "com.onesignal:OneSignal:4.3.0"
+    implementation "com.onesignal:OneSignal:4.5.1"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "me.relex:circleindicator:2.1.4@aar"
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.5'
+    implementation "me.relex:circleindicator:2.1.6"
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.20'
 
     //google play
     implementation "com.google.android.gms:play-services-location:$googlePlayServicesLocationVersion"

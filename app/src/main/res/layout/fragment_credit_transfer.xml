@@ -51,6 +51,7 @@
                 <com.africell.africell.ui.spinner.MaterialSpinner
                         android:id="@+id/countrySpinner"
                         style="@style/TextInputLayout.grey"
+                        android:minWidth="100dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_tiny"

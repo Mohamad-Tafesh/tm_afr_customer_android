@@ -18,6 +18,7 @@ import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.LocationDTO
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import com.africell.africell.util.intents.dial
 import com.africell.africell.util.intents.openGoogleMapNavigation
 import kotlinx.android.synthetic.main.fragment_location_map.*
 
@@ -227,8 +228,8 @@ class LocationMapFragment : BaseFragment() {
                 }
             }
             callUs.setOnClickListener {
-                if (location.numbers().isNotEmpty()) {
-                    promptCallUs(location.numbers())
+                if (!location.telephoneNumber.isNullOrEmpty()) {
+                    dial(location.telephoneNumber)
                 } else showMessage("Phone number is not available")
             }
             locationRootInfo.setOnClickListener {

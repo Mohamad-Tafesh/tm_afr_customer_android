@@ -35,6 +35,28 @@ data class LocationDTO(
     val telephoneNumber: String?
 
 ) : Parcelable {
+
+    fun getDistance(userLatitude: Double?, userLongitude: Double?):Double{
+        return try {
+            val lat = latitude?.toDoubleOrNull()
+            val lng = longitude?.toDoubleOrNull()
+            if (userLatitude != null && userLongitude != null && lng != null && lat != null) {
+                val startPoint = Location("locationA")
+                startPoint.latitude = userLatitude
+                startPoint.longitude = userLongitude
+
+                val endPoint = Location("locationB")
+                endPoint.latitude = lat
+                endPoint.longitude = lng
+
+                val distanceMeters: Float = startPoint.distanceTo(endPoint)
+                distanceMeters / 1000.00
+            } else 0.0
+        } catch (e: Exception) {
+            0.0
+        }
+    }
+
     fun displayDistance(userLatitude: Double?, userLongitude: Double?): String {
         return try {
             val lat = latitude?.toDoubleOrNull()
@@ -59,6 +81,8 @@ data class LocationDTO(
             ""
         }
     }
+
+
 
     fun numbers(): List<String> {
         val numbers = mutableListOf<String>()

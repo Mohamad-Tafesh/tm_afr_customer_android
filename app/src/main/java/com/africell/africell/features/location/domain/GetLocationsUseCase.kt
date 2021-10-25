@@ -17,7 +17,9 @@ class GetLocationsUseCase
     override fun buildUseCaseObservable(params: Params): Observable<List<LocationDTO>> {
 
 
-        return  restApi.getShopLocation(params.search)
+        return  restApi.getShopLocation(params.search).map {
+            it.sortedBy {  it.getDistance(params.lat,params.long)}
+        }
 }
 
     data class Params(val search:String?, val lat:Double?,val long:Double?)

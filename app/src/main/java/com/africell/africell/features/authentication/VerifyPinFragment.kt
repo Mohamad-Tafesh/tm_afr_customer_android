@@ -10,6 +10,7 @@ import com.africell.africell.app.BaseFragment
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
+import com.africell.africell.util.navigation.runIfFrom
 import kotlinx.android.synthetic.main.fragment_verification.*
 
 class VerifyPinFragment : BaseFragment(){
@@ -44,9 +45,13 @@ class VerifyPinFragment : BaseFragment(){
     private fun bindData() {
         observeResource(viewModel.verifyData) {
            if (isReset) {
-                findNavController().navigate(R.id.action_verifyPinFragment_to_setPasswordFragment)
+               findNavController().runIfFrom(R.id.verifyPinFragment) {
+                   navigate(R.id.action_verifyPinFragment_to_setPasswordFragment)
+               }
             } else {
-                findNavController().navigate(R.id.action_verifyPinFragment_to_registerFragment)
+               findNavController().runIfFrom(R.id.verifyPinFragment) {
+                   navigate(R.id.action_verifyPinFragment_to_registerFragment)
+               }
             }
     }
     }

@@ -113,7 +113,7 @@ class BundleVPFragment : BaseFragment() {
     private fun bindData() {
         viewModel.getBundlesByCategory(bundleId, null)
         observeResourceInline(viewModel.bundlesData) { bundles ->
-            val firstPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.get(0)?.primaryColor ?: primaryColor
+            val firstPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.primaryColor ?: primaryColor
             val firstSecondaryPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.secondaryColor ?: secondaryColor
           changeBgdColor(firstPrimaryKey,firstSecondaryPrimaryKey)
             if (bundleName.isNullOrEmpty()) {

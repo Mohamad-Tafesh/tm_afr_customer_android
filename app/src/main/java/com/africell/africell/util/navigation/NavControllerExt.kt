@@ -9,3 +9,10 @@ fun NavController.goBack(activity: Activity?): Boolean {
     }
     return true
 }
+
+fun NavController.runIfFrom(destinationId: Int, block: (NavController.() -> Unit)) {
+    if (currentDestination?.id == destinationId) {
+        block(this)
+    }
+
+}

@@ -10,8 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.ApiContract
@@ -19,9 +17,10 @@ import com.africell.africell.data.api.dto.MyBundlesAndServices
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_my_bundles_services_vp.*
 import kotlinx.android.synthetic.main.toolbar_bundle_services.*
-import kotlinx.android.synthetic.main.toolbar_bundle_services.toolbarImage
 import javax.inject.Inject
 
 
@@ -65,18 +64,18 @@ class MyBundleServicesVPFragment : BaseFragment() {
         viewPager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
         }
+        if (!bundles.isNullOrEmpty()) {
+            viewPager.adapter = object : FragmentStateAdapter(this) {
 
-        viewPager.adapter = object : FragmentStateAdapter(this) {
+                override fun createFragment(position: Int): Fragment {
+                    return MyBundlesAndServicesFragment.newInstance(bundles.getOrNull(position)?.myBundlesInfos)
+                }
 
-            override fun createFragment(position: Int): Fragment {
-                return MyBundlesAndServicesFragment.newInstance(bundles[position].myBundlesInfos)
-            }
-
-            override fun getItemCount(): Int {
-                return bundles.size
+                override fun getItemCount(): Int {
+                    return bundles.size
+                }
             }
         }
-
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -97,7 +96,7 @@ class MyBundleServicesVPFragment : BaseFragment() {
             }
         })
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = bundles[position].titles
+            tab.text = bundles.getOrNull(position)?.titles
         }.attach()
     }
 

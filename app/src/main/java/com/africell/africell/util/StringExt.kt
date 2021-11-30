@@ -33,10 +33,14 @@ fun Long.convertDate(dateformat: String): String {
 fun Long.toEpoch(): Long = this / 1000
 fun Long.toMillis(): Long = this * 1000
 fun Long.toFormat(dateformat: String): String {
-    val format1 = SimpleDateFormat(dateformat, Locale.US)
+    try {
+        val format1 = SimpleDateFormat(dateformat, Locale.US)
 //    format1.timeZone = TimeZone.getTimeZone("UTC")
-    val date = format1.format(this)
-    return date
+        val date = format1.format(this)
+        return date
+    }catch (e: Exception){
+        return ""
+    }
 }
 
 fun String.toFormat(dateformat: String): String {

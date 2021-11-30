@@ -19,6 +19,7 @@ import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
+import com.africell.africell.util.navigation.runIfFrom
 import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import kotlinx.android.synthetic.main.fragment_mobile_number.*
@@ -92,7 +93,9 @@ class MobileNumberFragment : BaseFragment(), Liv.Action {
     private fun bindUser() {
         observeResource(viewModel.generateOTPData) {
             val bundle = bundleOf(Pair(IS_RESET, isReset))
-            findNavController().navigate(R.id.action_mobileNumberFragment_to_verifyPinFragment, bundle)
+            findNavController().runIfFrom(R.id.mobileNumberFragment) {
+                navigate(R.id.action_mobileNumberFragment_to_verifyPinFragment, bundle)
+            }
         }
     }
 

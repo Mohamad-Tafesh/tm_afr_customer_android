@@ -14,13 +14,12 @@ abstract class DefaultObserver<T>(
 
     override fun onComplete() {
         // no-op by default.
-
     }
 
     override fun onError(t: Throwable) {
         val appException = appExceptionFactory.make(t)
         when (appException.message) {
-           "Invalid_token" -> onInvalidToken(appException)
+            "Invalid_token" -> onInvalidToken(appException)
             "Expired_token" -> appSessionNavigator.refreshToken()
             else -> onError(appException)
         }

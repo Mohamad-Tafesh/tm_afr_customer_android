@@ -66,7 +66,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
         bindUser()
         bindCountries()
         debugOnly {
-            mobileNumberLayout.setText("2704114")
+            mobileNumberLayout.setText("7222333")
             password.setText("testpass")
 
         }

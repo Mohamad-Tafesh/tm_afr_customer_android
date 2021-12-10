@@ -38,11 +38,8 @@ class AppSessionNavigator
             }
 
             override fun onError(e: Throwable) {
-                val appException = appExceptionFactory.make(e)
-                when (appException.message) {
-                    "Invalid_token" -> invalidateSessionAndRestart()
-                    else -> onError(appException)
-                }
+               // val appException = appExceptionFactory.make(e)
+                invalidateSessionAndRestart()
             }
 
             override fun onComplete() {

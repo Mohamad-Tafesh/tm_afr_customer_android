@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/spacing_normal"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/transfer_money"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_normal"
+            style="@style/TextAppearance.Title"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator"
+            android:layout_marginTop="@dimen/spacing_normal"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            style="@style/Button.purple"
+            android:id="@+id/p2pTransfer"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_height="wrap_content"
+            android:text="@string/p2p_tranfer"/>
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            style="@style/Button.purple"
+            android:id="@+id/merchantPayment"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_height="wrap_content"
+            android:text="@string/merchant_payment"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            style="@style/button.strokeViolet"
+            android:id="@+id/cancel"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"/>
+</LinearLayout>

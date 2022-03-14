@@ -9,6 +9,9 @@ import com.africell.africell.features.activateBundle.ActivateBundleFragment
 import com.africell.africell.features.addNewAccount.AddAccountActivity
 import com.africell.africell.features.addNewAccount.AddAccountFragment
 import com.africell.africell.features.addNewAccount.VerifyAccountFragment
+import com.africell.africell.features.afrimoney.AfrimoneyFragment
+import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment
+import com.africell.africell.features.afrimoneyBundles.*
 import com.africell.africell.features.authentication.*
 import com.africell.africell.features.bookNumber.BookNumberFragment
 import com.africell.africell.features.bundles.BundleActivity
@@ -43,6 +46,7 @@ import com.africell.africell.features.help.HelpActivity
 import com.africell.africell.features.myBundlesAndServices.MyBundleDetailsFragment
 import com.africell.africell.features.myBundlesAndServices.MyBundleServicesVPFragment
 import com.africell.africell.features.myBundlesAndServices.MyBundlesAndServicesFragment
+import com.africell.africell.features.transferMoney.TransferMoneyFragment
 import com.africell.africell.features.vasServices.VasServicesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -131,6 +135,18 @@ abstract class InjectorsModule {
     internal abstract fun bundleActivity(): BundleActivity
 
     @ContributesAndroidInjector
+    internal abstract fun bundleVPFragment(): BundleVPFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleFragment(): BundlesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bundleDetailsFragment(): BundleDetailsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun activateBundleFragment(): ActivateBundleFragment
+
+    @ContributesAndroidInjector
     internal abstract fun smsFragment(): SMSFragment
 
     @ContributesAndroidInjector
@@ -151,18 +167,6 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun creditTransferFragment(): CreditTransferFragment
-
-    @ContributesAndroidInjector
-    internal abstract fun bundleVPFragment(): BundleVPFragment
-
-    @ContributesAndroidInjector
-    internal abstract fun bundleFragment(): BundlesFragment
-
-    @ContributesAndroidInjector
-    internal abstract fun bundleDetailsFragment(): BundleDetailsFragment
-
-    @ContributesAndroidInjector
-    internal abstract fun activateBundleFragment(): ActivateBundleFragment
 
     @ContributesAndroidInjector
     internal abstract fun dataCalculatorFragment(): DataCalculatorFragment
@@ -196,4 +200,28 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun helpActivity(): HelpActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyFragment(): AfrimoneyFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyBundleCategoriesFragment(): AfrimoneyBundleCategoriesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyBundleActivity(): AfrimoneyBundleActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyBundleVPFragment(): AfrimoneyBundleVPFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyBundleFragment(): AfrimoneyBundlesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyBundleDetailsFragment(): AfrimoneyBundleDetailsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyActivateBundleFragment(): AfrimoneyActivateBundleFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun transferMoneyFragment(): TransferMoneyFragment
 }

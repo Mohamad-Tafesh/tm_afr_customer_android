@@ -6,6 +6,10 @@ import com.africell.africell.features.aboutus.AboutViewModel
 import com.africell.africell.features.accountInfo.AccountViewModel
 import com.africell.africell.features.activateBundle.ActivateBundleViewModel
 import com.africell.africell.features.addNewAccount.AddAccountViewModel
+import com.africell.africell.features.afrimoney.AfrimoneyViewModel
+import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleViewModel
+import com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleDetailsViewModel
+import com.africell.africell.features.afrimoneyBundles.AfrimoneyBundlesViewModel
 import com.africell.africell.features.authentication.LoginViewModel
 import com.africell.africell.features.authentication.RegisterViewModel
 import com.africell.africell.features.authentication.ResetPasswordViewModel
@@ -200,4 +204,24 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BundleDetailsViewModel::class)
     internal abstract fun bundleDetailsViewModel(viewModel: BundleDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyViewModel::class)
+    internal abstract fun afrimoneyViewModel(viewModel: AfrimoneyViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyBundleDetailsViewModel::class)
+    internal abstract fun afrimoneyBundleDetailsViewModel(viewModel: AfrimoneyBundleDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyActivateBundleViewModel::class)
+    internal abstract fun afrimoneyActivateBundleViewModel(viewModel: AfrimoneyActivateBundleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyBundlesViewModel::class)
+    internal abstract fun afrimoneyBundlesViewModel(viewModel: AfrimoneyBundlesViewModel): ViewModel
 }

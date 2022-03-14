@@ -66,8 +66,8 @@ object ApiModule {
         }*/
 
         val block: (chain: Interceptor.Chain) -> Response = {
-            val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
-
+           // val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             val response = it.proceed(
                 it.request().let { request ->
 
@@ -150,7 +150,8 @@ object ApiModule {
         //.connectionSpecs(listOf(ConnectionSpec.COMPATIBLE_TLS))
 
         builder.addInterceptor {//addNetworkInterceptor in case you don't want to handle redirections, but logs will not show "access-token"
-         //   val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+
+//            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             it.proceed(
                 it.request().let { request ->
                     request.newBuilder()

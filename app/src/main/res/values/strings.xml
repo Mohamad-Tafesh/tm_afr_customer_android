@@ -96,4 +96,10 @@
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
     <string name="next_step">Next Step</string>
+    <string name="p2p_tranfer">P2P Transfer</string>
+    <string name="afri_power">Afri Power</string>
+    <string name="money_tranfer">Money Transfer</string>
+    <string name="merchant_payment">Merchant Payment</string>
+    <string name="transfer_money">Transfer Money</string>
+    <string name="cancel">Cancel</string>
 </resources>

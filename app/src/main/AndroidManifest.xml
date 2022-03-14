@@ -40,6 +40,7 @@
         <activity android:name="com.africell.africell.features.accountsNumber.AccountManagementActivity" />
         <activity android:name="com.africell.africell.features.addNewAccount.AddAccountActivity" />
         <activity android:name="com.africell.africell.features.help.HelpActivity" />
+        <activity android:name=".features.afrimoneyBundles.AfrimoneyBundleActivity" />
 
         <meta-data android:name="com.onesignal.NotificationServiceExtension"
                 android:value="${applicationId}.notification.NotificationServiceExtension" />

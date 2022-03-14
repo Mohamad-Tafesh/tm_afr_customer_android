@@ -165,5 +165,17 @@
             tools:layout="@layout/fragment_my_bundle_details"
             android:name="com.africell.africell.features.myBundlesAndServices.MyBundleDetailsFragment"
             android:label="MyBundleDetailsFragment" />
+    <fragment
+            android:id="@+id/afrimoneyFragment"
+            android:name="com.africell.africell.features.afrimoney.AfrimoneyFragment"
+            android:label="AfrimoneyFragment" >
+        <action
+                android:id="@+id/action_afrimoneyFragment_to_afrimoneyBundleActivity"
+                app:destination="@id/afrimoneyBundleActivity" />
+    </fragment>
+    <activity
+            android:id="@+id/afrimoneyBundleActivity"
+            android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleActivity"
+            android:label="AfrimoneyBundleActivity" />
 
 </navigation>

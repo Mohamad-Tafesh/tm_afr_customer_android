@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_afrimoney_bundle"
+        app:startDestination="@id/afrimoneyBundleCategoriesFragment">
+    <fragment
+            android:id="@+id/afrimoneyBundleCategoriesFragment"
+            tools:layout="@layout/row_bundle_category"
+            android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleCategoriesFragment"
+            android:label="AfrimoneyBundleCategoriesFragment" >
+        <action
+                android:id="@+id/action_afrimoneyBundleCategoriesFragment_to_afrimoneyBundleVPFragment"
+                app:destination="@id/afrimoneyBundleVPFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/afrimoneyBundleVPFragment"
+            tools:layout="@layout/fragment_bundle_vp"
+            android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleVPFragment"
+            android:label="AfrimoneyBundleVPFragment" >
+        <action
+                android:id="@+id/action_afrimoneyBundleVPFragment_to_afrimoneyBundleDetailsFragment"
+                app:destination="@id/afrimoneyBundleDetailsFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/afrimoneyBundleDetailsFragment"
+            android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleDetailsFragment"
+            android:label="AfrimoneyBundleDetailsFragment" />
+</navigation>

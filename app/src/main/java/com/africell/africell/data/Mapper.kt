@@ -1,6 +1,7 @@
 package com.africell.africell.data
 
 import com.africell.africell.data.api.dto.AccountBalanceDTO
+import com.africell.africell.data.api.dto.MoneyTransferBalanceDTO
 import com.africell.africell.data.entity.MyAccountBalance
 import com.africell.africell.data.entity.MyAccountBalanceCategories
 
@@ -22,5 +23,11 @@ val list= mutableListOf<MyAccountBalanceCategories>()
 
 fun List<AccountBalanceDTO.HomePage>.toHomeBalance():MutableList<MyAccountBalance>{
     return this.map {  MyAccountBalance(it.name,it.expiryDate,it.value,it.originalValue,it.unit)}.toMutableList()
+
+}
+
+
+fun List<MoneyTransferBalanceDTO>.MMtoHomeBalance():MutableList<MyAccountBalance>{
+    return this.map {  MyAccountBalance(it.walletName,it.subtitle,it.balanceValue,it.balanceValue,it.currency)}.toMutableList()
 
 }

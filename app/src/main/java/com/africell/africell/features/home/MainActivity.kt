@@ -118,21 +118,17 @@ class MainActivity : BaseActivity() {
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility =
-                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility = if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
                 if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (destination.id == R.id.customerCareFragment) {
-                        customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                            0,
-                            R.mipmap.tab_customer_care_selected, 0, 0
+                    if (destination.id == R.id.afrimoneyFragment) {
+                        customerCareTxt.setImageResource(
+                            R.mipmap.tab_afrimoney_selected
                         )
                     } else {
-                        customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                            0,
-                            R.mipmap.tab_customer_care,
-                            0,
-                            0
+                        customerCareTxt.setImageResource(
+                            R.mipmap.tab_afrimoney_not_selected,
+
                         )
 
                     }

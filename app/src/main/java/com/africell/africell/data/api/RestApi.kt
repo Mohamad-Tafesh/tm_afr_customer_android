@@ -2,6 +2,7 @@ package com.africell.africell.data.api
 
 import com.africell.africell.data.api.dto.*
 import com.africell.africell.data.api.requests.*
+import com.africell.africell.data.api.requests.afrimoney.AfrimoneyActivateBundleRequest
 import com.africell.africell.features.faq.FaqItem
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -231,5 +232,33 @@ interface RestApi {
     fun getVasServiceDetails(
         @Path("sname") sname: String?
     ): Observable<ServicesDTO>
+
+
+    @GET("SelfCare/GetMMBalance")
+    fun getMMBallance(
+        @Query("msisdn") msisdn: String?
+    ): Observable<List<MoneyTransferBalanceDTO >>
+
+
+    @POST("SelfCare/ActivateBundles")
+    fun afrimoneyActivateBundle(
+        @Body request: AfrimoneyActivateBundleRequest,
+    ): Observable<StatusDTO>
+
+
+    @GET("SelfCare/GetMMBundlesCategories")
+    fun getAfriMoneyBundlesCategories(): Observable<List<BundleCategoriesDTO>>
+
+    @GET("SelfCare/GetMMBundlesByCategories/{categoriesid}")
+    fun getAfriMoneyBundlesByCategories(
+        @Path("categoriesid") categoryId: String?,
+        @Query("searchBundle") searchBundle: String?
+    ): Observable<List<BundlesDTO>>
+
+    @GET("SelfCare/GetMMBundlesDetails/{BundleId}")
+    fun getAfriMoneyBundleDetails(
+        @Path("BundleId") BundleId: String
+    ): Observable<BundleInfo>
+
 
 }

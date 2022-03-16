@@ -191,7 +191,7 @@ class ActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
 
         })
         observeResource(viewModel.activateBundleData) {
-            showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
                 this@ActivateBundleFragment.dismiss()
                 // findNavController().popBackStack()
             }

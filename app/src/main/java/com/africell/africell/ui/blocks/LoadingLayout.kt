@@ -42,6 +42,8 @@ class LoadingLayout : FrameLayout {
         updateVisibility()
     }
 
+
+
     fun showLoadingView() {
         showContent = false
         updateVisibility()

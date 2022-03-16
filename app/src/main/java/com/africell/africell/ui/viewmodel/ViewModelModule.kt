@@ -10,6 +10,9 @@ import com.africell.africell.features.afrimoney.AfrimoneyViewModel
 import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleViewModel
 import com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleDetailsViewModel
 import com.africell.africell.features.afrimoneyBundles.AfrimoneyBundlesViewModel
+import com.africell.africell.features.afrimoneyLineRecharge.AfrimoneyLineRechargeViewModel
+import com.africell.africell.features.afrimoneyMerchantPaymnet.AfrimoneyMerchantPayViewModel
+import com.africell.africell.features.afrimoneyP2P.AfrimoneyP2PViewModel
 import com.africell.africell.features.authentication.LoginViewModel
 import com.africell.africell.features.authentication.RegisterViewModel
 import com.africell.africell.features.authentication.ResetPasswordViewModel
@@ -224,4 +227,20 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AfrimoneyBundlesViewModel::class)
     internal abstract fun afrimoneyBundlesViewModel(viewModel: AfrimoneyBundlesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyP2PViewModel::class)
+    internal abstract fun afrimoneyP2PViewModel(viewModel: AfrimoneyP2PViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyLineRechargeViewModel::class)
+    internal abstract fun afrimoneyLineRechargeViewModel(viewModel: AfrimoneyLineRechargeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AfrimoneyMerchantPayViewModel::class)
+    internal abstract fun afrimoneyMerchantPayViewModel(viewModel: AfrimoneyMerchantPayViewModel): ViewModel
+
 }

@@ -156,6 +156,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="afrimoneyActivateBundleFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="542" />
+                            <option name="y" value="-45" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="afrimoneyBundleCategoriesFragment">
                     <value>
                       <LayoutPositions>
@@ -197,6 +209,15 @@
                             <option name="x" value="91" />
                             <option name="y" value="-60" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_afrimoneyBundleVPFragment_to_afrimoneyBundleDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -513,6 +534,61 @@
                           <Point>
                             <option name="x" value="1031" />
                             <option name="y" value="1492" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_afrimoneyFragment_to_afrimoneyBundleActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_afrimoneyFragment_to_afrimoneyLineRechargeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_afrimoneyFragment_to_afrimoneyP2PFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="afrimoneyLineRechargeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1729" />
+                            <option name="y" value="2282" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="afrimoneyMerchantPayFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1760" />
+                            <option name="y" value="2697" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="afrimoneyP2PFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1675" />
+                            <option name="y" value="1836" />
                           </Point>
                         </option>
                       </LayoutPositions>

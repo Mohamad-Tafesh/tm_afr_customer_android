@@ -1,46 +1,39 @@
 package com.africell.africell.features.afrimoneyActivateBundle
 
 import android.Manifest
-import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import com.africell.africell.Constant.STATIC_PHONE_NUMBER
+import androidx.navigation.fragment.findNavController
+import com.africell.africell.Constant
 import com.africell.africell.R
-import com.africell.africell.app.BaseBottomSheetFragment
+import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.BundleInfo
-import com.africell.africell.data.api.requests.ActivateBundleRequest
+import com.africell.africell.data.api.dto.WalletDTO
+import com.africell.africell.data.api.requests.afrimoney.AfrimoneyActivateBundleRequest
 import com.africell.africell.data.entity.Country
 import com.africell.africell.data.repository.domain.SessionRepository
-import com.africell.africell.features.authentication.CountriesAdapter
 import com.africell.africell.ui.hideKeyboard
-import com.africell.africell.ui.spinner.MaterialSpinner
-import com.africell.africell.ui.spinner.OnItemSelectedListener
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
-import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.fragment_activate_bundle.*
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
 import javax.inject.Inject
 
 
-class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
+class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     private var liv: Liv? = null
 
     val isActivateForMe by lazy {
@@ -62,19 +55,11 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     companion object {
         const val BUNDLE_DETAILS = "bundle_details"
         const val ACTIVATE_FOR_ME = "activate_for_me"
-        fun newInstance(bundle: BundleInfo, isActivateForMe: Boolean): AfrimoneyActivateBundleFragment {
-            return AfrimoneyActivateBundleFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(BUNDLE_DETAILS, bundle)
-                    putBoolean(ACTIVATE_FOR_ME, isActivateForMe)
-                }
-            }
-        }
     }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_activate_bundle, 0, true)
+        return wrap(inflater.context, R.layout.fragment_afrimoney_activate_bundle, 0, true)
     }
 
 
@@ -91,60 +76,20 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
         setupUI()
     }
 
-    fun visibilityAutoRenew() {
-        if (isActivateForMe) {
-            isAutoRenew.visibility = View.VISIBLE
-            autoRenewVisibility()
-            toNumberLayout.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
-                    autoRenewVisibility()
-                }
-
-                override fun onNothingSelected(parent: MaterialSpinner) {
-                }
-
-            }
-            fromLayout.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(parent: MaterialSpinner, view: View?, position: Int, id: Long) {
-                    autoRenewVisibility()
-                }
-
-                override fun onNothingSelected(parent: MaterialSpinner) {
-                }
-            }
-        } else {
-            hideAutoRenew()
-        }
-
-    }
-
-    private fun autoRenewVisibility() {
-        if (toNumberLayout.getText() == fromLayout.getText()) {
-            isAutoRenew.visibility = View.VISIBLE
-        } else {
-            hideAutoRenew()
-        }
-    }
-
-    private fun hideAutoRenew() {
-        isAutoRenew.isChecked = false
-        isAutoRenew.visibility = View.GONE
-    }
 
     private fun setupUI() {
         if (isActivateForMe) {
-            toNumberLayout.visibility = View.VISIBLE
             toSomeOneElseLayout.visibility = View.GONE
             submitBtn.setBackgroundColor(resources.getColor(R.color.yellow))
         } else {
-            toNumberLayout.visibility = View.GONE
             toSomeOneElseLayout.visibility = View.VISIBLE
             submitBtn.setBackgroundColor(resources.getColor(R.color.purple))
         }
-        titleTxt.text = bundle.getTitle()
-        volumeTxt.text = bundle.getFormatVolume()
-        validityTxt.text = bundle.getFormatValidity()
-
+        titleTxt.text =
+            if (isActivateForMe) getString(R.string.activate_for_me) else getString(R.string.activate_bundle_for_someone_else)
+        closeIcon.setOnClickListener {
+            findNavController().popBackStack()
+        }
         mobileNumberLayout.setEndIconOnClickListener {
             activity?.hideKeyboard()
             phoneNumberPermission()
@@ -154,10 +99,7 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     private fun initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
         val builder = Liv.Builder()
-        builder.add(fromLayout, notEmptyRule)
-        if (isActivateForMe) {
-            builder.add(toNumberLayout, notEmptyRule)
-        } else builder.add(mobileNumberLayout, notEmptyRule)
+        builder.add(selectWalletLayout, notEmptyRule)
         return builder
             .submitAction(this)
             .build()
@@ -165,35 +107,17 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
     }
 
     private fun bindData() {
-        viewModel.getSubAccounts()
-        observeResourceInline(viewModel.subAccountData, {
+        viewModel.getData()
+        observeResourceInline(viewModel.data, {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
             arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            fromLayout.adapter = arrayAdapter
-            toNumberLayout.adapter = arrayAdapter
+            selectWalletLayout.adapter = arrayAdapter
 
-            it.indexOfFirst { it.account == sessionRepository.selectedMsisdn }?.takeIf { it != -1 }?.let {
-                fromLayout.selection = it
-                toNumberLayout.selection = it
-            }
-
-
-            visibilityAutoRenew()
 
         })
-        viewModel.getCountries()
-        observeResourceWithoutProgress(viewModel.countriesData, {
-            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
-                countrySpinner.selection = it
-            }
-            countrySpinner.isEnabled = false
-
-        })
-        observeResource(viewModel.activateBundleData) {
-            showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
-                this@AfrimoneyActivateBundleFragment.dismiss()
-                // findNavController().popBackStack()
+        observeResource(viewModel.requestData) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
+                findNavController().popBackStack()
             }
         }
 
@@ -201,15 +125,19 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
 
 
     override fun performAction() {
-        val toNumber = if (isActivateForMe) {
-            toNumberLayout.getText()
-        } else {
-            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
-            PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
-        }
 
-        val request = ActivateBundleRequest(bundle.bundleId, isAutoRenew.isChecked, fromLayout.getText(), toNumber)
-        viewModel.activateBundle(request)
+        val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
+        // PhoneNumberHelper.getFormattedIfValid("",  mobileNumberLayout.getText())?.replace("+", "")
+        val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
+
+        val request = AfrimoneyActivateBundleRequest(
+            bundle.bundleId?.toString().orEmpty(),
+            wallet,
+            subMsisdn,
+            mobileNumberLayout.getText(),
+            pinCodeLayout.getText()
+        )
+        viewModel.submitRequest(request)
     }
 
     override fun onDestroyView() {
@@ -278,11 +206,11 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
 
                             pCur?.close()
                             selectPhoneNumber(allMobileNumber) { number ->
-                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                val phoneCode = Constant.STATIC_PHONE_NUMBER
+                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+","")
                                 formatted?.let {
-                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                    //val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                    mobileNumberLayout.setText(formatted)
                                 } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }
@@ -293,35 +221,5 @@ class AfrimoneyActivateBundleFragment : BaseBottomSheetFragment(), Liv.Action {
         } else super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            setupFullHeight(bottomSheetDialog)
-        }
-        return dialog
-    }
-
-
-
-
-    private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-        val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet!!)
-        val layoutParams = bottomSheet!!.layoutParams
-        val windowHeight = getWindowHeight()
-        if (layoutParams != null) {
-            layoutParams.height = windowHeight
-        }
-        bottomSheet.layoutParams = layoutParams
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun getWindowHeight(): Int {
-        // Calculate window height for fullscreen use
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
-    }
 }
 

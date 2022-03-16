@@ -65,7 +65,7 @@ class ChangePasswordFragment : BaseFragment(), Liv.Action {
 
     private fun bindData() {
         observeResource(viewModel.changePasswordData, {
-            showMaterialMessageDialog(it.resultText.orEmpty()) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty()) {
                 findNavController().popBackStack()
             }
         })

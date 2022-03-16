@@ -25,5 +25,14 @@
     <fragment
             android:id="@+id/afrimoneyBundleDetailsFragment"
             android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleDetailsFragment"
-            android:label="AfrimoneyBundleDetailsFragment" />
+            android:label="AfrimoneyBundleDetailsFragment" >
+        <action
+                android:id="@+id/action_afrimoneyBundleDetailsFragment_to_afrimoneyActivateBundleFragment"
+                app:destination="@id/afrimoneyActivateBundleFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/afrimoneyActivateBundleFragment"
+            tools:layout="@layout/fragment_afrimoney_activate_bundle"
+            android:name="com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment"
+            android:label="AfrimoneyActivateBundleFragment" />
 </navigation>

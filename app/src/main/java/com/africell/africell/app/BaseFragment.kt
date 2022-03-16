@@ -3,21 +3,21 @@ package com.africell.africell.app
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import com.facebook.drawee.view.SimpleDraweeView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.africell.africell.R
 import com.africell.africell.features.authentication.AuthenticationActivity
 import com.africell.africell.features.home.ImageViewModel
@@ -30,6 +30,10 @@ import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.DialogUtils
 import com.africell.africell.util.intents.dial
+import com.facebook.drawee.view.SimpleDraweeView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -52,6 +56,7 @@ abstract class BaseFragment : DaggerFragment() {
     protected var progressDialog: ProgressDialog? = null
 
     private var rxDisposables: CompositeDisposable? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -165,10 +170,10 @@ abstract class BaseFragment : DaggerFragment() {
             ?.displayButton(false)
     }
 
-    fun showInlineImage(@DrawableRes resId: Int) {
+    fun showInlineImage(@DrawableRes resId: Int,message: String) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
-            ?.message("")
+            ?.message(message)
             ?.imageResource(resId)
             ?.displayImage(true)
             ?.displayButton(false)
@@ -196,15 +201,59 @@ abstract class BaseFragment : DaggerFragment() {
 
     fun showMessage(message: String) {
         view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+            val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+            val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+            val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+            val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+            val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+            val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+
+            actionBtn.visibility = View.GONE
+            val builder = MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+            messageTxt.text = message
+            image.setImageResource(R.drawable.failed_icon)
+            val alertDialog = builder.show()
+            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dismissButton.setOnClickListener {
+                alertDialog.dismiss()
+            }
         }
     }
 
+    fun showInfoMessage(message: String) {
+        view?.let { view ->
+            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+        }
+    }
     fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
         view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-                .setAction(actionName) { action?.invoke() }
-                .show()
+            val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+            val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+            val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+            val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+            val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+            val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+
+            actionBtn.visibility = View.VISIBLE
+            actionBtn.text = actionName
+            val builder = MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+            messageTxt.text = message
+            titleTxt.text = getString(R.string.failed)
+
+            image.setImageResource(R.drawable.failed_icon)
+            val alertDialog = builder.show()
+            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dismissButton.setOnClickListener {
+                alertDialog.dismiss()
+            }
+            actionBtn.setOnClickListener {
+                action?.invoke()
+                alertDialog.dismiss()
+            }
         }
     }
 
@@ -214,32 +263,37 @@ abstract class BaseFragment : DaggerFragment() {
         }
     }
 
-    fun showMessageDialog(
-        message: String,
-        buttonText: String = getString(R.string.close),
-        callback: (() -> Unit)? = null
-    ) {
-        activity?.let {
-            AlertDialog.Builder(it)
-                .setMessage(message)
-                .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
-                .show()
-        }
-    }
 
     fun showMaterialMessageDialog(
+        title: String,
         message: String,
         buttonText: String = getString(R.string.close),
         callback: (() -> Unit)? = null
     ) {
-        activity?.let {
-            MaterialAlertDialogBuilder(it)
-                .setCancelable(false)
-                .setMessage(message)
-                .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
-                .show()
+        val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+        val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+        val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+        val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+        val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+        val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+        actionBtn.visibility = View.GONE
+        actionBtn.text = buttonText
+        titleTxt.text = title
+        image.setImageResource(R.drawable.success_icon)
+        val builder = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+        messageTxt.text = message
+
+        val alertDialog = builder.show()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dismissButton.setOnClickListener {
+            callback?.invoke()
+            alertDialog.dismiss()
         }
+
     }
+
 
     fun showLoginMessage() {
         AlertDialog.Builder(requireContext())
@@ -272,10 +326,10 @@ abstract class BaseFragment : DaggerFragment() {
     }
 
     fun selectPhoneNumber(allPhones: List<String>, action: ((String) -> Unit)) {
-        val phones= allPhones.distinct()
-        if(phones.size<=1){
+        val phones = allPhones.distinct()
+        if (phones.size <= 1) {
             action.invoke(phones[0])
-        }else {
+        } else {
             val dialog = AlertDialog.Builder(requireContext())
                 .setItems(
                     phones.toTypedArray()

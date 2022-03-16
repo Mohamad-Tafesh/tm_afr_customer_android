@@ -76,7 +76,7 @@ class ReportIncidentFragment : BaseFragment(), Liv.Action {
 
 
         observeResource(viewModel.contactUsData) {
-            showMessageDialog(it.resultText.orEmpty(), "Close") {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), "Close") {
                 findNavController().popBackStack()
             }
         }

@@ -8,13 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.africell.africell.R
-import com.africell.africell.data.entity.SubAccount
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_money_transfer.*
 import javax.inject.Inject
@@ -58,6 +54,10 @@ class TransferMoneyFragment : BottomSheetDialogFragment() {
 
         p2pTransfer.setOnClickListener {
             callback?.p2pTransfer()
+            dismiss()
+        }
+
+        cancel.setOnClickListener {
             dismiss()
         }
 

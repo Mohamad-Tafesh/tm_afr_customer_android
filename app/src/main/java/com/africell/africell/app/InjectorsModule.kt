@@ -12,6 +12,9 @@ import com.africell.africell.features.addNewAccount.VerifyAccountFragment
 import com.africell.africell.features.afrimoney.AfrimoneyFragment
 import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment
 import com.africell.africell.features.afrimoneyBundles.*
+import com.africell.africell.features.afrimoneyLineRecharge.AfrimoneyLineRechargeFragment
+import com.africell.africell.features.afrimoneyMerchantPaymnet.AfrimoneyMerchantPayFragment
+import com.africell.africell.features.afrimoneyP2P.AfrimoneyP2PFragment
 import com.africell.africell.features.authentication.*
 import com.africell.africell.features.bookNumber.BookNumberFragment
 import com.africell.africell.features.bundles.BundleActivity
@@ -224,4 +227,13 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector
     internal abstract fun transferMoneyFragment(): TransferMoneyFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyP2PFragment(): AfrimoneyP2PFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyLineRechargeFragment(): AfrimoneyLineRechargeFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun afrimoneyMerchantPayFragment(): AfrimoneyMerchantPayFragment
 }

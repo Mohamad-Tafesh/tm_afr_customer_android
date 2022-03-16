@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_tiny"
                     android:focusable="false"
-                    app:contentStyle="@style/TextInputEditText.grey"
+                    app:contentStyle="@style/TextInputEditText.violet"
                     app:spinnerMode="dialog" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +57,7 @@
                     app:errorTextColor="@color/red_900">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText.grey"
+                        style="@style/TextInputEditText.violet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 

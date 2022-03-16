@@ -3,11 +3,15 @@ package com.africell.africell.app
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
@@ -184,28 +188,55 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun showMessage(message: String) {
-        activity?.let {
-            AlertDialog.Builder(it)
-                .setMessage(message)
-                .setPositiveButton(R.string.close) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+        view?.let { view ->
+            val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+            val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+            val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+            val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+            val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+            val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+
+            actionBtn.visibility = View.GONE
+            val builder = MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+            messageTxt.text = message
+            image.setImageResource(R.drawable.failed_icon)
+            val alertDialog = builder.show()
+            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dismissButton.setOnClickListener {
+                alertDialog.dismiss()
+            }
         }
     }
 
     fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
-        activity?.let {
-            AlertDialog.Builder(it)
-                .setMessage(message)
-                .setNegativeButton(R.string.close) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setPositiveButton(actionName) { dialog, _ ->
-                    action?.invoke()
-                    dialog.dismiss()
-                }
-                .show()
+        view?.let { view ->
+            val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+            val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+            val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+            val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+            val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+            val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+
+            actionBtn.visibility = View.VISIBLE
+            actionBtn.text = actionName
+            val builder = MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+            messageTxt.text = message
+            titleTxt.text = getString(R.string.failed)
+
+            image.setImageResource(R.drawable.failed_icon)
+            val alertDialog = builder.show()
+            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dismissButton.setOnClickListener {
+                alertDialog.dismiss()
+            }
+            actionBtn.setOnClickListener {
+                action?.invoke()
+                alertDialog.dismiss()
+            }
         }
     }
 
@@ -215,31 +246,38 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    fun showMessageDialog(
-        message: String,
-        buttonText: String = getString(R.string.close),
-        callback: (() -> Unit)? = null
-    ) {
-        activity?.let {
-            AlertDialog.Builder(it)
-                .setMessage(message)
-                .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
-                .show()
-        }
-    }
 
     fun showMaterialMessageDialog(
+        title: String,
         message: String,
         buttonText: String = getString(R.string.close),
         callback: (() -> Unit)? = null
     ) {
-        activity?.let {
-            MaterialAlertDialogBuilder(it)
-                .setMessage(message)
-                .setPositiveButton(buttonText) { _, _ -> callback?.invoke() }
-                .show()
+        val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
+
+        val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+        val image = dialogView.findViewById<ImageView>(R.id.iconDialog)
+        val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+        val dismissButton = dialogView.findViewById<TextView>(R.id.dismiss)
+        val actionBtn = dialogView.findViewById<TextView>(R.id.actionBtn)
+        actionBtn.visibility = View.GONE
+        actionBtn.text = buttonText
+        titleTxt.text = title
+        image.setImageResource(R.drawable.success_icon)
+        val builder = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+        messageTxt.text = message
+
+        val alertDialog = builder.show()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dismissButton.setOnClickListener {
+            callback?.invoke()
+            alertDialog.dismiss()
         }
+
     }
+
+
 
     fun showLoginMessage() {
         AlertDialog.Builder(requireContext())

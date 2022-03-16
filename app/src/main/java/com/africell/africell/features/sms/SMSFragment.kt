@@ -104,7 +104,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
         }
 
         observeResource(viewModel.smsSentData) {
-            showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
                 recyclerView.adapter = SMSAdapter(it.smsCount ?: 0)
                 liv?.dispose()
                 messageLayout.setText("")

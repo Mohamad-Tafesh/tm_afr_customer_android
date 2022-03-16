@@ -26,7 +26,7 @@ class LineRechargeViewModel
 
     val cardsData = MutableLiveData<Resource<List<RechargeCardDTO>>>()
     val rechargeVoucherData = SingleLiveEvent<Resource<SMSCountDTO>>()
-    val countriesData = MutableLiveData<Resource<List<Country>>>()
+
 
     fun getRechargeCards() {
         ResourceUseCaseExecutor(getRechargeCardUseCase, Unit, cardsData,appExceptionFactory, appSessionNavigator) {
@@ -42,16 +42,7 @@ class LineRechargeViewModel
             appExceptionFactory,appSessionNavigator
         ).execute()
     }
-    fun getCountries() {
-        ResourceUseCaseExecutor(
-            getCountries,
-            Unit,
-            countriesData,
-            appExceptionFactory,
-            appSessionNavigator,
-            null
-        ).execute()
-    }
+
     override fun onCleared() {
         voucherRechargeUseCase.dispose()
         getRechargeCardUseCase.dispose()

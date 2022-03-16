@@ -124,7 +124,7 @@ class BookNumberFragment : BaseFragment() {
 
         observeResource(viewModel.bookNumberData) {
             viewModel.getFreeNumbers(searchTextLayout.getText())
-            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
 
             }
         }

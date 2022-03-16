@@ -28,7 +28,7 @@ class LoadingView : FrameLayout {
     // message
     private var message: String?
     private var displayMessage: Boolean
-    private var messageColor: Int = Color.BLACK
+  //  private var messageColor: Int = Color.BLACK
 
     // button
     private var buttonText = ""
@@ -69,12 +69,7 @@ class LoadingView : FrameLayout {
         isLoading = a.getBoolean(R.styleable.LoadingView_isLoading, true)
         message = a.getString(R.styleable.LoadingView_message)
         displayMessage = a.getBoolean(R.styleable.LoadingView_displayMessage, true)
-        messageColor = a.getColor(R.styleable.LoadingView_messageTextColor, 1)
-        if (messageColor == 1) {
-            val messageColorRes =
-                a.getResourceId(R.styleable.LoadingView_messageTextColor, android.R.color.black)
-            messageColor = ContextCompat.getColor(context, messageColorRes)
-        }
+
 
 
         buttonText = a.getString(R.styleable.LoadingView_buttonText) ?: buttonText
@@ -95,7 +90,6 @@ class LoadingView : FrameLayout {
         updateImage()
         displayImage(displayImage)
         message?.let { message(it) }
-        messageColor(messageColor)
         displayMessage(displayMessage)
         buttonText(buttonText)
         buttonClickListener(buttonClickListener)
@@ -130,11 +124,7 @@ class LoadingView : FrameLayout {
         return this
     }
 
-    fun messageColor(messageColor: Int): LoadingView {
-        this.messageColor = messageColor
-        textView.setTextColor(messageColor)
-        return this
-    }
+
 
     fun buttonClickListener(listener: OnClickListener?): LoadingView {
         this.buttonClickListener = listener

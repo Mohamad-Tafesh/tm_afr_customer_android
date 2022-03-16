@@ -8,24 +8,41 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable-xxhdpi/stroke_grey.xml" value="0.166" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/circle_progress_bar.xml" value="0.1505" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/frame_grey.xml" value="0.166" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/frame_white.xml" value="0.166" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/tab_customer_care.xml" value="0.198" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/tab_home.xml" value="0.19635416666666666" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/violet_stroke.xml" value="0.166" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/violet_stroke_field.xml" value="0.166" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/drawable/white_circle.xml" value="0.1505" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/activity_afrimoney_bundle.xml" value="0.24375" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/activity_bundle.xml" value="0.24375" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/activity_help.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/activity_main.xml" value="0.26283048211508553" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/blocks_loading_view.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/dialog_custom.xml" value="0.1625" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_account_numbers.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_activate_bundle.xml" value="0.17604166666666668" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afri_money.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_activate.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_activate_bundle.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_line_recharge.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_merchant_pay.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_p2p.xml" value="0.264" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_change_password.xml" value="0.171875" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_credit_transfer.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_help.xml" value="0.2140625" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_home.xml" value="0.35208333333333336" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_line_recharge.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_location.xml" value="0.140625" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_mobile_number.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_money_transfer.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/item_help.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/loading_frame_default.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/loading_item_view.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/row_afrimoney.xml" value="0.5" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/row_balance.xml" value="0.140625" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/row_services.xml" value="0.271875" />

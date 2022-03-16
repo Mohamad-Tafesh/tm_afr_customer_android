@@ -86,7 +86,7 @@
                         android:drawablePadding="@dimen/spacing_small"
                         android:gravity="center"
                         android:padding="@dimen/spacing_tiny"
-                        android:text="@string/line_recharge"
+                        android:text="@string/line_n_recharge"
                         android:textColor="@color/black"
                         app:drawableTopCompat="@mipmap/main_line_recharge" />
 

@@ -46,7 +46,7 @@ android:layout_marginTop="@dimen/spacing_normal"
                 app:errorTextColor="@color/red_900">
 
             <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputEditText.grey"
+                    style="@style/TextInputEditText.violet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 

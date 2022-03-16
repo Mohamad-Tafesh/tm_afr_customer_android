@@ -3,6 +3,9 @@ package com.africell.africell.data.api
 import com.africell.africell.data.api.dto.*
 import com.africell.africell.data.api.requests.*
 import com.africell.africell.data.api.requests.afrimoney.AfrimoneyActivateBundleRequest
+import com.africell.africell.data.api.requests.afrimoney.AirlineRequest
+import com.africell.africell.data.api.requests.afrimoney.MerchantPayRequest
+import com.africell.africell.data.api.requests.afrimoney.P2PRequest
 import com.africell.africell.features.faq.FaqItem
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -239,13 +242,6 @@ interface RestApi {
         @Query("msisdn") msisdn: String?
     ): Observable<List<MoneyTransferBalanceDTO >>
 
-
-    @POST("SelfCare/ActivateBundles")
-    fun afrimoneyActivateBundle(
-        @Body request: AfrimoneyActivateBundleRequest,
-    ): Observable<StatusDTO>
-
-
     @GET("SelfCare/GetMMBundlesCategories")
     fun getAfriMoneyBundlesCategories(): Observable<List<BundleCategoriesDTO>>
 
@@ -260,5 +256,30 @@ interface RestApi {
         @Path("BundleId") BundleId: String
     ): Observable<BundleInfo>
 
+    @GET("SelfCare/GetMMWallet")
+    fun getWallets(): Observable<List<WalletDTO>>
 
+
+    @POST("SelfCare/PurchaseBundlesMM")
+    fun afrimoneyActivateBundle(
+        @Body request: AfrimoneyActivateBundleRequest,
+    ): Observable<StatusDTO>
+
+
+    @POST("SelfCare/P2P")
+    fun p2p(
+        @Query("SubMsisdn") msisdn: String?,
+        @Body request: P2PRequest,
+    ): Observable<StatusDTO>
+
+    @POST("SelfCare/MerchantPay")
+    fun merchantPay(
+        @Query("SubMsisdn") msisdn: String?,
+        @Body request: MerchantPayRequest,
+    ): Observable<StatusDTO>
+
+    @POST("SelfCare/PurchaseAirtimeMM")
+    fun purchaseAirline(
+        @Body request: AirlineRequest,
+    ): Observable<StatusDTO>
 }

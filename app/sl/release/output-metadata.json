@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.africell.africell.africellSL",
+  "variantName": "processSlReleaseResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 210010000,
+      "versionName": "1.0.0",
+      "outputFile": "app-sl-release.apk"
+    }
+  ]
+}

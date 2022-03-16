@@ -97,7 +97,7 @@ class CreditTransferFragment : BaseFragment(), Liv.Action {
 
         }
         observeResource(viewModel.creditTransferData) {
-            showMessageDialog(it.resultText.orEmpty(), getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
                 /*   liv?.dispose()
                    amountLayout.setText("")
                    mobileNumberLayout.setText("")

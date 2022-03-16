@@ -16,10 +16,10 @@ fun LoadingLayout.showMessage(message: String) {
         .displayButton(false)
 }
 
-fun LoadingLayout.showImage(@DrawableRes resId: Int) {
+fun LoadingLayout.showImage(@DrawableRes resId: Int,message: String) {
     showLoadingView()
     loadingView.loading(false)
-        .message("")
+        .message(message)
         .imageResource(resId)
         .displayImage(true)
         .displayButton(false)

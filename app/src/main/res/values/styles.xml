@@ -166,7 +166,7 @@
         <item name="boxCollapsedPaddingTop">@dimen/spacing_tiny</item>
     </style>
 
-    <style name="TextInputEditText.grey" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+    <style name="TextInputEditText.violet" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/black</item>
@@ -175,6 +175,16 @@
         <item name="android:background">@drawable/violet_stroke_field</item>
         <item name="hintTextColor">@color/black</item>
     </style>
+    <style name="TextInputEditText.grey" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingTop">@dimen/spacing_normal</item>
+        <item name="background">@drawable/stroke_grey</item>
+        <item name="android:background">@drawable/stroke_grey</item>
+        <item name="hintTextColor">@color/black</item>
+    </style>
+
 
     <style name="TextInputLayout.SearchView.Purple" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxBackgroundColor">@color/darkPink</item>

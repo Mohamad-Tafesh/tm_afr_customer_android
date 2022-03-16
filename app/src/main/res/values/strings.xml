@@ -26,7 +26,7 @@
     <string name="services">Services</string>
     <string name="customer_care">Customer Care</string>
     <string name="my_account_info">My Account\nInfo</string>
-    <string name="line_recharge">Line\nRecharge</string>
+    <string name="line_n_recharge">Line\nRecharge</string>
     <string name="my_bundles_services"><![CDATA[My\nBundles & Services]]></string>
     <string name="data_calculator">Data Calculator</string>
     <string name="value_added_services">Value Added\nServices</string>
@@ -96,10 +96,24 @@
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
     <string name="next_step">Next Step</string>
+    <string name="p2p_n_tranfer">P2P\nTransfer</string>
+    <string name="afri_n_power">Afri\nPower</string>
+    <string name="money_n_tranfer">Money\nTransfer</string>
+    <string name="merchant_n_payment">Merchant\nPayment</string>
+    <string name="transfer_n_money">Transfer\nMoney</string>
     <string name="p2p_tranfer">P2P Transfer</string>
     <string name="afri_power">Afri Power</string>
     <string name="money_tranfer">Money Transfer</string>
     <string name="merchant_payment">Merchant Payment</string>
     <string name="transfer_money">Transfer Money</string>
     <string name="cancel">Cancel</string>
+    <string name="please_add_the_needed_information">Please add the needed information</string>
+    <string name="enter_msisdn">Enter MSISDN</string>
+    <string name="enter_pin_code">Enter Pin Code</string>
+    <string name="select_wallet">Select Wallet</string>
+    <string name="amount_to_transfer">Amount To Transfer</string>
+    <string name="enter_merchant_id">Enter Merchant ID</string>
+    <string name="line_recharge">Line Recharge</string>
+    <string name="failed">Failed</string>
+    <string name="successful">Successful</string>
 </resources>

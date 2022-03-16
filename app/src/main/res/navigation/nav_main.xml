@@ -172,10 +172,31 @@
         <action
                 android:id="@+id/action_afrimoneyFragment_to_afrimoneyBundleActivity"
                 app:destination="@id/afrimoneyBundleActivity" />
+        <action
+                android:id="@+id/action_afrimoneyFragment_to_afrimoneyP2PFragment"
+                app:destination="@id/afrimoneyP2PFragment" />
+        <action
+                android:id="@+id/action_afrimoneyFragment_to_afrimoneyLineRechargeFragment"
+                app:destination="@id/afrimoneyLineRechargeFragment" />
+        <action
+                android:id="@+id/action_afrimoneyFragment_to_afrimoneyMerchantPayFragment"
+                app:destination="@id/afrimoneyMerchantPayFragment" />
     </fragment>
     <activity
             android:id="@+id/afrimoneyBundleActivity"
             android:name="com.africell.africell.features.afrimoneyBundles.AfrimoneyBundleActivity"
             android:label="AfrimoneyBundleActivity" />
+    <fragment
+            android:id="@+id/afrimoneyP2PFragment"
+            android:name="com.africell.africell.features.afrimoneyP2P.AfrimoneyP2PFragment"
+            android:label="AfrimoneyP2PFragment" />
+    <fragment
+            android:id="@+id/afrimoneyLineRechargeFragment"
+            android:name="com.africell.africell.features.afrimoneyLineRecharge.AfrimoneyLineRechargeFragment"
+            android:label="AfrimoneyLineRechargeFragment" />
+    <fragment
+            android:id="@+id/afrimoneyMerchantPayFragment"
+            android:name="com.africell.africell.features.afrimoneyMerchantPaymnet.AfrimoneyMerchantPayFragment"
+            android:label="AfrimoneyMerchantPayFragment" />
 
 </navigation>

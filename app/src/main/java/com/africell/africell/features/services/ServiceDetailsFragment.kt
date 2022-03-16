@@ -87,7 +87,7 @@ class ServiceDetailsFragment : BaseFragment() {
         observeResource(viewModel.subscribeData) {
            /* unsubscribeBtn.visibility = View.GONE
             subscribeBtn.visibility = View.GONE*/
-            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
                 findNavController().popBackStack()
             }
 
@@ -96,7 +96,7 @@ class ServiceDetailsFragment : BaseFragment() {
         observeResource(viewModel.unSubscribeData) {
           /*  unsubscribeBtn.visibility = View.GONE
             subscribeBtn.visibility = View.GONE*/
-            showMaterialMessageDialog(it.resultText ?: "", getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
                 findNavController().popBackStack()
             }
         }

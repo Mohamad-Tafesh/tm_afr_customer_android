@@ -30,7 +30,7 @@
                     android:layout_marginTop="@dimen/spacing_normal"
 
                     android:hint="@string/support_category"
-                    app:contentStyle="@style/TextInputEditText.grey"
+                    app:contentStyle="@style/TextInputEditText.violet"
                     app:endIconDrawable="@mipmap/icon_arrow_pink_down"
                     app:endIconMode="custom"
                     app:endIconTint="@null"
@@ -48,7 +48,7 @@
                    >
 
                 <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText.grey"
+                        style="@style/TextInputEditText.violet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"

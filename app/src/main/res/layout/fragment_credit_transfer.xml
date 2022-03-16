@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_tiny"
-                    app:contentStyle="@style/TextInputEditText.grey"
+                    app:contentStyle="@style/TextInputEditText.violet"
                     app:endIconDrawable="@mipmap/icon_arrow_pink_down"
                     app:endIconMode="custom"
                     app:endIconTint="@null"
@@ -57,7 +57,7 @@
                         android:layout_marginEnd="@dimen/spacing_tiny"
                         android:focusable="false"
                         app:spinnerMode="dialog"
-                        app:contentStyle="@style/TextInputEditText.grey"
+                        app:contentStyle="@style/TextInputEditText.violet"
                         />
 
 
@@ -74,7 +74,7 @@
                         app:errorTextColor="@color/red_900">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            style="@style/TextInputEditText.grey"
+                            style="@style/TextInputEditText.violet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/send_to_number"
@@ -92,7 +92,7 @@
                     android:hint="@string/amount">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText.grey"
+                        style="@style/TextInputEditText.violet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number" />

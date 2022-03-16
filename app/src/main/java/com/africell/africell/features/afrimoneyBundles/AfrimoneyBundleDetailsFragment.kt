@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.BundleInfo
 import com.africell.africell.data.repository.domain.SessionRepository
-import com.africell.africell.features.activateBundle.ActivateBundleFragment
-import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment
+import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment.Companion.ACTIVATE_FOR_ME
+import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment.Companion.BUNDLE_DETAILS
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import kotlinx.android.synthetic.main.fragment_bundle_details.*
@@ -126,10 +128,11 @@ class AfrimoneyBundleDetailsFragment : BaseFragment() {
     }
 
     private fun navigateToBundleActive(isActiveForMe: Boolean, bundle: BundleInfo) {
-        //    val bundle= bundleOf(Pair(BUNDLE_DETAILS,bundle),Pair(ACTIVATE_FOR_ME,isActiveForMe))
-        val bottomSheetFragment = AfrimoneyActivateBundleFragment.newInstance(bundle, isActiveForMe)
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-        //  findNavController().navigate(R.id.action_bundleDetailsFragment_to_activateBundleFragment,bundle)
+        val bundle = bundleOf(Pair(BUNDLE_DETAILS, bundle), Pair(ACTIVATE_FOR_ME, isActiveForMe))
+        findNavController().navigate(
+            R.id.action_afrimoneyBundleDetailsFragment_to_afrimoneyActivateBundleFragment,
+            bundle
+        )
     }
 
 

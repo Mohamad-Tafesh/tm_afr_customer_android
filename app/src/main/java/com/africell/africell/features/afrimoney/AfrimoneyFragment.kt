@@ -21,6 +21,7 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.features.accountsNumber.AccountsNumbersFragment
 import com.africell.africell.features.home.OffersBannerAdapter
 import com.africell.africell.features.transferMoney.TransferMoneyFragment
+import com.africell.africell.ui.blocks.showImage
 import com.africell.africell.ui.blocks.showLoading
 import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.observeResourceInline
@@ -85,7 +86,6 @@ class AfrimoneyFragment : BaseFragment() {
         super.onStart()
         setupUI()
     }
-
 
 
     private fun setupUI() {
@@ -167,26 +167,26 @@ class AfrimoneyFragment : BaseFragment() {
                         val data = resource.data
                         balanceAdapter.setItems(data)
 
-                        if(resource.data.isNullOrEmpty()){
-                            showInlineImage(R.drawable.place_holder_afrimoney)
-                        }else{
+                        if (resource.data.isNullOrEmpty()) {
+                            loading.showImage(R.drawable.place_holder_afrimoney,"You don't have any afrimoney wallet")
+                        } else {
                             loading.showContent()
-                            val options =  if(BuildConfig.FLAVOR.equals("gambia")) {
+                            val options = if (BuildConfig.FLAVOR.equals("gambia")) {
                                 mutableListOf(
                                     MoneyTransferOptions(
                                         MoneyTransferOptions.IDS.MONEY_TRANSFER,
                                         R.drawable.afrimoney_money_transfer,
-                                        getString(R.string.money_tranfer)
+                                        getString(R.string.money_n_tranfer)
                                     ),
                                     MoneyTransferOptions(
                                         MoneyTransferOptions.IDS.AFRI_POWER,
                                         R.drawable.afrimoney_afri_power,
-                                        getString(R.string.afri_power)
+                                        getString(R.string.afri_n_power)
                                     ),
                                     MoneyTransferOptions(
                                         MoneyTransferOptions.IDS.LINE_RECHARGE,
                                         R.drawable.afrimoney_line_recharge,
-                                        getString(R.string.line_recharge)
+                                        getString(R.string.line_n_recharge)
                                     ),
                                     MoneyTransferOptions(
                                         MoneyTransferOptions.IDS.BUNDLES,
@@ -195,36 +195,59 @@ class AfrimoneyFragment : BaseFragment() {
                                     ),
 
                                     )
-                            }else
-                             mutableListOf(
-                                MoneyTransferOptions(MoneyTransferOptions.IDS.P2P,R.drawable.afrimoney_money_transfer,getString(R.string.p2p_tranfer)),
-                                MoneyTransferOptions(MoneyTransferOptions.IDS.MERCHANT_PAYMENT,R.drawable.afrimoney_afri_power,getString(R.string.merchant_payment)),
-                                MoneyTransferOptions(MoneyTransferOptions.IDS.LINE_RECHARGE,R.drawable.afrimoney_line_recharge,getString(R.string.line_recharge)),
-                                MoneyTransferOptions(MoneyTransferOptions.IDS.BUNDLES,R.drawable.afrimoney_bundle,getString(R.string.bundles)),
-
+                            } else
+                                mutableListOf(
+                                    MoneyTransferOptions(
+                                        MoneyTransferOptions.IDS.P2P,
+                                        R.drawable.afrimoney_money_transfer,
+                                        getString(R.string.p2p_n_tranfer)
+                                    ),
+                                    MoneyTransferOptions(
+                                        MoneyTransferOptions.IDS.MERCHANT_PAYMENT,
+                                        R.drawable.afrimoney_afri_power,
+                                        getString(R.string.merchant_n_payment)
+                                    ),
+                                    MoneyTransferOptions(
+                                        MoneyTransferOptions.IDS.LINE_RECHARGE,
+                                        R.drawable.afrimoney_line_recharge,
+                                        getString(R.string.line_n_recharge)
+                                    ),
+                                    MoneyTransferOptions(
+                                        MoneyTransferOptions.IDS.BUNDLES,
+                                        R.drawable.afrimoney_bundle,
+                                        getString(R.string.bundles)
+                                    )
                                 )
-                            optionsRecyclerView.adapter=AfrimoneyOptionsAdapter(options){
-                                when(it.id){
-                                    MoneyTransferOptions.IDS.P2P ->{}
-                                    MoneyTransferOptions.IDS.MERCHANT_PAYMENT ->{}
-                                    MoneyTransferOptions.IDS.LINE_RECHARGE ->{}
-                                    MoneyTransferOptions.IDS.BUNDLES ->{
+                            optionsRecyclerView.adapter = AfrimoneyOptionsAdapter(options) {
+                                when (it.id) {
+                                    MoneyTransferOptions.IDS.P2P -> {
+                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
+                                    }
+                                    MoneyTransferOptions.IDS.MERCHANT_PAYMENT -> {
+                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
+                                    }
+                                    MoneyTransferOptions.IDS.LINE_RECHARGE -> {
+                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyLineRechargeFragment)
+                                    }
+                                    MoneyTransferOptions.IDS.BUNDLES -> {
                                         findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyBundleActivity)
                                     }
-                                    MoneyTransferOptions.IDS.MONEY_TRANSFER ->{
+                                    MoneyTransferOptions.IDS.MONEY_TRANSFER -> {
                                         val bottomSheetFragment = TransferMoneyFragment.newInstance()
                                         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
                                         bottomSheetFragment.setCallBack(object : TransferMoneyFragment.Callback {
                                             override fun p2pTransfer() {
-
+                                                findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
                                             }
 
                                             override fun merchantTransfer() {
-
+                                                findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
                                             }
                                         })
                                     }
-                                    MoneyTransferOptions.IDS.AFRI_POWER ->{}
+                                    MoneyTransferOptions.IDS.AFRI_POWER -> {
+
+                                    }
                                 }
                             }
                         }

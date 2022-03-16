@@ -45,7 +45,7 @@ android:paddingStart="@dimen/spacing_tiny"
                 android:layout_marginEnd="@dimen/spacing_tiny"
                 android:focusable="false"
                 app:spinnerMode="dialog"
-                app:contentStyle="@style/TextInputEditText.grey"
+                app:contentStyle="@style/TextInputEditText.violet"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +61,7 @@ android:paddingStart="@dimen/spacing_tiny"
                     app:errorTextColor="@color/red_900">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextInputEditText.grey"
+                        style="@style/TextInputEditText.violet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mobile_number"
@@ -80,7 +80,7 @@ android:paddingStart="@dimen/spacing_tiny"
                 >
 
             <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputEditText.grey"
+                    style="@style/TextInputEditText.violet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"

@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.africell.africell.Constant
+import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
 import com.africell.africell.app.BaseBottomSheetFragment
 import com.africell.africell.app.BaseFragment
@@ -60,6 +61,7 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
         super.onActivityCreated(savedInstanceState)
         liv = initLiv()
         liv?.start()
+        countryTxt.text= STATIC_PHONE_NUMBER
         submitBtn.setOnClickListener {
             activity?.hideKeyboard()
             liv?.submitWhenValid()

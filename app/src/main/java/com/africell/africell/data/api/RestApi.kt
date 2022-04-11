@@ -239,7 +239,7 @@ interface RestApi {
 
     @GET("SelfCare/GetMMBalance")
     fun getMMBallance(
-        @Query("msisdn") msisdn: String?
+        @Query("SubMsisdn") msisdn: String?
     ): Observable<List<MoneyTransferBalanceDTO >>
 
     @GET("SelfCare/GetMMBundlesCategories")

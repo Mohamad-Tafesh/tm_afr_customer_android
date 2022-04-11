@@ -12,12 +12,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.RechargeCardDTO
 import com.africell.africell.data.entity.Country
+import com.africell.africell.features.authentication.CountriesAdapter
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.*
 import com.africell.africell.util.getText
@@ -83,7 +85,15 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
     }
 
     private fun bindData() {
+        viewModel.getCountries()
+        observeResourceWithoutProgress(viewModel.countriesData) {
+            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
+            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
+                countrySpinner.selection = it
+            }
+            countrySpinner.isEnabled = false
 
+        }
         observeResourceInline(viewModel.cardsData) {
             val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
             val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)

@@ -77,6 +77,8 @@ android:paddingStart="@dimen/spacing_tiny"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:hint="@string/your_free_message"
+                app:counterEnabled="true"
+                app:counterMaxLength="160"
                 >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,6 +87,7 @@ android:paddingStart="@dimen/spacing_tiny"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:inputType="textMultiLine"
+                    android:maxLength="160"
                     android:minLines="7" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton

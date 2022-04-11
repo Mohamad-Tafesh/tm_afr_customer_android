@@ -72,21 +72,21 @@
 
         <LinearLayout
                 android:id="@+id/toSomeOneElseLayout"
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
                 android:orientation="horizontal">
+
             <com.africell.africell.ui.spinner.MaterialSpinner
                     android:id="@+id/countrySpinner"
                     style="@style/TextInputLayout.grey"
-                    android:minWidth="100dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_tiny"
                     android:focusable="false"
-                    app:spinnerMode="dialog"
+                    android:minWidth="100dp"
                     app:contentStyle="@style/TextInputEditText.violet"
-                    />
+                    app:spinnerMode="dialog" />
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/mobileNumberLayout"
@@ -95,9 +95,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_tiny"
                     android:layout_weight="1"
+                    app:endIconDrawable="@mipmap/icon_contact_field"
                     app:endIconMode="custom"
                     app:endIconTint="@null"
-                    app:endIconDrawable="@mipmap/icon_contact_field"
                     app:errorTextColor="@color/red_900">
 
                 <com.google.android.material.textfield.TextInputEditText

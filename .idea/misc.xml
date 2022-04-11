@@ -27,12 +27,13 @@
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_activate_bundle.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afri_money.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_activate.xml" value="0.11458333333333333" />
-        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_activate_bundle.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_activate_bundle.xml" value="0.25" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_line_recharge.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_merchant_pay.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_afrimoney_p2p.xml" value="0.264" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_change_password.xml" value="0.171875" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_credit_transfer.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_customer_care.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_help.xml" value="0.2140625" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_home.xml" value="0.35208333333333336" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_line_recharge.xml" value="0.12604166666666666" />
@@ -40,6 +41,8 @@
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_mobile_number.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_money_transfer.xml" value="0.17604166666666668" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_report_incident.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/fragment_sms.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/item_help.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/loading_frame_default.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/raed/AndroidStudioProjects/africel/app/src/main/res/layout/loading_item_view.xml" value="0.15677083333333333" />

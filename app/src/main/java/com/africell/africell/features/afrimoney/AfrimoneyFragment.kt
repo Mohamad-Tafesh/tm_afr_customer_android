@@ -23,6 +23,7 @@ import com.africell.africell.features.home.OffersBannerAdapter
 import com.africell.africell.features.transferMoney.TransferMoneyFragment
 import com.africell.africell.ui.blocks.showImage
 import com.africell.africell.ui.blocks.showLoading
+import com.africell.africell.ui.blocks.showMessage
 import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
@@ -168,7 +169,7 @@ class AfrimoneyFragment : BaseFragment() {
                         balanceAdapter.setItems(data)
 
                         if (resource.data.isNullOrEmpty()) {
-                            loading.showImage(R.drawable.place_holder_afrimoney,"You don't have any afrimoney wallet")
+                            loading.showImage(R.drawable.place_holder_afrimoney, "You don't have any afrimoney wallet")
                         } else {
                             loading.showContent()
                             val options = if (BuildConfig.FLAVOR.equals("gambia")) {
@@ -253,8 +254,7 @@ class AfrimoneyFragment : BaseFragment() {
                         }
                     }
                     is Resource.Error -> {
-
-                        showMessage(resource.message)
+                        loading.showMessage(resource.message)
                     }
                 }
             }

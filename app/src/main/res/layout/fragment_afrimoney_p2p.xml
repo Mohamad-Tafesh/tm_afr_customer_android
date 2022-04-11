@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
@@ -83,17 +84,19 @@
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:orientation="horizontal">
 
-            <com.africell.africell.ui.spinner.MaterialSpinner
-                    android:id="@+id/countrySpinner"
-                    style="@style/TextInputLayout.grey"
+            <TextView
+                    android:id="@+id/countryTxt"
+                    style="@style/TextAppearance.normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
                     android:layout_marginEnd="@dimen/spacing_tiny"
-                    android:focusable="false"
-                    android:minWidth="100dp"
-                    android:visibility="gone"
-                    app:contentStyle="@style/TextInputEditText.violet"
-                    app:spinnerMode="dialog" />
+                    android:background="@drawable/stroke_grey"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_normal"
+                    android:textColor="@color/black"
+                    tools:text="+961" />
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/mobileNumberLayout"

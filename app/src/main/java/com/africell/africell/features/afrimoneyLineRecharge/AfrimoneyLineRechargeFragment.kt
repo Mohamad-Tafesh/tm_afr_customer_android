@@ -29,6 +29,14 @@ import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.*
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.amountLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.closeIcon
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.countryTxt
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.pinCodeLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.selectWalletLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.submitBtn
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.*
 import javax.inject.Inject
 
 
@@ -58,7 +66,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
             liv?.submitWhenValid()
         }
         bindData()
-
+        countryTxt.text= Constant.STATIC_PHONE_NUMBER
         setupUI()
         closeIcon.setOnClickListener {
             findNavController().popBackStack()

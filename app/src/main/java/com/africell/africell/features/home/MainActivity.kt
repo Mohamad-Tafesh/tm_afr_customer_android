@@ -9,12 +9,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.util.navigation.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
-
 
 class MainActivity : BaseActivity() {
 
@@ -118,20 +118,39 @@ class MainActivity : BaseActivity() {
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility = if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
+                afrimoneyImg.visibility = if (BuildConfig.FLAVOR.equals("drc")) View.VISIBLE else View.GONE
+                customerCareTxt.visibility = if (BuildConfig.FLAVOR.equals("drc")) View.GONE else View.VISIBLE
                 if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (destination.id == R.id.afrimoneyFragment) {
-                        customerCareTxt.setImageResource(
-                            R.mipmap.tab_afrimoney_selected
-                        )
+                    if (BuildConfig.FLAVOR == "drc") {
+                        if (destination.id == R.id.afrimoneyFragment) {
+                            afrimoneyImg.setImageResource(
+                                R.mipmap.tab_afrimoney_selected
+                            )
+                        } else {
+                            afrimoneyImg.setImageResource(
+                                R.mipmap.tab_afrimoney_not_selected
+                                )
+
+                        }
                     } else {
-                        customerCareTxt.setImageResource(
-                            R.mipmap.tab_afrimoney_not_selected,
+                            if (destination.id == R.id.customerCareFragment) {
+                                customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                    0,
+                                    R.mipmap.tab_customer_care_selected, 0, 0
+                                )
+                            } else {
+                                customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                    0,
+                                    R.mipmap.tab_customer_care,
+                                    0,
+                                    0
+                                )
+                            }
+                        }
 
-                        )
-
-                    }
                 }
             }
         }

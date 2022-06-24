@@ -19,7 +19,7 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:drawableTop="@mipmap/icon_sms_white"
-                android:text="sent"
+                tools:text="sent"
                 android:textColor="@color/white"
                 style="@style/TextAppearance.normal"
                 />

@@ -45,7 +45,7 @@
                 style="@style/TextAppearance.normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="welcome to"
+                android:text="@string/welcome_to"
                 android:textColor="@color/white"
                 android:textSize="32sp"
                 android:textStyle="normal"
@@ -56,7 +56,7 @@
                 style="@style/TextAppearance.big.title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Africell"
+                android:text="@string/africell"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent" />

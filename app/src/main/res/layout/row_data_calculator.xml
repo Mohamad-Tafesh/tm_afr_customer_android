@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
         android:padding="@dimen/spacing_normal"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -16,7 +17,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="500MB"
+                tools:text="500MB"
                 android:textStyle="bold" />
 
         <TextView
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple"
                 android:gravity="center"
-                android:text="0 Hrs" />
+                tools:text="0 Hrs" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatSeekBar

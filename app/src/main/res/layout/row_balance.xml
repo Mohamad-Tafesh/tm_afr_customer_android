@@ -53,7 +53,7 @@ android:id="@+id/nameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="500MB"
+                tools:text="500MB"
                 android:textStyle="bold" />
         <TextView
 android:id="@+id/valueTxt"
@@ -61,7 +61,7 @@ android:id="@+id/valueTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="500MB"
+                tools:text="500MB"
                 android:textStyle="bold" />
 
         <TextView
@@ -70,7 +70,7 @@ android:id="@+id/valueTxt"
                 android:layout_height="wrap_content"
 android:id="@+id/expiryDateTxt"
                 android:gravity="center"
-                android:text="500MB" />
+                tools:text="500MB" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

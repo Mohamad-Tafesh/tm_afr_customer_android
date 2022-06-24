@@ -7,14 +7,14 @@
             android:title="@string/home" />
 
     <item
-            android:id="@+id/servicesFragment"
-            android:icon="@drawable/tab_service"
-            android:title="@string/services" />
-
-    <item
             android:id="@+id/customerCareFragment"
             android:icon="@drawable/tab_customer_care"
             android:title="@string/customer_care" />
+
+    <item
+            android:id="@+id/afrimoneyFragment"
+            android:title="" />
+
 
     <item
             android:id="@+id/SMSFragment"

@@ -37,7 +37,7 @@ android:id="@+id/usageTxt"
                 <TextView
 
                         android:layout_width="match_parent"
-                        android:text="Estimate Monthly Usage"
+                        android:text="@string/estimate_monthly_usage"
                         android:layout_marginTop="@dimen/spacing_small"
                         android:gravity="center"
                         style="@style/TextAppearance.normal"
@@ -68,7 +68,7 @@ android:id="@+id/usageTxt"
                 <TextView
 
                         android:layout_width="match_parent"
-                        android:text="Suggested Data Plan"
+                        android:text="@string/suggested_data_plan"
                         android:layout_marginTop="@dimen/spacing_small"
                         android:gravity="center"
                         style="@style/TextAppearance.normal"

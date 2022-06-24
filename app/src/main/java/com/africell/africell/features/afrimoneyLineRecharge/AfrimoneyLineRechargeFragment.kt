@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.africell.africell.Constant
+import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.WalletDTO
@@ -116,7 +117,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
 
     override fun performAction() {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber = PhoneNumberHelper.getFormattedIfValid("", mobileNumberLayout.getText())?.replace("+", "")
+        val toNumber = PhoneNumberHelper.getFormattedIfValid("",STATIC_PHONE_NUMBER+ mobileNumberLayout.getText())?.replace("+", "")
         toNumber?.let {
             val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
             val request = AirlineRequest(

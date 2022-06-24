@@ -80,7 +80,7 @@
                     android:drawablePadding="@dimen/spacing_medium"
                     android:gravity="center"
                     android:padding="12dp"
-                    android:text="Login with africell"
+                    android:text="@string/login_with_africell"
                     android:textColor="@color/white"
                     android:visibility="visible" />
         </FrameLayout>

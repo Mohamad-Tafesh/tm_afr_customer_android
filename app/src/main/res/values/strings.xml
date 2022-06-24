@@ -116,4 +116,14 @@
     <string name="line_recharge">Line Recharge</string>
     <string name="failed">Failed</string>
     <string name="successful">Successful</string>
+    <string name="estimate_monthly_usage">Estimate Monthly Usage</string>
+    <string name="suggested_data_plan">Suggested Data Plan</string>
+    <string name="valid_till">Valid Till</string>
+    <string name="welcome_to">welcome to</string>
+    <string name="africell">Africell</string>
+    <string name="volume">Volume</string>
+    <string name="login_with_africell">Login with africell</string>
+    <string name="fom_number">Fom Number</string>
+    <string name="to_number">To Number</string>
+    <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Now you can get your Data Bundles. Select one of the packages Below</string>
 </resources>

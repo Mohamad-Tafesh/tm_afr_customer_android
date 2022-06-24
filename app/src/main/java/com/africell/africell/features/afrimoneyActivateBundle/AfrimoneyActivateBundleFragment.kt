@@ -136,7 +136,6 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     override fun performAction() {
 
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        // PhoneNumberHelper.getFormattedIfValid("",  mobileNumberLayout.getText())?.replace("+", "")
         val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
 
         val request = AfrimoneyActivateBundleRequest(

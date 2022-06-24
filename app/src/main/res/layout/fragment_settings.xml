@@ -76,7 +76,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/languageImg"
-                    android:text="English" />
+                    tools:text="English" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View

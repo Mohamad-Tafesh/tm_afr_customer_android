@@ -118,7 +118,7 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
 
     override fun performAction() {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber = PhoneNumberHelper.getFormattedIfValid("", mobileNumberLayout.getText())?.replace("+", "")
+        val toNumber = PhoneNumberHelper.getFormattedIfValid(STATIC_PHONE_NUMBER,mobileNumberLayout.getText())?.replace("+", "")
         toNumber?.let {
             val request = P2PRequest(wallet, toNumber, pinCodeLayout.getText(), amountLayout.getText())
             viewModel.submitRequest(request)

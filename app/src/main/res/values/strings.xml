@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Africell</string>
+    <string name="app_name" translatable="false">Africell</string>
     <string name="logged_in">Logged In</string>
     <string name="error">Error</string>
     <string name="date_of_birth">Date Of Birth</string>

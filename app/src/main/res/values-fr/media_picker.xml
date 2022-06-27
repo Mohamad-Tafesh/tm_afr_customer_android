@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_picker__camera_not_available">Caméra non activée</string>
+    <string name="media_picker__take_photo">Caméra</string>
+    <string name="media_picker__pick_photo">Galerie</string>
+    <string name="media_picker__take_video">Prendre une vidéo</string>
+    <string name="media_picker__pick_video">Sélectionner une vidéo</string>
+    <string name="media_picker__choose_dialog_title">Choisir de…</string>
+    <string name="media_picker__camera_permissions_explanation"><![CDATA[Nous avons besoin d\'accéder à votre caméra et stockage pour prendre et stocker des photos]]></string>
+    <string name="media_picker__gallery_permissions_explanation">Nous avons besoin d\'accéder à votrestockage pour sélectionner des images</string>
+    <string name="media_picker__grant_permissions">Veuillez autoriser</string>
+    <string name="media_picker__permissions">Permissions</string>
+    <string name="media_picker__cancel">Annuler</string>
+    <string name="media_picker__could_not_prepare_file">Impossible de préparer le fichier</string>
+    <string name="media_picker__error_loading_image">Erreur de chargement de l\'image</string>
+</resources>

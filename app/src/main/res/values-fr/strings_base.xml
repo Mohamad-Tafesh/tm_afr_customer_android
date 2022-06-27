@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="copyright_notice">Africell © Tous droits réservés\nPowered by TEDMOB.COM</string>
+    <string name="error_unexpected">Erreur inattendue</string>
+    <string name="error_network">Pas de connection</string>
+    <string name="open_app">Ouvrir application</string>
+    <string name="close">Fermez</string>
+    <string name="retry">Réessayer</string>
+    <string name="notifications">Notifications</string>
+    <string name="loading">Chargement</string>
+    <string name="loading_">Chargement…</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="login">Connexion</string>
+    <string name="invalid_email">Email invalide</string>
+    <string name="mandatory_field">Obligatoire</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="settings">Réglages</string>
+    <string name="version_name">Version %s</string>
+    <string name="register">S\'inscrire</string>
+    <string name="name">Nom</string>
+    <string name="email">E-mail</string>
+    <string name="home">Page d\'acceuill</string>
+    <string name="help">Aider</string>
+    <string name="faq">FAQs</string>
+    <string name="about_us">À propos de nous</string>
+    <string name="contact_us">Nous contacter</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="language">Langue</string>
+    <string name="app_version">Version de l\'application</string>
+
+    <string name="copy" tools:override="true">Copie</string>
+    <string name="preference_copied" tools:override="true">\"%1$s\" Copié dans le presse papier.</string>
+</resources>

@@ -78,7 +78,7 @@ object ApiModule {
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
                         .header("accept", "text/plain")
-                        .header("Accept-Language", "en")
+                        .header("Accept-Language", session.language)
                         .header("Authorization", credentials)
 
                         .apply {
@@ -158,7 +158,7 @@ object ApiModule {
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
                         .header("accept", "text/plain")
-                        .header("Accept-Language", "en")
+                        .header("Accept-Language",  session.language)
 
                         .apply {
                             if (

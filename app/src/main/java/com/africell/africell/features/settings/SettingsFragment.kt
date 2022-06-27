@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.africell.africell.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
@@ -54,7 +55,7 @@ class SettingsFragment : BaseFragment() {
     }
 
     private fun setupLanguage() {
-      /*  if (BuildConfig.MULTI_LANG) {
+      if (BuildConfig.MULTI_LANG) {
             languageLayout.visibility = View.VISIBLE
             bindLanguageMenuTo(
                 languageLayout,
@@ -76,7 +77,7 @@ class SettingsFragment : BaseFragment() {
             }
         } else {
             languageLayout.visibility = View.GONE
-        }*/
+        }
     }
 
     private fun setupLoginLogout() {

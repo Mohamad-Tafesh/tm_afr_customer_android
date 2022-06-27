@@ -8,7 +8,7 @@
     <string name="retry">إعادة المحاولة</string>
     <string name="notifications">الاشعارات</string>
     <string name="loading">جاري التحميل</string>
-    <string name="loading_">جاري التحميل…</string>
+    <string name="loading_">جار التحميل…</string>
     <string name="username">إسم المستخدم</string>
     <string name="password">كلمة السر</string>
     <string name="login">تسجيل الدخول</string>

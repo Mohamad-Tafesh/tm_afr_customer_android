@@ -121,10 +121,10 @@ class MainActivity : BaseActivity() {
                 customerCareTxt.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
-                afrimoneyImg.visibility = if (BuildConfig.FLAVOR.equals("drc")) View.VISIBLE else View.GONE
-                customerCareTxt.visibility = if (BuildConfig.FLAVOR.equals("drc")) View.GONE else View.VISIBLE
+                afrimoneyImg.visibility = if (!BuildConfig.FLAVOR.equals("drc") && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility = if (BuildConfig.FLAVOR.equals("drc")&& bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (BuildConfig.FLAVOR == "drc") {
+                    if (BuildConfig.FLAVOR != "drc") {
                         if (destination.id == R.id.afrimoneyFragment) {
                             afrimoneyImg.setImageResource(
                                 R.mipmap.tab_afrimoney_selected

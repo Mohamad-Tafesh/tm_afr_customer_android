@@ -9,7 +9,7 @@
     <string name="verification_message_sms">Please Enter the PIN Received in your SMS to verify your number</string>
     <string name="verify">Verify</string>
     <string name="phone_number_not_valid">Phone number is not valid</string>
-    <string name="pin_view">"PIN Code Here "</string>
+    <string name="pin_view">PIN Code Here</string>
     <string name="skip">skip</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="first_name">First Name</string>
@@ -18,7 +18,7 @@
     <string name="clear">Clear</string>
     <string name="location">Location</string>
     <string name="direction_not_available">Direction is not available</string>
-    <string name="no_location_available">"There is no locations available "</string>
+    <string name="no_location_available">There is no locations available</string>
     <string name="call_us">Call Us</string>
     <string name="get_direction">Get Direction</string>
     <string name="search">Search</string>

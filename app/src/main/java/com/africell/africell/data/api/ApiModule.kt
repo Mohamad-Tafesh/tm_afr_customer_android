@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.africell.africell.BuildConfig
 import com.africell.africell.Constant.BASE_URL
+import com.africell.africell.app.debugOnly
 import com.africell.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
@@ -66,8 +67,8 @@ object ApiModule {
         }*/
 
         val block: (chain: Interceptor.Chain) -> Response = {
-           // val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
-            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+            val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+            //val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             val response = it.proceed(
                 it.request().let { request ->
 

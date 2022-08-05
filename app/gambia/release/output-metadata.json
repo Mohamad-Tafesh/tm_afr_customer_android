@@ -10,8 +10,8 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 210010003,
-      "versionName": "1.0.3",
+      "versionCode": 210010004,
+      "versionName": "1.0.4",
       "outputFile": "app-gambia-release.apk"
     }
   ]

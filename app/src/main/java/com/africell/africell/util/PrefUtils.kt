@@ -15,7 +15,7 @@ constructor(preferences: RxSharedPreferences) {
     val msisdn = preferences.getString("msisdn", "")
     val selectedMsisdn = preferences.getString("selected_msisdn", "")
     val verificationToken = preferences.getString("verificationToken", "")
-    val language = preferences.getString("pref_language", "en")
+    val language = preferences.getString("pref_language", "fr")
 
     val user = preferences.getString("pref_user", "")
     val showHelp=preferences.getBoolean("show_help", true)

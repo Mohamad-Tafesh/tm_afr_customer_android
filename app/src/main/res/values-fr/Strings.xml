@@ -24,7 +24,7 @@
     <string name="sms">SMS</string>
     <string name="services">Services</string>
     <string name="customer_care">Service client</string>
-    <string name="my_account_info">Mon compte\Informations</string>
+    <string name="my_account_info">Mon compte</string>
     <string name="line_n_recharge">Ligne\nRecharger</string>
     <string name="my_bundles_services"><![CDATA[Mes Forfaits et services]]></string>
     <string name="data_calculator">Calculateur de données</string>

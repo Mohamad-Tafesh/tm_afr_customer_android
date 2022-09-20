@@ -166,6 +166,7 @@
         <item name="boxCollapsedPaddingTop">@dimen/spacing_tiny</item>
     </style>
 
+
     <style name="TextInputEditText.violet" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
         <item name="android:gravity">center</item>
         <item name="android:textStyle">normal</item>

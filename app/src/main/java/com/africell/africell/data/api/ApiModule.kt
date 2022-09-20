@@ -67,8 +67,8 @@ object ApiModule {
         }*/
 
         val block: (chain: Interceptor.Chain) -> Response = {
-            val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
-            //val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+            //val credentials: String = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             val response = it.proceed(
                 it.request().let { request ->
 
@@ -79,7 +79,7 @@ object ApiModule {
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
                         .header("accept", "text/plain")
-                        .header("Accept-Language", session.language)
+                        .header("Accept-Language","en" /*session.language*/)
                         .header("Authorization", credentials)
 
                         .apply {

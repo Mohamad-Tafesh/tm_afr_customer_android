@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.africell.africell.BuildConfig.FLAVOR
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.africell.africell.R
@@ -60,7 +61,13 @@ class LocationFragment : BaseFragment() {
 
     override fun configureToolbar() {
         super.configureToolbar()
-        actionbar?.title = getString(R.string.location)
+        if(FLAVOR == "sl"){
+            actionbar?.title = getString(R.string.post_stores)
+        }else{
+            actionbar?.title = getString(R.string.location)
+        }
+
+
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)

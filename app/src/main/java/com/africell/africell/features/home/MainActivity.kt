@@ -135,6 +135,7 @@ class MainActivity : BaseActivity() {
                                 )
 
                         }
+                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title = getString(R.string.post_stores)
                     } else {
                             if (destination.id == R.id.customerCareFragment) {
                                 customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(

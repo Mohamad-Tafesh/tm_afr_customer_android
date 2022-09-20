@@ -17,6 +17,7 @@
     <string name="create">Create</string>
     <string name="clear">Clear</string>
     <string name="location">Location</string>
+    <string name="post_stores">POS Stores</string>
     <string name="direction_not_available">Direction is not available</string>
     <string name="no_location_available">There is no locations available</string>
     <string name="call_us">Call Us</string>
@@ -126,4 +127,5 @@
     <string name="fom_number">Fom Number</string>
     <string name="to_number">To Number</string>
     <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Now you can get your Data Bundles. Select one of the packages Below</string>
+    <string name="you_are_not_subscribed_to_any_bundles">You are not subscribed to any bundles</string>
 </resources>

@@ -1,11 +1,17 @@
 package com.africell.africell.features.afrimoneyMerchantPaymnet
 
+import android.content.Context
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
+import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.WalletDTO
@@ -18,7 +24,12 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
 import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.*
+import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.closeIcon
+import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.pinCodeLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.selectWalletLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.submitBtn
 import javax.inject.Inject
 
 
@@ -40,6 +51,10 @@ class AfrimoneyMerchantPayFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if(BuildConfig.FLAVOR == "sl") {
+            pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
+        }
         liv = initLiv()
         liv?.start()
         submitBtn.setOnClickListener {
@@ -72,13 +87,16 @@ class AfrimoneyMerchantPayFragment : BaseFragment(), Liv.Action {
 
     private fun bindData() {
         viewModel.getData()
-        observeResourceInline(viewModel.data, { wallet ->
+        observeResourceInline(viewModel.data) { wallet ->
 
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
             arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
             selectWalletLayout.adapter = arrayAdapter
+            if(BuildConfig.FLAVOR == "sl") {
+                selectWalletLayout.selection = 0
 
-        })
+            }
+        }
 
         observeResource(viewModel.requestData) {
             showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {

@@ -16,6 +16,7 @@
     <string name="create">Créer</string>
     <string name="clear">Effacer</string>
     <string name="location">Emplacement</string>
+    <string name="post_stores">Magasins PDV</string>
     <string name="direction_not_available">L\'itinéraire n\'est pas disponible</string>
     <string name="no_location_available">Il n\'y a pas d\'emplacements disponibles</string>
     <string name="call_us">Appelez-nous</string>
@@ -125,4 +126,5 @@
     <string name="fom_number">De Numéro</string>
     <string name="to_number">Au numéro</string>
     <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Vous pouvez maintenant obtenir vos forfaits de données. Sélectionnez l\'un des forfaits ci-dessous</string>
+    <string name="you_are_not_subscribed_to_any_bundles">Vous n\'êtes abonné à aucun forfait</string>
 </resources>

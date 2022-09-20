@@ -48,10 +48,16 @@ class AfrimoneyBundlesFragment : BaseFragment() {
 
 
     val adapter by lazy {
-        AfrimoneyBundleAdapter(mutableListOf(),object : AfrimoneyBundleAdapter.Callback{
+        AfrimoneyBundleAdapter(mutableListOf(), object : AfrimoneyBundleAdapter.Callback {
             override fun onItemClickListener(item: BundleInfo) {
-              val bundle = bundleOf(BUNDLE_ID to item.bundleId?.toString(),AfrimoneyBundleDetailsFragment.KEY_PRIMARY_COLOR_HEX to item.primaryColor)
-                findNavController().navigate(R.id.action_afrimoneyBundleVPFragment_to_afrimoneyBundleDetailsFragment,bundle)
+                val bundle = bundleOf(
+                    BUNDLE_ID to item.bundleId?.toString(),
+                    AfrimoneyBundleDetailsFragment.KEY_PRIMARY_COLOR_HEX to item.primaryColor
+                )
+                findNavController().navigate(
+                    R.id.action_afrimoneyBundleVPFragment_to_afrimoneyBundleDetailsFragment,
+                    bundle
+                )
             }
         })
     }
@@ -69,7 +75,6 @@ class AfrimoneyBundlesFragment : BaseFragment() {
         recyclerView.isNestedScrollingEnabled = true
         adapter.setItems(bundle?.bundleInfo.orEmpty().toMutableList())
     }
-
 
 
 }

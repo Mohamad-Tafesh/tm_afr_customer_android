@@ -64,18 +64,7 @@ class MyBundleServicesVPFragment : BaseFragment() {
         viewPager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
         }
-        if (!bundles.isNullOrEmpty()) {
-            viewPager.adapter = object : FragmentStateAdapter(this) {
 
-                override fun createFragment(position: Int): Fragment {
-                    return MyBundlesAndServicesFragment.newInstance(bundles.getOrNull(position)?.myBundlesInfos)
-                }
-
-                override fun getItemCount(): Int {
-                    return bundles.size
-                }
-            }
-        }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -95,9 +84,24 @@ class MyBundleServicesVPFragment : BaseFragment() {
                 }
             }
         })
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = bundles.getOrNull(position)?.titles
-        }.attach()
+        if (!bundles.isNullOrEmpty()) {
+            viewPager.adapter = object : FragmentStateAdapter(this) {
+
+                override fun createFragment(position: Int): Fragment {
+                    return MyBundlesAndServicesFragment.newInstance(bundles.getOrNull(position)?.myBundlesInfos)
+                }
+
+                override fun getItemCount(): Int {
+                    return bundles.size
+                }
+            }
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = bundles.getOrNull(position)?.titles
+            }.attach()
+        }else{
+            showInlineMessage(getString(R.string.you_are_not_subscribed_to_any_bundles))
+        }
+
     }
 
 }

@@ -200,6 +200,8 @@ interface RestApi {
         @Path("subMsisdn") msisdn: String?,
     ): Observable<SubAccountDTO>
 
+    @DELETE("SelfCare/DeleteAccount")
+    fun deleteAccount(): Observable<Unit>
 
     @POST("SelfCare/AddSubAccount")
     fun addSubAccount(

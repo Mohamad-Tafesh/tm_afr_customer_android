@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -31,6 +32,7 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.DialogUtils
 import com.africell.africell.util.intents.dial
 import com.facebook.drawee.view.SimpleDraweeView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -293,7 +295,34 @@ abstract class BaseFragment : DaggerFragment() {
         }
 
     }
+    fun showMaterialDeleteMessageDialog(
+        title: String,
+        message: String,
+        buttonText: String = getString(R.string.close),
+        callback: (() -> Unit)? = null
+    ) {
+        val dialogView = View.inflate(activity, R.layout.dialog_custom_delete, null)
 
+        val titleTxt = dialogView.findViewById<TextView>(R.id.titleTxt)
+        val messageTxt = dialogView.findViewById<TextView>(R.id.messageTxt)
+        val yesButton = dialogView.findViewById<MaterialButton>(R.id.yes)
+        val noButton = dialogView.findViewById<MaterialButton>(R.id.no)
+        titleTxt.text = title
+        val builder = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+        messageTxt.text = message
+
+        val alertDialog = builder.show()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        yesButton.setOnClickListener {
+            callback?.invoke()
+            alertDialog.dismiss()
+        }
+        noButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+    }
 
     fun showLoginMessage() {
         AlertDialog.Builder(requireContext())

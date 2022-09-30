@@ -128,4 +128,9 @@
     <string name="to_number">To Number</string>
     <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Now you can get your Data Bundles. Select one of the packages Below</string>
     <string name="you_are_not_subscribed_to_any_bundles">You are not subscribed to any bundles</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="warning">Warning</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want to delete your account, this action is irreversible?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

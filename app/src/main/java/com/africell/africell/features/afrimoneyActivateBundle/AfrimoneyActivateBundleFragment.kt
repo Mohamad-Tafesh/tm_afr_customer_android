@@ -148,7 +148,7 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
                 bundle.bundleId?.toString().orEmpty(),
                 wallet,
                 subMsisdn,
-                countryTxt.text.toString() + mobileNumberLayout.getText(),
+                countryTxt.text.toString().replace("+","") + mobileNumberLayout.getText(),
                 pinCodeLayout.getText()
             )
         } else {

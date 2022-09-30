@@ -127,4 +127,9 @@
     <string name="to_number">Au numéro</string>
     <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Vous pouvez maintenant obtenir vos forfaits de données. Sélectionnez l\'un des forfaits ci-dessous</string>
     <string name="you_are_not_subscribed_to_any_bundles">Vous n\'êtes abonné à aucun forfait</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="warning">Warning</string>
+    <string name="are_you_sure_want_to_delete">Are you sure you want to delete your account, this action is irreversible?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

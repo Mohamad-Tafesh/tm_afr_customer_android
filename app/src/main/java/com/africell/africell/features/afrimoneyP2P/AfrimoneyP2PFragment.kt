@@ -125,19 +125,19 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
     override fun performAction() {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
         val toNumber =
-            PhoneNumberHelper.getFormattedIfValid(STATIC_PHONE_NUMBER, mobileNumberLayout.getText())?.replace("+", "")
+            PhoneNumberHelper.getFormattedIfValid(countryTxt.text.toString(), mobileNumberLayout.getText())?.replace("+", "")
         toNumber?.let {
             val request: P2PRequest = if (FLAVOR == "sl") {
                 P2PRequest(
                     wallet,
-                    countryTxt.text.toString() + toNumber,
+                     toNumber.replace("+",""),
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )
             } else {
                 P2PRequest(
                     wallet,
-                    toNumber,
+                    toNumber.replace("+",""),
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )

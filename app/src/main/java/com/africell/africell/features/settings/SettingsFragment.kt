@@ -52,6 +52,7 @@ class SettingsFragment : BaseFragment() {
         setupLanguage()
         bindAppVersionTo(appVersionLayout, appVersionSummaryText)
         setupLoginLogout()
+        setUpDeleteAccount()
     }
 
     private fun setupLanguage() {
@@ -93,6 +94,36 @@ class SettingsFragment : BaseFragment() {
             }
         }
         bindData()
+    }
+
+    private fun setUpDeleteAccount() {
+        deleteAccountLayout.visibility = if (session.isLoggedIn()) View.VISIBLE else View.GONE
+        deleteAccountLayout.setOnClickListener {
+            showMaterialDeleteMessageDialog(getString(R.string.warning),
+                getString(R.string.are_you_sure_want_to_delete),
+            getString(R.string.delete_account)
+            ) {
+                viewModel.deleteAccount()
+            }
+        }
+        bindDeleteData()
+    }
+    private fun bindDeleteData(){
+        observeNotNull(viewModel.deleteAccountData,{
+                resource ->
+            when (resource) {
+                is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+            }
+
+        })
     }
 
     private fun bindData(){

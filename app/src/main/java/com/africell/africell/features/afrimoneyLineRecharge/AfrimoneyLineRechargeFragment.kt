@@ -131,11 +131,15 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
         val toNumber = PhoneNumberHelper.getFormattedIfValid("",STATIC_PHONE_NUMBER+ mobileNumberLayout.getText())?.replace("+", "")
         toNumber?.let {
-            val subMsisdn = if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
+            val subMsisdn =
+                if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
             var request : AirlineRequest = if(FLAVOR == "sl"){
+                val slNumber = PhoneNumberHelper.getFormattedIfValid("",
+                    countryTxt.text.toString().replace("+","") +
+                    mobileNumberLayout.getText())?.replace("+", "")
                 AirlineRequest(wallet,
                     subMsisdn,
-                    countryTxt.text.toString() + toNumber,
+                    slNumber,
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )

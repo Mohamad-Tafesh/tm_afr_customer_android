@@ -33,6 +33,15 @@ import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.closeIcon
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.countryTxt
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.pinCodeLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.selectWalletLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.submitBtn
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.titleTxt
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.toSomeOneElseLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.*
 import javax.inject.Inject
 
 
@@ -141,14 +150,18 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     override fun performAction() {
 
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
+        val toNumber = PhoneNumberHelper.getFormattedIfValid("", Constant.STATIC_PHONE_NUMBER + mobileNumberLayout.getText())?.replace("+", "")
         val subMsisdn =
-            if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else null
+            if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
         val request = if (FLAVOR == "sl") {
+            val slNumber = PhoneNumberHelper.getFormattedIfValid("",
+                countryTxt.text.toString().replace("+","") + mobileNumberLayout.getText())?.replace("+", "")
             AfrimoneyActivateBundleRequest(
                 bundle.bundleId?.toString().orEmpty(),
                 wallet,
+
                 subMsisdn,
-                countryTxt.text.toString().replace("+","") + mobileNumberLayout.getText(),
+                slNumber,
                 pinCodeLayout.getText()
             )
         } else {
@@ -156,7 +169,7 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
                 bundle.bundleId?.toString().orEmpty(),
                 wallet,
                 subMsisdn,
-                mobileNumberLayout.getText(),
+                toNumber,
                 pinCodeLayout.getText()
             )
         }

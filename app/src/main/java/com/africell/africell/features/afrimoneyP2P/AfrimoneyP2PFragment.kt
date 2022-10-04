@@ -32,7 +32,14 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
 import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.*
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.closeIcon
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.countryTxt
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.mobileNumberLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.pinCodeLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.selectWalletLayout
+import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.submitBtn
 import javax.inject.Inject
 
 
@@ -125,19 +132,28 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
     override fun performAction() {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
         val toNumber =
-            PhoneNumberHelper.getFormattedIfValid(countryTxt.text.toString(), mobileNumberLayout.getText())?.replace("+", "")
+            PhoneNumberHelper.getFormattedIfValid(
+                "",
+                STATIC_PHONE_NUMBER + mobileNumberLayout.getText()
+            )?.replace("+", "")
+
         toNumber?.let {
             val request: P2PRequest = if (FLAVOR == "sl") {
+                val slNumber = PhoneNumberHelper.getFormattedIfValid(
+                    "",
+                    countryTxt.text.toString().replace("+","") +
+                    mobileNumberLayout.getText()
+                )?.replace("+", "")
                 P2PRequest(
                     wallet,
-                     toNumber.replace("+",""),
+                    slNumber?.replace("+", ""),
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )
             } else {
                 P2PRequest(
                     wallet,
-                    toNumber.replace("+",""),
+                    it.replace("+", ""),
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )

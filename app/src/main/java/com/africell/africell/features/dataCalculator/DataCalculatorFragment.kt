@@ -92,7 +92,9 @@ class DataCalculatorFragment : BaseFragment() {
     private fun bindData() {
         viewModel.getDataCalculator()
         observeResourceInline(viewModel.dataCalculatorData) { dataCalc ->
-           bundleSuggestion = dataCalc.bundleSuggestion?.sortedByDescending { it.volume?.toDouble() }
+           bundleSuggestion = dataCalc.bundleSuggestion?.sortedByDescending {
+               it.volume?.toDoubleOrNull()?:0.0
+           }
             val seekbarValueItems = hashMapOf<String, Double>()
             dataCalc.datacalculators?.forEach { item ->
                 val min = item.minimumValue?.toDoubleOrNull()?.toInt() ?: 0

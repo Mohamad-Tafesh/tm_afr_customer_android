@@ -23,8 +23,8 @@ apply plugin: 'kotlin-android-extensions'
 
 ext.buildToolsVersion = '30.0.3'
 ext.minimumSdkVersion = 21
-ext.targetSdkVersion = 30
-ext.compileSdkVersion = 30
+ext.targetSdkVersion = 31
+ext.compileSdkVersion = 31
 
 ext.isSnapshot = false
 

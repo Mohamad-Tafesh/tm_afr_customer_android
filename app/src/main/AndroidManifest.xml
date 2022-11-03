@@ -3,6 +3,7 @@
           package="com.africell.africell">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -22,7 +23,8 @@
        <activity
                 android:name="com.africell.africell.features.launch.RootActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.Launch">
+                android:theme="@style/AppTheme.Launch"
+               android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

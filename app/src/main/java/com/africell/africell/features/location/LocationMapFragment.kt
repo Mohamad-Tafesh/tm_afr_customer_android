@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
@@ -85,19 +86,21 @@ class LocationMapFragment : BaseFragment() {
                                     )
                                 )
                             )
-                            marker.title = "${location.shopName}"
-                            marker.tag = location
-                            markers.add(marker)
+                            marker?.title = "${location.shopName}"
+                            marker?.tag = location
+                            if (marker != null) {
+                                markers.add(marker)
+                            }
 
                         }
 
 
-                        googleMap?.setOnMapClickListener {
+                        googleMap.setOnMapClickListener {
                             locationRootInfo.visibility = View.GONE
                             setMarkerSelected(null)
                         }
 
-                        googleMap?.setOnMarkerClickListener { marker ->
+                        googleMap.setOnMarkerClickListener { marker ->
                             locationRootInfo.visibility = View.VISIBLE
                             val location = marker.tag as? LocationDTO
                             location?.let {
@@ -255,12 +258,16 @@ class LocationMapFragment : BaseFragment() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             setupLayout()
         } else {
             requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }

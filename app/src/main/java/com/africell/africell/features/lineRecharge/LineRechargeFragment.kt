@@ -176,12 +176,16 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
                             )
                             val allMobileNumber= mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
-                                val number = pCur?.getString(
-                                    pCur?.getColumnIndex(
-                                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                                val number = pCur.getColumnIndex(
+                                    ContactsContract.CommonDataKinds.Phone.NUMBER
+                                )?.let {
+                                    pCur.getString(
+                                        it
                                     )
-                                )
-                                allMobileNumber.add(number)
+                                }
+                                if (number != null) {
+                                    allMobileNumber.add(number)
+                                }
                             }
 
                             pCur?.close()

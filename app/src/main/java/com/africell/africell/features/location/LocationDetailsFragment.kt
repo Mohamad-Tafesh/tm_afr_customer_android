@@ -92,8 +92,8 @@ class LocationDetailsFragment : BaseFragment() {
                                 MarkerOptions().position(latLng)
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.maps_icon_selected))
                             )
-                        marker.title = "${location?.shopName}"
-                        marker.tag = location
+                        marker?.title = "${location.shopName}"
+                        marker?.tag = location
                         getUserLocation(googleMap, location)
                         fitBounds(googleMap, marker)
                     }

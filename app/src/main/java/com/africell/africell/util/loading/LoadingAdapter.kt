@@ -59,6 +59,9 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.LoadingHolder>() {
                     }
                     Unit
                 }
+                else ->{
+
+                }
             }
         }
     }

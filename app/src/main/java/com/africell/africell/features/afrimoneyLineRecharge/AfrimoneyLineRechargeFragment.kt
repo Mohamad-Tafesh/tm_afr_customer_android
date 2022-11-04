@@ -22,7 +22,6 @@ import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.api.dto.WalletDTO
 import com.africell.africell.data.api.requests.afrimoney.AirlineRequest
-import com.africell.africell.data.entity.Country
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
@@ -73,7 +72,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
             liv?.submitWhenValid()
         }
         bindData()
-        countryTxt.text= Constant.STATIC_PHONE_NUMBER
+        countryTxt.text = Constant.STATIC_PHONE_NUMBER
         setupUI()
         closeIcon.setOnClickListener {
             findNavController().popBackStack()
@@ -82,7 +81,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
 
 
     private fun setupUI() {
-        if(BuildConfig.FLAVOR == "sl") {
+        if (BuildConfig.FLAVOR == "sl") {
             pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
@@ -119,7 +118,11 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
         }
 
         observeResource(viewModel.requestData) {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
+            showMaterialMessageDialog(
+                getString(R.string.successful),
+                it.resultText.orEmpty(),
+                getString(R.string.close)
+            ) {
                 findNavController().popBackStack()
             }
         }
@@ -129,22 +132,27 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
 
     override fun performAction() {
         val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber = PhoneNumberHelper.getFormattedIfValid("",STATIC_PHONE_NUMBER+ mobileNumberLayout.getText())?.replace("+", "")
+        val toNumber = PhoneNumberHelper.getFormattedIfValid("", STATIC_PHONE_NUMBER + mobileNumberLayout.getText())
+            ?.replace("+", "")
         toNumber?.let {
             val subMsisdn =
                 if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
-            var request : AirlineRequest = if(FLAVOR == "sl"){
-                val slNumber = PhoneNumberHelper.getFormattedIfValid("",
-                    countryTxt.text.toString().replace("+","") +
-                    mobileNumberLayout.getText())?.replace("+", "")
-                AirlineRequest(wallet,
+            var request: AirlineRequest = if (FLAVOR == "sl") {
+                val slNumber = PhoneNumberHelper.getFormattedIfValid(
+                    "",
+                    countryTxt.text.toString().replace("+", "") +
+                            mobileNumberLayout.getText()
+                )?.replace("+", "")
+                AirlineRequest(
+                    wallet,
                     subMsisdn,
                     slNumber,
                     pinCodeLayout.getText(),
                     amountLayout.getText()
                 )
-            }else{
-                AirlineRequest(wallet,
+            } else {
+                AirlineRequest(
+                    wallet,
                     subMsisdn,
                     toNumber,
                     pinCodeLayout.getText(),
@@ -199,37 +207,45 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
                 c?.let { c ->
 
                     if (c.moveToFirst()) {
-                        val id: String = c.getString(
-                            c.getColumnIndex(ContactsContract.Contacts._ID)
-                        )
-                        //  val name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-
-                        val hasPhone: Int = c.getInt(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                        if (hasPhone == 1) {
-                            val pCur: Cursor? = requireActivity().contentResolver.query(
-                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null,
-                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
+                        val iD = c.getColumnIndex(ContactsContract.Contacts._ID)
+                        if (iD > 0) {
+                            val id: String = c.getString(
+                                iD
                             )
-                            val allMobileNumber = mutableListOf<String>()
-                            while (pCur?.moveToNext() == true) {
-                                val number = pCur?.getString(
-                                    pCur?.getColumnIndex(
-                                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                            //  val name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                            val value = c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+                            if (value > 0) {
+                                val hasPhone: Int = c.getInt(value)
+                                if (hasPhone == 1) {
+                                    val pCur: Cursor? = requireActivity().contentResolver.query(
+                                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                        null,
+                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                                     )
-                                )
-                                allMobileNumber.add(number)
-                            }
+                                    val allMobileNumber = mutableListOf<String>()
+                                    while (pCur?.moveToNext() == true) {
+                                        val number = pCur.getColumnIndex(
+                                            ContactsContract.CommonDataKinds.Phone.NUMBER
+                                        ).let {
+                                            pCur.getString(
+                                                it
+                                            )
+                                        }
+                                        allMobileNumber.add(number)
+                                    }
 
-                            pCur?.close()
-                            selectPhoneNumber(allMobileNumber) { number ->
-                                val phoneCode = Constant.STATIC_PHONE_NUMBER
-                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+","")
-                                formatted?.let {
-                                    //val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(formatted)
-                                } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                    pCur?.close()
+                                    selectPhoneNumber(allMobileNumber) { number ->
+                                        val phoneCode = Constant.STATIC_PHONE_NUMBER
+                                        val formatted =
+                                            PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+", "")
+                                        formatted?.let {
+                                            //val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                            mobileNumberLayout.setText(formatted)
+                                        } ?: showMessage(getString(R.string.phone_number_not_valid))
 
+                                    }
+                                }
                             }
                         }
                     }

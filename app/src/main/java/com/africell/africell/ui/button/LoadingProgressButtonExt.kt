@@ -7,7 +7,7 @@ import com.africell.africell.app.BaseFragment
 import com.africell.africell.data.Resource
 import java.lang.ref.WeakReference
 
-val viewsObserved = mutableMapOf<@IdRes Int, LifecycleObserver>()
+val viewsObserved = mutableMapOf< Int, LifecycleObserver>()
 
 fun LifecycleOwner.bindProgressButton(button: LoadingProgressButton) {
     val oldObserver = viewsObserved[button.id]

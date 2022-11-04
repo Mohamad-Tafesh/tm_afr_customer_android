@@ -172,7 +172,7 @@ internal fun findStartDestination(graph: NavGraph): NavDestination? {
 
     while (startDestination is NavGraph) {
         val parent: NavGraph? = startDestination
-        startDestination = parent?.findNode(parent.startDestination)
+        startDestination = parent?.findNode(parent.startDestinationId)
     }
 
     return startDestination

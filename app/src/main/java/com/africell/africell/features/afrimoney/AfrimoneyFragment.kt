@@ -249,6 +249,9 @@ class AfrimoneyFragment : BaseFragment() {
                                     MoneyTransferOptions.IDS.AFRI_POWER -> {
 
                                     }
+                                    else ->{
+
+                                    }
                                 }
                             }
                         }

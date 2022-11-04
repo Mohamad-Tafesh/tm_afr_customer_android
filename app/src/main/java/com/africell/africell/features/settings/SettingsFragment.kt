@@ -121,6 +121,9 @@ class SettingsFragment : BaseFragment() {
                     hideProgressDialog()
                     invalidateAndRestart()
                 }
+                else ->{
+
+                }
             }
 
         })
@@ -138,6 +141,9 @@ class SettingsFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideProgressDialog()
                     invalidateAndRestart()
+                }
+                else ->{
+
                 }
             }
 

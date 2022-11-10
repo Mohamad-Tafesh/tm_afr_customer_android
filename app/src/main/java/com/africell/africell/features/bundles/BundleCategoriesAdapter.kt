@@ -3,7 +3,9 @@ package com.africell.africell.features.bundles
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.R
 import com.africell.africell.data.api.dto.BundleCategoriesDTO
 import kotlinx.android.synthetic.main.row_bundle_category.view.*
@@ -36,6 +38,7 @@ class BundleCategoriesAdapter(
                     callback.onItemClickListener(it)
                 }
             }
+            bundleTxt.isVisible = FLAVOR != "drc"
         }
     }
 

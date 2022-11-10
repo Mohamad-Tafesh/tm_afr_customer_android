@@ -67,7 +67,7 @@ class BundleVPFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.show()
-        actionbar?.title = bundleName.orEmpty() + " Bundles"
+        actionbar?.title = bundleName.orEmpty()
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)

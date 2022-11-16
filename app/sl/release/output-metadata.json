@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.africell.africell.africellSL",
+  "applicationId": "com.africell.africell.africellSLApp",
   "variantName": "slRelease",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 210010000,
-      "versionName": "1.0.0",
+      "versionCode": 210010201,
+      "versionName": "1.2.1",
       "outputFile": "app-sl-release.apk"
     }
   ],

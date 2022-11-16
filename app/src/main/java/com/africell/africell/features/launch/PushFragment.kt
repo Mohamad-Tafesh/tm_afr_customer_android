@@ -25,7 +25,7 @@ class PushFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val notificationData = PushFragmentArgs.fromBundle(arguments!!).notificationData
+        val notificationData = PushFragmentArgs.fromBundle(requireArguments()).notificationData
         showNotification(notificationData)
         message.movementMethod = LinkMovementMethod.getInstance()
 

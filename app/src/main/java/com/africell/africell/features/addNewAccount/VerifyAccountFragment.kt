@@ -47,7 +47,7 @@ class VerifyAccountFragment : BaseFragment() {
 
     private fun bindData() {
         observeResource(viewModel.verifyData) {
-            showMaterialMessageDialog(getString(R.string.successful),"Your Account has been added successfully", getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.successful),getString(R.string.your_account_has_been_added_successfy), getString(R.string.close)) {
                 activity?.finish()
             }
         }

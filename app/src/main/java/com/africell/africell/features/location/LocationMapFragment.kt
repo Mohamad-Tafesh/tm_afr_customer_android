@@ -233,7 +233,7 @@ class LocationMapFragment : BaseFragment() {
             callUs.setOnClickListener {
                 if (!location.telephoneNumber.isNullOrEmpty()) {
                     dial(location.telephoneNumber)
-                } else showMessage("Phone number is not available")
+                } else showMessage(getString(R.string.phone_number_is_not_available))
             }
             locationRootInfo.setOnClickListener {
                 // viewModelLocationDetails.details.value=location
@@ -281,7 +281,7 @@ class LocationMapFragment : BaseFragment() {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupLayout()
                 } else {
-                    showInfoMessage("To serve you better please enable googleMap")
+                    showInfoMessage(getString(R.string.to_server_you_better_please_enable_google_map))
                     setupLayout()
                 }
             }

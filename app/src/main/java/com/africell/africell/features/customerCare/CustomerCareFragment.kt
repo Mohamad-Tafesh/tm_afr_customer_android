@@ -78,7 +78,7 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
 
 
         observeResource(viewModel.contactUsData) {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), "Close") {
+            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
                 findNavController().popBackStack()
             }
         }

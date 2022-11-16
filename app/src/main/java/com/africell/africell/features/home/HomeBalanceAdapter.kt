@@ -41,7 +41,7 @@ class HomeBalanceAdapter(
 
             nameTxt.text=item?.title
             valueTxt.text=item?.currentBalance +" "+item?.unit
-            expiryDateTxt.text="Expiry Date: "+item?.expiryDate?.removeTime()
+            expiryDateTxt.text=context.getString(R.string.expiry_date_)+item?.expiryDate?.removeTime()
 
             setOnClickListener {
 

@@ -127,9 +127,20 @@
     <string name="to_number">Au numéro</string>
     <string name="now_you_can_get_your_data_bundles_select_one_of_the_packages_below">Vous pouvez maintenant obtenir vos forfaits de données. Sélectionnez l\'un des forfaits ci-dessous</string>
     <string name="you_are_not_subscribed_to_any_bundles">Vous n\'êtes abonné à aucun forfait</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="warning">Warning</string>
-    <string name="are_you_sure_want_to_delete">Are you sure you want to delete your account, this action is irreversible?</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
+    <string name="delete_account">Supprimer le compte</string>
+    <string name="warning">Avertissement</string>
+    <string name="are_you_sure_want_to_delete">Êtes-vous sûr de vouloir supprimer votre compte, cette action est irréversible ?</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="expiry_date">"Date d\'expiration: "</string>
+    <string name="price">"Prix: "</string>
+    <string name="valid_for">"Valable: "</string>
+    <string name="_bundles">\" forfaits\"</string>
+    <string name="you_dont_have_any_afrimoney_wallet">Vous n\'avez pas de portefeuille afrimoney</string>
+    <string name="your_profile_has_been_update_successfully">Votre profil a été mis à jour avec succés</string>
+    <string name="expiry_date_">\"Date d\'expiration: \"</string>
+    <string name="phone_number_is_not_available">Le numéro de téléphone n\'est pas disponible</string>
+    <string name="to_server_you_better_please_enable_google_map">Pour mieux vous servir, veuillez activer google map</string>
+    <string name="exp">EXP:</string>
+    <string name="your_account_has_been_added_successfy">Votre compte a été ajouté avec succès</string>
 </resources>

@@ -184,7 +184,7 @@ class LocationFragment : BaseFragment() {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupLayout()
                 } else {
-                    showInfoMessage("To serve you better please enable googleMap")
+                    showInfoMessage(getString(R.string.to_server_you_better_please_enable_google_map))
                     setupLayout()
                 }
             }

@@ -40,6 +40,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838259395521:android:32f53dd1ef1b1b688f3d40",
+        "android_client_info": {
+          "package_name": "com.africell.africell.africellSLApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838259395521-9sbfmse242t4s8dl8kl62q8eavlk2pf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ0JszYJZMjHeGglZ8toY23tcy2KgFccs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838259395521-9sbfmse242t4s8dl8kl62q8eavlk2pf1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "838259395521-rr471pelfgjmj96gj5ogcmlapjp0llud.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.africell.AfricellSL"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

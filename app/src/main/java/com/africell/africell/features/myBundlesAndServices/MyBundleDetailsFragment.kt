@@ -55,7 +55,7 @@ class MyBundleDetailsFragment : BaseFragment() {
         titleTxt.text = bundle.subTitle.orEmpty()
         descriptionTxt.text = bundle.description.orEmpty()
         balanceTitle.text = bundle.currentValue.orEmpty() + "/" + bundle.maxValue.orEmpty()
-        expiryDateTxt.text = "EXP:" + bundle.expiryDate.orEmpty().removeTime()
+        expiryDateTxt.text = getString(R.string.exp) + bundle.expiryDate.orEmpty().removeTime()
         progressBar.max = bundle.maxValue?.toDoubleOrNull()?.toInt() ?: 100
         progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt() ?: 0)
 

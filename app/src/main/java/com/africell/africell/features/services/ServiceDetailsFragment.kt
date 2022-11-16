@@ -68,7 +68,7 @@ class ServiceDetailsFragment : BaseFragment() {
         volumeTxt.text = service.subTitle.orEmpty()
         validityTxt.text =  service.validity.orEmpty()
         descriptionTxt.text = service.description.orEmpty()
-        priceTxt.text = "Price: " + service.price.orEmpty() + service.priceUnit.orEmpty()
+        priceTxt.text = getString(R.string.price) + service.price.orEmpty() + service.priceUnit.orEmpty()
         subtitleTxt.text = service.name.orEmpty()
 
         subscribeBtn.setOnClickListener {
@@ -83,7 +83,7 @@ class ServiceDetailsFragment : BaseFragment() {
         subscribeBtn.visibility = if (service.isActive == false) View.VISIBLE else View.GONE
         unsubscribeBtn.visibility =
             if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
-        unsubscribeBtn.setText(service.buttonLabel ?: "Unsubscribe")
+        unsubscribeBtn.setText(service.buttonLabel ?: getString(R.string.unsubscribe))
         observeResource(viewModel.subscribeData) {
            /* unsubscribeBtn.visibility = View.GONE
             subscribeBtn.visibility = View.GONE*/

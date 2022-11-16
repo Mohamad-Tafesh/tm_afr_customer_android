@@ -67,7 +67,7 @@ class AfrimoneyBundleVPFragment : BaseFragment() {
     override fun configureToolbar() {
         super.configureToolbar()
         actionbar?.show()
-        actionbar?.title = bundleName.orEmpty() + " Bundles"
+        actionbar?.title = bundleName.orEmpty() + getString(R.string._bundles)
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
         setHasOptionsMenu(true)
@@ -117,7 +117,7 @@ class AfrimoneyBundleVPFragment : BaseFragment() {
             val firstSecondaryPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.secondaryColor ?: secondaryColor
           changeBgdColor(firstPrimaryKey,firstSecondaryPrimaryKey)
             if (bundleName.isNullOrEmpty()) {
-                actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + " Bundles"
+                actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + getString(R.string._bundles)
             }
             setupViewPager(bundles)
         }

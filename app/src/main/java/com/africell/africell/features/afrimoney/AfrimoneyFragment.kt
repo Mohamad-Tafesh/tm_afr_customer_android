@@ -169,7 +169,7 @@ class AfrimoneyFragment : BaseFragment() {
                         balanceAdapter.setItems(data)
 
                         if (resource.data.isNullOrEmpty()) {
-                            loading.showImage(R.drawable.place_holder_afrimoney, "You don't have any afrimoney wallet")
+                            loading.showImage(R.drawable.place_holder_afrimoney, getString(R.string.you_dont_have_any_afrimoney_wallet))
                         } else {
                             loading.showContent()
                             val options = if (BuildConfig.FLAVOR.equals("gambia")) {

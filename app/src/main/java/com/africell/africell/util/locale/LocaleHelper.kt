@@ -3,6 +3,7 @@ package com.africell.africell.util.locale
 import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.africell.africell.BuildConfig.FLAVOR
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.Gson
 import com.africell.africell.R
@@ -27,7 +28,10 @@ constructor(private var context: Context) {
         if (!session.userChangedLanguage) {
             val supportedLanguages = context.resources.getStringArray(R.array.supported_language_codes)
             val deviceLanguage = Locale.getDefault().language
-            if (supportedLanguages.contains(deviceLanguage)) {
+
+            if (FLAVOR == "drc") {
+                session.language = supportedLanguages[0]
+            }else if(supportedLanguages.contains(deviceLanguage)){
                 session.language = deviceLanguage
             }
         }

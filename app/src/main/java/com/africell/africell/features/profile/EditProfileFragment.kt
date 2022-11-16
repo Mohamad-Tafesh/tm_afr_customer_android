@@ -75,7 +75,7 @@ class EditProfileFragment : BaseFragment(), Liv.Action {
             viewModel.dobData.value = it.dateOfBirth?.toTimeInMillis(DOB_DATE_FORMAT)
         }
         observeResource(viewModel.updatedProfileData) {
-            showMaterialMessageDialog("your profile has been updated successfully", getString(R.string.close)) {
+            showMaterialMessageDialog(getString(R.string.your_profile_has_been_update_successfully), getString(R.string.close)) {
                 findNavController().popBackStack()
             }
         }

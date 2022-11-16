@@ -117,7 +117,7 @@ class BundleVPFragment : BaseFragment() {
             val firstSecondaryPrimaryKey = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.secondaryColor ?: secondaryColor
           changeBgdColor(firstPrimaryKey,firstSecondaryPrimaryKey)
             if (bundleName.isNullOrEmpty()) {
-                actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + " Bundles"
+                actionbar?.title = bundles.getOrNull(0)?.bundleInfo?.getOrNull(0)?.category.orEmpty() + getString(R.string._bundles)
             }
             setupViewPager(bundles)
         }

@@ -97,8 +97,8 @@ class BundleDetailsFragment : BaseFragment() {
         volumeTxt.text = bundle.getFormatVolume()
         subtitleTxt.text = bundle.subTitles
         descriptionTxt.text = bundle.commercialName
-        priceTxt.text = "Price: " + bundle.price
-        validForTxt.text = "Valid for: " + bundle.validity + bundle.validityUnit
+        priceTxt.text = getString(R.string.price) + bundle.price
+        validForTxt.text = getString(R.string.valid_for) + bundle.validity + bundle.validityUnit
         activateBundleForSomeOneElseBtn.setOnClickListener {
             if (sessionRepository.isLoggedIn()) {
                 navigateToBundleActive(false, bundle)

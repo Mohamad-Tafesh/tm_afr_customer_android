@@ -154,7 +154,7 @@ class LocationDetailsFragment : BaseFragment() {
                 if (!location.telephoneNumber.isNullOrEmpty()) {
                     dial(location.telephoneNumber)
                     //promptCallUs(location.numbers())
-                } else showMessage("Phone number is not available")
+                } else showMessage(getString(R.string.phone_number_is_not_available))
 
             }
             getDirection.setOnClickListener {

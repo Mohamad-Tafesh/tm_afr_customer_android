@@ -79,7 +79,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="imagePath" value="C:\Users\user\Desktop\Africell\New folder\launcher_background.png" />
-                                                <entry key="scalingPercent" value="118" />
+                                                <entry key="scalingPercent" value="120" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -104,8 +104,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\New folder\launcher_foreground.png" />
-                                                <entry key="scalingPercent" value="53" />
+                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\Android - New Afri Cell App Icon\Android - New Afri Cell App Icon\Foreground - App Icon - Android.png" />
+                                                <entry key="scalingPercent" value="42" />
                                               </map>
                                             </option>
                                           </PersistentState>

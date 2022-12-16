@@ -78,7 +78,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\New folder\launcher_background.png" />
+                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\Android\Android\Background.png" />
                                                 <entry key="scalingPercent" value="120" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -104,8 +104,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\Android - New Afri Cell App Icon\Android - New Afri Cell App Icon\Foreground - App Icon - Android.png" />
-                                                <entry key="scalingPercent" value="42" />
+                                                <entry key="imagePath" value="C:\Users\user\Desktop\Africell\Android\Android\Foreground.png" />
+                                                <entry key="scalingPercent" value="56" />
                                               </map>
                                             </option>
                                           </PersistentState>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.africell.africell.BuildConfig.FLAVOR
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
@@ -66,8 +67,18 @@ class LoginFragment : BaseFragment(), Liv.Action {
         bindUser()
         bindCountries()
         debugOnly {
-            mobileNumberLayout.setText("80022041")
-            password.setText("test")
+            if(FLAVOR == "sl"){
+                mobileNumberLayout.setText("80022041")
+                password.setText("test")
+            }else if(FLAVOR == "drc"){
+                mobileNumberLayout.setText("900099909")
+                password.setText("1234")
+            }else if(FLAVOR == "sl"){
+
+            }else if(FLAVOR == "sl"){
+
+            }
+
 
         }
     }

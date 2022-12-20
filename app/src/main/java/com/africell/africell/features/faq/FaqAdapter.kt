@@ -39,8 +39,9 @@ class FaqAdapter() :
 
         fun bind(item: FaqItem, isExpandedStates: MutableMap<Int, Boolean>) {
             itemView.run {
+                val answer = item.response + "\n"
                 questionText.text = item.question
-                answerText.text = item.response
+                answerText.text = answer
 
                 questionLayout.isClickable = true
                 if (isExpandedStates[adapterPosition] == true) {
@@ -106,11 +107,12 @@ class FaqAdapter() :
 
         private fun View.expand(onFinish: () -> Unit) {
             val displayWidth = resources.displayMetrics.widthPixels
+            val displayHeight = resources.displayMetrics.heightPixels
             measure(
                 View.MeasureSpec.makeMeasureSpec(displayWidth, View.MeasureSpec.AT_MOST),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                View.MeasureSpec.makeMeasureSpec(displayHeight, View.MeasureSpec.AT_MOST)
             )
-            val targetHeight = measuredHeight
+            val targetHeight = (measuredHeight * 1.2).toInt()
             layoutParams.height = 0
             isVisible = true
 
@@ -130,9 +132,10 @@ class FaqAdapter() :
 
         private fun View.collapse(onFinish: () -> Unit) {
             val displayWidth = resources.displayMetrics.widthPixels
+            val displayHeight = resources.displayMetrics.heightPixels
             measure(
                 View.MeasureSpec.makeMeasureSpec(displayWidth, View.MeasureSpec.AT_MOST),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                View.MeasureSpec.makeMeasureSpec(displayHeight, View.MeasureSpec.UNSPECIFIED)
             )
             ValueAnimator.ofInt(measuredHeight, 0)
                 .setDuration(ANIMATION_DURATION)

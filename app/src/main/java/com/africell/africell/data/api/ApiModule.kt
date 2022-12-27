@@ -3,6 +3,7 @@ package com.africell.africell.data.api
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.africell.africell.BuildConfig
+import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.Constant.BASE_URL
 import com.africell.africell.app.debugOnly
 import com.africell.africell.data.repository.domain.SessionRepository
@@ -67,20 +68,35 @@ object ApiModule {
         }*/
 
         val block: (chain: Interceptor.Chain) -> Response = {
-            //val credentials: String = Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
-            val credentials: String = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+            var credentials = ""
+            credentials = Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
+            debugOnly {
+                credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+            }
+
+            //
             val response = it.proceed(
                 it.request().let { request ->
 
                     Timber.tag("OkHttp").d("Request: ${request.url}")
                     Timber.tag("OkHttp").d("BasicToken: ${credentials}")
 
-                    request.newBuilder()
-                        .header("User-Agent", System.getProperty("http.agent").orEmpty())
-                        .header("Content-Type", "application/json")
-                        .header("accept", "text/plain")
-                        .header("Accept-Language",session.language /*session.language*/)
-                        .header("Authorization", credentials)
+                    if(FLAVOR == "drc"){
+                        request.newBuilder()
+                            .header("User-Agent", System.getProperty("http.agent").orEmpty())
+                            .header("Content-Type", "application/json")
+                            .header("accept", "text/plain")
+                            .header("Accept-Language",session.language /*session.language*/)
+                            .header("Authorization", credentials)
+                    }else{
+                        request.newBuilder()
+                            .header("User-Agent", System.getProperty("http.agent").orEmpty())
+                            .header("Content-Type", "application/json")
+                            .header("accept", "text/plain")
+                            .header("Accept-Language","en" /*session.language*/)
+                            .header("Authorization", credentials)
+                    }
+
 
                         .apply {
                             if (

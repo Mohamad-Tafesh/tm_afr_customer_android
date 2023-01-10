@@ -69,7 +69,12 @@ object ApiModule {
 
         val block: (chain: Interceptor.Chain) -> Response = {
             var credentials = ""
-            credentials = Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
+            /*if(FLAVOR == "drc"){
+                credentials = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+            }else if(FLAVOR == "sl"){
+                credentials = Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
+            }*/
+
             debugOnly {
                 credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             }

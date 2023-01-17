@@ -69,11 +69,11 @@ object ApiModule {
 
         val block: (chain: Interceptor.Chain) -> Response = {
             var credentials = ""
-            /*if(FLAVOR == "drc"){
-                credentials = Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
-            }else if(FLAVOR == "sl"){
-                credentials = Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
-            }*/
+            credentials = if (FLAVOR == "sl") {
+                Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
+            } else {
+                Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+            }
 
             debugOnly {
                 credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
@@ -86,19 +86,19 @@ object ApiModule {
                     Timber.tag("OkHttp").d("Request: ${request.url}")
                     Timber.tag("OkHttp").d("BasicToken: ${credentials}")
 
-                    if(FLAVOR == "drc"){
+                    if (FLAVOR == "drc") {
                         request.newBuilder()
                             .header("User-Agent", System.getProperty("http.agent").orEmpty())
                             .header("Content-Type", "application/json")
                             .header("accept", "text/plain")
-                            .header("Accept-Language",session.language /*session.language*/)
+                            .header("Accept-Language", session.language /*session.language*/)
                             .header("Authorization", credentials)
-                    }else{
+                    } else {
                         request.newBuilder()
                             .header("User-Agent", System.getProperty("http.agent").orEmpty())
                             .header("Content-Type", "application/json")
                             .header("accept", "text/plain")
-                            .header("Accept-Language","en" /*session.language*/)
+                            .header("Accept-Language", "en" /*session.language*/)
                             .header("Authorization", credentials)
                     }
 
@@ -180,7 +180,7 @@ object ApiModule {
                         .header("User-Agent", System.getProperty("http.agent").orEmpty())
                         .header("Content-Type", "application/json")
                         .header("accept", "text/plain")
-                        .header("Accept-Language",  session.language)
+                        .header("Accept-Language", session.language)
 
                         .apply {
                             if (

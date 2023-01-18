@@ -73,7 +73,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
             }else if(FLAVOR == "drc"){
                 mobileNumberLayout.setText("900099909")
                 password.setText("1234")
-            }else if(FLAVOR == "sl"){
+            }else if(FLAVOR == "gm"){
 
             }else if(FLAVOR == "sl"){
 

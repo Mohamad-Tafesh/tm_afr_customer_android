@@ -28,7 +28,7 @@ class HomeBalanceAdapter(
         val padding = parent.context.resources.getDimensionPixelSize(R.dimen.spacing_small)
         layoutParams.width = width / 3
         layoutParams.height = width / 3
-        itemView.layoutParams = layoutParams
+        //itemView.layoutParams = layoutParams
 
         return HomeItemHolder(itemView)
     }

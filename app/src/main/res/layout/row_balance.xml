@@ -37,39 +37,51 @@
 
     <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="@dimen/spacing_small"
-            android:padding="@dimen/spacing_normal"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/progressBar"
             app:layout_constraintEnd_toEndOf="@id/progressBar"
             app:layout_constraintStart_toStartOf="@id/progressBar"
             app:layout_constraintTop_toTopOf="@id/progressBar">
-        <TextView
-android:id="@+id/nameTxt"
-                style="@style/TextAppearance.small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                tools:text="500MB"
-                android:textStyle="bold" />
-        <TextView
-android:id="@+id/valueTxt"
-                style="@style/TextAppearance.normalBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                tools:text="500MB"
-                android:textStyle="bold" />
 
         <TextView
+                android:id="@+id/nameTxt"
                 style="@style/TextAppearance.small"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-android:id="@+id/expiryDateTxt"
                 android:gravity="center"
+                android:lines="1"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="8sp"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform"
+                tools:text="500MB" />
+
+        <TextView
+                android:id="@+id/valueTxt"
+                style="@style/TextAppearance.normalBold"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="1"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="12sp"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform"
+                tools:text="500MB" />
+
+        <TextView
+                android:id="@+id/expiryDateTxt"
+                style="@style/TextAppearance.small"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:autoSizeMaxTextSize="8sp"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform"
                 tools:text="500MB" />
     </LinearLayout>
 

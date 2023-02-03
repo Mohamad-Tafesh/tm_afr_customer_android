@@ -2,6 +2,7 @@ package com.africell.africell.features.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import androidx.activity.addCallback
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -121,8 +122,14 @@ class MainActivity : BaseActivity() {
                 customerCareTxt.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
-                afrimoneyImg.visibility = if (BuildConfig.FLAVOR.equals("sl") && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility = if (!BuildConfig.FLAVOR.equals("sl")&& bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                afrimoneyImg.visibility = if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility = if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                if (BuildConfig.FLAVOR == "drc") {
+                    afrimoneyImg.visibility = GONE
+                    customerCareTxt.visibility = GONE
+
+                }
+
                 if (bottomNavFragmentIds.contains(destination.id)) {
                     if (BuildConfig.FLAVOR == "sl") {
                         if (destination.id == R.id.afrimoneyFragment) {

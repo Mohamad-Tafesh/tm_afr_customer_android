@@ -67,16 +67,18 @@ class LoginFragment : BaseFragment(), Liv.Action {
         bindUser()
         bindCountries()
         debugOnly {
-            if(FLAVOR == "sl"){
-                mobileNumberLayout.setText("80022041")
-                password.setText("test")
-            }else if(FLAVOR == "drc"){
-                mobileNumberLayout.setText("900099909")
-                password.setText("1234")
-            }else if(FLAVOR == "gm"){
+            when (FLAVOR) {
+                "sl" -> {
+                    mobileNumberLayout.setText("80022041")
+                    password.setText("test")
+                }
+                "drc" -> {
+                    mobileNumberLayout.setText("900099909")
+                    password.setText("1234")
+                }
+                "gm" -> {
 
-            }else if(FLAVOR == "sl"){
-
+                }
             }
 
 

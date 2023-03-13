@@ -105,7 +105,7 @@ android {
         drc {
             def versionMajor = 1
             def versionMinor = 0
-            def versionPatch = 3
+            def versionPatch = 4
             versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
             versionName generateVersionName(versionMajor, versionMinor, versionPatch)
             applicationId "com.africell.africell.drc"

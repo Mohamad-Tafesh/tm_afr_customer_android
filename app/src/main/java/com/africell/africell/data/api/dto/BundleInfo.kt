@@ -43,7 +43,7 @@ data class BundleInfo(
         return volume + unit+ "/"+ validity + validityUnit
     }
     fun getTitle():String{
-        return  "$category Bundles"
+        return  "$category"
     }
 
 }

@@ -25,7 +25,8 @@ inline fun <reified T : ViewModel> ComponentActivity.provideViewModel(
         T::class,
         keyProducer?.let { { "$canonicalName:${it.invoke()}" } },
         { viewModelStore },
-        factoryProducer
+        factoryProducer,
+        { defaultViewModelCreationExtras },
     )
 }
 
@@ -40,7 +41,8 @@ inline fun <reified T : ViewModel> Fragment.provideViewModel(
         T::class,
         keyProducer?.let { { "$canonicalName:${it.invoke()}" } },
         { viewModelStore },
-        factoryProducer
+        factoryProducer,
+        { defaultViewModelCreationExtras },
     )
 }
 
@@ -55,7 +57,8 @@ inline fun <reified T : ViewModel> Fragment.provideParentViewModel(
         T::class,
         keyProducer?.let { { "$canonicalName:${it.invoke()}" } },
         { requireParentFragment().viewModelStore },
-        factoryProducer
+        factoryProducer,
+        { requireParentFragment().defaultViewModelCreationExtras },
     )
 }
 
@@ -70,7 +73,8 @@ inline fun <reified T : ViewModel> Fragment.provideActivityViewModel(
         T::class,
         keyProducer?.let { { "$canonicalName:${it.invoke()}" } },
         { requireActivity().viewModelStore },
-        factoryProducer
+        factoryProducer,
+        { requireActivity().defaultViewModelCreationExtras },
     )
 }
 
@@ -91,7 +95,8 @@ inline fun <reified T : ViewModel> Fragment.provideNavGraphViewModel(
         {
             factoryProducer?.invoke()
                 ?: /*backStackEntry*/findNavController().getBackStackEntry(navGraphId).defaultViewModelProviderFactory
-        }
+        },
+        {/*backStackEntry*/findNavController().getBackStackEntry(navGraphId).defaultViewModelCreationExtras },
     )
 }
 

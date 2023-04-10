@@ -143,4 +143,12 @@
     <string name="to_server_you_better_please_enable_google_map">Pour mieux vous servir, veuillez activer google map</string>
     <string name="exp">EXP:</string>
     <string name="your_account_has_been_added_successfy">Votre compte a été ajouté avec succès</string>
+    <string name="bonus_balance">Bonus balance</string>
+    <string name="my_balance">My Balance</string>
+    <string name="last_transactions">Last Transactions</string>
+    <string name="pending_transactions">Pending Transactions</string>
+    <string name="withdraw_money">Withdraw Money</string>
+    <string name="buy_anytime">Buy\nAnytime</string>
+    <string name="pay_my_bills">Pay\nMy Bills</string>
+    <string name="banking_nservices">Banking\nServices</string>
 </resources>

@@ -10,7 +10,7 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="fontFamily">@font/nexa_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
         <item name="loadingViewStyle">@style/Blocks.LoadingView</item>
         <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle</item><!--has to be declared-->
         <item name="materialDateInputStyle">@style/MaterialSpinnerStyle</item><!--has to be declared-->
@@ -73,6 +73,19 @@
         <item name="actionMenuTextColor">@color/white</item>
         <item name="android:gravity">center_vertical
         </item><!--Added because material component needs it-->
+    </style>
+
+    <style name="AppTheme.MaterialToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item><!--Added because material component needs it-->
+        <item name="android:theme">@style/AppTheme.ToolbarTheme</item>
+    </style>
+
+    <style name="AppTheme.ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <style name="Button.purple" parent="Widget.MaterialComponents.Button">

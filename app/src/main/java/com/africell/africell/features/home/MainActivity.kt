@@ -194,5 +194,4 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
     private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {
         return AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(this).build()
     }
-
 }

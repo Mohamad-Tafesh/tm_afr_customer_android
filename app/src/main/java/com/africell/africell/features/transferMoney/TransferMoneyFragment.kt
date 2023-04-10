@@ -12,9 +12,11 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.FragmentMoneyTransferBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class TransferMoneyFragment : BottomSheetDialogFragment() {
 
     private var viewBinding: FragmentMoneyTransferBinding? = null

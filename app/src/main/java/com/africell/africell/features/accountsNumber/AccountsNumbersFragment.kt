@@ -17,9 +17,11 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.FragmentAccountNumbersBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AccountsNumbersFragment : BottomSheetDialogFragment() {
 
     private var viewBinding: FragmentAccountNumbersBinding? = null

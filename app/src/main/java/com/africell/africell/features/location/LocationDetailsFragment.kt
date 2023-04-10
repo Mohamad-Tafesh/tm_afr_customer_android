@@ -21,11 +21,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class LocationDetailsFragment : BaseVBFragment<FragmentLocationDetailsBinding>() {
 
-    private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<LocationViewModel>()
     val locationParams by lazy {
         arguments?.getParcelable<LocationDTO>(LOCATION_DETAILS)
     }

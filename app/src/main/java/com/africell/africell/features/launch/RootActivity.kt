@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RootActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

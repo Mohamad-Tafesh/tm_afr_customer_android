@@ -21,9 +21,11 @@ import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateB
 import com.africell.africell.features.afrimoneyActivateBundle.AfrimoneyActivateBundleFragment.Companion.BUNDLE_DETAILS
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AfrimoneyBundleDetailsFragment : BaseVBFragment<FragmentBundleDetailsBinding>() {
 
 
@@ -40,9 +42,7 @@ class AfrimoneyBundleDetailsFragment : BaseVBFragment<FragmentBundleDetailsBindi
         arguments?.getString(KEY_SECONDARY_COLOR_HEX)
     }
 
-    private val viewModel by provideViewModel<AfrimoneyBundleDetailsViewModel> {
-        viewModelFactory
-    }
+    private val viewModel by provideViewModel<AfrimoneyBundleDetailsViewModel>()
 
     companion object {
         const val BUNDLE_ID = "bundle_id"

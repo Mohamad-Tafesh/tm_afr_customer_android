@@ -1,24 +1,19 @@
 package com.africell.africell.app
 
 import android.app.Application
-import android.content.Context
-import com.africell.africell.data.DataModule
-import com.africell.africell.data.RepositoryModule
-import com.africell.africell.ui.viewmodel.ViewModelModule
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module(includes = [RepositoryModule::class, ViewModelModule::class, DataModule::class])
+@Module
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
     @Singleton
-    internal fun provideApplication(app: App): Application = app
-
-    @Provides
-    @Singleton
-    internal fun provideContext(app: App): Context = app
+    internal fun provideApp(application: Application): App = application as App
 
     @Provides
     @Singleton

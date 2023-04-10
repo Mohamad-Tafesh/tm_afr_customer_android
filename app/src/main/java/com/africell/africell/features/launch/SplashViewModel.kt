@@ -8,8 +8,10 @@ import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.features.help.HelpActivity
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class SplashViewModel
 @Inject constructor(
     private val session: SessionRepository

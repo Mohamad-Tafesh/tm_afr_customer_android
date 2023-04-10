@@ -12,7 +12,9 @@ import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VerifyAccountFragment : BaseVBFragment<FragmentVerificationBinding>() {
 
 
@@ -25,7 +27,7 @@ class VerifyAccountFragment : BaseVBFragment<FragmentVerificationBinding>() {
         const val MSISDN_KEY = "msisdn_key"
     }
 
-    private val viewModel by provideViewModel<AddAccountViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AddAccountViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentVerificationBinding::inflate, false, ToolbarDefaultBinding::inflate)

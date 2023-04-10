@@ -22,16 +22,18 @@ import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MyBundleServicesVPFragment : BaseVBFragment<FragmentMyBundlesServicesVpBinding>() {
 
     @Inject
     lateinit var sessionRepository: SessionRepository
 
 
-    private val viewModel by provideViewModel<MyBundlesAndServicesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<MyBundlesAndServicesViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(
             container,

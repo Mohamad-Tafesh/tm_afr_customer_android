@@ -23,9 +23,11 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AfrimoneyMerchantPayFragment : BaseVBFragment<FragmentAfrimoneyMerchantPayBinding>(), Liv.Action {
     private var liv: Liv? = null
 
@@ -33,7 +35,7 @@ class AfrimoneyMerchantPayFragment : BaseVBFragment<FragmentAfrimoneyMerchantPay
     @Inject
     lateinit var sessionRepository: SessionRepository
 
-    private val viewModel by provideViewModel<AfrimoneyMerchantPayViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AfrimoneyMerchantPayViewModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -13,9 +13,11 @@ import com.africell.africell.features.accountInfo.domain.GetSubAccountUseCase
 import com.africell.africell.features.home.domain.GetImagesUseCase
 import com.africell.africell.features.home.domain.SetUserPushUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class HomeViewModel
 @Inject constructor(
     private val setUserPushUseCase: SetUserPushUseCase,

@@ -16,8 +16,10 @@ import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
 import com.africell.africell.util.navigation.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
     private val bottomNavFragmentIds: List<Int> by lazy {

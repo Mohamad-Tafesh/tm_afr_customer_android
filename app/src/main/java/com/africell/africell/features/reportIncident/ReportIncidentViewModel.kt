@@ -11,9 +11,11 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.reportIncident.domain.GetReportCategoryUseCase
 import com.africell.africell.features.reportIncident.domain.ReportIncidentUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class ReportIncidentViewModel
 @Inject constructor(
     private val reportIncidentUseCase: ReportIncidentUseCase,

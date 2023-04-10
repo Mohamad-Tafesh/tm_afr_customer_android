@@ -11,9 +11,11 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.profile.domain.ChangePasswordUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class ChangePasswordViewModel
 @Inject constructor(
     private val changePasswordUseCase: ChangePasswordUseCase,

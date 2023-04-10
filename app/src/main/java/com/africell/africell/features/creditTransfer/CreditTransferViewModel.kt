@@ -13,8 +13,10 @@ import com.africell.africell.features.accountInfo.domain.GetSubAccountUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.features.creditTransfer.domain.CreditTransferUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class CreditTransferViewModel
 @Inject constructor(
     private val creditTransferUseCase: CreditTransferUseCase,

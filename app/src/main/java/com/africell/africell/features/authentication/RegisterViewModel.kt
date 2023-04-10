@@ -13,11 +13,13 @@ import com.africell.africell.features.authentication.domain.RegisterUseCase
 import com.africell.africell.ui.BaseViewModel
 import com.africell.africell.util.ISO_DATE_FORMAT
 import com.africell.africell.util.toFormat
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 
+@HiltViewModel
 class RegisterViewModel
 @Inject constructor(
     private val registerUseCase: RegisterUseCase,

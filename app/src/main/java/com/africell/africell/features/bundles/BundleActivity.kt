@@ -8,8 +8,10 @@ import androidx.navigation.findNavController
 import com.africell.africell.R
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.util.navigation.goBack
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class BundleActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

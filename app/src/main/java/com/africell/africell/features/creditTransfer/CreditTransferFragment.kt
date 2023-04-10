@@ -33,14 +33,16 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class CreditTransferFragment : BaseVBFragment<FragmentCreditTransferBinding>(), Liv.Action {
     private var liv: Liv? = null
 
 
-    private val viewModel by provideViewModel<CreditTransferViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<CreditTransferViewModel>()
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

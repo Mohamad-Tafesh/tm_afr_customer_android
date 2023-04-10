@@ -11,8 +11,10 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.sms.domain.GetSMSDatatUseCase
 import com.africell.africell.features.sms.domain.SendFreeSmsUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class SMSViewModel
 @Inject constructor(
     private val getSMSDatatUseCase: GetSMSDatatUseCase,

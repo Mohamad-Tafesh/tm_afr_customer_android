@@ -28,8 +28,10 @@ import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
@@ -43,14 +45,14 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
     }
 
 
-    private val viewModel by provideViewModel<HomeViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<HomeViewModel>()
     val handler = Handler(Looper.getMainLooper())
     var runnable: Runnable? = null
     val POST_DELAY = 8000L
     private val infiniteBalanceAdapter by lazy { InfiniteScrollAdapter.wrap(balanceAdapter) }
 
 
-    private val accountViewModel by provideViewModel<AccountViewModel> { viewModelFactory }
+    private val accountViewModel by provideViewModel<AccountViewModel>()
     private val offersAdapter by lazy {
         OffersBannerAdapter(mutableListOf(), object : OffersBannerAdapter.Callback {
             override fun onItemClick(item: String) {

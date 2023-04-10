@@ -34,9 +34,11 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class ActivateBundleFragment : BaseVBBottomSheetFragment<FragmentActivateBundleBinding>(), Liv.Action {
     private var liv: Liv? = null
 
@@ -54,7 +56,7 @@ class ActivateBundleFragment : BaseVBBottomSheetFragment<FragmentActivateBundleB
     @Inject
     lateinit var sessionRepository: SessionRepository
 
-    private val viewModel by provideViewModel<ActivateBundleViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<ActivateBundleViewModel>()
 
     companion object {
         const val BUNDLE_DETAILS = "bundle_details"

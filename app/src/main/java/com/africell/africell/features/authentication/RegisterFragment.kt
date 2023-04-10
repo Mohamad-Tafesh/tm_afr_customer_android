@@ -23,11 +23,13 @@ import com.africell.africell.util.setText
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class RegisterFragment : BaseVBFragment<FragmentRegisterBinding>(), Liv.Action {
 
-    private val viewModel by provideActivityViewModel<RegisterViewModel> { viewModelFactory }
+    private val viewModel by provideActivityViewModel<RegisterViewModel>()
     private var liv: Liv? = null
 
     private val onDestinationChangedListener: NavController.OnDestinationChangedListener =

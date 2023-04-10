@@ -14,7 +14,9 @@ import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.navigation.runIfFrom
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VerifyPinFragment : BaseVBFragment<FragmentVerificationBinding>() {
 
     val isReset by lazy {
@@ -22,7 +24,7 @@ class VerifyPinFragment : BaseVBFragment<FragmentVerificationBinding>() {
             ?: throw IllegalArgumentException("required Type arguments")
     }
 
-    private val viewModel by provideViewModel<VerifyPinViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<VerifyPinViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentVerificationBinding::inflate, false, ToolbarDefaultBinding::inflate)

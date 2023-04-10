@@ -38,7 +38,7 @@ class AppSessionNavigator
             }
 
             override fun onError(e: Throwable) {
-               // val appException = appExceptionFactory.make(e)
+                // val appException = appExceptionFactory.make(e)
                 invalidateSessionAndRestart()
             }
 
@@ -64,5 +64,26 @@ class AppSessionNavigator
                 )
             }
         )
+    }
+}
+
+
+inline fun AppException.handleInvalidSession(
+    appSessionNavigator: AppSessionNavigator,
+    onOtherError: (exception: AppException) -> Unit = {}
+): Boolean {
+    return when (code) {
+        AppException.Code.INVALID_TOKEN -> {
+            appSessionNavigator.invalidateSessionAndRestart(this)
+            true
+        }
+        /*AppException.Code.INVALID_PIN -> {
+            appSessionNavigator.openPinScreen(this)
+            true
+        }*/
+        else -> {
+            onOtherError(this)
+            false
+        }
     }
 }

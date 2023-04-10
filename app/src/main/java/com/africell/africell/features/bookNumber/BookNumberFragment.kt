@@ -19,14 +19,16 @@ import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class BookNumberFragment : BaseVBFragment<FragmentBookNumberBinding>() {
 
-    private val viewModel by provideViewModel<BookNumberViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<BookNumberViewModel>()
 
     @Inject
     lateinit var sessionRepository: SessionRepository

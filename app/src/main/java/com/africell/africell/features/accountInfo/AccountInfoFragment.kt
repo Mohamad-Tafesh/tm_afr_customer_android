@@ -19,8 +19,10 @@ import com.africell.africell.features.accountsNumber.AccountsNumbersFragment
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AccountInfoFragment : BaseVBFragment<FragmentAccountInfoBinding>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,7 +33,7 @@ class AccountInfoFragment : BaseVBFragment<FragmentAccountInfoBinding>() {
     lateinit var sessionRepository: SessionRepository
 
 
-    private val viewModel by provideViewModel<AccountViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AccountViewModel>()
 
     override fun configureToolbar() {
         super.configureToolbar()

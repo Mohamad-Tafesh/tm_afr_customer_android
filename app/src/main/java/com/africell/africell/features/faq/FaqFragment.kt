@@ -14,11 +14,13 @@ import com.africell.africell.databinding.FragmentFaqBinding
 import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FaqFragment : BaseVBFragment<FragmentFaqBinding>() {
 
 
-    private val viewModel by provideViewModel<FaqViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<FaqViewModel>()
 
     private val adapter: FaqAdapter by lazy { FaqAdapter() }
 

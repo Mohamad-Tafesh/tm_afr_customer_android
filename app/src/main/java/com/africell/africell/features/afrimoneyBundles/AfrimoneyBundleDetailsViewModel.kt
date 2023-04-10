@@ -11,8 +11,10 @@ import com.africell.africell.features.afrimoneyBundles.domain.GetAfrimoneyBundle
 import com.africell.africell.features.bundles.domain.GetBundleDetailsUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AfrimoneyBundleDetailsViewModel
 @Inject constructor(
     private val getBundleDetailsUseCase: GetAfrimoneyBundleDetailsUseCase,

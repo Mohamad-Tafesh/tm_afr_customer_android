@@ -3,23 +3,25 @@ package com.africell.africell.data
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.africell.africell.util.log.CrashlyticsExceptionLogger
+import com.africell.africell.util.log.ExceptionLogger
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.africell.africell.data.api.ApiModule
-import com.africell.africell.util.log.CrashlyticsExceptionLogger
-import com.africell.africell.util.log.ExceptionLogger
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module(includes = [ApiModule::class])
+@Module
+@InstallIn(SingletonComponent::class)
 object DataModule {
 
     private const val DISK_CACHE_SIZE = 20 * 1024 * 1024 // 20 MiB
@@ -54,10 +56,10 @@ object DataModule {
     @Singleton
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
         return ( /*UnsafeOkHttpClient.getUnsafeOkHttpClient()?.newBuilder() ?:*/
-        OkHttpClient.Builder())
+                OkHttpClient.Builder())
             .connectTimeout(60L, TimeUnit.SECONDS)
-            .readTimeout(60L,TimeUnit.SECONDS)
-            .writeTimeout(60,TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .cache(cache)
             .build()
     }

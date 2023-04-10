@@ -11,8 +11,10 @@ import com.africell.africell.data.api.dto.ServicesDTO
 import com.africell.africell.databinding.FragmentMyBundleDetailsBinding
 import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.util.removeTime
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MyBundleDetailsFragment : BaseVBFragment<FragmentMyBundleDetailsBinding>() {
 
 

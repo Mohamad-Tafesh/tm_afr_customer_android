@@ -25,13 +25,15 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MobileNumberFragment : BaseVBFragment<FragmentMobileNumberBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
 
-    private val viewModel by provideViewModel<LoginViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<LoginViewModel>()
 
     val isReset by lazy {
         arguments?.getBoolean(IS_RESET)

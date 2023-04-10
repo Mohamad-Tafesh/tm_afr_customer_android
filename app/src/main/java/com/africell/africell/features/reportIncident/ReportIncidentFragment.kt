@@ -22,8 +22,10 @@ import com.africell.africell.util.intents.dial
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ReportIncidentFragment : BaseVBFragment<FragmentReportIncidentBinding>(), Liv.Action {
     @Inject
     lateinit var sessionRepository: SessionRepository
@@ -32,7 +34,7 @@ class ReportIncidentFragment : BaseVBFragment<FragmentReportIncidentBinding>(), 
     private val liv by lazy { initLiv() }
 
 
-    private val viewModel by provideViewModel<ReportIncidentViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<ReportIncidentViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentReportIncidentBinding::inflate, true, ToolbarImageBinding::inflate)

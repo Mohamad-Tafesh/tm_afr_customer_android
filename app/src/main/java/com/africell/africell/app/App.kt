@@ -1,28 +1,29 @@
 package com.africell.africell.app
 
+import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.webkit.WebView
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.onesignal.OneSignal
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.notification.NotificationOpenedHandler
 import com.africell.africell.util.identifyUser
 import com.africell.africell.util.locale.LocaleHelper
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.onesignal.OneSignal
+import dagger.hilt.android.HiltAndroidApp
 import okhttp3.OkHttpClient
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
 
-class App : DaggerApplication() {
+@HiltAndroidApp
+class App : Application() {
 
     @Inject
     @Named("FrescoClient")
@@ -82,7 +83,4 @@ class App : DaggerApplication() {
         OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
         OneSignal.setLocationShared(false)
     }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        DaggerAppComponent.factory().create(this)
 }

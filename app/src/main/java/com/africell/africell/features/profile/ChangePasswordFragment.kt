@@ -17,13 +17,15 @@ import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.ConfirmPasswordRule
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChangePasswordFragment : BaseVBFragment<FragmentChangePasswordBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
 
-    private val viewModel by provideActivityViewModel<ChangePasswordViewModel> { viewModelFactory }
+    private val viewModel by provideActivityViewModel<ChangePasswordViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentChangePasswordBinding::inflate, false, ToolbarImageBinding::inflate)
     }

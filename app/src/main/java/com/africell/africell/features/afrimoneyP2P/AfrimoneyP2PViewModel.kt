@@ -13,8 +13,10 @@ import com.africell.africell.features.afrimoney.domain.GetWalletUseCase
 import com.africell.africell.features.afrimoneyP2P.domain.P2PRequestUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AfrimoneyP2PViewModel
 @Inject constructor(
     private val p2pRequestUseCase: P2PRequestUseCase,

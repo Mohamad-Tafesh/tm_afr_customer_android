@@ -10,8 +10,10 @@ import com.africell.africell.features.location.domain.GetLocationDetailsUseCase
 import com.africell.africell.features.location.domain.GetLocationsUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class LocationViewModel
 @Inject constructor(
     private val getLocationsUseCase: GetLocationsUseCase,

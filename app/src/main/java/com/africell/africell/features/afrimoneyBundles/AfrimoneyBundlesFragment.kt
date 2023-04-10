@@ -15,7 +15,9 @@ import com.africell.africell.data.api.dto.BundlesDTO
 import com.africell.africell.databinding.FragmentBundlesBinding
 import com.africell.africell.features.bundles.BundleDetailsFragment.Companion.BUNDLE_ID
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AfrimoneyBundlesFragment : BaseVBFragment<FragmentBundlesBinding>() {
 
     val bundle get() = arguments?.getParcelable<BundlesDTO>(KEY_BUNDLE)
@@ -35,9 +37,7 @@ class AfrimoneyBundlesFragment : BaseVBFragment<FragmentBundlesBinding>() {
     }
 
 
-    private val viewModel by provideViewModel<AfrimoneyBundlesViewModel> {
-        viewModelFactory
-    }
+    private val viewModel by provideViewModel<AfrimoneyBundlesViewModel>()
 
     override fun configureToolbar() {
         super.configureToolbar()

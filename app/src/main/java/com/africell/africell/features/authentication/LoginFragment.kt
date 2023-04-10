@@ -23,13 +23,15 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : BaseVBFragment<FragmentLoginBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
 
-    private val viewModel by provideViewModel<LoginViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<LoginViewModel>()
 
 
     override fun onCreateView(

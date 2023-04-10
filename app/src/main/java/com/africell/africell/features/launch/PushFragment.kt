@@ -12,7 +12,9 @@ import com.africell.africell.databinding.FragmentPushBinding
 import com.africell.africell.notification.NotificationData
 import com.africell.africell.ui.image.setImageUriWithDimens
 import com.africell.africell.util.html.html
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PushFragment : BaseVBFragment<FragmentPushBinding>() {
 
     override fun onCreateView(

@@ -23,8 +23,10 @@ import com.africell.africell.databinding.FragmentSplashBinding
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.onesignal.OneSignal
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashFragment : BaseVBFragment<FragmentSplashBinding>() {
 
     companion object {
@@ -39,7 +41,7 @@ class SplashFragment : BaseVBFragment<FragmentSplashBinding>() {
     lateinit var sessionRepo: SessionRepository
 
 
-    private val viewModel by provideViewModel<SplashViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<SplashViewModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

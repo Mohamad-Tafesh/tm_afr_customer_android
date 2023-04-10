@@ -11,9 +11,11 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.customerCare.domain.GetCustomerCareCategoryUseCase
 import com.africell.africell.features.customerCare.domain.SubmitCustomerCareUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class CustomerCareViewModel
 @Inject constructor(
     private val submitCustomerCareUseCase: SubmitCustomerCareUseCase,

@@ -8,17 +8,15 @@ import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.ActivityHelpBinding
 import com.africell.africell.features.home.ImageViewModel
-import com.africell.africell.ui.viewmodel.ViewModelFactory
 import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HelpActivity : BaseVBActivity<ActivityHelpBinding>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by provideViewModel<ImageViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<ImageViewModel>()
 
     @Inject
     lateinit var sessionRepository: SessionRepository

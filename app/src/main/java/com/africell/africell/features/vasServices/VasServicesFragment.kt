@@ -20,12 +20,14 @@ import com.africell.africell.features.services.ServiceDetailsFragment.Companion.
 import com.africell.africell.features.services.ServicesAdapter
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class VasServicesFragment : BaseVBFragment<FragmentServicesBinding>() {
 
 
-    private val viewModel by provideViewModel<VasServicesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<VasServicesViewModel>()
 
     val adapter by lazy {
         ServicesAdapter(mutableListOf(), object : ServicesAdapter.Callback {

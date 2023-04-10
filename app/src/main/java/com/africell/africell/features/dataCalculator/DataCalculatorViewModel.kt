@@ -8,9 +8,11 @@ import com.africell.africell.data.api.dto.DataCalculatorDTO
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.dataCalculator.domain.GetDataCalculatorUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class DataCalculatorViewModel
 @Inject constructor(
     private val getDataCalculatorUseCase: GetDataCalculatorUseCase,

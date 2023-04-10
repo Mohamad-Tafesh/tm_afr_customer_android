@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.africell.africell.R
 import com.africell.africell.features.authentication.AuthenticationActivity
 import com.africell.africell.features.home.ImageViewModel
@@ -26,7 +26,6 @@ import com.africell.africell.ui.blocks.LoadingLayout
 import com.africell.africell.ui.blocks.LoadingView
 import com.africell.africell.ui.blocks.ToolbarLayout
 import com.africell.africell.ui.hideKeyboard
-import com.africell.africell.ui.viewmodel.ViewModelFactory
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.DialogUtils
@@ -36,12 +35,11 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment() {
+abstract class BaseFragment : Fragment() {
 
     @Inject
     lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -59,14 +57,12 @@ abstract class BaseFragment : DaggerFragment() {
 
     private var rxDisposables: CompositeDisposable? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * Toolbar might be shared between multiple fragments. Configure it here.
      */
     open fun configureToolbar() {}
-    private val imageViewModel by provideViewModel<ImageViewModel> { viewModelFactory }
+    private val imageViewModel by provideViewModel<ImageViewModel>()
     fun setupImageBanner(toolbar: SimpleDraweeView, imageType: String?, pageName: String?) {
         imageViewModel.getImages(imageType, pageName)
         observeResourceWithoutProgress(imageViewModel.imagesData, {
@@ -205,7 +201,7 @@ abstract class BaseFragment : DaggerFragment() {
             ?.displayButton(false)
     }
 
-    fun showInlineImage(@DrawableRes resId: Int,message: String) {
+    fun showInlineImage(@DrawableRes resId: Int, message: String) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
             ?.message(message)
@@ -262,6 +258,7 @@ abstract class BaseFragment : DaggerFragment() {
             Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
         }
     }
+
     fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
         view?.let { view ->
             val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
@@ -328,6 +325,7 @@ abstract class BaseFragment : DaggerFragment() {
         }
 
     }
+
     fun showMaterialDeleteMessageDialog(
         title: String,
         message: String,

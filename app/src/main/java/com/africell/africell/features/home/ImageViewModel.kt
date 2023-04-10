@@ -7,9 +7,11 @@ import com.africell.africell.data.Resource
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.home.domain.GetImagesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class ImageViewModel
 @Inject constructor(
     private val getImagesUseCase: GetImagesUseCase,

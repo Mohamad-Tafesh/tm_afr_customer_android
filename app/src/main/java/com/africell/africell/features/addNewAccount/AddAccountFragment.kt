@@ -25,13 +25,15 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddAccountFragment : BaseVBFragment<FragmentAddMobileNumberBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
 
-    private val viewModel by provideViewModel<AddAccountViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AddAccountViewModel>()
     var formatted: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -7,6 +7,7 @@ import com.africell.africell.R
 import com.africell.africell.app.ExecutionSchedulers
 import com.africell.africell.app.UseCase
 import com.africell.africell.data.entity.Country
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Observable
 import java.io.InputStreamReader
 import java.io.UnsupportedEncodingException
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class GetCountriesUseCase
 @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val gson: Gson,
     schedulers: ExecutionSchedulers
 ) : UseCase<List<Country>, Unit>(schedulers) {

@@ -13,10 +13,12 @@ import com.africell.africell.util.html.html
 import com.africell.africell.util.intents.email
 import com.africell.africell.util.intents.openWebsite
 import com.africell.africell.util.intents.share
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AboutUsFragment : BaseVBFragment<FragmentAboutUsBinding>() {
 
-    private val viewModel by provideViewModel<AboutViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AboutViewModel>()
     var message: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -7,10 +7,12 @@ import com.africell.africell.data.api.dto.AboutDTO
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.aboutus.domain.AboutUsUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 import javax.inject.Inject
 
 
+@HiltViewModel
 class AboutViewModel
 @Inject constructor(
     private val aboutUsUseCase: AboutUsUseCase,

@@ -13,8 +13,10 @@ import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.features.lineRecharge.domain.GetRechargeCardUseCase
 import com.africell.africell.features.lineRecharge.domain.VoucherRechargeUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class LineRechargeViewModel
 @Inject constructor(
     private val getCountries: GetCountriesUseCase,

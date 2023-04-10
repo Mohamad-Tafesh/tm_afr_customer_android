@@ -34,9 +34,11 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechargeBinding>(), Liv.Action {
     private var liv: Liv? = null
 
@@ -46,7 +48,7 @@ class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechar
     @Inject
     lateinit var sessionRepository: SessionRepository
 
-    private val viewModel by provideViewModel<AfrimoneyLineRechargeViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AfrimoneyLineRechargeViewModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

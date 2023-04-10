@@ -25,11 +25,13 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AfrimoneyBundleVPFragment : BaseVBFragment<FragmentBundleVpBinding>() {
 
 
@@ -53,7 +55,7 @@ class AfrimoneyBundleVPFragment : BaseVBFragment<FragmentBundleVpBinding>() {
     lateinit var sessionRepository: SessionRepository
 
 
-    private val viewModel by provideViewModel<AfrimoneyBundlesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AfrimoneyBundlesViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentBundleVpBinding::inflate, true, ToolbarBundleVpBinding::inflate)
     }

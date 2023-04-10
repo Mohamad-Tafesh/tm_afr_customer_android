@@ -18,17 +18,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.africell.africell.R
 import com.africell.africell.features.authentication.AuthenticationActivity
 import com.africell.africell.ui.blocks.LoadingLayout
 import com.africell.africell.ui.blocks.LoadingView
 import com.africell.africell.ui.blocks.ToolbarLayout
-import com.africell.africell.ui.viewmodel.ViewModelFactory
 import com.africell.africell.util.DialogUtils
-import dagger.android.support.AndroidSupportInjection
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -51,16 +49,6 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     protected var progressDialog: ProgressDialog? = null
 
     private var rxDisposables: CompositeDisposable? = null
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    /**
-     * Toolbar might be shared between multiple fragments. Configure it here.
-     */
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -309,7 +297,6 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
     }
-
 
 
     fun showLoginMessage() {

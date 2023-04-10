@@ -12,8 +12,10 @@ import com.africell.africell.features.accountInfo.domain.GetAccountInfoUseCase
 import com.africell.africell.features.accountInfo.domain.GetSubAccountUseCase
 import com.africell.africell.features.accountsNumber.domain.DeleteAccountUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AccountViewModel
 @Inject constructor(
     private val getSubAccountUseCase: GetSubAccountUseCase,

@@ -17,12 +17,14 @@ import com.africell.africell.databinding.FragmentServicesBinding
 import com.africell.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.africell.africell.features.services.ServicesAdapter
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MyBundlesAndServicesFragment : BaseVBFragment<FragmentServicesBinding>() {
 
 
-    private val viewModel by provideViewModel<MyBundlesAndServicesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<MyBundlesAndServicesViewModel>()
     val bundle get() = arguments?.getParcelableArrayList<ServicesDTO>(KEY_BUNDLE)
 
     companion object {

@@ -17,9 +17,11 @@ import com.africell.africell.features.afrimoney.domain.GetAfrimoneyBalanceUseCas
 import com.africell.africell.features.home.domain.GetImagesUseCase
 import com.africell.africell.features.home.domain.SetUserPushUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class AfrimoneyViewModel
 @Inject constructor(
     private val sessionRepository: SessionRepository,

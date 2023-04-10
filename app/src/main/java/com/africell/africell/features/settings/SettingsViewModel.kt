@@ -8,10 +8,12 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.settings.domain.DeleteAccountUseCase
 import com.africell.africell.features.settings.domain.LogoutUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 import javax.inject.Inject
 
 
+@HiltViewModel
 class SettingsViewModel
 @Inject constructor(
     private val logoutUseCase: LogoutUseCase,

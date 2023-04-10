@@ -24,8 +24,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class LocationMapFragment : BaseVBFragment<FragmentLocationMapBinding>() {
     /*    @Inject
         lateinit var currentLocation: CurrentLocation*/
@@ -34,7 +36,7 @@ class LocationMapFragment : BaseVBFragment<FragmentLocationMapBinding>() {
     var longitude: Double? = null
     var latitude: Double? = null
 
-    private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<LocationViewModel>()
 
     private var mapFragment: SupportMapFragment? = null
 

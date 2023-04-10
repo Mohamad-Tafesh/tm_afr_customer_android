@@ -14,8 +14,10 @@ import com.africell.africell.features.accountInfo.domain.GetSubAccountUseCase
 import com.africell.africell.features.activateBundle.domain.ActivateBundleUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ActivateBundleViewModel
 @Inject constructor(
     private val activateBundleUseCase: ActivateBundleUseCase,

@@ -19,11 +19,13 @@ import com.africell.africell.features.bundles.BundleVPFragment.Companion.KEY_PRI
 import com.africell.africell.features.bundles.BundleVPFragment.Companion.KEY_SECONDARY_COLOR_HEX
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class BundleCategoriesFragment : BaseVBFragment<FragmentBundleCategoriesBinding>() {
 
-    private val viewModel by provideViewModel<BundlesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<BundlesViewModel>()
 
     val adapter by lazy {
         BundleCategoriesAdapter(mutableListOf(), object : BundleCategoriesAdapter.Callback {

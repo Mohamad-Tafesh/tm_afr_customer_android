@@ -12,8 +12,10 @@ import com.africell.africell.features.bookNumber.domain.BookNumberUseCase
 import com.africell.africell.features.bookNumber.domain.GetBookNumberUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class BookNumberViewModel
 @Inject constructor(
     private val getBookNumberUseCase: GetBookNumberUseCase,

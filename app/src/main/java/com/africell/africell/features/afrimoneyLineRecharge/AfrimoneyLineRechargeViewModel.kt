@@ -13,8 +13,10 @@ import com.africell.africell.features.afrimoney.domain.GetWalletUseCase
 import com.africell.africell.features.afrimoneyLineRecharge.domain.LineRechargeRequestUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AfrimoneyLineRechargeViewModel
 @Inject constructor(
     private val lineRechargeRequestUseCase: LineRechargeRequestUseCase,

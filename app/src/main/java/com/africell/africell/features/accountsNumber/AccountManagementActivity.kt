@@ -12,21 +12,19 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.ActivityAccountManagementBinding
 import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.accountInfo.AccountViewModel
-import com.africell.africell.ui.viewmodel.ViewModelFactory
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AccountManagementActivity : BaseVBActivity<ActivityAccountManagementBinding>() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var sessionRepository: SessionRepository
-    private val viewModel by provideViewModel<AccountViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AccountViewModel>()
     val adapter by lazy {
         AccountAdapter(mutableListOf(), sessionRepository.msisdn, true, object : AccountAdapter.CallBack {
             override fun onItemClick(item: SubAccount) {

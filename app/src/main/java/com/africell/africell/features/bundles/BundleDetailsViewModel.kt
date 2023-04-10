@@ -10,8 +10,10 @@ import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.bundles.domain.GetBundleDetailsUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class BundleDetailsViewModel
 @Inject constructor(
     private val getBundleDetailsUseCase: GetBundleDetailsUseCase,

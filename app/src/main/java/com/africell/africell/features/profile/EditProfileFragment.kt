@@ -22,11 +22,13 @@ import com.africell.africell.util.*
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class EditProfileFragment : BaseVBFragment<FragmentEditProfileBinding>(), Liv.Action {
 
-    private val viewModel by provideActivityViewModel<EditProfileViewModel> { viewModelFactory }
+    private val viewModel by provideActivityViewModel<EditProfileViewModel>()
     private var liv: Liv? = null
 
     private val onDestinationChangedListener: NavController.OnDestinationChangedListener =

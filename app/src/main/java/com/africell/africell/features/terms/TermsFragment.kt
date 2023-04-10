@@ -12,10 +12,12 @@ import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.html.html
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TermsFragment : BaseVBFragment<FragmentTermsBinding>() {
 
-    private val viewModel by provideViewModel<TermsViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<TermsViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         return createViewBinding(container, FragmentTermsBinding::inflate, true, ToolbarDefaultBinding::inflate)

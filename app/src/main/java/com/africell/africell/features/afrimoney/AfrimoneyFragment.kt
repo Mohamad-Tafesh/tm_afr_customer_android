@@ -32,8 +32,10 @@ import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AfrimoneyFragment : BaseVBFragment<FragmentAfriMoneyBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
@@ -47,7 +49,7 @@ class AfrimoneyFragment : BaseVBFragment<FragmentAfriMoneyBinding>() {
     }
 
 
-    private val viewModel by provideViewModel<AfrimoneyViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<AfrimoneyViewModel>()
     val handler = Handler(Looper.getMainLooper())
     var runnable: Runnable? = null
     val POST_DELAY = 8000L

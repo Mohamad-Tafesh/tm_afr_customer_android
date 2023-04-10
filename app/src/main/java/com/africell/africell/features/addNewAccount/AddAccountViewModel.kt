@@ -13,9 +13,11 @@ import com.africell.africell.features.addNewAccount.domain.AddSubAccountUseCase
 import com.africell.africell.features.authentication.domain.GenerateOTPUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class AddAccountViewModel
 @Inject constructor(
     private val getCountries: GetCountriesUseCase,

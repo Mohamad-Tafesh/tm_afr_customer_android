@@ -9,8 +9,10 @@ import com.africell.africell.data.api.dto.TermsDTO
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.terms.domain.GetTermsUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class TermsViewModel
 @Inject constructor(
     private val getTermsUseCase: GetTermsUseCase,

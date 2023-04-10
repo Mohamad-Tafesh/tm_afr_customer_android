@@ -16,12 +16,14 @@ import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.intents.dial
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class UsefulNumberFragment : BaseVBFragment<FragmentUsefulNumberBinding>() {
 
 
-    private val viewModel by provideViewModel<UsefulNumberViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<UsefulNumberViewModel>()
 
     val adapter by lazy {
         UsefulNumberAdapter(mutableListOf(), object : UsefulNumberAdapter.Callback {

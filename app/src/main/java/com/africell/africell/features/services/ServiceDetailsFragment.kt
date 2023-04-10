@@ -14,8 +14,10 @@ import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ServiceDetailsFragment : BaseVBFragment<FragmentServiceDetailsBinding>() {
 
     val serviceParam by lazy {
@@ -31,7 +33,7 @@ class ServiceDetailsFragment : BaseVBFragment<FragmentServiceDetailsBinding>() {
         const val SERVICE_DETAILS = "service_details"
     }
 
-    private val viewModel by provideViewModel<ServicesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<ServicesViewModel>()
 
 
     override fun configureToolbar() {

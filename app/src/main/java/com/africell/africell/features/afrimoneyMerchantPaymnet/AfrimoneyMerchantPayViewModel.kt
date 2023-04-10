@@ -15,8 +15,10 @@ import com.africell.africell.features.afrimoneyMerchantPaymnet.domain.AfrimoneyM
 import com.africell.africell.features.afrimoneyP2P.domain.P2PRequestUseCase
 import com.africell.africell.features.authentication.domain.GetCountriesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AfrimoneyMerchantPayViewModel
 @Inject constructor(
     private val afrimoneyMerchantPayUseCase: AfrimoneyMerchantPayUseCase,

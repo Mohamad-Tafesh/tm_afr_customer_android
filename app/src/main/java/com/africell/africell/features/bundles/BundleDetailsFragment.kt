@@ -18,9 +18,11 @@ import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.activateBundle.ActivateBundleFragment
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class BundleDetailsFragment : BaseVBFragment<FragmentBundleDetailsBinding>() {
 
 
@@ -37,9 +39,7 @@ class BundleDetailsFragment : BaseVBFragment<FragmentBundleDetailsBinding>() {
         arguments?.getString(KEY_SECONDARY_COLOR_HEX)
     }
 
-    private val viewModel by provideViewModel<BundleDetailsViewModel> {
-        viewModelFactory
-    }
+    private val viewModel by provideViewModel<BundleDetailsViewModel>()
 
     companion object {
         const val BUNDLE_ID = "bundle_id"

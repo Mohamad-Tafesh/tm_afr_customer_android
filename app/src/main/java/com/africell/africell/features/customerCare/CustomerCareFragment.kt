@@ -22,8 +22,10 @@ import com.africell.africell.util.intents.dial
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CustomerCareFragment : BaseVBFragment<FragmentCustomerCareBinding>(), Liv.Action {
 
     @Inject
@@ -32,7 +34,7 @@ class CustomerCareFragment : BaseVBFragment<FragmentCustomerCareBinding>(), Liv.
     private val liv by lazy { initLiv() }
 
 
-    private val viewModel by provideViewModel<CustomerCareViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<CustomerCareViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentCustomerCareBinding::inflate, true, ToolbarImageBinding::inflate)

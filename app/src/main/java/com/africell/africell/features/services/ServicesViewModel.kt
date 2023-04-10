@@ -13,8 +13,10 @@ import com.africell.africell.features.services.domain.ServiceSubscribeUseCase
 import com.africell.africell.features.services.domain.ServiceUnSubscribeUseCase
 import com.africell.africell.features.vasServices.domain.GetVasServicesUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ServicesViewModel
 @Inject constructor(
     private val getVasServicesUseCase: GetVasServicesUseCase,

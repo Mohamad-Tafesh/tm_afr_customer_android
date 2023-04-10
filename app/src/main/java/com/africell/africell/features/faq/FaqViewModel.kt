@@ -7,8 +7,10 @@ import com.africell.africell.data.Resource
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.faq.domain.GetFaqItemsUseCase
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class FaqViewModel
 @Inject constructor(
     private val getFaqItems: GetFaqItemsUseCase,

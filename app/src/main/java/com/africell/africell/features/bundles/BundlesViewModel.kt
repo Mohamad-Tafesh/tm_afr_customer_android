@@ -12,8 +12,10 @@ import com.africell.africell.features.bundles.domain.GetBundleCategoriesUseCase
 import com.africell.africell.features.bundles.domain.GetBundlesByCategoryUseCase
 
 import com.africell.africell.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class BundlesViewModel
 @Inject constructor(
     private val getBundlesCategoryUseCase: GetBundleCategoriesUseCase,

@@ -17,11 +17,13 @@ import com.africell.africell.databinding.FragmentDataCalculatorBinding
 import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DataCalculatorFragment : BaseVBFragment<FragmentDataCalculatorBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
@@ -59,7 +61,7 @@ class DataCalculatorFragment : BaseVBFragment<FragmentDataCalculatorBinding>() {
     }
 
 
-    private val viewModel by provideViewModel<DataCalculatorViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<DataCalculatorViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(

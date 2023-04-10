@@ -6,8 +6,8 @@ import android.content.res.Configuration
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.snackbar.Snackbar
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.ui.blocks.LoadingLayout
@@ -15,9 +15,9 @@ import com.africell.africell.ui.blocks.LoadingView
 import com.africell.africell.ui.blocks.ToolbarLayout
 import com.africell.africell.util.DialogUtils
 import com.africell.africell.util.locale.LocaleHelper
-import dagger.android.support.DaggerAppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseActivity : DaggerAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     private var toolbarLayout: ToolbarLayout? = null
     protected var toolbar: Toolbar? = null

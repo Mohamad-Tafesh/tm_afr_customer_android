@@ -20,8 +20,10 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.locale.LocaleHelper
 import com.africell.africell.util.removeUserIdentification
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : BaseVBFragment<FragmentSettingsBinding>() {
 
     @Inject
@@ -30,7 +32,7 @@ class SettingsFragment : BaseVBFragment<FragmentSettingsBinding>() {
     @Inject
     lateinit var firebaseCrashlytics: FirebaseCrashlytics
 
-    private val viewModel by provideViewModel<SettingsViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<SettingsViewModel>()
 
 
     override fun onCreateView(

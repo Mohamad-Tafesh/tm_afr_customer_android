@@ -21,13 +21,15 @@ import com.africell.africell.databinding.ToolbarServiceBinding
 import com.africell.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class ServicesFragment : BaseVBFragment<FragmentServicesBinding>() {
 
 
-    private val viewModel by provideViewModel<ServicesViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<ServicesViewModel>()
 
     @Inject
     lateinit var sessionRepository: SessionRepository

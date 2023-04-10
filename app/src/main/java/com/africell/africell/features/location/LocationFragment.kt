@@ -25,17 +25,19 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 
+@AndroidEntryPoint
 class LocationFragment : BaseVBFragment<FragmentLocationBinding>() {
     val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 102
 
 
     var longitude: Double? = null
     var latitude: Double? = null
-    private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
+    private val viewModel by provideViewModel<LocationViewModel>()
 
     val adapter by lazy {
         LocationAdapter(mutableListOf(), latitude, longitude, object : LocationAdapter.Callback {

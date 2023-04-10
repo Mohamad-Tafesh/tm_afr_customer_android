@@ -9,6 +9,8 @@ import com.africell.africell.app.debugOnly
 import com.africell.africell.data.repository.domain.SessionRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -27,6 +29,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object ApiModule {
 
     @Provides

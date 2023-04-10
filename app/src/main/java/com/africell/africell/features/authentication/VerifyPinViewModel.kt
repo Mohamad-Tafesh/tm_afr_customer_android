@@ -8,9 +8,11 @@ import com.africell.africell.data.Resource
 import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.data.api.dto.VerifyOTPDTO
 import com.africell.africell.exception.AppExceptionFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
+@HiltViewModel
 class VerifyPinViewModel
 @Inject constructor(
     private val verifyPinUseCase: VerifyPinUseCase,

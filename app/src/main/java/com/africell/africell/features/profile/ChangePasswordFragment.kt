@@ -5,35 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.africell.africell.R
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.databinding.FragmentChangePasswordBinding
+import com.africell.africell.databinding.ToolbarImageBinding
+import com.africell.africell.ui.viewmodel.observeResource
+import com.africell.africell.ui.viewmodel.provideActivityViewModel
+import com.africell.africell.util.getText
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.ConfirmPasswordRule
 import com.benitobertoli.liv.rule.EmailRule
 import com.benitobertoli.liv.rule.NotEmptyRule
-import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
-import com.africell.africell.ui.viewmodel.observeResource
-import com.africell.africell.ui.viewmodel.provideActivityViewModel
-import com.africell.africell.util.getText
-import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.toolbar_image.*
 
-class ChangePasswordFragment : BaseFragment(), Liv.Action {
+class ChangePasswordFragment : BaseVBFragment<FragmentChangePasswordBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
 
     private val viewModel by provideActivityViewModel<ChangePasswordViewModel> { viewModelFactory }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_change_password, R.layout.toolbar_image, false)
+        return createViewBinding(container, FragmentChangePasswordBinding::inflate, false, ToolbarImageBinding::inflate)
     }
 
     override fun configureToolbar() {
-        actionbar?.show()
-        toolbarImage.setActualImageResource(R.mipmap.main_top3)
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
-        toolbarTitle?.text = getString(R.string.change_password)
-        actionbar?.title = ""
+        getToolbarBindingAs<ToolbarImageBinding>()?.run {
+            actionbar?.show()
+            toolbarImage.setActualImageResource(R.mipmap.main_top3)
+            actionbar?.setDisplayHomeAsUpEnabled(true)
+            actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+            toolbarTitle?.text = getString(R.string.change_password)
+            actionbar?.title = ""
+        }
 
     }
 
@@ -46,26 +49,29 @@ class ChangePasswordFragment : BaseFragment(), Liv.Action {
         /*saveData()
         retrieveData()
         */
-        registerButton.setOnClickListener {
-            liv?.submitWhenValid()
+        withVBAvailable {
+            registerButton.setOnClickListener {
+                liv?.submitWhenValid()
+            }
         }
     }
 
     private fun initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
         val emailRule = EmailRule(getString(R.string.invalid_email))
-        val passwordRule = ConfirmPasswordRule(newPasswordLayout, confirmPasswordLayout)
+        val passwordRule =
+            ConfirmPasswordRule(requireBinding().newPasswordLayout, requireBinding().confirmPasswordLayout)
         return Liv.Builder()
-            .add(oldPasswordLayout, notEmptyRule)
-            .add(newPasswordLayout, notEmptyRule)
-            .add(confirmPasswordLayout, passwordRule)
+            .add(requireBinding().oldPasswordLayout, notEmptyRule)
+            .add(requireBinding().newPasswordLayout, notEmptyRule)
+            .add(requireBinding().confirmPasswordLayout, passwordRule)
             .submitAction(this)
             .build()
     }
 
     private fun bindData() {
         observeResource(viewModel.changePasswordData, {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty()) {
+            showMaterialMessageDialog(getString(R.string.successful), it.resultText.orEmpty()) {
                 findNavController().popBackStack()
             }
         })
@@ -78,7 +84,13 @@ class ChangePasswordFragment : BaseFragment(), Liv.Action {
     }
 
     override fun performAction() {
-        viewModel.changePassword(oldPasswordLayout.getText(),newPasswordLayout.getText(), confirmPasswordLayout.getText())
+        withVBAvailable {
+            viewModel.changePassword(
+                oldPasswordLayout.getText(),
+                newPasswordLayout.getText(),
+                confirmPasswordLayout.getText()
+            )
+        }
     }
 
 

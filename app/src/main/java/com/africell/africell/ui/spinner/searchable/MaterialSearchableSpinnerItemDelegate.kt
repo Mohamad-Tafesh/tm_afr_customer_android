@@ -1,7 +1,7 @@
 package com.africell.africell.ui.spinner.searchable
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 class MaterialSearchableSpinnerItemDelegate(private val item: Any?) : MaterialSearchableSpinnerItem() {
     override fun toDisplayString(): String = item.toString()

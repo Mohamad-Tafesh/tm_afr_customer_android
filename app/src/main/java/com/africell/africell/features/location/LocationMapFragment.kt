@@ -9,22 +9,24 @@ import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.africell.africell.R
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.data.api.dto.LocationDTO
+import com.africell.africell.databinding.FragmentLocationMapBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
+import com.africell.africell.ui.viewmodel.observeResourceInline
+import com.africell.africell.ui.viewmodel.provideViewModel
+import com.africell.africell.util.intents.dial
+import com.africell.africell.util.intents.openGoogleMapNavigation
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
-import com.africell.africell.data.api.dto.LocationDTO
-import com.africell.africell.ui.viewmodel.observeResourceInline
-import com.africell.africell.ui.viewmodel.provideViewModel
-import com.africell.africell.util.intents.dial
-import com.africell.africell.util.intents.openGoogleMapNavigation
-import kotlinx.android.synthetic.main.fragment_location_map.*
 
 
-class LocationMapFragment : BaseFragment() {
+class LocationMapFragment : BaseVBFragment<FragmentLocationMapBinding>() {
     /*    @Inject
         lateinit var currentLocation: CurrentLocation*/
     var googleMap: GoogleMap? = null
@@ -38,11 +40,6 @@ class LocationMapFragment : BaseFragment() {
 
     //  private var currentlyShowingRider: RiderClusterItem? = null
     var previousSelectedMarker: Marker? = null
-
-
-    companion object {
-        var viewLayout: View? = null
-    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -96,16 +93,20 @@ class LocationMapFragment : BaseFragment() {
 
 
                         googleMap.setOnMapClickListener {
-                            locationRootInfo.visibility = View.GONE
-                            setMarkerSelected(null)
+                            withVBAvailable {
+                                locationRootInfo.visibility = View.GONE
+                                setMarkerSelected(null)
+                            }
                         }
 
                         googleMap.setOnMarkerClickListener { marker ->
-                            locationRootInfo.visibility = View.VISIBLE
-                            val location = marker.tag as? LocationDTO
-                            location?.let {
-                                fillLocationInfo(location)
-                                setMarkerSelected(marker)
+                            withVBAvailable {
+                                locationRootInfo.visibility = View.VISIBLE
+                                val location = marker.tag as? LocationDTO
+                                location?.let {
+                                    fillLocationInfo(location)
+                                    setMarkerSelected(marker)
+                                }
                             }
                             true
                         }
@@ -125,9 +126,7 @@ class LocationMapFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            viewLayout = wrap(inflater.context, R.layout.fragment_location_map, R.layout.toolbar_default, true)
-            viewLayout
-
+            createViewBinding(container, FragmentLocationMapBinding::inflate, true, ToolbarDefaultBinding::inflate)
         }
     }
 
@@ -215,35 +214,37 @@ class LocationMapFragment : BaseFragment() {
 
 
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
-        selectedLocation?.let { location ->
-            title.text = location.shopName
+        withVBAvailable {
+            selectedLocation?.let { location ->
+                title.text = location.shopName
 
-            distance.text = location.displayDistance(latitude,longitude)
-            description.text = location.address
-            getDirection.setOnClickListener {
-                val lat = location.latitude?.toDoubleOrNull()
-                val long = location.longitude?.toDoubleOrNull()
+                distance.text = location.displayDistance(latitude, longitude)
+                description.text = location.address
+                getDirection.setOnClickListener {
+                    val lat = location.latitude?.toDoubleOrNull()
+                    val long = location.longitude?.toDoubleOrNull()
 
-                if (lat != null && long != null) {
-                    openGoogleMapNavigation(lat, long)
-                } else {
-                    showMessage(getString(R.string.direction_not_available))
+                    if (lat != null && long != null) {
+                        openGoogleMapNavigation(lat, long)
+                    } else {
+                        showMessage(getString(R.string.direction_not_available))
+                    }
                 }
-            }
-            callUs.setOnClickListener {
-                if (!location.telephoneNumber.isNullOrEmpty()) {
-                    dial(location.telephoneNumber)
-                } else showMessage(getString(R.string.phone_number_is_not_available))
-            }
-            locationRootInfo.setOnClickListener {
-                // viewModelLocationDetails.details.value=location
-                //   findNavController().navigate(R.id.action_locationMapFragment_to_locationDetailsFragment)
+                callUs.setOnClickListener {
+                    if (!location.telephoneNumber.isNullOrEmpty()) {
+                        dial(location.telephoneNumber)
+                    } else showMessage(getString(R.string.phone_number_is_not_available))
+                }
+                locationRootInfo.setOnClickListener {
+                    // viewModelLocationDetails.details.value=location
+                    //   findNavController().navigate(R.id.action_locationMapFragment_to_locationDetailsFragment)
+
+                }
+
 
             }
-
-
+            locationRootInfo.visibility = View.VISIBLE
         }
-        locationRootInfo.visibility = View.VISIBLE
 
     }
 

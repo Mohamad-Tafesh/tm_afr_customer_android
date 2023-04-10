@@ -1,12 +1,10 @@
 package com.africell.africell.features.lineRecharge
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.api.dto.RechargeCardDTO
-import kotlinx.android.synthetic.main.row_line_recharge.view.*
+import com.africell.africell.databinding.RowLineRechargeBinding
 
 class LineRechargeAdapter(
     private var items: List<RechargeCardDTO>,
@@ -17,23 +15,23 @@ class LineRechargeAdapter(
         fun onItemClickListener(item: RechargeCardDTO)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowLineRechargeBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.row_line_recharge, parent, false)
+        val v = RowLineRechargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeItemHolder(v)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+        holder.viewBinding.run {
             title.text = item?.rechargeCardName
             description.text = item?.rechargeCardDescription
-            priceTxt.text= item?.rechargeCardPrice
+            priceTxt.text = item?.rechargeCardPrice
             image.setImageURI(item.rechargeCardImageName)
-            setOnClickListener {
+            root.setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)
                 }

@@ -4,26 +4,27 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
-import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.EmailRule
-import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.ApiContract.Params.PHONE_NUMBER
 import com.africell.africell.data.api.dto.SupportCategoryDTO
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentCustomerCareBinding
+import com.africell.africell.databinding.ToolbarImageBinding
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.intents.dial
-import kotlinx.android.synthetic.main.fragment_customer_care.*
-import kotlinx.android.synthetic.main.toolbar_image.*
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.EmailRule
+import com.benitobertoli.liv.rule.NotEmptyRule
 import javax.inject.Inject
 
-class CustomerCareFragment : BaseFragment(), Liv.Action {
+class CustomerCareFragment : BaseVBFragment<FragmentCustomerCareBinding>(), Liv.Action {
 
     @Inject
     lateinit var sessionRepository: SessionRepository
@@ -34,19 +35,20 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
     private val viewModel by provideViewModel<CustomerCareViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_customer_care, R.layout.toolbar_image, true)
+        return createViewBinding(container, FragmentCustomerCareBinding::inflate, true, ToolbarImageBinding::inflate)
     }
 
 
     override fun configureToolbar() {
         super.configureToolbar()
         setHasOptionsMenu(true)
-        actionbar?.title = ""
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
-        toolbarImage.setActualImageResource(R.mipmap.img_report)
-        toolbarTitle.setText(R.string.customer_care)
-
+        getToolbarBindingAs<ToolbarImageBinding>()?.run {
+            actionbar?.title = ""
+            actionbar?.setDisplayHomeAsUpEnabled(true)
+            actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+            toolbarImage.setActualImageResource(R.mipmap.img_report)
+            toolbarTitle.setText(R.string.customer_care)
+        }
     }
 
 
@@ -54,14 +56,18 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
         super.onViewCreated(view, savedInstanceState)
         if (sessionRepository.isLoggedIn()) {
             liv.start()
-            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CUSTOMER_CARE)
+            getToolbarBindingAs<ToolbarImageBinding>()?.run {
+                setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.CUSTOMER_CARE)
+            }
             bindData()
-            contactUsBtn.setOnClickListener {
-                activity?.hideKeyboard()
-                liv.submitWhenValid()
+            withVBAvailable {
+                contactUsBtn.setOnClickListener {
+                    activity?.hideKeyboard()
+                    liv.submitWhenValid()
+                }
             }
         } else {
-            showInlineMessageWithAction(getString(R.string.login_first),actionName = getString(R.string.login)) {
+            showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
                 redirectToLogin()
             }
         }
@@ -71,14 +77,20 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
     private fun bindData() {
         viewModel.getSupportCategory()
         observeResourceInline(viewModel.supportCategoryData) { supportCat ->
-            supportCategoryLayout.adapter =
-                ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, supportCat)
+            withVBAvailable {
+                supportCategoryLayout.adapter =
+                    ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, supportCat)
+            }
 
         }
 
 
         observeResource(viewModel.contactUsData) {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
+            showMaterialMessageDialog(
+                getString(R.string.successful),
+                it.resultText.orEmpty(),
+                getString(R.string.close)
+            ) {
                 findNavController().popBackStack()
             }
         }
@@ -90,18 +102,18 @@ class CustomerCareFragment : BaseFragment(), Liv.Action {
         val emailRule = EmailRule(getString(R.string.invalid_email))
 
         val builder = Liv.Builder()
-        builder.add(supportCategoryLayout, notEmptyRule)
-            .add(messageLayout, notEmptyRule)
+        builder.add(requireBinding().supportCategoryLayout, notEmptyRule)
+            .add(requireBinding().messageLayout, notEmptyRule)
 
 
         return builder.submitAction(this).build()
     }
 
     override fun performAction() {
-        val catId = (supportCategoryLayout.selectedItem as SupportCategoryDTO)
+        val catId = (requireBinding().supportCategoryLayout.selectedItem as SupportCategoryDTO)
         viewModel.contactUs(
             catId,
-            messageLayout.getText()
+            requireBinding().messageLayout.getText()
         )
     }
 

@@ -60,6 +60,14 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         setContentView(wrap(view, wrapLoading, wrapToolbar, toolbarLayoutId, R.id.toolbar))
     }
 
+    inline fun setContentView(
+        view: View,
+        wrapLoading: Boolean,
+        toolbarLayout: View?
+    ) {
+        setContentView(wrap(view, wrapLoading, toolbarLayout, R.id.toolbar))
+    }
+
     fun setContentView(
         layoutResId: Int,
         wrapLoading: Boolean,
@@ -92,6 +100,42 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
         if (wrapToolbar) {
             toolbarLayout = ToolbarLayout(this, toolbarLayoutId, toolbarId)
+            toolbarLayout?.let {
+                it.addView(
+                    v,
+                    ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                )
+                setSupportActionBar(toolbar)
+                v = it
+            }
+        }
+
+        return v
+    }
+
+    /**
+     * Created for [BaseVBActivity].
+     */
+    fun wrap(
+        view: View,
+        wrapLoading: Boolean,
+        toolbarLayoutView: View?,
+        toolbarId: Int
+    ): View {
+        var v = view
+        if (wrapLoading) {
+            loadingLayout = LoadingLayout(this)
+            loadingLayout?.let {
+                it.addView(v, 0)
+                v = it
+            }
+        }
+
+        if (toolbarLayoutView != null) {
+            toolbarLayout = ToolbarLayout(this, toolbarLayoutView, toolbarId)
             toolbarLayout?.let {
                 it.addView(
                     v,

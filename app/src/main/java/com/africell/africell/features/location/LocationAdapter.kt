@@ -1,12 +1,10 @@
 package com.africell.africell.features.location
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.api.dto.LocationDTO
-import kotlinx.android.synthetic.main.row_location.view.*
+import com.africell.africell.databinding.RowLocationBinding
 
 class LocationAdapter(
     private var items: List<LocationDTO>,
@@ -19,24 +17,24 @@ class LocationAdapter(
         fun onItemClickListener(item: LocationDTO)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowLocationBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.row_location, parent, false)
+        val v = RowLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeItemHolder(v)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
 
-        holder.itemView.run {
+        holder.viewBinding.run {
             //image.setImageURI(item?.image)
-           distance.text = item?.displayDistance(latitude,longitude)
+            distance.text = item?.displayDistance(latitude, longitude)
             title.text = item?.shopName
             description.text = item?.address
-            setOnClickListener {
+            root.setOnClickListener {
                 item?.let {
                     callback.onItemClickListener(it)
                 }
@@ -49,8 +47,8 @@ class LocationAdapter(
 
     fun setItems(newItems: List<LocationDTO> = mutableListOf(), lat: Double?, lng: Double?) {
         items = newItems.toMutableList()
-        latitude=lat
-        longitude=lng
+        latitude = lat
+        longitude = lng
         notifyDataSetChanged()
     }
 }

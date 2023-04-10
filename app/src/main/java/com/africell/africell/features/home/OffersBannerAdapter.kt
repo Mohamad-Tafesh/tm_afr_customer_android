@@ -1,12 +1,9 @@
 package com.africell.africell.features.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
-import com.africell.africell.R
-import kotlinx.android.synthetic.main.row_offer_banner.view.*
+import com.africell.africell.databinding.RowOfferBannerBinding
 
 class OffersBannerAdapter(
     private var items: MutableList<String> = mutableListOf(),
@@ -18,7 +15,7 @@ class OffersBannerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_offer_banner, parent, false)
+        val view = RowOfferBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemVH(view)
     }
 
@@ -27,7 +24,7 @@ class OffersBannerAdapter(
 
     override fun onBindViewHolder(holder: ItemVH, position: Int) {
         val item = items[position]
-       with( holder.itemView) {
+        with(holder.viewBinding) {
             image.setImageURI(item)
         }
 
@@ -37,14 +34,12 @@ class OffersBannerAdapter(
 
     }
 
-    class ItemVH(private val view: View) : RecyclerView.ViewHolder(view)
+    class ItemVH(val viewBinding: RowOfferBannerBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     fun setItems(newItems: List<String> = mutableListOf()) {
         items = newItems.toMutableList()
         notifyDataSetChanged()
     }
-
-
 
 
 }

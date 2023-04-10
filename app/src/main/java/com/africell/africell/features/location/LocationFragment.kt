@@ -12,22 +12,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.BuildConfig.FLAVOR
-import com.google.android.gms.location.LocationServices
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.api.dto.LocationDTO
+import com.africell.africell.databinding.FragmentLocationBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.location.LocationDetailsFragment.Companion.LOCATION_DETAILS
 import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
+import com.google.android.gms.location.LocationServices
+import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_location.*
 import java.util.concurrent.TimeUnit
 
 
-class LocationFragment : BaseFragment() {
+class LocationFragment : BaseVBFragment<FragmentLocationBinding>() {
     val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 102
 
 
@@ -36,7 +38,7 @@ class LocationFragment : BaseFragment() {
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
 
     val adapter by lazy {
-        LocationAdapter(mutableListOf(),latitude,longitude, object : LocationAdapter.Callback {
+        LocationAdapter(mutableListOf(), latitude, longitude, object : LocationAdapter.Callback {
             override fun onItemClickListener(item: LocationDTO) {
                 val bundle = bundleOf(Pair(LOCATION_DETAILS, item))
                 findNavController().navigate(R.id.action_locationListFragment_to_locationDetailsFragment, bundle)
@@ -45,26 +47,28 @@ class LocationFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_location, R.layout.toolbar_default, false)
+        return createViewBinding(container, FragmentLocationBinding::inflate, false, ToolbarDefaultBinding::inflate)
     }
 
     private fun searchRxTextView() {
-        searchTxt?.let {
-            RxTextView.textChanges(it)
-                .skip(1)
-                .debounce(300, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ charSequence ->
-                    viewModel.getLocations(charSequence.toString(), latitude, longitude)
-                }) { t -> }
+        withVBAvailable {
+            searchTxt?.let {
+                RxTextView.textChanges(it)
+                    .skip(1)
+                    .debounce(300, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ charSequence ->
+                        viewModel.getLocations(charSequence.toString(), latitude, longitude)
+                    }) { t -> }
+            }
         }
     }
 
     override fun configureToolbar() {
         super.configureToolbar()
-        if(FLAVOR == "sl"){
+        if (FLAVOR == "sl") {
             actionbar?.title = getString(R.string.post_stores)
-        }else{
+        } else {
             actionbar?.title = getString(R.string.location)
         }
 
@@ -84,43 +88,49 @@ class LocationFragment : BaseFragment() {
 
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-        drawable?.let {
-            dividerItemDecoration.setDrawable(it)
-        }
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        swipeRefresh.setOnRefreshListener {
-            swipeRefresh.isRefreshing = false
+        withVBAvailable {
+            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+            recyclerView.adapter = adapter
+            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+            drawable?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
+            recyclerView.addItemDecoration(dividerItemDecoration)
+            swipeRefresh.setOnRefreshListener {
+                withVBAvailable {
+                    swipeRefresh.isRefreshing = false
+                }
+            }
         }
     }
 
     private fun bindData() {
         observe(viewModel.locationData) { res ->
-            when (res) {
-                is Resource.Loading -> {
-                    swipeRefresh.isRefreshing = true
-                }
-                is Resource.Error -> {
-                    showContent()
-                    showMessageWithAction(res.message, getString(R.string.retry), res.action)
-                    swipeRefresh.isRefreshing = false
-                }
-                is Resource.Success -> {
-                    showContent()
-                    val data = res.data
-                    if (res.data.isNullOrEmpty()) {
-                        emptyMessage.text = getString(R.string.no_location_available)
-                    } else {
-                        emptyMessage.text = ""
+            withVBAvailable {
+                when (res) {
+                    is Resource.Loading -> {
+                        swipeRefresh.isRefreshing = true
                     }
-                    adapter.setItems(data,latitude,longitude)
-                    swipeRefresh.isRefreshing = false
-                }
-                else -> {
-                    swipeRefresh.isRefreshing = false
+                    is Resource.Error -> {
+                        showContent()
+                        showMessageWithAction(res.message, getString(R.string.retry), res.action)
+                        swipeRefresh.isRefreshing = false
+                    }
+                    is Resource.Success -> {
+                        showContent()
+                        val data = res.data
+                        if (res.data.isNullOrEmpty()) {
+                            emptyMessage.text = getString(R.string.no_location_available)
+                        } else {
+                            emptyMessage.text = ""
+                        }
+                        adapter.setItems(data, latitude, longitude)
+                        swipeRefresh.isRefreshing = false
+                    }
+                    else -> {
+                        swipeRefresh.isRefreshing = false
+                    }
                 }
             }
 
@@ -138,11 +148,13 @@ class LocationFragment : BaseFragment() {
             val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
             val locationResult = mFusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    latitude = task.result?.latitude
-                    longitude = task.result?.longitude
+                withVBAvailable {
+                    if (task.isSuccessful) {
+                        latitude = task.result?.latitude
+                        longitude = task.result?.longitude
+                    }
+                    viewModel.getLocations(searchTextLayout.getText(), latitude, longitude)
                 }
-                viewModel.getLocations(searchTextLayout.getText(), latitude, longitude)
 
 
             }

@@ -2,13 +2,11 @@ package com.africell.africell.features.bundles
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.api.dto.BundleInfo
-import kotlinx.android.synthetic.main.row_bundle.view.*
+import com.africell.africell.databinding.RowBundleBinding
 
 class BundleAdapter(
     private var items: List<BundleInfo>,
@@ -19,20 +17,20 @@ class BundleAdapter(
         fun onItemClickListener(item: BundleInfo)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowBundleBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.row_bundle, parent, false)
+        val v = RowBundleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeItemHolder(v)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+        holder.viewBinding.run {
             try {
-                val secondaryColor=Color.parseColor(item.secondaryColor)
+                val secondaryColor = Color.parseColor(item.secondaryColor)
                 cardViewLayout.strokeColor = secondaryColor
                 volumeTxt.setTextColor(secondaryColor)
                 subtitleTxt.setTextColor(secondaryColor)
@@ -49,7 +47,7 @@ class BundleAdapter(
             activateBtn.setOnClickListener {
                 callback.onItemClickListener(item)
             }
-            setOnClickListener {
+            root.setOnClickListener {
                 callback.onItemClickListener(item)
             }
         }

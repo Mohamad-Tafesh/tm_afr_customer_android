@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.entity.MoneyTransferOptions
-import kotlinx.android.synthetic.main.row_afrimoney.view.*
+import com.africell.africell.databinding.RowAfrimoneyBinding
 
 
 class AfrimoneyOptionsAdapter(
@@ -16,13 +15,13 @@ class AfrimoneyOptionsAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_afrimoney, parent, false)
-        return ItemVH(itemView)
+        val itemViewBinding = RowAfrimoneyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemVH(itemViewBinding)
     }
 
     override fun onBindViewHolder(holder: ItemVH, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+        holder.viewBinding.run {
             title.text = item.name.orEmpty()
             image.setImageResource(item.icon)
             lineHorizontal.visibility = if (position < 2) View.INVISIBLE else View.VISIBLE
@@ -33,7 +32,7 @@ class AfrimoneyOptionsAdapter(
     }
 
     override fun getItemCount(): Int = items.size
-    class ItemVH(view: View) : RecyclerView.ViewHolder(view)
+    class ItemVH(val viewBinding: RowAfrimoneyBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
 
 }

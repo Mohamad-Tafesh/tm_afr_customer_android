@@ -67,6 +67,13 @@ object ApiModule {
 
         }*/
 
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor =
+                HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(loggingInterceptor)
+        }
+
         val block: (chain: Interceptor.Chain) -> Response = {
 
             var credentials = ""
@@ -149,15 +156,6 @@ object ApiModule {
             }
         }
         builder.addInterceptor(block)
-/*
-
-        if (BuildConfig.DEBUG) {
-            val loggingInterceptor =
-                HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(loggingInterceptor)
-        }
-*/
 
         return builder.build()
     }

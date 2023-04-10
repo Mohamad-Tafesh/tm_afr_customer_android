@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.Toolbar
 import com.africell.africell.R
+import com.google.android.material.appbar.MaterialToolbar
 
 class ToolbarLayout : LinearLayoutCompat {
     lateinit var toolbarLayout: View
@@ -19,11 +20,29 @@ class ToolbarLayout : LinearLayoutCompat {
         init()
     }
 
+    constructor(context: Context, toolbarLayoutView: View, @IdRes toolbarId: Int) : super(context) {
+        extractToolbar({ toolbarLayoutView }, toolbarId)
+        init()
+    }
+
     private fun toolbarFromRes(context: Context, @LayoutRes toolbarLayoutId: Int, @IdRes toolbarId: Int) {
         toolbarLayout = LayoutInflater.from(context).inflate(toolbarLayoutId, this, false)
         val view = toolbarLayout.findViewById<View>(toolbarId)
         toolbar =
             view as? Toolbar ?: throw IllegalArgumentException("toolbar must be android.support.v7.widget.Toolbar")
+    }
+
+    private fun extractToolbar(
+        toolbarLayoutProvider: () -> View,
+        @IdRes toolbarId: Int
+    ) {
+        toolbarLayout = toolbarLayoutProvider()
+        val view = toolbarLayout.findViewById<View>(toolbarId)
+        toolbar =
+            view as? Toolbar
+                ?: throw IllegalArgumentException(
+                    "toolbar was: ${view.javaClass.name}, but must be either: ${Toolbar::class.java.name} or ${MaterialToolbar::class.java.name}"
+                )
     }
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, R.attr.toolbarLayoutStyle)

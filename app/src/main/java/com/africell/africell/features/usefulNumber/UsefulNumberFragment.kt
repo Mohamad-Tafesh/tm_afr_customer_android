@@ -8,15 +8,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.UsefulNumberDTO
+import com.africell.africell.databinding.FragmentUsefulNumberBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.intents.dial
-import kotlinx.android.synthetic.main.fragment_services.*
 
 
-class UsefulNumberFragment : BaseFragment() {
+class UsefulNumberFragment : BaseVBFragment<FragmentUsefulNumberBinding>() {
 
 
     private val viewModel by provideViewModel<UsefulNumberViewModel> { viewModelFactory }
@@ -24,13 +26,13 @@ class UsefulNumberFragment : BaseFragment() {
     val adapter by lazy {
         UsefulNumberAdapter(mutableListOf(), object : UsefulNumberAdapter.Callback {
             override fun onItemClickListener(item: UsefulNumberDTO) {
-                item.number?.let {  dial(item.number)}
+                item.number?.let { dial(item.number) }
             }
         })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_useful_number, R.layout.toolbar_default, true)
+        return createViewBinding(container, FragmentUsefulNumberBinding::inflate, true, ToolbarDefaultBinding::inflate)
     }
 
 
@@ -51,14 +53,16 @@ class UsefulNumberFragment : BaseFragment() {
 
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-        drawable?.let {
-            dividerItemDecoration.setDrawable(it)
+        withVBAvailable {
+            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+            recyclerView.adapter = adapter
+            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+            drawable?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
+            recyclerView.addItemDecoration(dividerItemDecoration)
         }
-        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun bindData() {

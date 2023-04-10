@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.databinding.FragmentVerificationBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.navigation.runIfFrom
-import kotlinx.android.synthetic.main.fragment_verification.*
 
-class VerifyPinFragment : BaseFragment(){
+class VerifyPinFragment : BaseVBFragment<FragmentVerificationBinding>() {
 
     val isReset by lazy {
         arguments?.getBoolean(MobileNumberFragment.IS_RESET)
@@ -23,7 +25,7 @@ class VerifyPinFragment : BaseFragment(){
     private val viewModel by provideViewModel<VerifyPinViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_verification, R.layout.toolbar_default, false)
+        return createViewBinding(container, FragmentVerificationBinding::inflate, false, ToolbarDefaultBinding::inflate)
     }
 
     override fun configureToolbar() {
@@ -36,24 +38,25 @@ class VerifyPinFragment : BaseFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        verifyButton.setOnClickListener { viewModel.verifyPin(pinLayout.getText()) }
+        withVBAvailable {
+            verifyButton.setOnClickListener { viewModel.verifyPin(pinLayout.getText()) }
+        }
         bindData()
     }
 
 
-
     private fun bindData() {
         observeResource(viewModel.verifyData) {
-           if (isReset) {
-               findNavController().runIfFrom(R.id.verifyPinFragment) {
-                   navigate(R.id.action_verifyPinFragment_to_setPasswordFragment)
-               }
+            if (isReset) {
+                findNavController().runIfFrom(R.id.verifyPinFragment) {
+                    navigate(R.id.action_verifyPinFragment_to_setPasswordFragment)
+                }
             } else {
-               findNavController().runIfFrom(R.id.verifyPinFragment) {
-                   navigate(R.id.action_verifyPinFragment_to_registerFragment)
-               }
+                findNavController().runIfFrom(R.id.verifyPinFragment) {
+                    navigate(R.id.action_verifyPinFragment_to_registerFragment)
+                }
             }
-    }
+        }
     }
 
 }

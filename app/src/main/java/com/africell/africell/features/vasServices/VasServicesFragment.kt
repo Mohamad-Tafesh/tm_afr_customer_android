@@ -10,18 +10,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.dto.ServicesDTO
+import com.africell.africell.databinding.FragmentServicesBinding
+import com.africell.africell.databinding.ToolbarServiceBinding
 import com.africell.africell.features.services.ServiceDetailsFragment.Companion.SERVICE_DETAILS
 import com.africell.africell.features.services.ServicesAdapter
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.fragment_services.*
-import kotlinx.android.synthetic.main.toolbar_image.*
 
 
-class VasServicesFragment : BaseFragment() {
+class VasServicesFragment : BaseVBFragment<FragmentServicesBinding>() {
 
 
     private val viewModel by provideViewModel<VasServicesViewModel> { viewModelFactory }
@@ -36,7 +37,7 @@ class VasServicesFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_services, R.layout.toolbar_service, true)
+        return createViewBinding(container, FragmentServicesBinding::inflate, true, ToolbarServiceBinding::inflate)
     }
 
 
@@ -50,7 +51,9 @@ class VasServicesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.VAS_SERVICES)
+        getToolbarBindingAs<ToolbarServiceBinding>()?.run {
+            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.VAS_SERVICES)
+        }
         setupRecyclerView()
         viewModel.getServices()
         bindData()
@@ -58,14 +61,16 @@ class VasServicesFragment : BaseFragment() {
 
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-        drawable?.let {
-            dividerItemDecoration.setDrawable(it)
+        withVBAvailable {
+            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+            recyclerView.adapter = adapter
+            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+            drawable?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
+            recyclerView.addItemDecoration(dividerItemDecoration)
         }
-        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun bindData() {

@@ -7,22 +7,24 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentBookNumberBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
+import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_location.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class BookNumberFragment : BaseFragment() {
+class BookNumberFragment : BaseVBFragment<FragmentBookNumberBinding>() {
 
     private val viewModel by provideViewModel<BookNumberViewModel> { viewModelFactory }
 
@@ -38,18 +40,20 @@ class BookNumberFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_book_number, R.layout.toolbar_default, true)
+        return createViewBinding(container, FragmentBookNumberBinding::inflate, true, ToolbarDefaultBinding::inflate)
     }
 
     private fun searchRxTextView() {
-        searchTxt?.let {
-            RxTextView.textChanges(it)
-                .skip(1)
-                .debounce(300, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ charSequence ->
-                    viewModel.getFreeNumbers(charSequence.toString())
-                }) { t -> }
+        withVBAvailable {
+            searchTxt?.let {
+                RxTextView.textChanges(it)
+                    .skip(1)
+                    .debounce(300, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ charSequence ->
+                        viewModel.getFreeNumbers(charSequence.toString())
+                    }) { t -> }
+            }
         }
     }
 
@@ -63,21 +67,23 @@ class BookNumberFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (sessionRepository.isLoggedIn()) {
-            setupRecyclerView()
-            searchRxTextView()
-            viewModel.getFreeNumbers(searchTextLayout.getText())
-            bindData()
-            showContent()
-        } else {
-            showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
-                redirectToLogin()
+        withVBAvailable {
+            if (sessionRepository.isLoggedIn()) {
+                setupRecyclerView()
+                searchRxTextView()
+                viewModel.getFreeNumbers(searchTextLayout.getText())
+                bindData()
+                showContent()
+            } else {
+                showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
+                    redirectToLogin()
+                }
             }
         }
     }
 
 
-    private fun setupRecyclerView() {
+    private fun FragmentBookNumberBinding.setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
         recyclerView.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
@@ -93,28 +99,30 @@ class BookNumberFragment : BaseFragment() {
 
     private fun bindData() {
         observe(viewModel.freeNumbersData) { res ->
-            when (res) {
-                is Resource.Loading -> {
-                    swipeRefresh.isRefreshing = true
-                }
-                is Resource.Error -> {
-                    showContent()
-                    showMessageWithAction(res.message, getString(R.string.retry), res.action)
-                    swipeRefresh.isRefreshing = false
-                }
-                is Resource.Success -> {
-                    showContent()
-                    val data = res.data
-                    if (res.data.isNullOrEmpty()) {
-                        emptyMessage.text = getString(R.string.no_book_available)
-                    } else {
-                        emptyMessage.text = ""
+            withVBAvailable {
+                when (res) {
+                    is Resource.Loading -> {
+                        swipeRefresh.isRefreshing = true
                     }
-                    adapter.setItems(data)
-                    swipeRefresh.isRefreshing = false
-                }
-                else -> {
-                    swipeRefresh.isRefreshing = false
+                    is Resource.Error -> {
+                        showContent()
+                        showMessageWithAction(res.message, getString(R.string.retry), res.action)
+                        swipeRefresh.isRefreshing = false
+                    }
+                    is Resource.Success -> {
+                        showContent()
+                        val data = res.data
+                        if (res.data.isNullOrEmpty()) {
+                            emptyMessage.text = getString(R.string.no_book_available)
+                        } else {
+                            emptyMessage.text = ""
+                        }
+                        adapter.setItems(data)
+                        swipeRefresh.isRefreshing = false
+                    }
+                    else -> {
+                        swipeRefresh.isRefreshing = false
+                    }
                 }
             }
 
@@ -123,9 +131,15 @@ class BookNumberFragment : BaseFragment() {
 
 
         observeResource(viewModel.bookNumberData) {
-            viewModel.getFreeNumbers(searchTextLayout.getText())
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
+            withVBAvailable {
+                viewModel.getFreeNumbers(searchTextLayout.getText())
+                showMaterialMessageDialog(
+                    getString(R.string.successful),
+                    it.resultText ?: "",
+                    getString(R.string.close)
+                ) {
 
+                }
             }
         }
     }

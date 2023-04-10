@@ -25,8 +25,25 @@ fun bindOneSignalStateTo(container: ViewGroup, switch: SwitchCompat) {
     switch.isChecked = OneSignal.getDeviceState()?.isSubscribed == true
 
     container.setOnClickListener {
-        OneSignal.disablePush(switch.isChecked) //newState = !switch.isChecked, disabling is !newState.
+        val newState = !switch.isChecked
+
+        //toggle the switch first to indicate to the user that an action was taken
         switch.toggle()
+        if (newState) {
+            //let OneSignal handle it first
+            OneSignal.promptForPushNotifications(true) {
+                if (it) {
+                    //notifications enabled, set the new state
+                    OneSignal.disablePush(!newState)
+                } else {
+                    //notifications not enabled, reverse the switch
+                    switch.toggle()
+                }
+            }
+        } else {
+            //notifications can be turned off
+            OneSignal.disablePush(!newState)
+        }
     }
 }
 

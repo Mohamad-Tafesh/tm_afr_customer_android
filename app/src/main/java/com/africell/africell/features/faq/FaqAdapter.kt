@@ -1,6 +1,7 @@
 package com.africell.africell.features.faq
 
 import android.animation.ValueAnimator
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.animation.addListener
@@ -9,8 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.africell.africell.R
-import com.africell.africell.ui.inflate
-import kotlinx.android.synthetic.main.item_faq.view.*
+import com.africell.africell.databinding.ItemFaqBinding
 
 class FaqAdapter() :
     ListAdapter<FaqItem, FaqAdapter.FaqHolder>(getDiffCallback()) {
@@ -32,13 +32,13 @@ class FaqAdapter() :
     private val isExpandedStates: MutableMap<Int, Boolean> = mutableMapOf()
 
 
-    class FaqHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class FaqHolder(private val viewBinding: ItemFaqBinding) : RecyclerView.ViewHolder(viewBinding.root) {
         //fixme below assignments are used in case you wanted to wrap the question or the answer with a parent layout (to keep click and animation behavior)
-        val questionLayout = view.questionText
-        val answerLayout = view.answerText
+        val questionLayout = viewBinding.questionText
+        val answerLayout = viewBinding.answerText
 
         fun bind(item: FaqItem, isExpandedStates: MutableMap<Int, Boolean>) {
-            itemView.run {
+            viewBinding.run {
                 val answer = item.response + "\n"
                 questionText.text = item.question
                 answerText.text = answer
@@ -171,7 +171,7 @@ class FaqAdapter() :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqHolder {
-        val v = parent.inflate(R.layout.item_faq)
+        val v = ItemFaqBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FaqHolder(v)
     }
 

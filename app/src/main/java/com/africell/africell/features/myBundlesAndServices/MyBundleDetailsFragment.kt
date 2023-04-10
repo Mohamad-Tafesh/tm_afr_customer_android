@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.ServicesDTO
+import com.africell.africell.databinding.FragmentMyBundleDetailsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.util.removeTime
-import kotlinx.android.synthetic.main.fragment_my_bundle_details.*
 
 
-class MyBundleDetailsFragment : BaseFragment() {
+class MyBundleDetailsFragment : BaseVBFragment<FragmentMyBundleDetailsBinding>() {
 
 
     val bundle by lazy {
@@ -38,7 +40,12 @@ class MyBundleDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_my_bundle_details, R.layout.toolbar_default, false)
+            return createViewBinding(
+                container,
+                FragmentMyBundleDetailsBinding::inflate,
+                false,
+                ToolbarDefaultBinding::inflate
+            )
         }
     }
 
@@ -49,15 +56,17 @@ class MyBundleDetailsFragment : BaseFragment() {
 
 
     private fun setUpUI() {
-        validityTxt.text = bundle.expiryDate.orEmpty().removeTime()
-        activatedOnValue.text = bundle.activateDate.orEmpty()
-        subtitle.text = bundle.name.orEmpty()
-        titleTxt.text = bundle.subTitle.orEmpty()
-        descriptionTxt.text = bundle.description.orEmpty()
-        balanceTitle.text = bundle.currentValue.orEmpty() + "/" + bundle.maxValue.orEmpty()
-        expiryDateTxt.text = getString(R.string.exp) + bundle.expiryDate.orEmpty().removeTime()
-        progressBar.max = bundle.maxValue?.toDoubleOrNull()?.toInt() ?: 100
-        progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt() ?: 0)
+        withVBAvailable {
+            validityTxt.text = bundle.expiryDate.orEmpty().removeTime()
+            activatedOnValue.text = bundle.activateDate.orEmpty()
+            subtitle.text = bundle.name.orEmpty()
+            titleTxt.text = bundle.subTitle.orEmpty()
+            descriptionTxt.text = bundle.description.orEmpty()
+            balanceTitle.text = bundle.currentValue.orEmpty() + "/" + bundle.maxValue.orEmpty()
+            expiryDateTxt.text = getString(R.string.exp) + bundle.expiryDate.orEmpty().removeTime()
+            progressBar.max = bundle.maxValue?.toDoubleOrNull()?.toInt() ?: 100
+            progressBar.setProgress(bundle.currentValue?.toDoubleOrNull()?.toInt() ?: 0)
+        }
 
 
     }

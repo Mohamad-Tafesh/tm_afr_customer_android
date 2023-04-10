@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.api.dto.ServicesDTO
-import kotlinx.android.synthetic.main.row_services.view.*
+import com.africell.africell.databinding.RowServicesBinding
 
 class ServicesAdapter(
     private var items: List<ServicesDTO>,
@@ -17,19 +16,19 @@ class ServicesAdapter(
         fun onItemClickListener(item: ServicesDTO)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowServicesBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.row_services, parent, false)
+        val v = RowServicesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeItemHolder(v)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
 
-        holder.itemView.run {
+        holder.viewBinding.run {
             //image.setImageURI(item?.image)
             // distance.text=item?.displayDistance()
 
@@ -38,7 +37,7 @@ class ServicesAdapter(
             subscribedTxt.visibility = if (item.isActive == true) View.VISIBLE else View.GONE
             subscribeBtn.visibility = if (item.isActive == true) View.GONE else View.VISIBLE
             description.text = item?.subTitle
-            setOnClickListener {
+            root.setOnClickListener {
                 callback.onItemClickListener(item)
             }
             subscribeBtn.setOnClickListener {

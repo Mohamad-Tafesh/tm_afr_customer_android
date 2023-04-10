@@ -9,19 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.DataCalculatorDTO
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentDataCalculatorBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.fragment_data_calculator.*
-import kotlinx.android.synthetic.main.row_data_calculator.*
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 import javax.inject.Inject
 
-class DataCalculatorFragment : BaseFragment() {
+class DataCalculatorFragment : BaseVBFragment<FragmentDataCalculatorBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
     var bundleSuggestion: List<DataCalculatorDTO.BundleSuggestion>? = null
@@ -51,15 +52,22 @@ class DataCalculatorFragment : BaseFragment() {
         }
 
         val df = DecimalFormat("#,##0.######", DecimalFormatSymbols(Locale.ENGLISH))
-        usageTxt.text = "${df.format(total)}  ${suggestion?.unit.orEmpty()}"
-        validityTxt.text = suggestion?.commercialName
+        withVBAvailable {
+            usageTxt.text = "${df.format(total)}  ${suggestion?.unit.orEmpty()}"
+            validityTxt.text = suggestion?.commercialName
+        }
     }
 
 
     private val viewModel by provideViewModel<DataCalculatorViewModel> { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_data_calculator, R.layout.toolbar_default, true)
+        return createViewBinding(
+            container,
+            FragmentDataCalculatorBinding::inflate,
+            true,
+            ToolbarDefaultBinding::inflate
+        )
     }
 
 
@@ -80,29 +88,31 @@ class DataCalculatorFragment : BaseFragment() {
     }
 
     fun setupRecyclerView() {
-        recyclerView.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-        drawable?.let {
-            dividerItemDecoration.setDrawable(it)
+        withVBAvailable {
+            recyclerView.adapter = adapter
+            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+            drawable?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
+            recyclerView.addItemDecoration(dividerItemDecoration)
         }
-        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun bindData() {
         viewModel.getDataCalculator()
         observeResourceInline(viewModel.dataCalculatorData) { dataCalc ->
-           bundleSuggestion = dataCalc.bundleSuggestion?.sortedByDescending {
-               it.volume?.toDoubleOrNull()?:0.0
-           }
+            bundleSuggestion = dataCalc.bundleSuggestion?.sortedByDescending {
+                it.volume?.toDoubleOrNull() ?: 0.0
+            }
             val seekbarValueItems = hashMapOf<String, Double>()
             dataCalc.datacalculators?.forEach { item ->
                 val min = item.minimumValue?.toDoubleOrNull()?.toInt() ?: 0
-                val progress=(item.costPerUnit?.toDouble() ?: 0.0) * min
+                val progress = (item.costPerUnit?.toDouble() ?: 0.0) * min
                 seekbarValueItems.put(item.idDataCalculator, progress)
             }
             calcuateData(seekbarValueItems)
-            adapter.setItems(dataCalc.datacalculators.orEmpty().toMutableList(),seekbarValueItems)
+            adapter.setItems(dataCalc.datacalculators.orEmpty().toMutableList(), seekbarValueItems)
 
         }
     }

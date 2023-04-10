@@ -10,7 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
@@ -18,6 +19,8 @@ import com.africell.africell.data.api.ApiContract.Params.SLIDERS
 import com.africell.africell.data.entity.MoneyTransferOptions
 import com.africell.africell.data.entity.SubAccount
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentAfriMoneyBinding
+import com.africell.africell.databinding.ToolbarHomeBinding
 import com.africell.africell.features.accountsNumber.AccountsNumbersFragment
 import com.africell.africell.features.home.OffersBannerAdapter
 import com.africell.africell.features.transferMoney.TransferMoneyFragment
@@ -29,16 +32,14 @@ import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
-import kotlinx.android.synthetic.main.fragment_afri_money.*
-import kotlinx.android.synthetic.main.toolbar_home.*
 import javax.inject.Inject
 
-class AfrimoneyFragment : BaseFragment() {
+class AfrimoneyFragment : BaseVBFragment<FragmentAfriMoneyBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_afri_money, R.layout.toolbar_home, true)
+        return createViewBinding(container, FragmentAfriMoneyBinding::inflate, true, ToolbarHomeBinding::inflate)
     }
 
     val balanceAdapter by lazy {
@@ -73,7 +74,9 @@ class AfrimoneyFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.HOME_PAGE)
+        getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.HOME_PAGE)
+        }
 
     }
 
@@ -90,40 +93,46 @@ class AfrimoneyFragment : BaseFragment() {
 
 
     private fun setupUI() {
-        if (sessionRepository.isLoggedIn()) {
-            viewModel.getSubAccounts()
+        withVBAvailable {
+            getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+                if (sessionRepository.isLoggedIn()) {
+                    viewModel.getSubAccounts()
 
-            loginTxt.visibility = View.GONE
-            enrollBtn.visibility = View.VISIBLE
-            enrollBtn.setOnClickListener {
-                findNavController().navigate(R.id.addAccountActivity)
+                    loginTxt.visibility = View.GONE
+                    enrollBtn.visibility = View.VISIBLE
+                    enrollBtn.setOnClickListener {
+                        findNavController().navigate(R.id.addAccountActivity)
+                    }
+                } else {
+                    showContent()
+                    loading.showContent()
+                    loginTxt.visibility = View.VISIBLE
+                    loginTxt.setOnClickListener {
+                        showLoginMessage()
+                    }
+                    accountSpinner.visibility = View.GONE
+                    enrollBtn.visibility = View.GONE
+                }
             }
-        } else {
-            showContent()
-            loading.showContent()
-            loginTxt.visibility = View.VISIBLE
-            loginTxt.setOnClickListener {
-                showLoginMessage()
-            }
-            accountSpinner.visibility = View.GONE
-            enrollBtn.visibility = View.GONE
         }
     }
 
     private fun setupRecyclerView() {
-        with(recyclerView) {
-            adapter = infiniteBalanceAdapter
-            setItemTransformer(
-                com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
-                    .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
-                    .setMaxScale(1.1f)
-                    //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
-                    .build()
-            )
-            setSlideOnFling(true)
+        withVBAvailable {
+            with(recyclerView) {
+                adapter = infiniteBalanceAdapter
+                setItemTransformer(
+                    com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
+                        .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
+                        .setMaxScale(1.1f)
+                        //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
+                        .build()
+                )
+                setSlideOnFling(true)
+
+            }
 
         }
-
     }
 
 
@@ -134,130 +143,137 @@ class AfrimoneyFragment : BaseFragment() {
             if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
                 sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
-            viewModel.getAccountInfo()
-            accountSpinner.setText(sessionRepository.selectedMsisdn)
-            accountSpinner.setOnClickListener {
-                val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
-                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-                bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
-                    override fun addNewAccount() {
-                        findNavController().navigate(R.id.addAccountActivity)
-                    }
+            getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+                viewModel.getAccountInfo()
+                accountSpinner.setText(sessionRepository.selectedMsisdn)
+                accountSpinner.setOnClickListener {
+                    val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
+                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
+                        override fun addNewAccount() {
+                            findNavController().navigate(R.id.addAccountActivity)
+                        }
 
-                    override fun manageAccount() {
-                        findNavController().navigate(R.id.accountManagementActivity)
-                    }
+                        override fun manageAccount() {
+                            findNavController().navigate(R.id.accountManagementActivity)
+                        }
 
-                    override fun setDefault(subAccount: SubAccount) {
-                        accountSpinner.setText(subAccount.account)
-                        viewModel.getAccountInfo()
-                    }
-                })
+                        override fun setDefault(subAccount: SubAccount) {
+                            accountSpinner.setText(subAccount.account)
+                            viewModel.getAccountInfo()
+                        }
+                    })
+                }
+                accountSpinner.visibility = View.VISIBLE
+
             }
-            accountSpinner.visibility = View.VISIBLE
-
         }
 
         observeNotNull(viewModel.accountInfoData) {
             it?.let { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        loading.showLoading()
-                    }
-                    is Resource.Success -> {
-                        val data = resource.data
-                        balanceAdapter.setItems(data)
+                withVBAvailable {
+                    when (resource) {
+                        is Resource.Loading -> {
+                            loading.showLoading()
+                        }
+                        is Resource.Success -> {
+                            val data = resource.data
+                            balanceAdapter.setItems(data)
 
-                        if (resource.data.isNullOrEmpty()) {
-                            loading.showImage(R.drawable.place_holder_afrimoney, getString(R.string.you_dont_have_any_afrimoney_wallet))
-                        } else {
-                            loading.showContent()
-                            val options = if (BuildConfig.FLAVOR.equals("gambia")) {
-                                mutableListOf(
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.MONEY_TRANSFER,
-                                        R.drawable.afrimoney_money_transfer,
-                                        getString(R.string.money_n_tranfer)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.AFRI_POWER,
-                                        R.drawable.afrimoney_afri_power,
-                                        getString(R.string.afri_n_power)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.LINE_RECHARGE,
-                                        R.drawable.afrimoney_line_recharge,
-                                        getString(R.string.line_n_recharge)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.BUNDLES,
-                                        R.drawable.afrimoney_bundle,
-                                        getString(R.string.bundles)
-                                    ),
-
-                                    )
-                            } else
-                                mutableListOf(
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.P2P,
-                                        R.drawable.afrimoney_money_transfer,
-                                        getString(R.string.p2p_n_tranfer)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.MERCHANT_PAYMENT,
-                                        R.drawable.afrimoney_afri_power,
-                                        getString(R.string.merchant_n_payment)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.LINE_RECHARGE,
-                                        R.drawable.afrimoney_line_recharge,
-                                        getString(R.string.line_n_recharge)
-                                    ),
-                                    MoneyTransferOptions(
-                                        MoneyTransferOptions.IDS.BUNDLES,
-                                        R.drawable.afrimoney_bundle,
-                                        getString(R.string.bundles)
-                                    )
+                            if (resource.data.isNullOrEmpty()) {
+                                loading.showImage(
+                                    R.drawable.place_holder_afrimoney,
+                                    getString(R.string.you_dont_have_any_afrimoney_wallet)
                                 )
-                            optionsRecyclerView.adapter = AfrimoneyOptionsAdapter(options) {
-                                when (it.id) {
-                                    MoneyTransferOptions.IDS.P2P -> {
-                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
-                                    }
-                                    MoneyTransferOptions.IDS.MERCHANT_PAYMENT -> {
-                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
-                                    }
-                                    MoneyTransferOptions.IDS.LINE_RECHARGE -> {
-                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyLineRechargeFragment)
-                                    }
-                                    MoneyTransferOptions.IDS.BUNDLES -> {
-                                        findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyBundleActivity)
-                                    }
-                                    MoneyTransferOptions.IDS.MONEY_TRANSFER -> {
-                                        val bottomSheetFragment = TransferMoneyFragment.newInstance()
-                                        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-                                        bottomSheetFragment.setCallBack(object : TransferMoneyFragment.Callback {
-                                            override fun p2pTransfer() {
-                                                findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
-                                            }
+                            } else {
+                                loading.showContent()
+                                val options = if (BuildConfig.FLAVOR.equals("gambia")) {
+                                    mutableListOf(
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.MONEY_TRANSFER,
+                                            R.drawable.afrimoney_money_transfer,
+                                            getString(R.string.money_n_tranfer)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.AFRI_POWER,
+                                            R.drawable.afrimoney_afri_power,
+                                            getString(R.string.afri_n_power)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.LINE_RECHARGE,
+                                            R.drawable.afrimoney_line_recharge,
+                                            getString(R.string.line_n_recharge)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.BUNDLES,
+                                            R.drawable.afrimoney_bundle,
+                                            getString(R.string.bundles)
+                                        ),
 
-                                            override fun merchantTransfer() {
-                                                findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
-                                            }
-                                        })
-                                    }
-                                    MoneyTransferOptions.IDS.AFRI_POWER -> {
+                                        )
+                                } else
+                                    mutableListOf(
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.P2P,
+                                            R.drawable.afrimoney_money_transfer,
+                                            getString(R.string.p2p_n_tranfer)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.MERCHANT_PAYMENT,
+                                            R.drawable.afrimoney_afri_power,
+                                            getString(R.string.merchant_n_payment)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.LINE_RECHARGE,
+                                            R.drawable.afrimoney_line_recharge,
+                                            getString(R.string.line_n_recharge)
+                                        ),
+                                        MoneyTransferOptions(
+                                            MoneyTransferOptions.IDS.BUNDLES,
+                                            R.drawable.afrimoney_bundle,
+                                            getString(R.string.bundles)
+                                        )
+                                    )
+                                optionsRecyclerView.adapter = AfrimoneyOptionsAdapter(options) {
+                                    when (it.id) {
+                                        MoneyTransferOptions.IDS.P2P -> {
+                                            findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
+                                        }
+                                        MoneyTransferOptions.IDS.MERCHANT_PAYMENT -> {
+                                            findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
+                                        }
+                                        MoneyTransferOptions.IDS.LINE_RECHARGE -> {
+                                            findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyLineRechargeFragment)
+                                        }
+                                        MoneyTransferOptions.IDS.BUNDLES -> {
+                                            findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyBundleActivity)
+                                        }
+                                        MoneyTransferOptions.IDS.MONEY_TRANSFER -> {
+                                            val bottomSheetFragment = TransferMoneyFragment.newInstance()
+                                            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                                            bottomSheetFragment.setCallBack(object : TransferMoneyFragment.Callback {
+                                                override fun p2pTransfer() {
+                                                    findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyP2PFragment)
+                                                }
 
-                                    }
-                                    else ->{
+                                                override fun merchantTransfer() {
+                                                    findNavController().navigate(R.id.action_afrimoneyFragment_to_afrimoneyMerchantPayFragment)
+                                                }
+                                            })
+                                        }
+                                        MoneyTransferOptions.IDS.AFRI_POWER -> {
 
+                                        }
+                                        else -> {
+
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    is Resource.Error -> {
-                        loading.showMessage(resource.message)
+                        is Resource.Error -> {
+                            loading.showMessage(resource.message)
+                        }
                     }
                 }
             }
@@ -266,27 +282,31 @@ class AfrimoneyFragment : BaseFragment() {
 
         viewModel.getImages(SLIDERS, HOME_PAGE)
         observeResourceWithoutProgress(viewModel.imagesData) {
-            viewPager.adapter = offersAdapter
-            offersAdapter.setItems(it)
-            pageIndicator.setViewPager(viewPager)
-            autoScroll(it.size)
+            withVBAvailable {
+                viewPager.adapter = offersAdapter
+                offersAdapter.setItems(it)
+                pageIndicator.setViewPager(viewPager)
+                autoScroll(it.size)
+            }
         }
     }
 
 
     private fun autoScroll(size: Int) {
         runnable = Runnable {
-            if (viewPager?.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
-                val currentPage: Int = viewPager.currentItem
-                if (currentPage == size - 1) {
-                    viewPager.currentItem = 0
-                    viewPager.setCurrentItem(0, true)
-                } else {
-                    //The second parameter ensures smooth scrolling
-                    viewPager.setCurrentItem(currentPage + 1, true)
+            withVBAvailable {
+                if (viewPager?.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
+                    val currentPage: Int = viewPager.currentItem
+                    if (currentPage == size - 1) {
+                        viewPager.currentItem = 0
+                        viewPager.setCurrentItem(0, true)
+                    } else {
+                        //The second parameter ensures smooth scrolling
+                        viewPager.setCurrentItem(currentPage + 1, true)
+                    }
                 }
+                handler.postDelayed(runnable!!, POST_DELAY)
             }
-            handler.postDelayed(runnable!!, POST_DELAY)
         }
         start()
     }

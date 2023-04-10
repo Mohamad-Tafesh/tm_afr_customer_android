@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
+import com.africell.africell.databinding.LoadingItemViewBinding
 import com.africell.africell.ui.blocks.LoadingView
-import kotlinx.android.synthetic.main.loading_item_view.view.*
 
 class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.LoadingHolder>() {
 
@@ -25,8 +24,8 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.LoadingHolder>() {
         }
 
 
-    class LoadingHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val loadingView: LoadingView = view.loadingView
+    class LoadingHolder(viewBinding: LoadingItemViewBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+        val loadingView: LoadingView = viewBinding.loadingView
     }
 
     override fun getItemCount(): Int = if (state == State.Success) 0 else 1
@@ -34,7 +33,7 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.LoadingHolder>() {
     override fun getItemViewType(position: Int): Int = 1//not 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadingHolder {
-        return LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.loading_item_view, parent, false))
+        return LoadingHolder(LoadingItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: LoadingHolder, position: Int) {
@@ -59,7 +58,7 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingAdapter.LoadingHolder>() {
                     }
                     Unit
                 }
-                else ->{
+                else -> {
 
                 }
             }

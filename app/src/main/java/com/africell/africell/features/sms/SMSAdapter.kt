@@ -1,49 +1,47 @@
 package com.africell.africell.features.sms
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.africell.africell.R
 import com.africell.africell.data.api.ApiContract.Params.SMS_FREE_MAX
-import kotlinx.android.synthetic.main.row_sms.view.*
+import com.africell.africell.databinding.RowSmsBinding
 
 class SMSAdapter(
     private var count: Int
 ) : RecyclerView.Adapter<SMSAdapter.HomeItemHolder>() {
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowSmsBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = SMS_FREE_MAX
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_sms, parent, false)
+        val itemViewBinding = RowSmsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val displayMetrics = parent.context.resources.displayMetrics
         val width = displayMetrics.widthPixels
-        val layoutParams = itemView.layoutParams
+        val layoutParams = itemViewBinding.root.layoutParams
         val padding = parent.context.resources.getDimensionPixelSize(R.dimen.spacing_small)
         layoutParams.width = (width - padding) / SMS_FREE_MAX
-          layoutParams.height= (width - padding) / SMS_FREE_MAX
-        itemView.layoutParams = layoutParams
+        layoutParams.height = (width - padding) / SMS_FREE_MAX
+        itemViewBinding.root.layoutParams = layoutParams
 
-        return HomeItemHolder(itemView)
+        return HomeItemHolder(itemViewBinding)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
-        holder.itemView.run {
-            val openPosition = SMS_FREE_MAX -count ;
+        holder.viewBinding.run {
+            val openPosition = SMS_FREE_MAX - count;
 
             if (position == openPosition) {
                 backgroundId.setBackgroundResource(R.drawable.circle_bgd_transparent)
-            } else backgroundId.setBackgroundColor(resources.getColor(R.color.transparent))
+            } else backgroundId.setBackgroundColor(root.resources.getColor(R.color.transparent))
 
-            textItem.alpha= if (position < openPosition) {
+            textItem.alpha = if (position < openPosition) {
                 0.5f
-            }else 1f
+            } else 1f
 
-            textItem.text=if(position==openPosition) "Open"
-            else if(position < openPosition) "Sent" else "New"
+            textItem.text = if (position == openPosition) "Open"
+            else if (position < openPosition) "Sent" else "New"
         }
     }
 

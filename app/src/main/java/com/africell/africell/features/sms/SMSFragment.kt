@@ -1,6 +1,7 @@
 package com.africell.africell.features.sms
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -10,13 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.entity.Country
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentSmsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.authentication.CountriesAdapter
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
@@ -25,14 +27,12 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_sms.*
-import kotlinx.android.synthetic.main.fragment_sms.countrySpinner
-import kotlinx.android.synthetic.main.fragment_sms.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_sms.sendBtn
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.NotEmptyRule
 import javax.inject.Inject
 
 
-class SMSFragment : BaseFragment(), Liv.Action {
+class SMSFragment : BaseVBFragment<FragmentSmsBinding>(), Liv.Action {
     private var liv: Liv? = null
 
 
@@ -40,7 +40,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_sms, R.layout.toolbar_default, true)
+        return createViewBinding(container, FragmentSmsBinding::inflate, true, ToolbarDefaultBinding::inflate)
     }
 
     @Inject
@@ -57,21 +57,24 @@ class SMSFragment : BaseFragment(), Liv.Action {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (sessionRepository.isLoggedIn()) {
-            liv = initLiv()
-            liv?.start()
-            viewModel.getSmsCount()
-            sendBtn.setOnClickListener {
-                activity?.hideKeyboard()
-                liv?.submitWhenValid()
-            }
-            mobileNumberLayout.setEndIconOnClickListener {
-                activity?.hideKeyboard()
-                phoneNumberPermission()
-            }
-        } else {
-            showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
-                redirectToLogin()
+
+        withVBAvailable {
+            if (sessionRepository.isLoggedIn()) {
+                liv = initLiv()
+                liv?.start()
+                viewModel.getSmsCount()
+                sendBtn.setOnClickListener {
+                    activity?.hideKeyboard()
+                    liv?.submitWhenValid()
+                }
+                mobileNumberLayout.setEndIconOnClickListener {
+                    activity?.hideKeyboard()
+                    phoneNumberPermission()
+                }
+            } else {
+                showInlineMessageWithAction(getString(R.string.login_first), actionName = getString(R.string.login)) {
+                    redirectToLogin()
+                }
             }
         }
 
@@ -80,49 +83,58 @@ class SMSFragment : BaseFragment(), Liv.Action {
     }
 
 
-    private fun initLiv(): Liv {
+    private fun FragmentSmsBinding.initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
 
         return Liv.Builder()
             .add(mobileNumberLayout, notEmptyRule)
             .add(messageLayout, notEmptyRule)
-            .submitAction(this)
+            .submitAction(this@SMSFragment)
             .build()
 
     }
 
     private fun bindData() {
         observeResourceInline(viewModel.smsData) {
-
-            recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
-            val countries = it.countries
-            countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
-            countries.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER  }?.takeIf { it != -1 }?.let {
-                countrySpinner.selection = it
+            withVBAvailable {
+                recyclerView.adapter = SMSAdapter(it.smsCount.smsCount ?: 0)
+                val countries = it.countries
+                countrySpinner.adapter = CountriesAdapter(requireContext(), countries)
+                countries.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
+                    countrySpinner.selection = it
+                }
+                countrySpinner.isEnabled = false
             }
-            countrySpinner.isEnabled = false
         }
 
         observeResource(viewModel.smsSentData) {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
-                recyclerView.adapter = SMSAdapter(it.smsCount ?: 0)
-                liv?.dispose()
-                messageLayout.setText("")
-                mobileNumberLayout.setText("")
-                liv?.start()
+            showMaterialMessageDialog(
+                getString(R.string.successful),
+                it.resultText.orEmpty(),
+                getString(R.string.close)
+            ) {
+                withVBAvailable {
+                    recyclerView.adapter = SMSAdapter(it.smsCount ?: 0)
+                    liv?.dispose()
+                    messageLayout.setText("")
+                    mobileNumberLayout.setText("")
+                    liv?.start()
+                }
             }
         }
     }
 
 
     override fun performAction() {
-        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
-        val formatted =
-            PhoneNumberHelper.getFormattedIfValid(phoneCode, mobileNumberLayout.getText())
-                ?.replace("+", "")
-        formatted?.let {
-            viewModel.sendSMS(it, messageLayout.getText())
-        } ?: showMessage(getString(R.string.phone_number_not_valid))
+        withVBAvailable {
+            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
+            val formatted =
+                PhoneNumberHelper.getFormattedIfValid(phoneCode, mobileNumberLayout.getText())
+                    ?.replace("+", "")
+            formatted?.let {
+                viewModel.sendSMS(it, messageLayout.getText())
+            } ?: showMessage(getString(R.string.phone_number_not_valid))
+        }
 
     }
 
@@ -155,6 +167,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             data?.data?.let { contactData ->
@@ -175,7 +188,7 @@ class SMSFragment : BaseFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
-                            val allMobileNumber= mutableListOf<String>()
+                            val allMobileNumber = mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER
@@ -191,12 +204,14 @@ class SMSFragment : BaseFragment(), Liv.Action {
 
                             pCur?.close()
                             selectPhoneNumber(allMobileNumber) { number ->
-                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
-                                formatted?.let {
-                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
-                                } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                withVBAvailable {
+                                    val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                    val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                    formatted?.let {
+                                        val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                        mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                    } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                }
 
                             }
                         }

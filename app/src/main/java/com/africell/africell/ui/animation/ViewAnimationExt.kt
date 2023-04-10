@@ -21,10 +21,10 @@ class ViewOnClickActionsBuilder(val view: View) {
 
     init {
         val onAttachListener = object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View?) {
+            override fun onViewAttachedToWindow(v: View) {
             }
 
-            override fun onViewDetachedFromWindow(v: View?) {
+            override fun onViewDetachedFromWindow(v: View) {
                 job?.cancel()
             }
         }

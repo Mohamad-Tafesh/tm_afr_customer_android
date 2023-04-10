@@ -5,23 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.LocationDTO
+import com.africell.africell.databinding.FragmentLocationDetailsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.html.html
 import com.africell.africell.util.intents.dial
 import com.africell.africell.util.intents.openGoogleMapNavigation
-import kotlinx.android.synthetic.main.fragment_location_details.*
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 
 
-class LocationDetailsFragment : BaseFragment() {
+class LocationDetailsFragment : BaseVBFragment<FragmentLocationDetailsBinding>() {
 
     private val viewModel by provideViewModel<LocationViewModel> { viewModelFactory }
     val locationParams by lazy {
@@ -68,7 +70,12 @@ class LocationDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_location_details, R.layout.toolbar_default, true)
+            return createViewBinding(
+                container,
+                FragmentLocationDetailsBinding::inflate,
+                true,
+                ToolbarDefaultBinding::inflate
+            )
         }
     }
 
@@ -115,8 +122,10 @@ class LocationDetailsFragment : BaseFragment() {
             val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
             val locationResult = mFusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    distance.text = location.displayDistance(task.result?.latitude, task.result?.longitude)
+                withVBAvailable {
+                    if (task.isSuccessful) {
+                        distance.text = location.displayDistance(task.result?.latitude, task.result?.longitude)
+                    }
                 }
             }
         } catch (e: SecurityException) {
@@ -145,26 +154,28 @@ class LocationDetailsFragment : BaseFragment() {
 
 
     private fun fillLocationInfo(selectedLocation: LocationDTO?) {
-        selectedLocation?.let { location ->
-            title.text = location.shopName
-            addressTxt.text = location.address
+        withVBAvailable {
+            selectedLocation?.let { location ->
+                title.text = location.shopName
+                addressTxt.text = location.address
 
-            description.text = location.description?.html()
-            callUs.setOnClickListener {
-                if (!location.telephoneNumber.isNullOrEmpty()) {
-                    dial(location.telephoneNumber)
-                    //promptCallUs(location.numbers())
-                } else showMessage(getString(R.string.phone_number_is_not_available))
+                description.text = location.description?.html()
+                callUs.setOnClickListener {
+                    if (!location.telephoneNumber.isNullOrEmpty()) {
+                        dial(location.telephoneNumber)
+                        //promptCallUs(location.numbers())
+                    } else showMessage(getString(R.string.phone_number_is_not_available))
 
-            }
-            getDirection.setOnClickListener {
-                if (location.latitude?.toDoubleOrNull() != null && location.longitude?.toDoubleOrNull() != null) {
-                    openGoogleMapNavigation(
-                        location.latitude?.toDoubleOrNull()!!,
-                        location.longitude?.toDoubleOrNull()!!
-                    )
-                } else {
-                    showMessage(getString(R.string.direction_not_available))
+                }
+                getDirection.setOnClickListener {
+                    if (location.latitude?.toDoubleOrNull() != null && location.longitude?.toDoubleOrNull() != null) {
+                        openGoogleMapNavigation(
+                            location.latitude?.toDoubleOrNull()!!,
+                            location.longitude?.toDoubleOrNull()!!
+                        )
+                    } else {
+                        showMessage(getString(R.string.direction_not_available))
+                    }
                 }
             }
         }

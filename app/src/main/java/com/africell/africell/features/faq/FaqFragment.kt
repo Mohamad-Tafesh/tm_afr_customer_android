@@ -8,12 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.databinding.FragmentFaqBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.fragment_faq.*
 
-class FaqFragment : BaseFragment() {
+class FaqFragment : BaseVBFragment<FragmentFaqBinding>() {
 
 
     private val viewModel by provideViewModel<FaqViewModel> { viewModelFactory }
@@ -26,7 +28,7 @@ class FaqFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return wrap(inflater.context, R.layout.fragment_faq, R.layout.toolbar_default, true)
+        return createViewBinding(container, FragmentFaqBinding::inflate, true, ToolbarDefaultBinding::inflate)
     }
 
     override fun configureToolbar() {
@@ -36,6 +38,7 @@ class FaqFragment : BaseFragment() {
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -47,13 +50,15 @@ class FaqFragment : BaseFragment() {
     }
 
     private fun setupList() {
-        val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-        drawable?.let {
-            dividerItemDecoration.setDrawable(it)
+        withVBAvailable {
+            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+            drawable?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
+            recyclerView.addItemDecoration(dividerItemDecoration)
+            recyclerView.adapter = adapter
         }
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.adapter = adapter
     }
 
     private fun bindItems() {

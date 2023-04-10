@@ -1,6 +1,7 @@
 package com.africell.africell.features.afrimoneyActivateBundle
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -18,11 +19,13 @@ import com.africell.africell.BuildConfig
 import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.Constant
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.BundleInfo
 import com.africell.africell.data.api.dto.WalletDTO
 import com.africell.africell.data.api.requests.afrimoney.AfrimoneyActivateBundleRequest
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentAfrimoneyActivateBundleBinding
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
@@ -32,20 +35,10 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.closeIcon
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.countryTxt
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.pinCodeLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.selectWalletLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.submitBtn
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.titleTxt
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.toSomeOneElseLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.*
 import javax.inject.Inject
 
 
-class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
+class AfrimoneyActivateBundleFragment : BaseVBFragment<FragmentAfrimoneyActivateBundleBinding>(), Liv.Action {
     private var liv: Liv? = null
 
     val isActivateForMe by lazy {
@@ -71,7 +64,7 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_afrimoney_activate_bundle, 0, true)
+        return createViewBinding(container, FragmentAfrimoneyActivateBundleBinding::inflate, true)
     }
 
 
@@ -79,17 +72,20 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
         super.onActivityCreated(savedInstanceState)
         liv = initLiv()
         liv?.start()
-        submitBtn.setOnClickListener {
-            activity?.hideKeyboard()
-            liv?.submitWhenValid()
+
+        withVBAvailable {
+            submitBtn.setOnClickListener {
+                activity?.hideKeyboard()
+                liv?.submitWhenValid()
+            }
+            bindData()
+            countryTxt.text = Constant.STATIC_PHONE_NUMBER
+            setupUI()
         }
-        bindData()
-        countryTxt.text = Constant.STATIC_PHONE_NUMBER
-        setupUI()
     }
 
 
-    private fun setupUI() {
+    private fun FragmentAfrimoneyActivateBundleBinding.setupUI() {
         if (BuildConfig.FLAVOR == "sl") {
             pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
@@ -117,7 +113,7 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     private fun initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
         val builder = Liv.Builder()
-        builder.add(selectWalletLayout, notEmptyRule)
+        builder.add(requireBinding().selectWalletLayout, notEmptyRule)
         return builder
             .submitAction(this)
             .build()
@@ -127,11 +123,13 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     private fun bindData() {
         viewModel.getData()
         observeResourceInline(viewModel.data) {
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
-            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            selectWalletLayout.adapter = arrayAdapter
-            if (FLAVOR == "sl")
-                selectWalletLayout.selection = 0
+            withVBAvailable {
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
+                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                selectWalletLayout.adapter = arrayAdapter
+                if (FLAVOR == "sl")
+                    selectWalletLayout.selection = 0
+            }
 
         }
         observeResource(viewModel.requestData) {
@@ -148,32 +146,37 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
 
 
     override fun performAction() {
+        withVBAvailable {
+            val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
+            val toNumber =
+                PhoneNumberHelper.getFormattedIfValid("", Constant.STATIC_PHONE_NUMBER + mobileNumberLayout.getText())
+                    ?.replace("+", "")
+            val subMsisdn =
+                if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
+            val request = if (FLAVOR == "sl") {
+                val slNumber = PhoneNumberHelper.getFormattedIfValid(
+                    "",
+                    countryTxt.text.toString().replace("+", "") + mobileNumberLayout.getText()
+                )?.replace("+", "")
+                AfrimoneyActivateBundleRequest(
+                    bundle.bundleId?.toString().orEmpty(),
+                    wallet,
 
-        val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber = PhoneNumberHelper.getFormattedIfValid("", Constant.STATIC_PHONE_NUMBER + mobileNumberLayout.getText())?.replace("+", "")
-        val subMsisdn =
-            if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
-        val request = if (FLAVOR == "sl") {
-            val slNumber = PhoneNumberHelper.getFormattedIfValid("",
-                countryTxt.text.toString().replace("+","") + mobileNumberLayout.getText())?.replace("+", "")
-            AfrimoneyActivateBundleRequest(
-                bundle.bundleId?.toString().orEmpty(),
-                wallet,
-
-                subMsisdn,
-                slNumber,
-                pinCodeLayout.getText()
-            )
-        } else {
-            AfrimoneyActivateBundleRequest(
-                bundle.bundleId?.toString().orEmpty(),
-                wallet,
-                subMsisdn,
-                toNumber,
-                pinCodeLayout.getText()
-            )
+                    subMsisdn,
+                    slNumber,
+                    pinCodeLayout.getText()
+                )
+            } else {
+                AfrimoneyActivateBundleRequest(
+                    bundle.bundleId?.toString().orEmpty(),
+                    wallet,
+                    subMsisdn,
+                    toNumber,
+                    pinCodeLayout.getText()
+                )
+            }
+            viewModel.submitRequest(request)
         }
-        viewModel.submitRequest(request)
     }
 
     override fun onDestroyView() {
@@ -210,6 +213,7 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
     }
 
 
+    @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             data?.data?.let { contactData ->
@@ -251,7 +255,9 @@ class AfrimoneyActivateBundleFragment : BaseFragment(), Liv.Action {
                                     PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+", "")
                                 formatted?.let {
                                     //val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(formatted)
+                                    withVBAvailable {
+                                        mobileNumberLayout.setText(formatted)
+                                    }
                                 } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }

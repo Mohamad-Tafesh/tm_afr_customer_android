@@ -1,6 +1,7 @@
 package com.africell.africell.features.lineRecharge
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -13,26 +14,24 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
-import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.RechargeCardDTO
 import com.africell.africell.data.entity.Country
+import com.africell.africell.databinding.FragmentLineRechargeBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.authentication.CountriesAdapter
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.*
 import com.africell.africell.util.getText
 import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_line_recharge.*
-import kotlinx.android.synthetic.main.fragment_line_recharge.countrySpinner
-import kotlinx.android.synthetic.main.fragment_line_recharge.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_line_recharge.recyclerView
-import kotlinx.android.synthetic.main.fragment_line_recharge.sendBtn
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.NotEmptyRule
 
 
-class LineRechargeFragment : BaseFragment(), Liv.Action {
+class LineRechargeFragment : BaseVBFragment<FragmentLineRechargeBinding>(), Liv.Action {
     private var liv: Liv? = null
 
 
@@ -45,7 +44,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_line_recharge, R.layout.toolbar_default, true)
+        return createViewBinding(container, FragmentLineRechargeBinding::inflate, true, ToolbarDefaultBinding::inflate)
     }
 
     override fun configureToolbar() {
@@ -62,13 +61,16 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
         liv = initLiv()
         liv?.start()
         viewModel.getRechargeCards()
-        sendBtn.setOnClickListener {
-            activity?.hideKeyboard()
-            liv?.submitWhenValid()
-        }
-        mobileNumberLayout.setEndIconOnClickListener {
-            activity?.hideKeyboard()
-            phoneNumberPermission()
+
+        withVBAvailable {
+            sendBtn.setOnClickListener {
+                activity?.hideKeyboard()
+                liv?.submitWhenValid()
+            }
+            mobileNumberLayout.setEndIconOnClickListener {
+                activity?.hideKeyboard()
+                phoneNumberPermission()
+            }
         }
         bindData()
     }
@@ -77,8 +79,8 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
         val notEmptyRule = NotEmptyRule()
 
         return Liv.Builder()
-            .add(mobileNumberLayout, notEmptyRule)
-            .add(rechargeCardLayout, notEmptyRule)
+            .add(requireBinding().mobileNumberLayout, notEmptyRule)
+            .add(requireBinding().rechargeCardLayout, notEmptyRule)
             .submitAction(this)
             .build()
 
@@ -87,44 +89,58 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
     private fun bindData() {
         viewModel.getCountries()
         observeResourceWithoutProgress(viewModel.countriesData) {
-            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
-                countrySpinner.selection = it
+            withVBAvailable {
+                countrySpinner.adapter = CountriesAdapter(requireContext(), it)
+                it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
+                    countrySpinner.selection = it
+                }
+                countrySpinner.isEnabled = false
             }
-            countrySpinner.isEnabled = false
 
         }
         observeResourceInline(viewModel.cardsData) {
-            val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
-            drawable?.let {
-                dividerItemDecoration.setDrawable(it)
+            withVBAvailable {
+                val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.separator)
+                drawable?.let {
+                    dividerItemDecoration.setDrawable(it)
+                }
+                recyclerView.addItemDecoration(dividerItemDecoration)
+                recyclerView.adapter = adapter
+                adapter.setItems(it)
             }
-            recyclerView.addItemDecoration(dividerItemDecoration)
-            recyclerView.adapter = adapter
-            adapter.setItems(it)
         }
 
         observeResource(viewModel.rechargeVoucherData) {
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText.orEmpty(), getString(R.string.close)) {
-                liv?.dispose()
-                rechargeCardLayout.setText("")
-                mobileNumberLayout.setText("")
-                liv?.start()
+            showMaterialMessageDialog(
+                getString(R.string.successful),
+                it.resultText.orEmpty(),
+                getString(R.string.close)
+            ) {
+                withVBAvailable {
+                    liv?.dispose()
+                    rechargeCardLayout.setText("")
+                    mobileNumberLayout.setText("")
+                    liv?.start()
+                }
             }
         }
     }
 
 
     override fun performAction() {
-        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+","")
-        val formatted = PhoneNumberHelper.getFormattedIfValid("",phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+        withVBAvailable {
+            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
+            val formatted =
+                PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
 
-        formatted?.let {
-            viewModel.rechargeVoucher(it, rechargeCardLayout.getText())
-        } ?: showMessage(getString(R.string.phone_number_not_valid))
+            formatted?.let {
+                viewModel.rechargeVoucher(it, rechargeCardLayout.getText())
+            } ?: showMessage(getString(R.string.phone_number_not_valid))
+        }
 
     }
+
     val PERMISSIONS_REQUEST_PHONE_NUMBER = 102
 
     private fun phoneNumberPermission() {
@@ -154,6 +170,8 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
+    @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             data?.data?.let { contactData ->
@@ -174,7 +192,7 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
                                 null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", arrayOf(id), null
                             )
-                            val allMobileNumber= mutableListOf<String>()
+                            val allMobileNumber = mutableListOf<String>()
                             while (pCur?.moveToNext() == true) {
                                 val number = pCur.getColumnIndex(
                                     ContactsContract.CommonDataKinds.Phone.NUMBER
@@ -190,19 +208,21 @@ class LineRechargeFragment : BaseFragment(), Liv.Action {
 
                             pCur?.close()
                             selectPhoneNumber(allMobileNumber) { number ->
-                                val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
-                                val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
-                                formatted?.let {
-                                    val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(pairNumber?.second ?: formatted)
-                                } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                withVBAvailable {
+                                    val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+                                    val formatted = PhoneNumberHelper.getFormattedIfValid(phoneCode, number)
+                                    formatted?.let {
+                                        val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
+                                        mobileNumberLayout.setText(pairNumber?.second ?: formatted)
+                                    } ?: showMessage(getString(R.string.phone_number_not_valid))
+                                }
 
                             }
                         }
                     }
                 }
             }
-        }else super.onActivityResult(requestCode, resultCode, data)
+        } else super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroyView() {

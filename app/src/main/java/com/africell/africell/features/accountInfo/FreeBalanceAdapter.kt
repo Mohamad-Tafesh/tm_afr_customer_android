@@ -1,38 +1,37 @@
 package com.africell.africell.features.accountInfo
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.africell.africell.R
 import com.africell.africell.data.api.dto.AccountBalanceDTO
 import com.africell.africell.data.entity.MyAccountBalance
-import kotlinx.android.synthetic.main.row_free_balance.view.*
+import com.africell.africell.databinding.RowFreeBalanceBinding
 
 class FreeBalanceAdapter(
     private var items: List<AccountBalanceDTO.FreeBalanceX>
 ) : RecyclerView.Adapter<FreeBalanceAdapter.HomeItemHolder>() {
+
     interface Callback {
         fun onItemClickListener(item: MyAccountBalance)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowFreeBalanceBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_free_balance, parent, false)
+        val itemView = RowFreeBalanceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeItemHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+        holder.viewBinding.run {
             imageView.setImageURI(item.image)
             title.text = item.title
             description.text = item.description
             priceTxt.text = item.balance + " " + item.balanceUnit
-            setOnClickListener {
+            root.setOnClickListener {
                 item?.let {
                 }
 

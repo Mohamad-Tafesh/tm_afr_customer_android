@@ -9,17 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.BundleInfo
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentBundleDetailsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.activateBundle.ActivateBundleFragment
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.fragment_bundle_details.*
 import javax.inject.Inject
 
 
-class BundleDetailsFragment : BaseFragment() {
+class BundleDetailsFragment : BaseVBFragment<FragmentBundleDetailsBinding>() {
 
 
     val bundleId by lazy {
@@ -61,7 +63,12 @@ class BundleDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_bundle_details, R.layout.toolbar_default, true)
+            return createViewBinding(
+                container,
+                FragmentBundleDetailsBinding::inflate,
+                true,
+                ToolbarDefaultBinding::inflate
+            )
         }
     }
 
@@ -79,35 +86,37 @@ class BundleDetailsFragment : BaseFragment() {
     }
 
     private fun setUpUI(bundle: BundleInfo) {
-        try {
-            bundle.primaryColor?.let { changeBackgroundColor(it) }
-            val secondaryColor = Color.parseColor(bundle.secondaryColor)
-            volumeTxt.setTextColor(secondaryColor)
-            subtitleTxt.setTextColor(secondaryColor)
-            descriptionTxt.setTextColor(secondaryColor)
-            priceTxt.setTextColor(secondaryColor)
-            validForTxt.setTextColor(secondaryColor)
-            activateBundleForSomeOneElseBtn.setBackgroundColor(secondaryColor)
-            activateBundleBtn.setBackgroundColor(secondaryColor)
-        } catch (e: Exception) {
+        withVBAvailable {
+            try {
+                bundle.primaryColor?.let { changeBackgroundColor(it) }
+                val secondaryColor = Color.parseColor(bundle.secondaryColor)
+                volumeTxt.setTextColor(secondaryColor)
+                subtitleTxt.setTextColor(secondaryColor)
+                descriptionTxt.setTextColor(secondaryColor)
+                priceTxt.setTextColor(secondaryColor)
+                validForTxt.setTextColor(secondaryColor)
+                activateBundleForSomeOneElseBtn.setBackgroundColor(secondaryColor)
+                activateBundleBtn.setBackgroundColor(secondaryColor)
+            } catch (e: Exception) {
 
-        }
-        imageView.setImageURI(bundle.image)
-        actionbar?.title = bundle.getTitle()
-        volumeTxt.text = bundle.getFormatVolume()
-        subtitleTxt.text = bundle.subTitles
-        descriptionTxt.text = bundle.commercialName
-        priceTxt.text = getString(R.string.price) + bundle.price
-        validForTxt.text = getString(R.string.valid_for) + bundle.validity + bundle.validityUnit
-        activateBundleForSomeOneElseBtn.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(false, bundle)
-            } else showLoginMessage()
-        }
-        activateBundleBtn.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                navigateToBundleActive(true, bundle)
-            } else showLoginMessage()
+            }
+            imageView.setImageURI(bundle.image)
+            actionbar?.title = bundle.getTitle()
+            volumeTxt.text = bundle.getFormatVolume()
+            subtitleTxt.text = bundle.subTitles
+            descriptionTxt.text = bundle.commercialName
+            priceTxt.text = getString(R.string.price) + bundle.price
+            validForTxt.text = getString(R.string.valid_for) + bundle.validity + bundle.validityUnit
+            activateBundleForSomeOneElseBtn.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    navigateToBundleActive(false, bundle)
+                } else showLoginMessage()
+            }
+            activateBundleBtn.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    navigateToBundleActive(true, bundle)
+                } else showLoginMessage()
+            }
         }
     }
 

@@ -1,19 +1,19 @@
 package com.africell.africell.features.help
 
 import android.os.Bundle
-import com.africell.africell.R
-import com.africell.africell.app.BaseActivity
+import com.africell.africell.app.viewbinding.BaseVBActivity
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.ActivityHelpBinding
 import com.africell.africell.features.home.ImageViewModel
 import com.africell.africell.ui.viewmodel.ViewModelFactory
 import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.provideViewModel
-import kotlinx.android.synthetic.main.activity_help.*
 import javax.inject.Inject
 
-class HelpActivity : BaseActivity() {
+class HelpActivity : BaseVBActivity<ActivityHelpBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -24,7 +24,7 @@ class HelpActivity : BaseActivity() {
     lateinit var sessionRepository: SessionRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help, false, false, 0)
+        setContent(ActivityHelpBinding::inflate, false)
         getImage()
         sessionRepository.showHelp = false
     }
@@ -67,22 +67,26 @@ class HelpActivity : BaseActivity() {
 */
 
     fun getImage() {
-        nextBtn.setOnClickListener {
-            activity.finish()
+        withVBAvailable {
+            nextBtn.setOnClickListener {
+                activity.finish()
+            }
         }
         viewModel.getImages(ApiContract.Params.BACKGROUND, ApiContract.ImagePageName.LAUNCH)
         observeNotNull(viewModel.imagesData) { resource ->
-            when (resource) {
-                is Resource.Loading -> {
+            withVBAvailable {
+                when (resource) {
+                    is Resource.Loading -> {
 
-                }
-                is Resource.Success -> {
-                    val data = resource.data
-                    imageView.setImageURI(data.getOrNull(0))
-                }
-                is Resource.Error -> {
-                    hideProgressDialog()
-                    showMessage(resource.message)
+                    }
+                    is Resource.Success -> {
+                        val data = resource.data
+                        imageView.setImageURI(data.getOrNull(0))
+                    }
+                    is Resource.Error -> {
+                        hideProgressDialog()
+                        showMessage(resource.message)
+                    }
                 }
             }
         }

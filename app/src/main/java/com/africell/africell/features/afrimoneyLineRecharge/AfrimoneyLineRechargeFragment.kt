@@ -19,10 +19,12 @@ import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.Constant
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.WalletDTO
 import com.africell.africell.data.api.requests.afrimoney.AirlineRequest
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentAfrimoneyLineRechargeBinding
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
@@ -32,21 +34,10 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.amountLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.closeIcon
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.countryTxt
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.pinCodeLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.selectWalletLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_line_recharge.submitBtn
-import kotlinx.android.synthetic.main.fragment_afrimoney_merchant_pay.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.*
 import javax.inject.Inject
 
 
-class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
+class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechargeBinding>(), Liv.Action {
     private var liv: Liv? = null
 
 
@@ -59,7 +50,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_afrimoney_line_recharge, 0, true)
+        return createViewBinding(container, FragmentAfrimoneyLineRechargeBinding::inflate, true)
     }
 
 
@@ -67,20 +58,23 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
         super.onActivityCreated(savedInstanceState)
         liv = initLiv()
         liv?.start()
-        submitBtn.setOnClickListener {
-            activity?.hideKeyboard()
-            liv?.submitWhenValid()
-        }
-        bindData()
-        countryTxt.text = Constant.STATIC_PHONE_NUMBER
-        setupUI()
-        closeIcon.setOnClickListener {
-            findNavController().popBackStack()
+
+        withVBAvailable {
+            submitBtn.setOnClickListener {
+                activity?.hideKeyboard()
+                liv?.submitWhenValid()
+            }
+            bindData()
+            countryTxt.text = Constant.STATIC_PHONE_NUMBER
+            setupUI()
+            closeIcon.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 
 
-    private fun setupUI() {
+    private fun FragmentAfrimoneyLineRechargeBinding.setupUI() {
         if (BuildConfig.FLAVOR == "sl") {
             pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
@@ -99,7 +93,7 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
         val notEmptyRule = NotEmptyRule()
         val builder = Liv.Builder()
         builder
-            .add(mobileNumberLayout, notEmptyRule)
+            .add(requireBinding().mobileNumberLayout, notEmptyRule)
         return builder
             .submitAction(this)
             .build()
@@ -109,12 +103,13 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
     private fun bindData() {
         viewModel.getData()
         observeResourceInline(viewModel.data) { wallet ->
-
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
-            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            selectWalletLayout.adapter = arrayAdapter
-            if (BuildConfig.FLAVOR == "sl")
-                selectWalletLayout.selection = 0
+            withVBAvailable {
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
+                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                selectWalletLayout.adapter = arrayAdapter
+                if (BuildConfig.FLAVOR == "sl")
+                    selectWalletLayout.selection = 0
+            }
         }
 
         observeResource(viewModel.requestData) {
@@ -131,38 +126,40 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
 
 
     override fun performAction() {
-        val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber = PhoneNumberHelper.getFormattedIfValid("", STATIC_PHONE_NUMBER + mobileNumberLayout.getText())
-            ?.replace("+", "")
-        toNumber?.let {
-            val subMsisdn =
-                if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
-            var request: AirlineRequest = if (FLAVOR == "sl") {
-                val slNumber = PhoneNumberHelper.getFormattedIfValid(
-                    "",
-                    countryTxt.text.toString().replace("+", "") +
-                            mobileNumberLayout.getText()
-                )?.replace("+", "")
-                AirlineRequest(
-                    wallet,
-                    subMsisdn,
-                    slNumber,
-                    pinCodeLayout.getText(),
-                    amountLayout.getText()
-                )
-            } else {
-                AirlineRequest(
-                    wallet,
-                    subMsisdn,
-                    toNumber,
-                    pinCodeLayout.getText(),
-                    amountLayout.getText()
-                )
-            }
+        withVBAvailable {
+            val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
+            val toNumber = PhoneNumberHelper.getFormattedIfValid("", STATIC_PHONE_NUMBER + mobileNumberLayout.getText())
+                ?.replace("+", "")
+            toNumber?.let {
+                val subMsisdn =
+                    if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
+                var request: AirlineRequest = if (FLAVOR == "sl") {
+                    val slNumber = PhoneNumberHelper.getFormattedIfValid(
+                        "",
+                        countryTxt.text.toString().replace("+", "") +
+                                mobileNumberLayout.getText()
+                    )?.replace("+", "")
+                    AirlineRequest(
+                        wallet,
+                        subMsisdn,
+                        slNumber,
+                        pinCodeLayout.getText(),
+                        amountLayout.getText()
+                    )
+                } else {
+                    AirlineRequest(
+                        wallet,
+                        subMsisdn,
+                        toNumber,
+                        pinCodeLayout.getText(),
+                        amountLayout.getText()
+                    )
+                }
 
-            viewModel.submitRequest(request)
-        } ?: showMessage(getString(R.string.phone_number_not_valid))
+                viewModel.submitRequest(request)
+            } ?: showMessage(getString(R.string.phone_number_not_valid))
 
+        }
     }
 
     override fun onDestroyView() {
@@ -241,7 +238,9 @@ class AfrimoneyLineRechargeFragment : BaseFragment(), Liv.Action {
                                             PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+", "")
                                         formatted?.let {
                                             //val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                            mobileNumberLayout.setText(formatted)
+                                            withVBAvailable {
+                                                mobileNumberLayout.setText(formatted)
+                                            }
                                         } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                                     }

@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.ServicesDTO
+import com.africell.africell.databinding.FragmentServiceDetailsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.provideViewModel
 
-import kotlinx.android.synthetic.main.fragment_service_details.*
 
-
-class ServiceDetailsFragment : BaseFragment() {
+class ServiceDetailsFragment : BaseVBFragment<FragmentServiceDetailsBinding>() {
 
     val serviceParam by lazy {
         arguments?.getParcelable<ServicesDTO>(SERVICE_DETAILS)
@@ -47,7 +48,12 @@ class ServiceDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return activity?.let {
-            return wrap(inflater.context, R.layout.fragment_service_details, R.layout.toolbar_default, true)
+            return createViewBinding(
+                container,
+                FragmentServiceDetailsBinding::inflate,
+                true,
+                ToolbarDefaultBinding::inflate
+            )
         }
     }
 
@@ -57,50 +63,61 @@ class ServiceDetailsFragment : BaseFragment() {
     }
 
     private fun bindData() {
-        viewModel.getServiceDetails(sname,serviceParam)
+        viewModel.getServiceDetails(sname, serviceParam)
         observeResourceInline(viewModel.serviceDetailsData, {
             setUpUI(it)
         })
     }
 
     private fun setUpUI(service: ServicesDTO) {
-        imageView.setImageURI(service.image)
-        volumeTxt.text = service.subTitle.orEmpty()
-        validityTxt.text =  service.validity.orEmpty()
-        descriptionTxt.text = service.description.orEmpty()
-        priceTxt.text = getString(R.string.price) + service.price.orEmpty() + service.priceUnit.orEmpty()
-        subtitleTxt.text = service.name.orEmpty()
+        withVBAvailable {
+            imageView.setImageURI(service.image)
+            volumeTxt.text = service.subTitle.orEmpty()
+            validityTxt.text = service.validity.orEmpty()
+            descriptionTxt.text = service.description.orEmpty()
+            priceTxt.text = getString(R.string.price) + service.price.orEmpty() + service.priceUnit.orEmpty()
+            subtitleTxt.text = service.name.orEmpty()
 
-        subscribeBtn.setOnClickListener {
-            service.sname?.let { viewModel.subscribe(it) }
+            subscribeBtn.setOnClickListener {
+                service.sname?.let { viewModel.subscribe(it) }
 
-        }
-        unsubscribeBtn.setOnClickListener {
-            service.sname?.let {
-                viewModel.unsubscribe(it)
             }
-        }
-        subscribeBtn.visibility = if (service.isActive == false) View.VISIBLE else View.GONE
-        unsubscribeBtn.visibility =
-            if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
-        unsubscribeBtn.setText(service.buttonLabel ?: getString(R.string.unsubscribe))
-        observeResource(viewModel.subscribeData) {
-           /* unsubscribeBtn.visibility = View.GONE
-            subscribeBtn.visibility = View.GONE*/
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
-                findNavController().popBackStack()
+            unsubscribeBtn.setOnClickListener {
+                service.sname?.let {
+                    viewModel.unsubscribe(it)
+                }
+            }
+            subscribeBtn.visibility = if (service.isActive == false) View.VISIBLE else View.GONE
+            unsubscribeBtn.visibility =
+                if (service.isActive == true && service.canUnsbscribe == true) View.VISIBLE else View.GONE
+            unsubscribeBtn.setText(service.buttonLabel ?: getString(R.string.unsubscribe))
+
+            observeResource(viewModel.subscribeData) {
+                /* unsubscribeBtn.visibility = View.GONE
+                 subscribeBtn.visibility = View.GONE*/
+                showMaterialMessageDialog(
+                    getString(R.string.successful),
+                    it.resultText ?: "",
+                    getString(R.string.close)
+                ) {
+                    findNavController().popBackStack()
+                }
+
             }
 
-        }
-
-        observeResource(viewModel.unSubscribeData) {
-          /*  unsubscribeBtn.visibility = View.GONE
-            subscribeBtn.visibility = View.GONE*/
-            showMaterialMessageDialog(getString(R.string.successful),it.resultText ?: "", getString(R.string.close)) {
-                findNavController().popBackStack()
+            observeResource(viewModel.unSubscribeData) {
+                /*  unsubscribeBtn.visibility = View.GONE
+                  subscribeBtn.visibility = View.GONE*/
+                showMaterialMessageDialog(
+                    getString(R.string.successful),
+                    it.resultText ?: "",
+                    getString(R.string.close)
+                ) {
+                    findNavController().popBackStack()
+                }
             }
+            //   imageView.setImageURI(service.title)
         }
-        //   imageView.setImageURI(service.title)
     }
 
 

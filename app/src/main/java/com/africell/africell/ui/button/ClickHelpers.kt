@@ -21,10 +21,10 @@ fun View.setDebouncedOnClickListener(
 
     addOnAttachStateChangeListener(
         object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View?) {
+            override fun onViewAttachedToWindow(v: View) {
             }
 
-            override fun onViewDetachedFromWindow(v: View?) {
+            override fun onViewDetachedFromWindow(v: View) {
                 if (!disposable.isDisposed) {
                     disposable.dispose()
                 }

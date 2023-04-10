@@ -19,4 +19,6 @@ constructor(preferences: RxSharedPreferences) {
 
     val user = preferences.getString("pref_user", "")
     val showHelp=preferences.getBoolean("show_help", true)
+
+    val hasRefusedNotificationsPermission = preferences.getBoolean("has_refused_notifications_permission", false)
 }

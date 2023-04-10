@@ -43,4 +43,6 @@ constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : Session
 
     override var verificationToken: String by RxPrefProperty(prefUtils.verificationToken)
 
+    override var hasRefusedNotificationsPermission: Boolean by RxPrefProperty(prefUtils.hasRefusedNotificationsPermission)
+
 }

@@ -6,21 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.africell.africell.BuildConfig
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentSettingsBinding
+import com.africell.africell.databinding.ToolbarDefaultBinding
 import com.africell.africell.features.launch.RootActivity
 import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.locale.LocaleHelper
 import com.africell.africell.util.removeUserIdentification
-import kotlinx.android.synthetic.main.fragment_settings.*
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import javax.inject.Inject
 
-class SettingsFragment : BaseFragment() {
+class SettingsFragment : BaseVBFragment<FragmentSettingsBinding>() {
 
     @Inject
     lateinit var session: SessionRepository
@@ -36,7 +38,7 @@ class SettingsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return wrap(inflater.context, R.layout.fragment_settings,R.layout.toolbar_default)
+        return createViewBinding(container, FragmentSettingsBinding::inflate, false, ToolbarDefaultBinding::inflate)
     }
 
     override fun configureToolbar() {
@@ -47,16 +49,18 @@ class SettingsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupImageBanner(imageView, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SETTINGS )
-        bindOneSignalStateTo(notificationsLayout, notificationsSwitch)
-        setupLanguage()
-        bindAppVersionTo(appVersionLayout, appVersionSummaryText)
-        setupLoginLogout()
-        setUpDeleteAccount()
+        withVBAvailable {
+            setupImageBanner(imageView, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SETTINGS)
+            bindOneSignalStateTo(notificationsLayout, notificationsSwitch)
+            setupLanguage()
+            bindAppVersionTo(appVersionLayout, appVersionSummaryText)
+            setupLoginLogout()
+            setUpDeleteAccount()
+        }
     }
 
-    private fun setupLanguage() {
-      if (BuildConfig.MULTI_LANG) {
+    private fun FragmentSettingsBinding.setupLanguage() {
+        if (BuildConfig.MULTI_LANG) {
             languageLayout.visibility = View.VISIBLE
             bindLanguageMenuTo(
                 languageLayout,
@@ -81,13 +85,13 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
-    private fun setupLoginLogout() {
+    private fun FragmentSettingsBinding.setupLoginLogout() {
         //loginLogoutTitleText.setText(if (session.isLoggedIn()) R.string.logout else R.string.login)
         loginLogoutLayout.visibility = if (session.isLoggedIn()) View.VISIBLE else View.GONE
         loginLogoutLayout.setOnClickListener {
-            if(session.isLoggedIn()){
+            if (session.isLoggedIn()) {
                 viewModel.logout()
-            }else {
+            } else {
                 session.invalidateSession()
                 removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
                 startRootActivity()
@@ -96,21 +100,22 @@ class SettingsFragment : BaseFragment() {
         bindData()
     }
 
-    private fun setUpDeleteAccount() {
+    private fun FragmentSettingsBinding.setUpDeleteAccount() {
         deleteAccountLayout.visibility = if (session.isLoggedIn()) View.VISIBLE else View.GONE
         deleteAccountLayout.setOnClickListener {
-            showMaterialDeleteMessageDialog(getString(R.string.warning),
+            showMaterialDeleteMessageDialog(
+                getString(R.string.warning),
                 getString(R.string.are_you_sure_want_to_delete),
-            getString(R.string.delete_account)
+                getString(R.string.delete_account)
             ) {
                 viewModel.deleteAccount()
             }
         }
         bindDeleteData()
     }
-    private fun bindDeleteData(){
-        observeNotNull(viewModel.deleteAccountData,{
-                resource ->
+
+    private fun bindDeleteData() {
+        observeNotNull(viewModel.deleteAccountData, { resource ->
             when (resource) {
                 is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
                 is Resource.Success -> {
@@ -121,7 +126,7 @@ class SettingsFragment : BaseFragment() {
                     hideProgressDialog()
                     invalidateAndRestart()
                 }
-                else ->{
+                else -> {
 
                 }
             }
@@ -129,9 +134,8 @@ class SettingsFragment : BaseFragment() {
         })
     }
 
-    private fun bindData(){
-        observeNotNull(viewModel.logoutData,{
-                resource ->
+    private fun bindData() {
+        observeNotNull(viewModel.logoutData, { resource ->
             when (resource) {
                 is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
                 is Resource.Success -> {
@@ -142,7 +146,7 @@ class SettingsFragment : BaseFragment() {
                     hideProgressDialog()
                     invalidateAndRestart()
                 }
-                else ->{
+                else -> {
 
                 }
             }
@@ -150,11 +154,12 @@ class SettingsFragment : BaseFragment() {
         })
     }
 
-    fun invalidateAndRestart(){
+    fun invalidateAndRestart() {
         session.invalidateSession()
         removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
         startRootActivity()
     }
+
     private fun startRootActivity() {
         startActivity(Intent(activity, RootActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

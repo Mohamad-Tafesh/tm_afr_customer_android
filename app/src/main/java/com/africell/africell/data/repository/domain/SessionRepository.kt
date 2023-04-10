@@ -20,5 +20,5 @@ interface SessionRepository {
 
     fun isLoggedIn(): Boolean
 
-
+    var hasRefusedNotificationsPermission: Boolean //TODO move to another class that relies on another preferences file
 }

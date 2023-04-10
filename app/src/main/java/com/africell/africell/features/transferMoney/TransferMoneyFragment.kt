@@ -8,15 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.africell.africell.R
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentMoneyTransferBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_money_transfer.*
 import javax.inject.Inject
 
 
 class TransferMoneyFragment : BottomSheetDialogFragment() {
+
+    private var viewBinding: FragmentMoneyTransferBinding? = null
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -44,28 +45,34 @@ class TransferMoneyFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_money_transfer, LinearLayout(context), false)
-        return view
+        viewBinding = FragmentMoneyTransferBinding.inflate(LayoutInflater.from(context), LinearLayout(context), false)
+        return viewBinding!!.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (view?.parent as? View)?.setBackgroundColor(Color.TRANSPARENT)
 
-        p2pTransfer.setOnClickListener {
-            callback?.p2pTransfer()
-            dismiss()
-        }
+        viewBinding?.run {
+            p2pTransfer.setOnClickListener {
+                callback?.p2pTransfer()
+                dismiss()
+            }
 
-        cancel.setOnClickListener {
-            dismiss()
-        }
+            cancel.setOnClickListener {
+                dismiss()
+            }
 
-        merchantPayment.setOnClickListener {
-            callback?.merchantTransfer()
-            dismiss()
+            merchantPayment.setOnClickListener {
+                callback?.merchantTransfer()
+                dismiss()
+            }
         }
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
+    }
 }

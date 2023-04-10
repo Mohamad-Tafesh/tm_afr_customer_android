@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
@@ -17,6 +18,8 @@ import com.africell.africell.data.api.ApiContract.Params.SLIDERS
 import com.africell.africell.data.entity.SubAccount
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.data.toHomeBalance
+import com.africell.africell.databinding.FragmentHomeBinding
+import com.africell.africell.databinding.ToolbarHomeBinding
 import com.africell.africell.features.accountInfo.AccountViewModel
 import com.africell.africell.features.accountsNumber.AccountsNumbersFragment
 import com.africell.africell.ui.blocks.showLoading
@@ -25,16 +28,14 @@ import com.africell.africell.ui.viewmodel.observeResourceInline
 import com.africell.africell.ui.viewmodel.observeResourceWithoutProgress
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.toolbar_home.*
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
     @Inject
     lateinit var sessionRepository: SessionRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_home, R.layout.toolbar_home, true)
+        return createViewBinding(container, FragmentHomeBinding::inflate, true, ToolbarHomeBinding::inflate)
     }
 
     val balanceAdapter by lazy {
@@ -70,32 +71,36 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.HOME_PAGE)
-        bundlesLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
+        getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.HOME_PAGE)
         }
-        lineRecharge.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
-            } else showLoginMessage()
-        }
-        accountInfoLayout.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
-            } else showLoginMessage()
-        }
-        dataCalculatorBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_dataCalculatorFragment)
-        }
-        myBundleServicesBtn.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                findNavController().navigate(R.id.action_homeFragment_to_myBundleServicesVPFragment)
-            } else showLoginMessage()
-        }
-        vasServicesBtn.setOnClickListener {
-            if (sessionRepository.isLoggedIn()) {
-                findNavController().navigate(R.id.action_homeFragment_to_vasServicesFragment)
-            } else showLoginMessage()
+        withVBAvailable {
+            bundlesLayout.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_bundleActivity)
+            }
+            lineRecharge.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    findNavController().navigate(R.id.action_homeFragment_to_lineRechargeFragment)
+                } else showLoginMessage()
+            }
+            accountInfoLayout.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    findNavController().navigate(R.id.action_homeFragment_to_accountInfoActivity)
+                } else showLoginMessage()
+            }
+            dataCalculatorBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_dataCalculatorFragment)
+            }
+            myBundleServicesBtn.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    findNavController().navigate(R.id.action_homeFragment_to_myBundleServicesVPFragment)
+                } else showLoginMessage()
+            }
+            vasServicesBtn.setOnClickListener {
+                if (sessionRepository.isLoggedIn()) {
+                    findNavController().navigate(R.id.action_homeFragment_to_vasServicesFragment)
+                } else showLoginMessage()
+            }
         }
 
         bindPush()
@@ -121,38 +126,44 @@ class HomeFragment : BaseFragment() {
 
 
     private fun setupUI() {
-        if (sessionRepository.isLoggedIn()) {
-            viewModel.getSubAccounts()
+        withVBAvailable {
+            getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+                if (sessionRepository.isLoggedIn()) {
+                    viewModel.getSubAccounts()
 
-            loginTxt.visibility = View.GONE
-            enrollBtn.visibility = View.VISIBLE
-            enrollBtn.setOnClickListener {
-                findNavController().navigate(R.id.addAccountActivity)
+                    loginTxt.visibility = View.GONE
+                    enrollBtn.visibility = View.VISIBLE
+                    enrollBtn.setOnClickListener {
+                        findNavController().navigate(R.id.addAccountActivity)
+                    }
+                } else {
+                    showContent()
+                    loading.showContent()
+                    loginTxt.visibility = View.VISIBLE
+                    loginTxt.setOnClickListener {
+                        showLoginMessage()
+                    }
+                    accountSpinner.visibility = View.GONE
+                    enrollBtn.visibility = View.GONE
+                }
             }
-        } else {
-            showContent()
-            loading.showContent()
-            loginTxt.visibility = View.VISIBLE
-            loginTxt.setOnClickListener {
-                showLoginMessage()
-            }
-            accountSpinner.visibility = View.GONE
-            enrollBtn.visibility = View.GONE
         }
     }
 
     private fun setupRecyclerView() {
-        with(recyclerView) {
-            adapter = infiniteBalanceAdapter
-            setItemTransformer(
-                com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
-                    .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
-                    .setMaxScale(1.1f)
-                    //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
-                    .build()
-            )
-            setSlideOnFling(true)
+        withVBAvailable {
+            with(recyclerView) {
+                adapter = infiniteBalanceAdapter
+                setItemTransformer(
+                    com.yarolegovich.discretescrollview.transform.ScaleTransformer.Builder()
+                        .setPivotX(com.yarolegovich.discretescrollview.transform.Pivot.X.CENTER)
+                        .setMaxScale(1.1f)
+                        //      .setPivotY(com.yarolegovich.discretescrollview.transform.Pivot.Y.TOP)
+                        .build()
+                )
+                setSlideOnFling(true)
 
+            }
         }
 
     }
@@ -165,44 +176,48 @@ class HomeFragment : BaseFragment() {
             if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
                 sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
             }
-            accountViewModel.getAccountInfo()
-            accountSpinner.setText(sessionRepository.selectedMsisdn)
-            accountSpinner.setOnClickListener {
-                val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
-                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-                bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
-                    override fun addNewAccount() {
-                        findNavController().navigate(R.id.addAccountActivity)
-                    }
+            getToolbarBindingAs<ToolbarHomeBinding>()?.run {
+                accountViewModel.getAccountInfo()
+                accountSpinner.setText(sessionRepository.selectedMsisdn)
+                accountSpinner.setOnClickListener {
+                    val bottomSheetFragment = AccountsNumbersFragment.newInstance(ArrayList(subAccounts))
+                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    bottomSheetFragment.setCallBack(object : AccountsNumbersFragment.Callback {
+                        override fun addNewAccount() {
+                            findNavController().navigate(R.id.addAccountActivity)
+                        }
 
-                    override fun manageAccount() {
-                        findNavController().navigate(R.id.accountManagementActivity)
-                    }
+                        override fun manageAccount() {
+                            findNavController().navigate(R.id.accountManagementActivity)
+                        }
 
-                    override fun setDefault(subAccount: SubAccount) {
-                        accountSpinner.setText(subAccount.account)
-                        accountViewModel.getAccountInfo()
-                    }
-                })
+                        override fun setDefault(subAccount: SubAccount) {
+                            accountSpinner.setText(subAccount.account)
+                            accountViewModel.getAccountInfo()
+                        }
+                    })
+                }
+                accountSpinner.visibility = View.VISIBLE
             }
-            accountSpinner.visibility = View.VISIBLE
 
         }
 
         observeNotNull(accountViewModel.accountInfoData, {
-            it?.let { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        loading.showLoading()
-                    }
-                    is Resource.Success -> {
-                        loading.showContent()
-                        val data = resource.data
-                        balanceAdapter.setItems(data.homePage?.toHomeBalance().orEmpty())
-                    }
-                    is Resource.Error -> {
+            withVBAvailable {
+                it?.let { resource ->
+                    when (resource) {
+                        is Resource.Loading -> {
+                            loading.showLoading()
+                        }
+                        is Resource.Success -> {
+                            loading.showContent()
+                            val data = resource.data
+                            balanceAdapter.setItems(data.homePage?.toHomeBalance().orEmpty())
+                        }
+                        is Resource.Error -> {
 
-                        showMessage(resource.message)
+                            showMessage(resource.message)
+                        }
                     }
                 }
             }
@@ -211,27 +226,31 @@ class HomeFragment : BaseFragment() {
 
         viewModel.getImages(SLIDERS, HOME_PAGE)
         observeResourceWithoutProgress(viewModel.imagesData) {
-            viewPager.adapter = offersAdapter
-            offersAdapter.setItems(it)
-            pageIndicator.setViewPager(viewPager)
-            autoScroll(it.size)
+            withVBAvailable {
+                viewPager.adapter = offersAdapter
+                offersAdapter.setItems(it)
+                pageIndicator.setViewPager(viewPager)
+                autoScroll(it.size)
+            }
         }
     }
 
 
     private fun autoScroll(size: Int) {
         runnable = Runnable {
-            if (viewPager?.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
-                val currentPage: Int = viewPager.currentItem
-                if (currentPage == size - 1) {
-                    viewPager.currentItem = 0
-                    viewPager.setCurrentItem(0, true)
-                } else {
-                    //The second parameter ensures smooth scrolling
-                    viewPager.setCurrentItem(currentPage + 1, true)
+            withVBAvailable {
+                if (viewPager?.scrollState == ViewPager2.SCROLL_STATE_IDLE) {
+                    val currentPage: Int = viewPager.currentItem
+                    if (currentPage == size - 1) {
+                        viewPager.currentItem = 0
+                        viewPager.setCurrentItem(0, true)
+                    } else {
+                        //The second parameter ensures smooth scrolling
+                        viewPager.setCurrentItem(currentPage + 1, true)
+                    }
                 }
+                handler.postDelayed(runnable!!, POST_DELAY)
             }
-            handler.postDelayed(runnable!!, POST_DELAY)
         }
         start()
     }

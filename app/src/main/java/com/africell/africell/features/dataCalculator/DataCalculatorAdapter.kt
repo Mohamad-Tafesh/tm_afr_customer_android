@@ -2,7 +2,6 @@ package com.africell.africell.features.dataCalculator
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -10,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.africell.africell.R
 import com.africell.africell.data.api.dto.DataCalculatorDTO
-import kotlinx.android.synthetic.main.row_data_calculator.view.*
+import com.africell.africell.databinding.RowDataCalculatorBinding
 
 
 class DataCalculatorAdapter(
@@ -22,19 +21,19 @@ class DataCalculatorAdapter(
         fun onItemChangedListener(seekbarValueItems: HashMap<String, Double>)
     }
 
-    class HomeItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    class HomeItemHolder(val viewBinding: RowDataCalculatorBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_data_calculator, parent, false)
+        val itemView = RowDataCalculatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return HomeItemHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: HomeItemHolder, position: Int) {
         val item = items[position]
-        holder.itemView.run {
+        holder.viewBinding.run {
             titleTxt.text = item.name
             seekbar.max = item.maximumValue?.toDoubleOrNull()?.toInt() ?: 100
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -50,7 +49,7 @@ class DataCalculatorAdapter(
                 }
 
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    val progressPerUnit =progress.toDouble() * (item.costPerUnit?.toDouble() ?:0.0)
+                    val progressPerUnit = progress.toDouble() * (item.costPerUnit?.toDouble() ?: 0.0)
                     seekbarValueItems.put(item.idDataCalculator, progressPerUnit)
                     callback?.onItemChangedListener(seekbarValueItems)
                     valueTxt.text = progress.toString() + item.variableUnit
@@ -61,12 +60,12 @@ class DataCalculatorAdapter(
 
             valueTxt.text = item.minimumValue + item.variableUnit
             if (position % 2 == 0) {
-                seekbar.progressTintList= ColorStateList.valueOf(ContextCompat.getColor(context,R.color.yellow))
-                seekbar.thumbTintList= ColorStateList.valueOf(ContextCompat.getColor(context,R.color.yellow))
+                seekbar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.yellow))
+                seekbar.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.yellow))
 
             } else {
-                seekbar.progressTintList= ColorStateList.valueOf(ContextCompat.getColor(context,R.color.purple))
-                seekbar.thumbTintList= ColorStateList.valueOf(ContextCompat.getColor(context,R.color.purple))
+                seekbar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.purple))
+                seekbar.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.purple))
 
 
             }
@@ -79,7 +78,7 @@ class DataCalculatorAdapter(
         seekbarValueItems: HashMap<String, Double>
     ) {
         items = newItems.toMutableList()
-        this.seekbarValueItems=seekbarValueItems
+        this.seekbarValueItems = seekbarValueItems
         notifyDataSetChanged()
     }
 }

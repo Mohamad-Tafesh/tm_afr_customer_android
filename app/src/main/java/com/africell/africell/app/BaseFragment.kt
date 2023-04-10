@@ -130,6 +130,39 @@ abstract class BaseFragment : DaggerFragment() {
         return v
     }
 
+    /**
+     * Created for [BaseVBFragment].
+     */
+    fun wrap(
+        context: Context,
+        view: View,
+        wrapLoading: Boolean,
+        toolbarLayoutView: View?,
+        toolbarId: Int = R.id.toolbar
+    ): View {
+        var v = view
+        if (wrapLoading) {
+            loadingLayout = LoadingLayout(context)
+            loadingLayout?.let {
+                it.addView(v, 0)
+                v = it
+            }
+        }
+
+        if (toolbarLayoutView != null) {
+            toolbarLayout = ToolbarLayout(context, toolbarLayoutView, toolbarId)
+            toolbarLayout?.let {
+                it.addView(
+                    v,
+                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                )
+                v = it
+            }
+        }
+
+        return v
+    }
+
     fun wrap(context: Context, view: View, toolbarLayoutId: Int = 0, wrapLoading: Boolean = false): View {
         return wrap(
             context, view, wrapLoading, toolbarLayoutId != 0, toolbarLayoutId,

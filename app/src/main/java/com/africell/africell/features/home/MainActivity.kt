@@ -12,16 +12,17 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
-import com.africell.africell.app.BaseActivity
+import com.africell.africell.app.viewbinding.BaseVBActivity
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.databinding.ActivityMainBinding
 import com.africell.africell.util.navigation.setupWithNavController
-import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
-        bottomNavigationView.menu.let { menu ->
+        requireBinding().bottomNavigationView.menu.let { menu ->
             val defaultList = (0 until menu.size()).map { menu.getItem(it).itemId }
             list.addAll(defaultList)
         }
@@ -33,7 +34,7 @@ class MainActivity : BaseActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val sideMenuIds: List<Int> by lazy {
-        navigationView.menu.let { menu ->
+        requireBinding().navigationView.menu.let { menu ->
             (0 until menu.size()).map { menu.getItem(it).itemId }
         }
     }
@@ -48,10 +49,12 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main, false, false, 0)
-        appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
-        setupNavigation()
-        setupBottomNavigationStyle()
+        setContent(ActivityMainBinding::inflate, false)
+        withVBAvailable {
+            appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
+            setupNavigation()
+            setupBottomNavigationStyle()
+        }
     }
 
 
@@ -60,7 +63,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration
     ) || findNavController(R.id.nav_host_main).navigateUp()
 
-    private fun setupNavigation() {
+    private fun ActivityMainBinding.setupNavigation() {
         //    navigationView.itemIconTintList = null
 
         findNavController(R.id.nav_host_main).let {
@@ -78,7 +81,7 @@ class MainActivity : BaseActivity() {
             )
 
 
-            val backPressedCallback = onBackPressedDispatcher.addCallback(this, enabled = false) {
+            val backPressedCallback = onBackPressedDispatcher.addCallback(this@MainActivity, enabled = false) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -122,8 +125,10 @@ class MainActivity : BaseActivity() {
                 customerCareTxt.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
-                afrimoneyImg.visibility = if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility = if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                afrimoneyImg.visibility =
+                    if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility =
+                    if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 if (BuildConfig.FLAVOR == "drc") {
                     afrimoneyImg.visibility = GONE
                     customerCareTxt.visibility = GONE
@@ -139,32 +144,33 @@ class MainActivity : BaseActivity() {
                         } else {
                             afrimoneyImg.setImageResource(
                                 R.mipmap.tab_afrimoney_not_selected
-                                )
+                            )
 
                         }
-                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title = getString(R.string.post_stores)
+                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
+                            getString(R.string.post_stores)
                     } else {
-                            if (destination.id == R.id.customerCareFragment) {
-                                customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                    0,
-                                    R.mipmap.tab_customer_care_selected, 0, 0
-                                )
-                            } else {
-                                customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                    0,
-                                    R.mipmap.tab_customer_care,
-                                    0,
-                                    0
-                                )
-                            }
+                        if (destination.id == R.id.customerCareFragment) {
+                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                R.mipmap.tab_customer_care_selected, 0, 0
+                            )
+                        } else {
+                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                R.mipmap.tab_customer_care,
+                                0,
+                                0
+                            )
                         }
+                    }
 
                 }
             }
         }
     }
 
-    private fun setupBottomNavigationStyle() {
+    private fun ActivityMainBinding.setupBottomNavigationStyle() {
         bottomNavigationView.itemIconTintList = null
         /*   val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
            // make second item bigger

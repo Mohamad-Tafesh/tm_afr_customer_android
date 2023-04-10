@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.africell.africell.BuildConfig.FLAVOR
-import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
 import com.africell.africell.app.debugOnly
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.entity.Country
+import com.africell.africell.databinding.FragmentLoginBinding
 import com.africell.africell.features.authentication.MobileNumberFragment.Companion.IS_RESET
 import com.africell.africell.ui.button.observeInView
 import com.africell.africell.ui.viewmodel.observeResourceInline
@@ -21,9 +21,10 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.getText
 import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.NotEmptyRule
 
-class LoginFragment : BaseFragment(), Liv.Action {
+class LoginFragment : BaseVBFragment<FragmentLoginBinding>(), Liv.Action {
 
     private var liv: Liv? = null
 
@@ -36,7 +37,7 @@ class LoginFragment : BaseFragment(), Liv.Action {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return wrap(inflater.context, R.layout.fragment_login, 0, false)
+        return createViewBinding(container, FragmentLoginBinding::inflate, false)
     }
 
     override fun configureToolbar() {
@@ -51,37 +52,41 @@ class LoginFragment : BaseFragment(), Liv.Action {
         liv?.start()
         viewModel.getCountries()
 
-        loginButton.setOnClickListener { liv?.submitWhenValid() }
-        signInButton.setOnClickListener {
-            val bundle= bundleOf(Pair(IS_RESET,false))
-            findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment,bundle)
-        }
-        forgotPassword.setOnClickListener {
-            val bundle= bundleOf(Pair(IS_RESET,true))
-            findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment,bundle)
-        }
-        skip.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-            activity?.finish()
+        withVBAvailable {
+            loginButton.setOnClickListener { liv?.submitWhenValid() }
+            signInButton.setOnClickListener {
+                val bundle = bundleOf(Pair(IS_RESET, false))
+                findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment, bundle)
+            }
+            forgotPassword.setOnClickListener {
+                val bundle = bundleOf(Pair(IS_RESET, true))
+                findNavController().navigate(R.id.action_loginFragment_to_mobileNumberFragment, bundle)
+            }
+            skip.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+                activity?.finish()
+            }
         }
         bindUser()
         bindCountries()
         debugOnly {
-            when (FLAVOR) {
-                "sl" -> {
-                    mobileNumberLayout.setText("80022041")
-                    password.setText("test")
-                }
-                "drc" -> {
-                    mobileNumberLayout.setText("900099909")
-                    password.setText("1234")
-                }
-                "gm" -> {
+            withVBAvailable {
+                when (FLAVOR) {
+                    "sl" -> {
+                        mobileNumberLayout.setText("80022041")
+                        password.setText("test")
+                    }
+                    "drc" -> {
+                        mobileNumberLayout.setText("900099909")
+                        password.setText("1234")
+                    }
+                    "gm" -> {
 
+                    }
                 }
+
+
             }
-
-
         }
     }
 
@@ -89,24 +94,26 @@ class LoginFragment : BaseFragment(), Liv.Action {
         val notEmptyRule = NotEmptyRule()
 
         return Liv.Builder()
-            .add(mobileNumberLayout, notEmptyRule)
-            .add(password,notEmptyRule)
+            .add(requireBinding().mobileNumberLayout, notEmptyRule)
+            .add(requireBinding().password, notEmptyRule)
             .submitAction(this)
             .build()
     }
 
     private fun bindCountries() {
         observeResourceInline(viewModel.countriesData, {
-            countrySpinner.adapter = CountriesAdapter(requireContext(), it)
-            it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
-                countrySpinner.selection = it
+            withVBAvailable {
+                countrySpinner.adapter = CountriesAdapter(requireContext(), it)
+                it.indexOfFirst { it.phonecode == STATIC_PHONE_NUMBER }?.takeIf { it != -1 }?.let {
+                    countrySpinner.selection = it
+                }
+                countrySpinner.isEnabled = false
             }
-            countrySpinner.isEnabled=false
         })
     }
 
     private fun bindUser() {
-        viewModel.loginData.observeInView(this, loginButton) {
+        viewModel.loginData.observeInView(this, requireBinding().loginButton) {
             onSuccess = {
                 button?.isClickable = false
                 navigateToMainScreen()
@@ -121,11 +128,14 @@ class LoginFragment : BaseFragment(), Liv.Action {
     }
 
     override fun performAction() {
-        val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+","")
-        val formatted = PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+","")
-        formatted?.let {
-            viewModel.login(it,password.getText())
-        } ?: showMessage(getString(R.string.phone_number_not_valid))
+        withVBAvailable {
+            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
+            val formatted =
+                PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+            formatted?.let {
+                viewModel.login(it, password.getText())
+            } ?: showMessage(getString(R.string.phone_number_not_valid))
+        }
 
     }
 

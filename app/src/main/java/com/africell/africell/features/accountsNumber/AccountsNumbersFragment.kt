@@ -11,16 +11,20 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.africell.africell.R
 import com.africell.africell.data.entity.SubAccount
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentAccountNumbersBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_account_numbers.*
 import javax.inject.Inject
 
 
 class AccountsNumbersFragment : BottomSheetDialogFragment() {
+
+    private var viewBinding: FragmentAccountNumbersBinding? = null
+
+
     val accounts by lazy {
         arguments?.getParcelableArrayList<SubAccount>(ACCOUNTS) ?: throw IllegalArgumentException("Missing Accounts")
     }
@@ -37,10 +41,10 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
     }
 
     val adapter by lazy {
-        AccountAdapter(mutableListOf(), null,false, object : AccountAdapter.CallBack {
+        AccountAdapter(mutableListOf(), null, false, object : AccountAdapter.CallBack {
             override fun onItemClick(item: SubAccount) {
                 this@AccountsNumbersFragment.dismiss()
-                sessionRepository.selectedMsisdn=item.account.orEmpty()
+                sessionRepository.selectedMsisdn = item.account.orEmpty()
                 callback?.setDefault(item)
             }
 
@@ -70,27 +74,29 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_account_numbers, LinearLayout(context), false)
-        return view
+        viewBinding = FragmentAccountNumbersBinding.inflate(LayoutInflater.from(context), LinearLayout(context), false)
+        return viewBinding!!.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (view?.parent as? View)?.setBackgroundColor(Color.TRANSPARENT)
 
-        addNewAccount.setOnClickListener {
-            callback?.addNewAccount()
-            dismiss()
-        }
+        viewBinding?.run {
+            addNewAccount.setOnClickListener {
+                callback?.addNewAccount()
+                dismiss()
+            }
 
-        accountManagement.setOnClickListener {
-            callback?.manageAccount()
-            dismiss()
+            accountManagement.setOnClickListener {
+                callback?.manageAccount()
+                dismiss()
+            }
+            setupRecyclerView()
         }
-        setupRecyclerView()
     }
 
-    private fun setupRecyclerView() {
+    private fun FragmentAccountNumbersBinding.setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
         recyclerView.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)

@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.benitobertoli.liv.Liv
-import com.benitobertoli.liv.rule.EmailRule
-import com.benitobertoli.liv.rule.NotEmptyRule
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.ApiContract
+import com.africell.africell.databinding.FragmentRegisterBinding
+import com.africell.africell.databinding.ToolbarImageBinding
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
@@ -20,11 +20,12 @@ import com.africell.africell.ui.viewmodel.provideActivityViewModel
 import com.africell.africell.util.DatePickerFragment
 import com.africell.africell.util.getText
 import com.africell.africell.util.setText
-import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.toolbar_image.*
+import com.benitobertoli.liv.Liv
+import com.benitobertoli.liv.rule.EmailRule
+import com.benitobertoli.liv.rule.NotEmptyRule
 import java.util.*
 
-class RegisterFragment : BaseFragment(), Liv.Action {
+class RegisterFragment : BaseVBFragment<FragmentRegisterBinding>(), Liv.Action {
 
     private val viewModel by provideActivityViewModel<RegisterViewModel> { viewModelFactory }
     private var liv: Liv? = null
@@ -38,29 +39,35 @@ class RegisterFragment : BaseFragment(), Liv.Action {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_register, R.layout.toolbar_image, false)
+        return createViewBinding(container, FragmentRegisterBinding::inflate, false, ToolbarImageBinding::inflate)
     }
 
     override fun configureToolbar() {
-        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
-        toolbarImage.setActualImageResource(R.mipmap.main_top3)
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-        actionbar?.title = ""
-        toolbarTitle.text = getString(R.string.signing_up)
+        getToolbarBindingAs<ToolbarImageBinding>()?.run {
+            actionbar?.setHomeAsUpIndicator(R.mipmap.nav_back)
+            toolbarImage.setActualImageResource(R.mipmap.main_top3)
+            actionbar?.setDisplayHomeAsUpEnabled(true)
+            actionbar?.title = ""
+            toolbarTitle.text = getString(R.string.signing_up)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SIGN_UP)
+        getToolbarBindingAs<ToolbarImageBinding>()?.run {
+            setupImageBanner(toolbarImage, ApiContract.Params.BANNERS, ApiContract.ImagePageName.SIGN_UP)
+        }
         liv = initLiv()
         liv?.start()
         setupDOB()
         bindData()
         findNavController().addOnDestinationChangedListener(onDestinationChangedListener)
 
-        nextButton.setOnClickListener {
-            activity?.hideKeyboard()
-            liv?.submitWhenValid()
+        withVBAvailable {
+            nextButton.setOnClickListener {
+                activity?.hideKeyboard()
+                liv?.submitWhenValid()
+            }
         }
 
 
@@ -76,27 +83,30 @@ class RegisterFragment : BaseFragment(), Liv.Action {
 
     private fun setupDOB() {
         observe(viewModel.dobData, { timestamp ->
-            timestamp?.let {
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = timestamp
-                dobLayout.setText(RegisterViewModel.dateFormat.format(calendar.time))
+            withVBAvailable {
+                timestamp?.let {
+                    val calendar = Calendar.getInstance()
+                    calendar.timeInMillis = timestamp
+                    dobLayout.setText(RegisterViewModel.dateFormat.format(calendar.time))
+                }
             }
         })
 
-        dobEditText.setOnClickListener {
-            val datePicker = DatePickerFragment.newInstance(viewModel.dobData.value)
-            datePicker.setOnDateSetListener(DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                val calendar = Calendar.getInstance()
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, day)
-                viewModel.dobData.value = calendar.timeInMillis
-            })
+        withVBAvailable {
+            dobEditText.setOnClickListener {
+                val datePicker = DatePickerFragment.newInstance(viewModel.dobData.value)
+                datePicker.setOnDateSetListener(DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, month)
+                    calendar.set(Calendar.DAY_OF_MONTH, day)
+                    viewModel.dobData.value = calendar.timeInMillis
+                })
 
-            datePicker.setAge18()
-            datePicker.show(childFragmentManager, "dob-picker")
+                datePicker.setAge18()
+                datePicker.show(childFragmentManager, "dob-picker")
+            }
         }
-
     }
 
 
@@ -104,21 +114,23 @@ class RegisterFragment : BaseFragment(), Liv.Action {
         val notEmptyRule = NotEmptyRule()
         val emailRule = EmailRule(getString(R.string.invalid_email))
         return Liv.Builder()
-            .add(firstName, notEmptyRule)
-            .add(lastName, notEmptyRule)
+            .add(requireBinding().firstName, notEmptyRule)
+            .add(requireBinding().lastName, notEmptyRule)
             .submitAction(this)
             .build()
     }
 
 
     override fun performAction() {
-        viewModel.setProfile(
-            firstName.getText(),
-            lastName.getText(),
-            emailLayout.getText(),
-            passwordLayout.getText(),
-            confirmPasswordLayout.getText()
-        )
+        withVBAvailable {
+            viewModel.setProfile(
+                firstName.getText(),
+                lastName.getText(),
+                emailLayout.getText(),
+                passwordLayout.getText(),
+                confirmPasswordLayout.getText()
+            )
+        }
     }
 
 

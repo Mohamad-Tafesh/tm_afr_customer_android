@@ -1,6 +1,7 @@
 package com.africell.africell.features.afrimoneyP2P
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -19,10 +20,12 @@ import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.Constant
 import com.africell.africell.Constant.STATIC_PHONE_NUMBER
 import com.africell.africell.R
-import com.africell.africell.app.BaseFragment
+import com.africell.africell.app.viewbinding.BaseVBFragment
+import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.data.api.dto.WalletDTO
 import com.africell.africell.data.api.requests.afrimoney.P2PRequest
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.databinding.FragmentAfrimoneyP2pBinding
 import com.africell.africell.ui.hideKeyboard
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.observeResourceInline
@@ -32,18 +35,10 @@ import com.africell.africell.util.setText
 import com.africell.africell.util.validation.PhoneNumberHelper
 import com.benitobertoli.liv.Liv
 import com.benitobertoli.liv.rule.NotEmptyRule
-import kotlinx.android.synthetic.main.fragment_afrimoney_activate_bundle.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.*
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.closeIcon
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.countryTxt
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.mobileNumberLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.pinCodeLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.selectWalletLayout
-import kotlinx.android.synthetic.main.fragment_afrimoney_p2p.submitBtn
 import javax.inject.Inject
 
 
-class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
+class AfrimoneyP2PFragment : BaseVBFragment<FragmentAfrimoneyP2pBinding>(), Liv.Action {
     private var liv: Liv? = null
 
 
@@ -56,34 +51,37 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return wrap(inflater.context, R.layout.fragment_afrimoney_p2p, 0, true)
+        return createViewBinding(container, FragmentAfrimoneyP2pBinding::inflate, true)
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (BuildConfig.FLAVOR == "sl") {
-            pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-            pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
-        }
-        liv = initLiv()
-        liv?.start()
-        countryTxt.text = STATIC_PHONE_NUMBER
-        submitBtn.setOnClickListener {
-            activity?.hideKeyboard()
-            liv?.submitWhenValid()
-        }
-        bindData()
+        withVBAvailable {
+            if (BuildConfig.FLAVOR == "sl") {
+                pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
-        setupUI()
-        closeIcon.setOnClickListener {
-            findNavController().popBackStack()
+            }
+            liv = initLiv()
+            liv?.start()
+            countryTxt.text = STATIC_PHONE_NUMBER
+            submitBtn.setOnClickListener {
+                activity?.hideKeyboard()
+                liv?.submitWhenValid()
+            }
+            bindData()
+
+            setupUI()
+            closeIcon.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 
 
-    private fun setupUI() {
+    private fun FragmentAfrimoneyP2pBinding.setupUI() {
         submitBtn.setBackgroundColor(resources.getColor(R.color.purple))
 
 
@@ -93,13 +91,13 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
         }
     }
 
-    private fun initLiv(): Liv {
+    private fun FragmentAfrimoneyP2pBinding.initLiv(): Liv {
         val notEmptyRule = NotEmptyRule()
         val builder = Liv.Builder()
         builder
             .add(mobileNumberLayout, notEmptyRule)
         return builder
-            .submitAction(this)
+            .submitAction(this@AfrimoneyP2PFragment)
             .build()
 
     }
@@ -107,12 +105,13 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
     private fun bindData() {
         viewModel.getData()
         observeResourceInline(viewModel.data) { wallet ->
-
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
-            arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-            selectWalletLayout.adapter = arrayAdapter
-            if (BuildConfig.FLAVOR == "sl")
-                selectWalletLayout.selection = 0
+            withVBAvailable {
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
+                arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                selectWalletLayout.adapter = arrayAdapter
+                if (BuildConfig.FLAVOR == "sl")
+                    selectWalletLayout.selection = 0
+            }
         }
 
         observeResource(viewModel.requestData) {
@@ -130,37 +129,39 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
 
 
     override fun performAction() {
-        val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
-        val toNumber =
-            PhoneNumberHelper.getFormattedIfValid(
-                "",
-                STATIC_PHONE_NUMBER + mobileNumberLayout.getText()
-            )?.replace("+", "")
-
-        toNumber?.let {
-            val request: P2PRequest = if (FLAVOR == "sl") {
-                val slNumber = PhoneNumberHelper.getFormattedIfValid(
+        withVBAvailable {
+            val wallet = (selectWalletLayout.selectedItem as? WalletDTO)?.name
+            val toNumber =
+                PhoneNumberHelper.getFormattedIfValid(
                     "",
-                    countryTxt.text.toString().replace("+","") +
-                    mobileNumberLayout.getText()
+                    STATIC_PHONE_NUMBER + mobileNumberLayout.getText()
                 )?.replace("+", "")
-                P2PRequest(
-                    wallet,
-                    slNumber?.replace("+", ""),
-                    pinCodeLayout.getText(),
-                    amountLayout.getText()
-                )
-            } else {
-                P2PRequest(
-                    wallet,
-                    it.replace("+", ""),
-                    pinCodeLayout.getText(),
-                    amountLayout.getText()
-                )
-            }
 
-            viewModel.submitRequest(request)
-        } ?: showMessage(getString(R.string.phone_number_not_valid))
+            toNumber?.let {
+                val request: P2PRequest = if (FLAVOR == "sl") {
+                    val slNumber = PhoneNumberHelper.getFormattedIfValid(
+                        "",
+                        countryTxt.text.toString().replace("+", "") +
+                                mobileNumberLayout.getText()
+                    )?.replace("+", "")
+                    P2PRequest(
+                        wallet,
+                        slNumber?.replace("+", ""),
+                        pinCodeLayout.getText(),
+                        amountLayout.getText()
+                    )
+                } else {
+                    P2PRequest(
+                        wallet,
+                        it.replace("+", ""),
+                        pinCodeLayout.getText(),
+                        amountLayout.getText()
+                    )
+                }
+
+                viewModel.submitRequest(request)
+            } ?: showMessage(getString(R.string.phone_number_not_valid))
+        }
 
     }
 
@@ -198,6 +199,7 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
     }
 
 
+    @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
             data?.data?.let { contactData ->
@@ -239,7 +241,9 @@ class AfrimoneyP2PFragment : BaseFragment(), Liv.Action {
                                     PhoneNumberHelper.getFormattedIfValid(phoneCode, number)?.replace("+", "")
                                 formatted?.let {
                                     val pairNumber = PhoneNumberHelper.getCodeAndNumber(formatted)
-                                    mobileNumberLayout.setText(formatted)
+                                    withVBAvailable {
+                                        mobileNumberLayout.setText(formatted)
+                                    }
                                 } ?: showMessage(getString(R.string.phone_number_not_valid))
 
                             }

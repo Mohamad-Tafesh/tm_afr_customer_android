@@ -87,7 +87,7 @@ object ApiModule {
             } else {
                 Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
             }
-            credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+
             debugOnly {
                 credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBFragment
 import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.FragmentBookNumberBinding
 import com.africell.africell.databinding.ToolbarDefaultBinding

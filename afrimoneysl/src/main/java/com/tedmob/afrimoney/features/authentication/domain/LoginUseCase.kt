@@ -3,11 +3,8 @@ package com.tedmob.afrimoney.features.authentication.domain
 import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import com.tedmob.afrimoney.data.api.TedmobApis
 import com.tedmob.afrimoney.data.api.dto.GenerateOtpDTO
-import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.util.security.StringEncryptor
-import com.tedmob.afrimoney.util.security.encryptWith
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named

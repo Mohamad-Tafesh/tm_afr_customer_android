@@ -1,7 +1,7 @@
 package com.africell.africell.app
 
 import androidx.lifecycle.MutableLiveData
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.exception.AppException
 import com.africell.africell.exception.AppExceptionFactory
 import io.reactivex.observers.DisposableObserver

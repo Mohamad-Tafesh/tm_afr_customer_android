@@ -80,16 +80,6 @@ class AppExceptionFactory
                                     }
                                 }
                             }
-                            contentType?.type == "text" && contentType.subtype == "html" -> {
-                                AppException(
-                                    UNEXPECTED,
-                                    errorResponse?.html() ?: unexpectedErrorMessage,
-                                    errorResponse,
-                                    t
-                                ).apply {
-                                    status = response.code()
-                                }
-                            }
                             else -> {
                                 AppException(
                                     UNEXPECTED,

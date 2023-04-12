@@ -163,6 +163,7 @@ private String generateVersionName(versionMajor, versionMinor, versionPatch) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation project(":afrimoneysl")
+    implementation project(":validators")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"

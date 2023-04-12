@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.africell.africell.app.AppSessionNavigator
 import com.africell.africell.app.DefaultObserver
 import com.africell.africell.app.ResourceUseCaseExecutor
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.entity.SubAccount
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.exception.AppException

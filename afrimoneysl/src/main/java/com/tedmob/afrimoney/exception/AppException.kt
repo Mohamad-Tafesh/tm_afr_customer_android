@@ -12,45 +12,36 @@ class AppException : Exception {
 
     var status: Int = 400
     var code: Int = Code.UNEXPECTED
-    var userMessage: CharSequence = ""
+    var userMessage: String = ""
     var developerMessage: String? = null
 
-    constructor(message: CharSequence?) : super(message?.toString()) {
+    constructor(message: String?) : super(message) {
         userMessage = message ?: ""
     }
 
     constructor(
         code: Int,
-        message: CharSequence,
+        message: String,
         developerMessage: String?
-    ) : super(message.toString()) {
+    ) : super(message) {
         this.userMessage = message
         this.code = code
         this.developerMessage = developerMessage
     }
 
-    constructor(message: CharSequence?, cause: Throwable?) : super(message?.toString(), cause) {
+    constructor(message: String?, cause: Throwable?) : super(message, cause) {
         userMessage = message ?: ""
     }
 
     constructor(
         code: Int,
-        message: CharSequence,
+        message: String,
         developerMessage: String?,
         cause: Throwable?
-    ) : super(message.toString(), cause) {
+    ) : super(message, cause) {
         this.userMessage = message
         this.code = code
         this.developerMessage = developerMessage
-    }
-
-    constructor(
-        message: CharSequence?,
-        cause: Throwable?,
-        enableSuppression: Boolean,
-        writableStackTrace: Boolean
-    ) : super(message?.toString(), cause, enableSuppression, writableStackTrace) {
-        userMessage = message ?: ""
     }
 
     constructor(cause: Throwable?) : super(cause)

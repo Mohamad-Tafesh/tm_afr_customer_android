@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.usecase.ObservableResourceUseCaseExecutor
 import com.tedmob.afrimoney.data.Resource
-import com.tedmob.afrimoney.data.api.dto.BalanceDTO
 import com.tedmob.afrimoney.data.entity.UserHomeData
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.exception.AppExceptionFactory

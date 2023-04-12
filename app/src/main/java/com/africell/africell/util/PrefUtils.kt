@@ -18,6 +18,9 @@ constructor(preferences: RxSharedPreferences) {
     val language = preferences.getString("pref_language", "fr")
 
     val user = preferences.getString("pref_user", "")
+    val msisdnAfrimoney = preferences.getString("msisdnAfrimoney", "")
+    val deviceTokenAfrimoney = preferences.getString("deviceTokenAfrimoney", "")
+    val accessTokenAfrimoney = preferences.getString("accessTokenAfrimoney", "")
     val showHelp=preferences.getBoolean("show_help", true)
 
     val hasRefusedNotificationsPermission = preferences.getBoolean("has_refused_notifications_permission", false)

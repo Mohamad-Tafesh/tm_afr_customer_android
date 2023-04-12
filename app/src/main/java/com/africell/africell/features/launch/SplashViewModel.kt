@@ -3,7 +3,7 @@ package com.africell.africell.features.launch
 import android.content.Intent
 import androidx.lifecycle.LiveData
 import com.africell.africell.R
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.features.help.HelpActivity

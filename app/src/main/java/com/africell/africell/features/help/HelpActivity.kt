@@ -3,7 +3,7 @@ package com.africell.africell.features.help
 import android.os.Bundle
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.databinding.ActivityHelpBinding

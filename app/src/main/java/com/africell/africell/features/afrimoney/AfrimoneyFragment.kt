@@ -12,7 +12,7 @@ import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBFragment
 import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
 import com.africell.africell.data.api.ApiContract.Params.SLIDERS
@@ -143,7 +143,8 @@ class AfrimoneyFragment : BaseVBFragment<FragmentAfriMoneyBinding>() {
 
         observeResourceInline(viewModel.subAccountData) { subAccounts ->
             if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
-                sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
+                sessionRepository.selectedMsisdn = subAccounts[0].account.orEmpty()
+                sessionRepository.msisdnAfrimoney = customNumber(subAccounts[0].account.orEmpty())
             }
             getToolbarBindingAs<ToolbarHomeBinding>()?.run {
                 viewModel.getAccountInfo()

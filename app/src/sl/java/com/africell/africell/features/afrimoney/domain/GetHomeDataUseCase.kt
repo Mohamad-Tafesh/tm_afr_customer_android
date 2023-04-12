@@ -1,8 +1,8 @@
 package com.africell.africell.features.afrimoney.domain
 
-import com.africell.africell.app.usecase.SuspendableUseCase
 import com.africell.africell.data.api.RestApi
 import com.africell.africell.data.entity.afrimoney.HomeData
+import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

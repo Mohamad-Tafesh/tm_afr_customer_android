@@ -1,4 +1,4 @@
-package com.tedmob.afrimoney.features.authentication.domain
+package com.africell.africell.features.home.domain
 
 import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import com.tedmob.afrimoney.data.analytics.AnalyticsHandler
@@ -15,44 +15,20 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
 
-
-class RegisterUseCase
+class VerifyUseCase
 @Inject constructor(
     private val api: TedmobApis,
     private val session: SessionRepository,
     private val analytics: AnalyticsHandler,
     private val crashlytics: CrashlyticsHandler,
     @Named("local-string") private val encryptor: StringEncryptor,
-) : SuspendableUseCase<UserState, RegisterUseCase.UserLoginInfo>() {
+) : SuspendableUseCase<UserState, String>() {
 
-    override suspend fun execute(params: UserLoginInfo): UserState {
+    override suspend fun execute(params: String): UserState {
         return withContext(Dispatchers.IO) {
-            lateinit var idtype: String
-            when (params.idType) {
-                "National ID Card" -> idtype = "NATIONAL_ID"
-                "Driver’s license" -> idtype = "DRIVER_CARD"
-                "Voter ID Card" -> idtype = "VOTER_CARD"
-                "Passport" -> idtype = "PASSPORT"
-            }
-
-
-            val response = api.register(
-                params.mobilenb,
-                params.firstName,
-                params.lastName,
-                params.idNumber,
-                idtype,
-                params.dob,
-                params.gender,
-                params.street,
-                params.city,
-                params.district,
-                params.idNumber,
-                params.idType
-            )
 
             try {
-                val info = api.userInfo(params.mobilenb)
+                val info = api.userInfo(params)
                 val user = User(
                     info.msisdn.orEmpty(),
                     info.name.orEmpty(),
@@ -68,22 +44,11 @@ class RegisterUseCase
 
             } catch (e: AppException) {
                 session.msisdn = ""
-                UserState.NotRegistered(session.msisdn)
+                session.accessToken=""
+                session.refreshToken=""
+                UserState.NotRegistered(params)
             }
-
         }
     }
 
-    data class UserLoginInfo(
-        val mobilenb: String,
-        val firstName: String,
-        val lastName: String,
-        val idNumber: String,
-        val idType: String,
-        val dob: String, //20081980
-        val gender: String,
-        val street: String,
-        val city: String,
-        val district: String,
-    )
 }

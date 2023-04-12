@@ -2,7 +2,7 @@ package com.africell.africell.features.settings
 
 import com.africell.africell.app.AppSessionNavigator
 import com.africell.africell.app.ResourceUseCaseExecutor
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.settings.domain.DeleteAccountUseCase

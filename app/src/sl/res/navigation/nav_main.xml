@@ -181,6 +181,9 @@
         <action
                 android:id="@+id/action_afrimoneyFragment_to_afrimoneyMerchantPayFragment"
                 app:destination="@id/afrimoneyMerchantPayFragment" />
+        <action
+                android:id="@+id/action_afrimoneyFragment_to_setPinFragment2"
+                app:destination="@id/setPinFragment2" />
     </fragment>
     <activity
             android:id="@+id/afrimoneyBundleActivity"
@@ -199,5 +202,10 @@
             android:name="com.africell.africell.features.afrimoneyMerchantPaymnet.AfrimoneyMerchantPayFragment"
             android:label="AfrimoneyMerchantPayFragment" />
     <include app:graph="@navigation/nav_transfer_money" />
+
+    <fragment
+            android:id="@+id/setPinFragment2"
+            android:name="com.tedmob.afrimoney.features.authentication.SetPinFragment"
+            android:label="SetPinFragment" />
 
 </navigation>

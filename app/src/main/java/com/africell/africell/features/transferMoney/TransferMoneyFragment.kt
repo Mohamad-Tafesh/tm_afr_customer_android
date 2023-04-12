@@ -21,11 +21,6 @@ class TransferMoneyFragment : BottomSheetDialogFragment() {
 
     private var viewBinding: FragmentMoneyTransferBinding? = null
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
     interface Callback {
         fun p2pTransfer()
         fun merchantTransfer()

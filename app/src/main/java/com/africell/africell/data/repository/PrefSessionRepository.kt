@@ -13,15 +13,15 @@ import javax.inject.Singleton
 @Singleton
 class PrefSessionRepository
 @Inject
-constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : SessionRepository {
+constructor(prefUtils: PrefUtils, gson: Gson, val context: Application) : SessionRepository {
 
     override fun invalidateSession() {
         accessToken = ""
-        refreshToken=""
-        verificationToken=""
+        refreshToken = ""
+        verificationToken = ""
         user = null
-        msisdn=""
-        selectedMsisdn=""
+        msisdn = ""
+        selectedMsisdn = ""
     }
 
     override var accessToken: String by RxPrefProperty(prefUtils.accessToken)
@@ -44,5 +44,13 @@ constructor(prefUtils: PrefUtils, gson: Gson,val context: Application) : Session
     override var verificationToken: String by RxPrefProperty(prefUtils.verificationToken)
 
     override var hasRefusedNotificationsPermission: Boolean by RxPrefProperty(prefUtils.hasRefusedNotificationsPermission)
+
+    override var msisdnAfrimoney: String by RxPrefProperty(prefUtils.msisdnAfrimoney)
+
+
+    override var deviceTokenAfrimoney: String by RxPrefProperty(prefUtils.deviceTokenAfrimoney)
+
+    override var accessTokenAfrimoney: String by RxPrefProperty(prefUtils.accessTokenAfrimoney)
+
 
 }

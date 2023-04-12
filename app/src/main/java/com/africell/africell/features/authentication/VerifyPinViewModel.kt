@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.africell.africell.app.AppSessionNavigator
 import com.africell.africell.features.authentication.domain.VerifyPinUseCase
 import com.africell.africell.app.ResourceUseCaseExecutor
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.data.api.dto.VerifyOTPDTO
 import com.africell.africell.exception.AppExceptionFactory

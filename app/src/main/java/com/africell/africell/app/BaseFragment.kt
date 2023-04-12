@@ -188,12 +188,17 @@ abstract class BaseFragment : Fragment() {
         loadingLayout?.showContent()
     }
 
+    fun customNumber(number: String): String {
+        var nb = number.substring(3, number.length)
+        return "0$nb"
+    }
+
     fun showInlineLoading() {
         loadingLayout?.showLoadingView()
         loadingView?.loading(true)
     }
 
-    fun showInlineMessage(message: String) {
+    fun showInlineMessage(message: CharSequence) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
             ?.message(message)
@@ -210,7 +215,7 @@ abstract class BaseFragment : Fragment() {
             ?.displayButton(false)
     }
 
-    fun showInlineMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
+    fun showInlineMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
             ?.message(message)
@@ -230,7 +235,7 @@ abstract class BaseFragment : Fragment() {
         progressDialog?.dismiss()
     }
 
-    fun showMessage(message: String) {
+    fun showMessage(message: CharSequence) {
         view?.let { view ->
             val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
 
@@ -259,7 +264,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
+    fun showMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
         view?.let { view ->
             val dialogView = View.inflate(activity, R.layout.dialog_custom, null)
 

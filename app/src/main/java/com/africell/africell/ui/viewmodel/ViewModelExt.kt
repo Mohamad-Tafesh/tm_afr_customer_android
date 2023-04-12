@@ -10,7 +10,7 @@ import com.africell.africell.R
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.app.BaseBottomSheetFragment
 import com.africell.africell.app.BaseFragment
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.ui.button.LoadingProgressButton
 import com.africell.africell.ui.button.bindProgressButton
 

@@ -31,11 +31,6 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
         arguments?.getParcelableArrayList<SubAccount>(ACCOUNTS) ?: throw IllegalArgumentException("Missing Accounts")
     }
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
     interface Callback {
         fun addNewAccount()
         fun manageAccount()
@@ -47,6 +42,7 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
             override fun onItemClick(item: SubAccount) {
                 this@AccountsNumbersFragment.dismiss()
                 sessionRepository.selectedMsisdn = item.account.orEmpty()
+                sessionRepository.msisdnAfrimoney = customNumber(item.account.orEmpty())
                 callback?.setDefault(item)
             }
 
@@ -109,5 +105,11 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
         recyclerView.addItemDecoration(dividerItemDecoration)
         adapter.setItems(accounts.toMutableList())
     }
+
+    fun customNumber(number: String): String {
+        val nb = number.substring(3, number.length)
+        return "0$nb"
+    }
+
 
 }

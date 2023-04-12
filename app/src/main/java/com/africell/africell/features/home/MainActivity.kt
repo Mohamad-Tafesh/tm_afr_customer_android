@@ -9,19 +9,23 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.data.entity.UserState
+import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : BaseVBActivity<ActivityMainBinding>() {
-
+    private val viewModel by provideViewModel<ActivityViewModel>()
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
         requireBinding().bottomNavigationView.menu.let { menu ->
@@ -117,9 +121,29 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 }
             )
 
+
+            observeResource(viewModel.verified) {
+                proceedWith(it)
+            }
+
+
+
+
             bottomNavigationView.setupWithNavController(it)
             //preventing reselection by passing empty listener; a null listener will result in onItemSelected listener to be called on reselection.
-            bottomNavigationView.setOnNavigationItemReselectedListener { }
+            bottomNavigationView.setOnNavigationItemReselectedListener {
+
+            }
+
+            bottomNavigationView.setOnItemSelectedListener {
+                if (it.itemId == R.id.afrimoneyFragment) {
+                    viewModel.verify(session.msisdnAfrimoney)
+                } else {
+                    onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+                }
+                true
+            }
+
             it.addOnDestinationChangedListener { _, destination, _ ->
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
@@ -168,6 +192,24 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     }
 
                 }
+            }
+        }
+    }
+
+    fun proceedWith(state: UserState) {
+        when (state) {
+            is UserState.NotRegistered -> {
+                /*        findNavController(R.id.nav_host_main).navigate(
+                     *//*       MainActivity.actionLoginVerificationFragmentToNavRegister(
+                                session.msisdnAfrimoney
+                            )*//*
+                        )*/
+                val bundle = Bundle()
+                bundle.putString("mobilenb", session.msisdnAfrimoney)
+                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2,bundle)
+            }
+            is UserState.Registered -> {
+
             }
         }
     }

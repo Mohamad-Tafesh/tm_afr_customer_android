@@ -3,7 +3,7 @@ package com.africell.africell.features.bookNumber
 import androidx.lifecycle.MutableLiveData
 import com.africell.africell.app.AppSessionNavigator
 import com.africell.africell.app.ResourceUseCaseExecutor
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.SingleLiveEvent
 import com.africell.africell.data.api.dto.StatusDTO
 

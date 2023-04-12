@@ -3,7 +3,7 @@ package com.africell.africell.features.dataCalculator
 import androidx.lifecycle.MutableLiveData
 import com.africell.africell.app.AppSessionNavigator
 import com.africell.africell.app.ResourceUseCaseExecutor
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.api.dto.DataCalculatorDTO
 import com.africell.africell.exception.AppExceptionFactory
 import com.africell.africell.features.dataCalculator.domain.GetDataCalculatorUseCase

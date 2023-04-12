@@ -162,7 +162,7 @@ abstract class BaseActivity : AppCompatActivity() {
         loadingView?.loading(true)
     }
 
-    fun showInlineMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
+    fun showInlineMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
             ?.message(message)
@@ -187,17 +187,17 @@ abstract class BaseActivity : AppCompatActivity() {
         progressDialog?.dismiss()
     }
 
-    fun showMessage(message: String) {
+    fun showMessage(message: CharSequence) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
     }
 
-    fun showMessageWithAction(message: String, actionName: String, action: (() -> Unit)?) {
+    fun showMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
             .setAction(actionName) { action?.invoke() }
             .show()
     }
 
-    fun showInlineMessage(message: String) {
+    fun showInlineMessage(message: CharSequence) {
         loadingLayout?.showLoadingView()
         loadingView?.loading(false)
             ?.message(message)

@@ -5,7 +5,7 @@ import com.tedmob.afrimoney.exception.AppException
 import com.tedmob.afrimoney.exception.AppExceptionFactory
 import io.reactivex.observers.DisposableObserver
 
-abstract class DefaultObserver<T>(
+abstract class DefaultObserver<T: Any>(
     private val appExceptionFactory: AppExceptionFactory,
     private val appSessionNavigator: AppSessionNavigator? = null
 ) : DisposableObserver<T>() {

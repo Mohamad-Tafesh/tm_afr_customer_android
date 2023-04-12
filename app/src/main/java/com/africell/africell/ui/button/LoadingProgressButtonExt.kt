@@ -4,7 +4,7 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.*
 import com.africell.africell.R
 import com.africell.africell.app.BaseFragment
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import java.lang.ref.WeakReference
 
 val viewsObserved = mutableMapOf< Int, LifecycleObserver>()

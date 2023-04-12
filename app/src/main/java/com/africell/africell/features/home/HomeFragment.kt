@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBFragment
 import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.data.Resource
+import com.tedmob.afrimoney.data.Resource
 import com.africell.africell.data.api.ApiContract
 import com.africell.africell.data.api.ApiContract.ImagePageName.HOME_PAGE
 import com.africell.africell.data.api.ApiContract.Params.SLIDERS
@@ -176,7 +176,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
         observeResourceInline(viewModel.subAccountData) { subAccounts ->
             if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
-                sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
+                sessionRepository.selectedMsisdn = subAccounts[0].account.orEmpty()
+                sessionRepository.msisdnAfrimoney = customNumber(subAccounts[0].account.orEmpty())
             }
             getToolbarBindingAs<ToolbarHomeBinding>()?.run {
                 accountViewModel.getAccountInfo()
@@ -204,7 +205,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
         }
 
-        observeNotNull(accountViewModel.accountInfoData, {
+        observeNotNull(accountViewModel.accountInfoData) {
             withVBAvailable {
                 it?.let { resource ->
                     when (resource) {
@@ -223,7 +224,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
                     }
                 }
             }
-        })
+        }
 
 
         viewModel.getImages(SLIDERS, HOME_PAGE)

@@ -11,7 +11,7 @@ sealed class Resource<out T> {
     data class Success<T>(val data: T) : Resource<T>()
 
     data class Error(
-        val message: CharSequence,
+        val message: String,
         val action: (() -> Unit)? = null
     ) : Resource<Nothing>()
 }
@@ -22,7 +22,7 @@ inline fun <reified T> MutableLiveData<Resource<T>>.emitLoading(data: T? = null)
 }
 
 inline fun <reified T> MutableLiveData<Resource<T>>.emitError(
-    message: CharSequence,
+    message: String,
     noinline action: (() -> Unit)? = null
 ) {
     postValue(Resource.Error(message, action))

@@ -79,7 +79,8 @@ class AccountInfoFragment : BaseVBFragment<FragmentAccountInfoBinding>() {
 
         observeResourceWithoutProgress(viewModel.subAccountData) { subAccounts ->
             if (sessionRepository.selectedMsisdn.isEmpty() || subAccounts.firstOrNull { it.account == sessionRepository.selectedMsisdn } == null) {
-                sessionRepository.selectedMsisdn = subAccounts.get(0).account.orEmpty()
+                sessionRepository.selectedMsisdn = subAccounts[0].account.orEmpty()
+                sessionRepository.msisdnAfrimoney = customNumber(subAccounts[0].account.orEmpty())
             }
             getToolbarBindingAs<ToolbarHomeBinding>()?.run {
                 accountSpinner.setText(sessionRepository.selectedMsisdn)

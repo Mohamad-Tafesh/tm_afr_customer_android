@@ -1,15 +1,12 @@
 package com.tedmob.afrimoney.features.home.domain
 
 import com.tedmob.afrimoney.app.usecase.ObservableUseCase
-import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import com.tedmob.afrimoney.data.api.TedmobApis
-import com.tedmob.afrimoney.data.api.dto.BalanceDTO
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.features.account.UserAccountInfo
 import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.rxObservable
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetBalanceUseCase

@@ -1,4 +1,4 @@
-package com.tedmob.afrimoney.features.authentication
+package com.africell.africell.features.afrimoney
 
 import android.os.Bundle
 import android.view.*
@@ -6,8 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.zxing.BarcodeFormat
-import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
@@ -29,7 +27,7 @@ import com.tedmob.afrimoney.util.setText
 import com.tedmob.afrimoney.util.suspendForOneSignalUserId
 import com.tedmob.libraries.validators.formValidator
 import com.tedmob.libraries.validators.rules.NotEmptyRule
-import com.tedmob.libraries.validators.rules.Rule
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch

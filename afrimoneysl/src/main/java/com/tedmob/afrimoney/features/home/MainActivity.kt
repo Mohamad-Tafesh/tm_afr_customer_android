@@ -31,7 +31,6 @@ import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.databinding.*
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.util.adapter.adapter
-import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.intents.email
 import com.tedmob.afrimoney.util.navigation.getStartDestinationsFor
 import com.tedmob.afrimoney.util.navigation.onNavDestinationIdSelected

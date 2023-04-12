@@ -7,7 +7,7 @@ import com.tedmob.afrimoney.exception.AppException
 import com.tedmob.afrimoney.exception.AppExceptionFactory
 import io.reactivex.disposables.Disposable
 
-abstract class RxResourceUseCaseExecutor<T, in Params, Observer : Disposable, UseCase : RxUseCase<T, Params, *, Observer>>(
+abstract class RxResourceUseCaseExecutor<T: Any, in Params, Observer : Disposable, UseCase : RxUseCase<T, Params, *, Observer>>(
     useCase: UseCase,
     params: Params,
     protected val liveData: MutableLiveData<Resource<T>>,
@@ -35,7 +35,7 @@ abstract class RxResourceUseCaseExecutor<T, in Params, Observer : Disposable, Us
     }
 }
 
-open class ObservableResourceUseCaseExecutor<T, Params>(
+open class ObservableResourceUseCaseExecutor<T: Any, Params>(
     useCase: ObservableUseCase<T, Params>,
     params: Params,
     liveData: MutableLiveData<Resource<T>>,
@@ -66,7 +66,7 @@ open class ObservableResourceUseCaseExecutor<T, Params>(
     }
 }
 
-open class SingleResourceUseCaseExecutor<T, Params>(
+open class SingleResourceUseCaseExecutor<T: Any, Params>(
     useCase: SingleUseCase<T, Params>,
     params: Params,
     liveData: MutableLiveData<Resource<T>>,

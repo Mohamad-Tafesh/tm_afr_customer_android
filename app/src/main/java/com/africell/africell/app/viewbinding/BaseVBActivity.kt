@@ -4,8 +4,13 @@ import android.view.LayoutInflater
 import androidx.annotation.CallSuper
 import androidx.viewbinding.ViewBinding
 import com.africell.africell.app.BaseActivity
+import com.africell.africell.data.repository.domain.SessionRepository
+import javax.inject.Inject
 
-abstract class BaseVBActivity<VB: ViewBinding> : BaseActivity() {
+abstract class BaseVBActivity<VB : ViewBinding> : BaseActivity() {
+
+    @Inject
+    lateinit var session: SessionRepository
 
     var binding: VB? = null
         private set
@@ -40,7 +45,11 @@ abstract class BaseVBActivity<VB: ViewBinding> : BaseActivity() {
         wrapLoading: Boolean,
         noinline toolbarLayoutBindingProvider: ((inflater: LayoutInflater) -> ViewBinding)? = null
     ) {
-        setContent(viewBindingProvider(layoutInflater), wrapLoading, toolbarLayoutBindingProvider?.invoke(layoutInflater))
+        setContent(
+            viewBindingProvider(layoutInflater),
+            wrapLoading,
+            toolbarLayoutBindingProvider?.invoke(layoutInflater)
+        )
     }
 
 

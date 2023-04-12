@@ -112,8 +112,8 @@ class LoadingView : FrameLayout {
         return this
     }
 
-    fun message(message: String): LoadingView {
-        this.message = message
+    fun message(message: CharSequence): LoadingView {
+        this.message = message.toString()
         textView.text = message
         return this
     }

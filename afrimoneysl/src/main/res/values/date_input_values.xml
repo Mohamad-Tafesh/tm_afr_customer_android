@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DateInput">
+        <attr name="android:enabled" />
+        <attr name="android:drawableTintMode" />
+        <attr name="drawableTintMode" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:text" />
+        <attr name="android:gravity" />
+
+        <attr name="dateType" format="enum">
+            <enum name="date" value="0" />
+            <!--TODO time, datetime-->
+        </attr>
+        <attr name="dateFormat" format="string" />
+        <attr name="pickerTitle" format="string" />
+
+        <attr name="contentStyle" />
+    </declare-styleable>
+
+    <attr name="materialDateInputStyle" format="reference" />
+</resources>

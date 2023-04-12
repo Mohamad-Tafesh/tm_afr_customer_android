@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_withdraw"
+    app:startDestination="@id/withdrawMain">
+
+    <fragment
+        android:id="@+id/withdrawMain"
+        android:name="com.tedmob.afrimoney.features.withdraw.withdrawMainFragment" >
+
+        <action
+            android:id="@+id/action_withdrawMain_to_agentcode"
+            app:destination="@id/agentcode" />
+        <action
+            android:id="@+id/action_withdrawMain_to_agentPhoneNumberFragment"
+            app:destination="@id/agentPhoneNumberFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/agentcode"
+        android:name="com.tedmob.afrimoney.features.withdraw.agentcode.AgentCodeFragment" >
+
+        <action
+            android:id="@+id/action_agentcode_to_agentCodeConfirmationFragment"
+            app:destination="@id/agentCodeConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/agentCodeConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.withdraw.agentcode.AgentCodeConfirmationFragment"
+        android:label="AgentCodeConfirmationFragment" />
+    <fragment
+        android:id="@+id/agentPhoneNumberFragment"
+        android:name="com.tedmob.afrimoney.features.withdraw.agentphonenumber.AgentPhoneNumberFragment"
+        android:label="AgentPhoneNumberFragment" >
+        <action
+            android:id="@+id/action_agentPhoneNumberFragment_to_agentPhoneNumberConfirmationFragment"
+            app:destination="@id/agentPhoneNumberConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/agentPhoneNumberConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.withdraw.agentphonenumber.AgentPhoneNumberConfirmationFragment"
+        android:label="AgentPhoneNumberConfirmationFragment" />
+
+
+</navigation>

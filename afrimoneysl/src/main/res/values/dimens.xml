@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_medium">24dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_xlarge">48dp</dimen>
+    <dimen name="spacing_xxlarge">64dp</dimen>
+    <dimen name="card_corner_radius">@dimen/spacing_medium</dimen>
+
+    <dimen name="language_dropdown_width">120dp</dimen>
+
+    <dimen name="option_padding">18dp</dimen>
+    <dimen name="header_ic_padding">25dp</dimen>
+    <dimen name="divider_inset_start">24dp</dimen>
+</resources>

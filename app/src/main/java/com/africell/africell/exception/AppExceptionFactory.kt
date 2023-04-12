@@ -1,8 +1,5 @@
 package com.africell.africell.exception
 
-import com.google.gson.Gson
-import com.google.gson.JsonParseException
-import com.google.gson.JsonSyntaxException
 import com.africell.africell.R
 import com.africell.africell.app.StringLoader
 import com.africell.africell.data.api.dto.ErrorDTO
@@ -10,7 +7,10 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.africell.africell.exception.AppException.Code.DATA
 import com.africell.africell.exception.AppException.Code.NETWORK
 import com.africell.africell.exception.AppException.Code.UNEXPECTED
-import com.africell.africell.util.log.ExceptionLogger
+import com.google.gson.Gson
+import com.google.gson.JsonParseException
+import com.google.gson.JsonSyntaxException
+import com.tedmob.afrimoney.util.log.ExceptionLogger
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

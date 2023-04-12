@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_change_pin"
+    app:startDestination="@id/changePinFragment">
+
+    <fragment
+        android:id="@+id/changePinFragment"
+        android:name="com.tedmob.afrimoney.features.account.ChangePinFragment" >
+        <action
+            android:id="@+id/action_changePinFragment_to_changePinNewPinFragment"
+            app:destination="@id/changePinNewPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePinNewPinFragment"
+        android:name="com.tedmob.afrimoney.features.account.ChangePinNewPinFragment" />
+</navigation>

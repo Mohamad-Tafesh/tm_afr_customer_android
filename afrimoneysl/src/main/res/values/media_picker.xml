@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_picker__camera_not_available" translatable="false">Camera not available</string>
+    <string name="media_picker__take_photo" translatable="false">Camera</string>
+    <string name="media_picker__pick_photo" translatable="false">Gallery</string>
+    <string name="media_picker__take_video" translatable="false">Take Video</string>
+    <string name="media_picker__pick_video" translatable="false">Pick Video</string>
+    <string name="media_picker__choose_dialog_title" translatable="false">Select from…</string>
+    <string name="media_picker__camera_permissions_explanation" translatable="false">We need to access your Camera and Storage in order to take photos and save them.</string>
+    <string name="media_picker__gallery_permissions_explanation" translatable="false">We need to access your Storage in order to pick an image.</string>
+    <string name="media_picker__grant_permissions" translatable="false">Grant Permissions</string>
+    <string name="media_picker__permissions" translatable="false">Permissions</string>
+    <string name="media_picker__cancel" translatable="false">Cancel</string>
+    <string name="media_picker__could_not_prepare_file" translatable="false">Could not prepare file</string>
+    <string name="media_picker__error_loading_image" translatable="false">Error loading image</string>
+    <string name="media_picker__delete_image" translatable="false">Delete Image</string>
+    <string name="media_picker__delete_video" translatable="false">Delete Video</string>
+</resources>

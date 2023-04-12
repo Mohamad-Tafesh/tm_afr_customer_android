@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/homeFragment"
+                android:icon="@drawable/tab_home"
+                android:title="@string/home" />
+
+        <item
+                android:id="@+id/faqFragment"
+                android:icon="@mipmap/ic_faq"
+                android:title="@string/faq" />
+        <item
+                android:id="@+id/aboutUsFragment"
+                android:icon="@mipmap/ic_about_us"
+                android:title="@string/about_us" />
+
+        <item
+                android:id="@+id/contactUsFragment"
+                android:icon="@mipmap/ic_contact_us"
+                android:title="@string/contact_us" />
+
+        <item
+                android:id="@+id/settingsFragment"
+                android:icon="@mipmap/ic_settings"
+                android:title="@string/settings" />
+    </group>
+</menu>

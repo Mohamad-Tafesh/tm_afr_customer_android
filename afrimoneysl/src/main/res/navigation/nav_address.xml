@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_address"
+    app:startDestination="@id/myAddressFragment">
+
+    <fragment
+        android:id="@+id/myAddressFragment"
+        android:name="com.tedmob.afrimoney.features.account.MyAddressFragment" >
+        <action
+            android:id="@+id/action_myAddressFragment_to_selectAddressFromMapFragment"
+            app:destination="@id/selectAddressFromMapFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/selectAddressFromMapFragment"
+        android:name="com.tedmob.afrimoney.features.account.SelectAddressFromMapFragment" >
+        <argument
+            android:name="startingLatLng"
+            app:argType="com.tedmob.modules.mapcontainer.view.MapLatLng"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+</navigation>

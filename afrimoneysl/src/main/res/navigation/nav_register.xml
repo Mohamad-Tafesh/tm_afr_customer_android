@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_register"
+    app:startDestination="@id/registerFragment">
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.tedmob.afrimoney.features.authentication.RegisterStep1Fragment" >
+        <argument
+            android:name="mobilenb"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_registerFragment_to_registerStep2Fragment"
+            app:destination="@id/registerStep2Fragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_nav_address"
+            app:destination="@id/nav_address"
+            app:enterAnim="@anim/slide_enter_from_down"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_exit_to_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerStep2Fragment"
+        android:name="com.tedmob.afrimoney.features.authentication.RegisterStep2Fragment" >
+        <argument
+            android:name="mobilenb"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_registerStep2Fragment_to_changePinRegisterFragment"
+            app:destination="@id/changePinRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPinFragment"
+        android:name="com.tedmob.afrimoney.features.authentication.SetPinFragment">
+        <action
+            android:id="@+id/action_setPinFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/nav_root">
+            <argument
+                android:name="isNew"
+                android:defaultValue="true" />
+        </action>
+        <argument
+            android:name="mobilenb"
+            app:argType="string"
+            app:nullable="true"/>
+    </fragment>
+    <include app:graph="@navigation/nav_address" />
+    <fragment
+        android:id="@+id/changePinRegisterFragment"
+        android:name="com.tedmob.afrimoney.features.authentication.ChangePinRegisterFragment"
+        android:label="ChangePinRegisterFragment" >
+        <action
+            android:id="@+id/action_changePinRegisterFragment_to_setPinFragment"
+            app:destination="@id/setPinFragment" />
+    </fragment>
+
+
+</navigation>

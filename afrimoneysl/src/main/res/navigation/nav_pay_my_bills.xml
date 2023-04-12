@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_pay_my_bills"
+    app:startDestination="@id/payMyBillsFragment">
+
+    <fragment
+        android:id="@+id/payMyBillsFragment"
+        android:name="com.tedmob.afrimoney.features.bills.PayMyBillsFragment" >
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_ChooseMyBillServiceTypeFragment"
+            app:destination="@id/nav_dstv" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_powergen"
+            app:destination="@id/nav_powergen" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_postpaid"
+            app:destination="@id/nav_postpaid" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_rising_academy"
+            app:destination="@id/nav_rising_academy" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_edsa"
+            app:destination="@id/nav_edsa" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_mercury"
+            app:destination="@id/nav_mercury" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_covid"
+            app:destination="@id/nav_covid" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_fcc"
+            app:destination="@id/nav_fcc" />
+        <action
+            android:id="@+id/action_payMyBillsFragment_to_nav_waec"
+            app:destination="@id/nav_waec" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/nav_dstv"
+        app:startDestination="@id/payMyBillsOptionsFragment">
+
+        <dialog
+            android:id="@+id/payMyBillsOptionsFragment"
+            android:name="com.tedmob.afrimoney.features.bills.dstv.DstvOptionsFragment" >
+            <action
+                android:id="@+id/action_payMyBillsFragment_to_payMyBillsDSTVNavigaion"
+                app:destination="@id/payMyBillsRenewDSTVFragment" />
+            <action
+                android:id="@+id/action_payMyBillsFragment_to_check"
+                app:destination="@id/checkDSTVFragment" />
+        </dialog>
+
+        <fragment
+            android:id="@+id/payMyBillsRenewDSTVFragment"
+            android:name="com.tedmob.afrimoney.features.bills.dstv.RenewDSTVFragment" >
+
+            <action
+                android:id="@+id/action_payMyBillsRenewDSTVFragment_to_payMyBillsConfirmRenewDSTVFragment"
+                app:destination="@id/payMyBillsConfirmRenewDSTVFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/payMyBillsConfirmRenewDSTVFragment"
+            android:name="com.tedmob.afrimoney.features.bills.dstv.RenewDSTVConfirmationFragment" />
+
+        <fragment
+            android:id="@+id/checkDSTVFragment"
+            android:name="com.tedmob.afrimoney.features.bills.dstv.CheckDSTVFragment" >
+            <action
+                android:id="@+id/action_checkDSTVFragment_to_checkDSTVConfirmationFragment"
+                app:destination="@id/checkDSTVConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/checkDSTVConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.dstv.CheckDSTVConfirmationFragment"
+            android:label="CheckDSTVConfirmationFragment" />
+
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/nav_powergen"
+        app:startDestination="@id/payMyBillsPowergenFragment">
+
+        <fragment
+            android:id="@+id/payMyBillsPowergenFragment"
+            android:name="com.tedmob.afrimoney.features.bills.powergen.PowergenFragment" >
+
+            <action
+                android:id="@+id/action_payMyBillsPowergenFragment_to_powergenConfirmationFragment"
+                app:destination="@id/powergenConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/powergenConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.powergen.PowergenConfirmationFragment"
+            android:label="PowergenConfirmationFragment" />
+
+
+    </navigation>
+    <navigation android:id="@+id/nav_postpaid"
+        app:startDestination="@id/postPaidFragment">
+        <fragment
+            android:id="@+id/postPaidFragment"
+            android:name="com.tedmob.afrimoney.features.bills.postpaid.PostPaidFragment"
+            android:label="PostPaidFragment">
+            <action
+                android:id="@+id/action_postPaidFragment_to_postPaidConfirmationFragment"
+                app:destination="@id/postPaidConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/postPaidConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.postpaid.PostPaidConfirmationFragment"
+            android:label="PostPaidConfirmationFragment" />
+    </navigation>
+    <navigation android:id="@+id/nav_rising_academy"
+        app:startDestination="@id/risingAcademyFragment">
+        <fragment
+            android:id="@+id/risingAcademyFragment"
+            android:name="com.tedmob.afrimoney.features.bills.risingacademy.RisingAcademyFragment"
+            android:label="RisingAcademyFragment">
+            <action
+                android:id="@+id/action_risingAcademyFragment_to_risingAcademyConfirmationFragment"
+                app:destination="@id/risingAcademyConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/risingAcademyConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.risingacademy.RisingAcademyConfirmationFragment"
+            android:label="RisingAcademyConfirmationFragment" />
+    </navigation>
+    <navigation android:id="@+id/nav_edsa"
+        app:startDestination="@id/edsaFragment">
+        <fragment
+            android:id="@+id/edsaFragment"
+            android:name="com.tedmob.afrimoney.features.bills.edsa.EdsaFragment"
+            android:label="EdsaFragment">
+            <action
+                android:id="@+id/action_edsaFragment_to_edsaConfirmationFragment"
+                app:destination="@id/edsaConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/edsaConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.edsa.EdsaConfirmationFragment"
+            android:label="EdsaConfirmationFragment" />
+
+    </navigation>
+    <navigation android:id="@+id/nav_mercury"
+        app:startDestination="@id/mercuryFragment">
+        <fragment
+            android:id="@+id/mercuryFragment"
+            android:name="com.tedmob.afrimoney.features.bills.mercury.MercuryFragment"
+            android:label="MercuryFragment">
+            <action
+                android:id="@+id/action_mercuryFragment_to_mercuryConfirmationFragment"
+                app:destination="@id/mercuryConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/mercuryConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.mercury.MercuryConfirmationFragment"
+            android:label="MercuryConfirmationFragment" />
+    </navigation>
+    <navigation android:id="@+id/nav_covid"
+        app:startDestination="@id/covidFragment">
+        <fragment
+            android:id="@+id/covidFragment"
+            android:name="com.tedmob.afrimoney.features.bills.covid.CovidFragment"
+            android:label="CovidFragment">
+            <action
+                android:id="@+id/action_covidFragment_to_covidConfirmationFragment"
+                app:destination="@id/covidConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/covidConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.covid.CovidConfirmationFragment"
+            android:label="CovidConfirmationFragment" />
+    </navigation>
+    <navigation android:id="@+id/nav_fcc"
+        app:startDestination="@id/fccFragment">
+        <fragment
+            android:id="@+id/fccFragment"
+            android:name="com.tedmob.afrimoney.features.bills.fcc.FccFragment"
+            android:label="FccFragment">
+            <action
+                android:id="@+id/action_fccFragment_to_fccConfirmationFragment"
+                app:destination="@id/fccConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/fccConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.fcc.FccConfirmationFragment"
+            android:label="FccConfirmationFragment" />
+    </navigation>
+    <navigation android:id="@+id/nav_waec"
+        app:startDestination="@id/waecOptionsFragment">
+        <fragment
+            android:id="@+id/waecConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.bills.waec.WaecConfirmationFragment"
+            android:label="WaecConfirmationFragment" >
+            <argument
+                android:name="type"
+                app:argType="string" />
+        </fragment>
+        <dialog
+            android:id="@+id/waecOptionsFragment"
+            android:name="com.tedmob.afrimoney.features.bills.waec.WaecOptionsFragment"
+            android:label="WaecOptionsFragment">
+            <action
+                android:id="@+id/action_waecOptionsFragment_to_waecConfirmationFragment"
+                app:destination="@id/waecConfirmationFragment" />
+        </dialog>
+    </navigation>
+
+</navigation>

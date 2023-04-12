@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="location_helper__permissions">Permissions</string>
+    <string name="location_helper__location_permission_explanation">We need your permission to access your location</string>
+    <string name="location_helper__grant_permission">Grant Permission</string>
+    <string name="location_helper__cancel">Cancel</string>
+    <string name="location_helper__connection_failed">Could not connect using GPS</string>
+    <string name="location_helper__permission_denied">GPS permission refused. Cannot get location</string>
+    <string name="location_helper__location_settings_denied">GPS is turned off. Cannot get location</string>
+    <string name="location_helper__failed_gps_fetching">Failed to get your location from GPS</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_pending_transactions"
+    app:startDestination="@id/pending_transactionsMainFragment">
+
+    <fragment
+        android:id="@+id/pending_transactionsMainFragment"
+        android:name="com.tedmob.afrimoney.features.pendingtransactions.PendingTransactionsMainFragment"
+        android:label="@string/pending_transactions" >
+        <action
+            android:id="@+id/action_pending_transactionsMainFragment_to_enterPinFragment"
+            app:destination="@id/enterPin" >
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterPin"
+        android:name="com.tedmob.afrimoney.features.pendingtransactions.ConfirmPinFragment"
+        android:label="@string/enter_pin" >
+        <action
+            android:id="@+id/action_enterPinFragment_to_pendingtransactionsFragment"
+            app:destination="@id/pendingtransactions" >
+        </action>
+        <argument
+            android:name="service"
+            app:argType="string"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/pendingtransactions"
+        android:name="com.tedmob.afrimoney.features.pendingtransactions.PendingTransactionsFragment">
+        <argument
+            android:name="service"
+            app:argType="string"/>
+        <argument
+            android:name="pin"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_pendingtransactions_to_confirmPendingTransactionsFragment"
+            app:destination="@id/confirmPendingTransactionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmPendingTransactionsFragment"
+        android:name="com.tedmob.afrimoney.features.pendingtransactions.ConfirmPendingTransactionsFragment"
+        android:label="ConfirmPendingTransactionsFragment" >
+        <argument
+            android:name="data"
+            app:argType="com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

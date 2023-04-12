@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgd_enter_pin"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.tedmob.afrimoney.ui.blocks.LoadingLayout
+            android:id="@+id/barcodeLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/spacing_xxlarge"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/headerText"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.45">
+
+            <ImageView
+                android:id="@+id/barcodeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Login Barcode"
+                android:scaleType="fitCenter" />
+        </com.tedmob.afrimoney.ui.blocks.LoadingLayout>
+
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="24dp"
+            android:text="@string/welcome_back"
+            android:textAppearance="@style/AppTheme.TextAppearance.Header1"
+            android:textColor="?colorOnPrimary"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/messageText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barcodeLayout"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/please_enter_your_pin_code"
+            android:textAppearance="@style/AppTheme.TextAppearance.Header1.NotBold"
+            android:textColor="?colorOnPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/pinInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerText"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pinInputLayout"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:endIconDrawable="@drawable/ic_password_toggle"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@null"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/forgotPin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageText"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pin_code"
+                android:inputType="numberPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/forgotPin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="?selectableItemBackground"
+            android:padding="16dp"
+            android:text="@string/forgot_pin"
+            android:textColor="?colorOnPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/proceedButton"
+            app:layout_constraintStart_toStartOf="@+id/pinInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/pinInputLayout"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.tedmob.afrimoney.ui.button.LoadingProgressButton
+            android:id="@+id/proceedButton"
+            style="?materialButtonSecondaryStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/get_started"
+            app:layout_constraintBottom_toTopOf="@+id/logoutButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgotPin" />
+
+        <com.tedmob.afrimoney.ui.button.LoadingProgressButton
+            android:id="@+id/logoutButton"
+            style="?materialButtonSecondaryStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="24dp"
+            android:text="@string/logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proceedButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

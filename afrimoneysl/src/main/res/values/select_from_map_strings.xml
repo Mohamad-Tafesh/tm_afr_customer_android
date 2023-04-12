@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="select">Select</string>
+    <string name="loading_1">Loading.</string>
+    <string name="loading_2">Loading..</string>
+    <string name="loading_3">Loading...</string>
+</resources>

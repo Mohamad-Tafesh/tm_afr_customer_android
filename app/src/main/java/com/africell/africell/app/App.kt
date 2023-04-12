@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.webkit.WebView
+import coil.Coil
+import coil.ImageLoader
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.data.repository.domain.SessionRepository
@@ -65,6 +67,7 @@ class App : Application() {
         Timber.plant(CrashlyticsTree(firebaseCrashlytics))
         session.identifyUser(firebaseAnalytics, firebaseCrashlytics)
         initFrescoWithOkHttp()
+        initImageLoader()
         initOneSignal()
     }
 
@@ -76,11 +79,20 @@ class App : Application() {
         Fresco.initialize(this, config)
     }
 
+    private fun initImageLoader() {
+        Coil.setImageLoader {
+            ImageLoader.Builder(applicationContext)
+                .okHttpClient(okHttpClient)
+                .build()
+        }
+    }
+
     private fun initOneSignal() {
         OneSignal.setAppId(getString(R.string.onesignal_app_id))
         OneSignal.initWithContext(this)
         OneSignal.setNotificationOpenedHandler(NotificationOpenedHandler(this))
         OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
+        OneSignal.setLanguage(session.language)
         OneSignal.setLocationShared(false)
     }
 }

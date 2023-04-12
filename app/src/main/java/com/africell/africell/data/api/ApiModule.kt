@@ -89,7 +89,7 @@ object ApiModule {
             }
 
             debugOnly {
-                credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
+                //credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             }
 
             //

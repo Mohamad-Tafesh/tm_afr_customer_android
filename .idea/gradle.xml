@@ -12,7 +12,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/afrimoneysl" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/map-core" />
+            <option value="$PROJECT_DIR$/map-gms" />
+            <option value="$PROJECT_DIR$/validators" />
           </set>
         </option>
       </GradleProjectSettings>

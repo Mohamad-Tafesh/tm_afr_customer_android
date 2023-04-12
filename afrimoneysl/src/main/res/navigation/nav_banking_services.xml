@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_banking_services"
+    app:startDestination="@id/bankingServicesFragment">
+
+    <fragment
+        android:id="@+id/bankingServicesFragment"
+        android:name="com.tedmob.afrimoney.features.banking.BankingServicesFragment">
+        <action
+            android:id="@+id/action_bankingServicesFragment_to_chooseBankingServiceTypeFragment"
+            app:destination="@id/chooseBankingServiceTypeFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/chooseBankingServiceTypeFragment"
+        android:name="com.tedmob.afrimoney.features.banking.ChooseBankingServiceTypeFragment">
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+        <action
+            android:id="@+id/action_chooseBankingServiceTypeFragment_to_bankToWalletFragment"
+            app:destination="@id/bankToWalletFragment"
+            app:popUpTo="@id/bankingServicesFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_chooseBankingServiceTypeFragment_to_walletToBankFragment"
+            app:destination="@id/walletToBankFragment"
+            app:popUpTo="@id/bankingServicesFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_chooseBankingServiceTypeFragment_to_balanceEnquiryFragment"
+            app:destination="@id/balanceEnquiryFragment"
+            app:popUpTo="@id/bankingServicesFragment"
+            app:popUpToInclusive="false" />
+    </dialog>
+    <fragment
+        android:id="@+id/bankToWalletFragment"
+        android:name="com.tedmob.afrimoney.features.banking.BankToWalletFragment">
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+        <action
+            android:id="@+id/action_bankToWalletFragment_to_bankToWalletConfirmationFragment"
+            app:destination="@id/bankToWalletConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bankToWalletConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.banking.BankToWalletConfirmationFragment">
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletToBankFragment"
+        android:name="com.tedmob.afrimoney.features.banking.WalletToBankFragment"
+        android:label="WalletToBankFragment">
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+        <action
+            android:id="@+id/action_walletToBankFragment_to_walletToBankConfirmationFragment"
+            app:destination="@id/walletToBankConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletToBankConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.banking.WalletToBankConfirmationFragment"
+        android:label="WalletToBankConfirmationFragment">
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+    </fragment>
+    <fragment
+        android:id="@+id/balanceEnquiryFragment"
+        android:name="com.tedmob.afrimoney.features.banking.BalanceEnquiryFragment"
+        android:label="BalanceEnquiryFragment" >
+        <argument
+            android:name="bank"
+            app:argType="com.tedmob.afrimoney.data.entity.Bank" />
+    </fragment>
+</navigation>

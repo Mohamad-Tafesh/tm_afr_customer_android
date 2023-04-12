@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_notif_messages"
+    app:startDestination="@id/messagesFragment">
+
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.tedmob.afrimoney.features.inbox.MessagesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_messages" >
+        <action
+            android:id="@+id/action_messagesFragment_to_messagesDetailsFragment"
+            app:destination="@id/messagesDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesDetailsFragment"
+        android:name="com.tedmob.afrimoney.features.inbox.MessagesDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_messages_details" >
+        <argument
+            android:name="message"
+            app:argType="com.tedmob.afrimoney.data.entity.Message"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+</navigation>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_transfer_money"
+    app:startDestination="@id/transferMoneyFragment">
+
+    <fragment
+        android:id="@+id/transferMoneyFragment"
+        android:name="com.tedmob.afrimoney.features.transfer.TransferMoneyFragment">
+        <action
+            android:id="@+id/action_transferMoneyFragment_to_transferMoneyConfirmationFragment"
+            app:destination="@id/transferMoneyConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferMoneyConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.transfer.TransferMoneyConfirmationFragment">
+
+    </fragment>
+</navigation>

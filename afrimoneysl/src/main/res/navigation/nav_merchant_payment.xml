@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_merchant_payment"
+    app:startDestination="@id/merchantPaymentFragment">
+
+    <fragment
+        android:id="@+id/merchantPaymentFragment"
+        android:name="com.tedmob.afrimoney.features.merchantpayment.MerchantPaymentFragment">
+        <action
+            android:id="@+id/action_merchantPaymentFragment_to_merchantPaymentConfirmationFragment"
+            app:destination="@id/merchantPaymentConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/merchantPaymentConfirmationFragment"
+        android:name="com.tedmob.afrimoney.features.merchantpayment.MerchantPaymentConfirmationFragment">
+
+    </fragment>
+</navigation>

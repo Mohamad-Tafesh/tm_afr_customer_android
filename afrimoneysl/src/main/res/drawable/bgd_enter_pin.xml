@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bgd_pink" />
+
+    <item
+        android:drawable="@drawable/ic_top_corner_logo_small"
+        android:gravity="top|start" />
+</layer-list>

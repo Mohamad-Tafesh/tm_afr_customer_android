@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolbarLayout">
+        <attr name="toolbar" format="reference" />
+        <attr name="toolbarLayout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="isLoading" format="boolean" />
+
+        <attr name="message" format="string" />
+        <attr name="messageTextColor" format="color|reference" />
+        <attr name="displayMessage" format="boolean" />
+        <attr name="displayButton" format="boolean" />
+        <attr name="buttonText" format="string" />
+
+        <attr name="image" format="reference" />
+        <attr name="displayImage" format="boolean" />
+
+        <attr name="loadingFrameLayout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="Blocks">
+        <attr name="toolbarLayoutStyle" format="reference" />
+        <attr name="loadingViewStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DraggableConstraintLayout_LayoutParams">
+        <attr name="isDraggable" format="boolean" />
+        <attr name="dragRange" format="enum">
+            <enum name="free" value="0" />
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="2" />
+        </attr>
+        <attr name="dragBounds" format="enum">
+            <enum name="custom" value="0" />
+            <enum name="unbounded" value="1" />
+            <enum name="insideParent" value="2" />
+            <enum name="insideOtherView" value="3" />
+        </attr>
+        <attr name="dragBoundsView" format="reference" />
+    </declare-styleable>
+</resources>

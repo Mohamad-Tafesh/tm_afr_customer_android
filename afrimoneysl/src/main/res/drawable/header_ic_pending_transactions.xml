@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bgd_option_on_primary" />
+    <item
+        android:bottom="@dimen/header_ic_padding"
+        android:drawable="@drawable/hourglass"
+        android:left="@dimen/header_ic_padding"
+        android:right="@dimen/header_ic_padding"
+        android:top="@dimen/header_ic_padding" />
+</layer-list>

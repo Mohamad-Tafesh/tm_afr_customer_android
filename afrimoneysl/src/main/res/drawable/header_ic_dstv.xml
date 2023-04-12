@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/white_radius" />
+    <item android:drawable="@drawable/paymybillsdstv"
+
+        android:top="@dimen/header_ic_padding"
+        android:bottom="@dimen/header_ic_padding"
+        android:left="@dimen/header_ic_padding"
+        android:right="@dimen/header_ic_padding" />
+</layer-list>

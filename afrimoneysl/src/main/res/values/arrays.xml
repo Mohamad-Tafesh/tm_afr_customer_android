@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="supported_languages">
+        <item>English</item>
+        <!--<item>العربية</item>-->
+    </string-array>
+
+    <string-array name="supported_language_codes">
+        <item>en</item>
+        <!--<item>ar</item>-->
+    </string-array>
+
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="gender_values">
+        <item>Male</item>
+        <item>Female</item>
+        <item>None</item>
+    </string-array>
+    <string-array name="idtype">
+        <item>National ID Card</item>
+        <item>Driver’s license</item>
+        <item>Voter ID Card</item>
+        <item>Passport</item>
+    </string-array>
+    <string-array name="idtype_values">
+        <item>National ID Card</item>
+        <item>Driver’s license</item>
+        <item>Voter ID Card</item>
+        <item>Passport</item>
+    </string-array>
+    <string-array name="nb_of_Months">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="region">
+        <item>Western Urban</item>
+        <item>Western Rural</item>
+        <item>Northern</item>
+        <item>Southern</item>
+        <item>Eastern</item>
+    </string-array>
+    <string-array name="region_values">
+        <item>Western Urban</item>
+        <item>Western Rural</item>
+        <item>Northern</item>
+        <item>Southern</item>
+        <item>Eastern</item>
+    </string-array>
+
+</resources>

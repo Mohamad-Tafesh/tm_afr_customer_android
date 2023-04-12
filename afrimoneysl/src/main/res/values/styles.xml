@@ -1,0 +1,222 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <attr name="materialButtonSecondaryStyle" format="reference" />
+
+    <!-- Base application theme. -->
+    <style name="AppThemeBase" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/violetMain</item>
+        <item name="colorPrimaryDark">@color/violetMain</item>
+        <item name="colorSecondary">@color/orangeMain</item>
+        <item name="android:windowBackground">@color/bgdColor</item>
+        <item name="android:colorBackground">@color/bgdColor</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">?colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+        <item name="loadingViewStyle">@style/Blocks.LoadingView</item>
+        <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrow</item>
+        <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle
+        </item><!--has to be declared-->
+        <item name="materialDateInputStyle">@style/MaterialSpinnerStyle
+        </item><!--has to be declared-->
+
+        <!--<item name="homeAsUpIndicator">@drawable/ic_nav_back_white</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_nav_back_white</item>-->
+        <item name="textInputStyle">@style/AppTheme.TextInput</item>
+        <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
+        <item name="materialButtonSecondaryStyle">@style/AppTheme.MaterialButton.Secondary</item>
+        <item name="materialButtonOutlinedStyle">@style/AppTheme.MaterialButton.Outlined</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
+        <item name="bottomNavigationStyle">@style/AppTheme.BottomNavigation</item>
+        <item name="tabStyle">@style/AppTheme.TabLayout</item>
+        <item name="fontFamily">@font/font_regular</item>
+    </style>
+
+    <style name="MaterialSpinnerStyle" parent="AppTheme.TextInput">
+        <!--<item name="contentStyle">@style/TextInputEditTextStyle</item>-->
+    </style>
+
+    <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:minHeight">64dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/nexa_xbold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.MaterialButton.Secondary">
+        <item name="backgroundTint">?colorSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/nexa_xbold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.MaterialButton.Cancel">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeColor">?colorPrimary</item>
+        <item name="android:fontFamily">@font/nexa_xbold</item>
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.MaterialButton.Outlined">
+        <item name="android:stateListAnimator">@animator/mtrl_btn_unelevated_state_list_anim</item>
+        <item name="elevation">0dp</item>
+
+        <item name="backgroundTint">?android:colorBackground</item>
+        <item name="strokeColor">?colorPrimary</item>
+        <item name="strokeWidth">1dp</item>
+
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">24dp</item>
+        <item name="boxCornerRadiusTopEnd">24dp</item>
+        <item name="boxCornerRadiusBottomStart">24dp</item>
+        <item name="boxCornerRadiusBottomEnd">24dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/greyHighlight</item>
+        <item name="boxStrokeWidth">0.5dp</item>
+    </style>
+
+    <style name="AppTheme.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MaterialAlertDialog.Rounded" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialAlertDialog.Rounded
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialAlertDialog.Rounded" parent="">
+        <item name="cornerSize">15dp</item>
+    </style>
+
+
+    <style name="AppTheme.TextAppearance.Header1" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/nexa_bold</item>
+
+    </style>
+
+    <style name="AppTheme.TextAppearance.Header1.NotBold">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Header2" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="AppTheme.TextAppearance.pendingtransactiontextright" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/violetMain</item>
+
+    </style>
+
+    <style name="AppTheme.TextAppearance.pendingtransactiontextleft" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+
+    </style>
+
+    <style name="Blocks" parent="@style/AppThemeBase" />
+
+    <style name="Blocks.ToolbarLayout">
+        <item name="toolbar">@layout/toolbar_default</item>
+    </style>
+
+
+    <style name="Blocks.LoadingView">
+        <item name="isLoading">true</item>
+        <item name="message">@string/error_unexpected</item>
+        <item name="messageTextColor">@color/black</item>
+        <item name="displayMessage">true</item>
+        <item name="displayButton">true</item>
+        <item name="buttonText">@string/retry</item>
+        <item name="displayImage">false</item>
+
+        <item name="loadingFrameLayout">@layout/loading_frame_default</item>
+    </style>
+
+    <style name="AppTheme" parent="@style/AppThemeBase" />
+
+    <style name="AppTheme.Launch" parent="Theme.SplashScreen">
+        <!--NOTE: you cannot use attributes here (using ?) as they need to be resolved by the system, and it is too early here-->
+        <item name="windowSplashScreenBackground">@color/violetMain</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
+    <style name="AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:gravity">center_vertical
+        </item><!--Added because material component needs it-->
+        <item name="android:theme">@style/AppTheme.ToolbarTheme</item>
+    </style>
+
+    <style name="AppTheme.CustomToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/black</item>
+        <item name="android:gravity">center_vertical
+        </item><!--Added because material component needs it-->
+        <item name="android:theme">@style/AppTheme.ToolbarTheme</item>
+    </style>
+
+    <style name="AppTheme.ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="AppTheme.DrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle"></style>
+
+    <style name="AppTheme.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">?colorSecondary</item>
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">8sp</item>
+        <item name="labelVisibilityMode">labeled</item>
+
+        <item name="itemTextColor">@null</item>
+        <item name="itemTextAppearanceActive">
+            @style/AppTheme.BottomNavigation.TextAppearanceActive
+        </item>
+        <item name="itemTextAppearanceInactive">
+            @style/AppTheme.BottomNavigation.TextAppearanceInactive
+        </item>
+    </style>
+
+    <style name="AppTheme.BottomNavigation.TextAppearanceActive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.BottomNavigation.TextAppearanceInactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">?colorPrimary</item>
+        <item name="tabIndicatorColor">?colorOnPrimary</item>
+        <item name="tabTextColor">@color/tab_text_color</item>
+    </style>
+
+    <style name="MaterialAlertBottom" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/MaterialAlertBottom.AlertStyle</item>
+    </style>
+
+    <style name="MaterialAlertBottom.AlertStyle" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="backgroundInsetBottom">0dp</item>
+    </style>
+</resources>

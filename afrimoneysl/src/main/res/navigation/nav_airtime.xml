@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_airtime"
+    app:startDestination="@id/airtimefragment">
+
+    <fragment
+        android:id="@+id/airtimefragment"
+        android:name="com.tedmob.afrimoney.features.africellservices.airtime.AirtimeFragment" >
+<action
+    android:id="@+id/action_airtime_to_airtime_Confirmation"
+    app:destination="@+id/airtimeConfirmationfragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/airtimeConfirmationfragment"
+        android:name="com.tedmob.afrimoney.features.africellservices.airtime.AirtimeConfirmationFragment" >
+
+    </fragment>
+
+
+</navigation>

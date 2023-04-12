@@ -76,7 +76,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>(), Liv.Action {
                 when (FLAVOR) {
                     "sl" -> {
                         mobileNumberLayout.setText("80022041")
-                        password.setText("test")
+                        password.setText("testuser")
                     }
                     "drc" -> {
                         mobileNumberLayout.setText("900099909")

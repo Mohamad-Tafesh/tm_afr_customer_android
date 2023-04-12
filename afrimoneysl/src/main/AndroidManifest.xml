@@ -17,7 +17,6 @@
             android:allowBackup="false"
             android:hardwareAccelerated="true"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
         <activity
@@ -38,16 +37,19 @@
         <activity
                 android:name="com.tedmob.afrimoney.features.home.MainActivity"
                 android:label="@string/home"
+                android:theme="@style/AfrimoneyAppThemeBase"
                 android:screenOrientation="portrait" />
 
         <activity
                 android:name="com.tedmob.afrimoney.features.help.WalkthroughActivity"
                 android:label="@string/home"
+                android:theme="@style/AfrimoneyAppThemeBase"
                 android:screenOrientation="portrait" />
 
         <activity
                 android:name=".features.authentication.EnterPinActivity"
                 android:label=""
+                android:theme="@style/AfrimoneyAppThemeBase"
                 android:screenOrientation="portrait" />
     </application>
 </manifest>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.africell.africell.R
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.app.viewbinding.BaseVBFragment
@@ -54,10 +55,10 @@ class AfrimoneySLFragment : BaseVBFragment<FragmentAfriMoneySlBinding>() {
 
     private fun FragmentAfriMoneySlBinding.setupOptions() {
         transactionsLayout.setDebouncedOnClickListener {
-            //...
+            //TODO new activity for enterPin_from_home in Afrimoney's nav_main
         }
         transferMoneyOption.setDebouncedOnClickListener {
-            //...
+            findNavController().navigate(R.id.nav_transfer_money)
         }
         pendingTransactionsOption.setDebouncedOnClickListener {
             //...

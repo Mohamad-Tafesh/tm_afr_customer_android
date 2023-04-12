@@ -198,5 +198,6 @@
             android:id="@+id/afrimoneyMerchantPayFragment"
             android:name="com.africell.africell.features.afrimoneyMerchantPaymnet.AfrimoneyMerchantPayFragment"
             android:label="AfrimoneyMerchantPayFragment" />
+    <include app:graph="@navigation/nav_transfer_money" />
 
 </navigation>

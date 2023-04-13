@@ -2,9 +2,13 @@ package com.africell.africell.app.viewbinding
 
 import android.view.LayoutInflater
 import androidx.annotation.CallSuper
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.africell.africell.app.BaseActivity
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.africell.africell.ui.viewmodel.CustomViewModelLazy
 import javax.inject.Inject
 
 abstract class BaseVBActivity<VB : ViewBinding> : BaseActivity() {
@@ -51,6 +55,23 @@ abstract class BaseVBActivity<VB : ViewBinding> : BaseActivity() {
             toolbarLayoutBindingProvider?.invoke(layoutInflater)
         )
     }
+
+    inline fun <reified T : ViewModel> Fragment.provideActivityViewModel(
+        noinline keyProducer: (() -> String?)? = null,
+        noinline factoryProducer: () -> ViewModelProvider.Factory = { requireActivity().defaultViewModelProviderFactory }
+    ): Lazy<T> {
+        val canonicalName: String = T::class.java.canonicalName
+            ?: throw IllegalArgumentException("Local and anonymous classes can not be ViewModels")
+
+        return CustomViewModelLazy(
+            T::class,
+            keyProducer?.let { { "$canonicalName:${it.invoke()}" } },
+            { requireActivity().viewModelStore },
+            factoryProducer,
+            { requireActivity().defaultViewModelCreationExtras },
+        )
+    }
+
 
 
     @CallSuper

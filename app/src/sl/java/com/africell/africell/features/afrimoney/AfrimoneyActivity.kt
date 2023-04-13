@@ -1,26 +1,247 @@
 package com.africell.africell.features.afrimoney
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.addCallback
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.africell.africell.BuildConfig
+import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
-import com.africell.africell.databinding.ActivityAfrimoneyBinding
+import com.africell.africell.app.viewbinding.withVBAvailable
+import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.features.home.ActivityViewModel
+import com.africell.africell.ui.viewmodel.observeResource
+import com.africell.africell.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.data.entity.UserState
+import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
-class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyBinding>() {
+class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
+    private val viewModel by provideViewModel<ActivityViewModel>()
+    private val bottomNavFragmentIds: List<Int> by lazy {
+        val list = mutableListOf<Int>()
+        requireBinding().bottomNavigationView.menu.let { menu ->
+            val defaultList = (0 until menu.size()).map { menu.getItem(it).itemId }
+            list.addAll(defaultList)
+        }
+        list.add(R.id.locationListFragment)
+        list
+    }
+/*    Intent(context, InstallPackagesActivity::class.java).apply {
+        putExtra(KEY__INTENTION, Type.RENEW)
+    }*/
+/*    private val type: Int by lazy { intent.getIntExtra(KEY__INTENTION, Type.RENEW) }
+    private val isIptv: Boolean by lazy { intent.getBooleanExtra("isIPTV", false) }*/
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val sideMenuIds: List<Int> by lazy {
+        requireBinding().navigationView.menu.let { menu ->
+            (0 until menu.size()).map { menu.getItem(it).itemId }
+        }
+    }
+
+    val topLevelDestinations: Set<Int> by lazy {
+        val list = mutableListOf<Int>()
+        list.addAll(bottomNavFragmentIds)
+        list.addAll(sideMenuIds)
+        HashSet<Int>(list)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent(ActivityAfrimoneyBinding::inflate)
-
-        onBackPressedDispatcher.addCallback(this, enabled = true) {
-            finishAffinity()
+        setContent(ActivityMainBinding::inflate, false)
+        withVBAvailable {
+            appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
+            setupNavigation()
+            setupBottomNavigationStyle()
         }
     }
 
 
-    override fun onSupportNavigateUp(): Boolean {
-        finishAffinity()
-        return true
+    override fun onSupportNavigateUp(): Boolean = NavigationUI.navigateUp(
+        findNavController(R.id.nav_host_main),
+        appBarConfiguration
+    ) || findNavController(R.id.nav_host_main).navigateUp()
+
+    private fun ActivityMainBinding.setupNavigation() {
+        //    navigationView.itemIconTintList = null
+
+        findNavController(R.id.nav_host_main).let {
+//            setupActionBarWithNavController(it, drawerLayout)
+            navigationView.setupWithNavController(
+                it,
+                customHasPriority = true,
+                customNavigationListener = { item ->
+                    when (item.itemId) {
+                        //...
+
+                        else -> false
+                    }
+                }
+            )
+
+
+            val backPressedCallback = onBackPressedDispatcher.addCallback(this@MainActivity, enabled = false) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+                override fun onDrawerStateChanged(newState: Int) {
+                }
+
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                }
+
+                override fun onDrawerClosed(drawerView: View) {
+                    if (drawerView.id == R.id.navigationView) {
+                        backPressedCallback.isEnabled = false
+                    }
+                }
+
+                override fun onDrawerOpened(drawerView: View) {
+                    if (drawerView.id == R.id.navigationView) {
+                        backPressedCallback.isEnabled = true
+                    }
+                }
+            })
+
+            navigationView.setupWithNavController(
+                it,
+                customHasPriority = true,
+                customNavigationListener = { item ->
+                    when (item.itemId) {
+                        //...
+                        else -> false
+                    }
+                }
+            )
+
+
+            observeResource(viewModel.verified) {
+                proceedWith(it)
+            }
+
+
+
+
+            bottomNavigationView.setupWithNavController(it)
+            //preventing reselection by passing empty listener; a null listener will result in onItemSelected listener to be called on reselection.
+            bottomNavigationView.setOnNavigationItemReselectedListener {
+
+            }
+
+            bottomNavigationView.setOnItemSelectedListener {
+                if (it.itemId == R.id.afrimoneyFragment) {
+                    viewModel.verify(session.msisdnAfrimoney)
+                } else {
+                    NavigationUI.onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+                }
+                true
+            }
+
+            it.addOnDestinationChangedListener { _, destination, _ ->
+                Timber.d("Navigate to %s", destination.label)
+                bottomNavigationView.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+
+                afrimoneyImg.visibility =
+                    if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                customerCareTxt.visibility =
+                    if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                if (BuildConfig.FLAVOR == "drc") {
+                    afrimoneyImg.visibility = View.GONE
+                    customerCareTxt.visibility = View.GONE
+
+                }
+
+                if (bottomNavFragmentIds.contains(destination.id)) {
+                    if (BuildConfig.FLAVOR == "sl") {
+                        if (destination.id == R.id.afrimoneyFragment) {
+                            afrimoneyImg.setImageResource(
+                                R.mipmap.tab_afrimoney_selected
+                            )
+                        } else {
+                            afrimoneyImg.setImageResource(
+                                R.mipmap.tab_afrimoney_not_selected
+                            )
+
+                        }
+                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
+                            getString(R.string.post_stores)
+                    } else {
+                        if (destination.id == R.id.customerCareFragment) {
+                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                R.mipmap.tab_customer_care_selected, 0, 0
+                            )
+                        } else {
+                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                R.mipmap.tab_customer_care,
+                                0,
+                                0
+                            )
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    fun proceedWith(state: UserState) {
+        when (state) {
+            is UserState.NotRegistered -> {
+                /*        findNavController(R.id.nav_host_main).navigate(
+                     *//*       MainActivity.actionLoginVerificationFragmentToNavRegister(
+                                session.msisdnAfrimoney
+                            )*//*
+                        )*/
+                val bundle = Bundle()
+                bundle.putString("mobilenb", session.msisdnAfrimoney)
+                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+            }
+            is UserState.Registered -> {
+                //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
+                val bundle = Bundle()
+                bundle.putString("mobilenb", session.msisdnAfrimoney)
+                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+            }
+        }
+    }
+
+    private fun ActivityMainBinding.setupBottomNavigationStyle() {
+        bottomNavigationView.itemIconTintList = null
+        /*   val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
+           // make second item bigger
+           val iconView =
+               menuView.getChildAt(2)?.findViewById<View>(com.google.android.material.R.id.icon)
+           val size = resources.getDimensionPixelSize(R.dimen.spacing_large)
+           val padding = resources.getDimensionPixelSize(R.dimen.spacing_medium)
+           iconView?.setPadding(0, 0, 0, padding)
+
+           val layoutParams = iconView?.layoutParams
+           val displayMetrics = resources.displayMetrics
+           // set your height here
+           // set your height here
+           layoutParams?.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
+           // set your width here
+           // set your width here
+           layoutParams?.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
+           iconView?.layoutParams = layoutParams*/
+    }
+
+    private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {
+        return AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(this).build()
     }
 }

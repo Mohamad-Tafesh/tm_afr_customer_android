@@ -36,6 +36,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         list
     }
 
+    private val destination: Int by lazy { intent.getIntExtra("destination", -1) }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -144,6 +145,8 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 true
             }
 
+
+
             it.addOnDestinationChangedListener { _, destination, _ ->
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
@@ -192,6 +195,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     }
 
                 }
+
             }
         }
     }
@@ -206,10 +210,13 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                         )*/
                 val bundle = Bundle()
                 bundle.putString("mobilenb", session.msisdnAfrimoney)
-                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2,bundle)
+                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
             }
             is UserState.Registered -> {
-
+                //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
+                val bundle = Bundle()
+                bundle.putString("mobilenb", session.msisdnAfrimoney)
+                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
             }
         }
     }

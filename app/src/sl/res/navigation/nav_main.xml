@@ -205,7 +205,12 @@
 
     <fragment
             android:id="@+id/setPinFragment2"
-            android:name="com.tedmob.afrimoney.features.authentication.SetPinFragment"
-            android:label="SetPinFragment" />
+            android:name="com.africell.africell.features.afrimoney.SetPinFragment"
+            android:label="SetPinFragment" >
+        <argument
+                android:name="mobilenb"
+                app:argType="string"
+                app:nullable="true"/>
+    </fragment>
 
 </navigation>

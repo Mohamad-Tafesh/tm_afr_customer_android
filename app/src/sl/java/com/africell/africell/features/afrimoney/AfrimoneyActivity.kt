@@ -90,7 +90,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
             )
 
 
-            val backPressedCallback = onBackPressedDispatcher.addCallback(this@MainActivity, enabled = false) {
+            val backPressedCallback = onBackPressedDispatcher.addCallback(this@AfrimoneyActivity, enabled = false) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {

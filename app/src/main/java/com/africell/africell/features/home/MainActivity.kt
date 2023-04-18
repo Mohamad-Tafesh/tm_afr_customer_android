@@ -1,5 +1,6 @@
 package com.africell.africell.features.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
@@ -16,8 +17,12 @@ import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.features.afrimoney.AfrimoneyActivity
+import com.africell.africell.features.authentication.AuthenticationActivity
+import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,6 +66,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
             setupBottomNavigationStyle()
+        }
+
+        observe(AfricellDestination.destination) {
+            it?.let {
+                onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+            }
         }
     }
 
@@ -213,10 +224,13 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
             }
             is UserState.Registered -> {
-                //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
                 val bundle = Bundle()
                 bundle.putString("mobilenb", session.msisdnAfrimoney)
-                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+                //findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+                activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
+                    //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                })
             }
         }
     }

@@ -153,6 +153,7 @@ abstract class BaseFragment : Fragment() {
                     ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                 )
                 v = it
+                (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
             }
         }
 

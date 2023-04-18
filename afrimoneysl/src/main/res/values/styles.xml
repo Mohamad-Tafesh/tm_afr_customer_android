@@ -35,6 +35,16 @@
         <item name="fontFamily">@font/font_regular</item>
     </style>
 
+    <style name="AppTheme.MaterialToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item><!--Added because material component needs it-->
+        <item name="android:theme">@style/AppTheme.ToolbarTheme</item>
+    </style>
+
+
     <!-- Base application theme. -->
     <style name="AfrimoneyAppThemeBase" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->

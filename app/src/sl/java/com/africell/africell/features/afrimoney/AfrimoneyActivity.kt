@@ -8,22 +8,22 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.africell.africell.BuildConfig
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.databinding.ActivityAfrimoneyNewBinding
 import com.africell.africell.features.home.ActivityViewModel
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
+class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     private val viewModel by provideViewModel<ActivityViewModel>()
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
@@ -34,11 +34,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
         list.add(R.id.locationListFragment)
         list
     }
-/*    Intent(context, InstallPackagesActivity::class.java).apply {
-        putExtra(KEY__INTENTION, Type.RENEW)
-    }*/
-/*    private val type: Int by lazy { intent.getIntExtra(KEY__INTENTION, Type.RENEW) }
-    private val isIptv: Boolean by lazy { intent.getBooleanExtra("isIPTV", false) }*/
+
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -58,7 +54,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent(ActivityMainBinding::inflate, false)
+        setContent(ActivityAfrimoneyNewBinding::inflate, false)
         withVBAvailable {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
@@ -72,7 +68,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
         appBarConfiguration
     ) || findNavController(R.id.nav_host_main).navigateUp()
 
-    private fun ActivityMainBinding.setupNavigation() {
+    private fun ActivityAfrimoneyNewBinding.setupNavigation() {
         //    navigationView.itemIconTintList = null
 
         findNavController(R.id.nav_host_main).let {
@@ -130,72 +126,104 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
             }
 
 
-
-
-            bottomNavigationView.setupWithNavController(it)
-            //preventing reselection by passing empty listener; a null listener will result in onItemSelected listener to be called on reselection.
-            bottomNavigationView.setOnNavigationItemReselectedListener {
-
-            }
-
             bottomNavigationView.setOnItemSelectedListener {
-                if (it.itemId == R.id.afrimoneyFragment) {
-                    viewModel.verify(session.msisdnAfrimoney)
-                } else {
-                    NavigationUI.onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+                when (it.itemId) {
+
+                    R.id.homeFragment -> {
+                        AfricellDestination.destination.value = it
+                        finish()
+                    }
+                    R.id.customerCareFragment -> {
+                        AfricellDestination.destination.value = it
+                        finish()
+                    }
+                    R.id.SMSFragment -> {
+                        AfricellDestination.destination.value = it
+                        finish()
+                    }
+                    R.id.locationListFragment -> {
+                        AfricellDestination.destination.value = it
+                        finish()
+                    }
+                    else -> {}
+
                 }
+
                 true
             }
 
+            supportActionBar?.setHomeAsUpIndicator(com.tedmob.afrimoney.R.drawable.sidemenunav)
             it.addOnDestinationChangedListener { _, destination, _ ->
-                Timber.d("Navigate to %s", destination.label)
-                bottomNavigationView.visibility =
-                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility =
-                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                withVBAvailable {
+                    supportActionBar?.setHomeAsUpIndicator(
+                        when (destination.id) {
+                            com.tedmob.afrimoney.R.id.homeFragment,
+                            com.tedmob.afrimoney.R.id.aboutUsFragment,
+                            com.tedmob.afrimoney.R.id.referFriendFragment,
+                            com.tedmob.afrimoney.R.id.faqFragment,
+                            com.tedmob.afrimoney.R.id.helpFragment,
+                            com.tedmob.afrimoney.R.id.accountFragment,
+                            com.tedmob.afrimoney.R.id.locateUsFragment,
+                            com.tedmob.afrimoney.R.id.africellServicesFragment2
+                            -> R.mipmap.nav_side_menu
 
-                afrimoneyImg.visibility =
-                    if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility =
-                    if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                if (BuildConfig.FLAVOR == "drc") {
-                    afrimoneyImg.visibility = View.GONE
-                    customerCareTxt.visibility = View.GONE
+                            //fixme black menu
 
-                }
+                            com.tedmob.afrimoney.R.id.chooseBankingServiceTypeFragment,
+                            com.tedmob.afrimoney.R.id.termsOfUseFragment,
+                            com.tedmob.afrimoney.R.id.settingsFragment,
+                            com.tedmob.afrimoney.R.id.contactUsFragment
 
-                if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (BuildConfig.FLAVOR == "sl") {
-                        if (destination.id == R.id.afrimoneyFragment) {
-                            afrimoneyImg.setImageResource(
-                                R.mipmap.tab_afrimoney_selected
-                            )
-                        } else {
-                            afrimoneyImg.setImageResource(
-                                R.mipmap.tab_afrimoney_not_selected
-                            )
+                            -> com.tedmob.afrimoney.R.drawable.sidemenunavblack
 
+
+                            com.tedmob.afrimoney.R.id.transferMoneyConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.merchantPaymentConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.pending_transactionsMainFragment,
+                            com.tedmob.afrimoney.R.id.africellServicesFragment,
+                            com.tedmob.afrimoney.R.id.withdrawMain,
+                            com.tedmob.afrimoney.R.id.payMyBillsFragment,
+                            com.tedmob.afrimoney.R.id.payMyBillsConfirmRenewDSTVFragment,
+                            com.tedmob.afrimoney.R.id.bankingServicesFragment,
+                            com.tedmob.afrimoney.R.id.agentCodeConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.mercuryConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.agentPhoneNumberConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.bankToWalletConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.walletToBankConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.powergenConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.payMyBillsOptionsFragment,
+                            com.tedmob.afrimoney.R.id.changePinFragment,
+                            com.tedmob.afrimoney.R.id.enterPin_from_home,
+                            com.tedmob.afrimoney.R.id.enterPin_from_account,
+                            com.tedmob.afrimoney.R.id.enterPin,
+                            com.tedmob.afrimoney.R.id.yaRemixConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.yaSpecialConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.postPaidConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.risingAcademyConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.edsaConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.fccConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.waecConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.bundleConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.checkDSTVConfirmationFragment,
+                            com.tedmob.afrimoney.R.id.balanceEnquiryFragment,
+                            com.tedmob.afrimoney.R.id.confirmPendingTransactionsFragment,
+                            com.tedmob.afrimoney.R.id.airtimeConfirmationfragment
+                            -> com.tedmob.afrimoney.R.drawable.ic_nav_back_white
+
+
+                            else -> com.tedmob.afrimoney.R.drawable.ic_nav_back_black
                         }
-                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
-                            getString(R.string.post_stores)
-                    } else {
-                        if (destination.id == R.id.customerCareFragment) {
-                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                R.mipmap.tab_customer_care_selected, 0, 0
-                            )
-                        } else {
-                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                R.mipmap.tab_customer_care,
-                                0,
-                                0
-                            )
-                        }
-                    }
+                    )
+
+/*                    bottomNavigationView.visibility =
+                        if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                    fabQR.visibility =
+                        if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE*/
+
 
                 }
             }
+
         }
     }
 
@@ -220,25 +248,8 @@ class AfrimoneyActivity : BaseVBActivity<ActivityMainBinding>() {
         }
     }
 
-    private fun ActivityMainBinding.setupBottomNavigationStyle() {
+    private fun ActivityAfrimoneyNewBinding.setupBottomNavigationStyle() {
         bottomNavigationView.itemIconTintList = null
-        /*   val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
-           // make second item bigger
-           val iconView =
-               menuView.getChildAt(2)?.findViewById<View>(com.google.android.material.R.id.icon)
-           val size = resources.getDimensionPixelSize(R.dimen.spacing_large)
-           val padding = resources.getDimensionPixelSize(R.dimen.spacing_medium)
-           iconView?.setPadding(0, 0, 0, padding)
-
-           val layoutParams = iconView?.layoutParams
-           val displayMetrics = resources.displayMetrics
-           // set your height here
-           // set your height here
-           layoutParams?.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
-           // set your width here
-           // set your width here
-           layoutParams?.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
-           iconView?.layoutParams = layoutParams*/
     }
 
     private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {

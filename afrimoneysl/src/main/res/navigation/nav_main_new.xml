@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_new"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tedmob.afrimoney.features.home.HomeFragment"
+        android:label="@string/home">
+        <action
+            android:id="@+id/from_home_fragment_to_enter_pin"
+            app:destination="@+id/enterPin_from_home" />
+        <action
+            android:id="@+id/action_homeFragment_to_africellServicesFragment2"
+            app:destination="@id/africellServicesFragment2" />
+    </fragment>
+    <include app:graph="@navigation/nav_withdraw" />
+    <include app:graph="@navigation/nav_airtime" />
+    <include app:graph="@navigation/nav_services" />
+    <include app:graph="@navigation/nav_pending_transactions" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.tedmob.afrimoney.features.settings.SettingsFragment"
+        android:label="@string/settings" />
+
+
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.tedmob.afrimoney.features.faq.FaqFragment"
+        android:label=""
+        tools:layout="@layout/fragment_faq" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.tedmob.afrimoney.features.aboutus.AboutUsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.tedmob.afrimoney.features.contactus.ContactUsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_contact_us" />
+    <activity
+        android:id="@+id/walkthroughActivity"
+        android:name="com.tedmob.afrimoney.features.help.WalkthroughActivity" />
+    <include app:graph="@navigation/nav_transfer_money" />
+    <include app:graph="@navigation/nav_notif_messages" />
+    <include app:graph="@navigation/nav_banking_services" />
+    <include app:graph="@navigation/nav_pending_transactions" />
+    <include app:graph="@navigation/nav_merchant_payment" />
+    <include app:graph="@navigation/nav_pay_my_bills" />
+    <activity
+        android:id="@+id/enterPinActivity"
+        android:name="com.tedmob.afrimoney.features.authentication.EnterPinActivity"
+        android:label="EnterPinActivity" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.tedmob.afrimoney.features.account.AccountFragment"
+        android:label="">
+        <action
+            android:id="@+id/action_accountFragment_to_last5TransactionsFragment"
+            app:destination="@id/last5TransactionsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_nav_change_pin"
+            app:destination="@id/nav_change_pin" />
+        <action
+            android:id="@+id/action_accountFragment_to_enterPinFragment"
+            app:destination="@id/enterPin_from_account" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterPin_from_account"
+        android:name="com.tedmob.afrimoney.features.account.ConfirmPinFragment"
+        android:label="@string/enter_pin">
+        <action
+            android:id="@+id/action_enterPinFragment_to_last5Transactions"
+            app:destination="@id/last5TransactionsFragment"
+            app:popUpTo="@id/accountFragment">
+            <argument
+                android:name="pin"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterPin_from_home"
+        android:name="com.tedmob.afrimoney.features.home.ConfirmPinFragment"
+        android:label="@string/enter_pin">
+        <action
+            android:id="@+id/action_enterPinFragment_to_last5Transactions"
+            app:destination="@id/last5TransactionsFragment"
+            app:popUpTo="@id/homeFragment">
+            <argument
+                android:name="pin"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/last5TransactionsFragment"
+        android:name="com.tedmob.afrimoney.features.account.Last5TransactionsFragment">
+        <argument
+            android:name="pin"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.tedmob.afrimoney.features.account.MyProfileFragment">
+        <action
+            android:id="@+id/action_myProfileFragment_to_nav_address"
+            app:destination="@id/nav_address"
+            app:enterAnim="@anim/slide_enter_from_down"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_exit_to_down" />
+    </fragment>
+    <include app:graph="@navigation/nav_address" />
+    <include app:graph="@navigation/nav_change_pin" />
+    <fragment
+        android:id="@+id/locateUsFragment"
+        android:name="com.tedmob.afrimoney.features.locate.LocateUsFragment"
+        android:label="@string/locate_us" />
+    <fragment
+        android:id="@+id/termsOfUseFragment"
+        android:name="com.tedmob.afrimoney.features.termsofuse.TermsOfUseFragment"
+        android:label=""
+        tools:layout="@layout/fragment_terms_of_use" />
+    <fragment
+        android:id="@+id/referFriendFragment"
+        android:name="com.tedmob.afrimoney.features.referfriend.ReferFriendFragment"
+        android:label=""
+        tools:layout="@layout/fragment_refer_friend" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.tedmob.afrimoney.features.help.HelpFragment"
+        android:label=""
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/airtimeFragment"
+        android:name="com.tedmob.afrimoney.features.africellservices.airtime.AirtimeFragment"
+        android:label="AirtimeFragment" />
+    <fragment
+        android:id="@+id/africellServicesFragment2"
+        android:name="com.tedmob.afrimoney.features.africellservices.AfricellServicesFragment"
+        android:label="AfricellServicesFragment">
+        <action
+            android:id="@+id/action_africellServicesFragment_to_nav_unlimited_bundle"
+            app:destination="@id/nav_unlimited_bundle" />
+        <action
+            android:id="@+id/action_africellServicesFragment_to_nav_ya_special"
+            app:destination="@id/nav_ya_special" />
+        <action
+            android:id="@+id/action_africellServicesFragment_to_nav_ya_remix"
+            app:destination="@id/nav_ya_remix" />
+        <action
+            android:id="@+id/action_africellServicesFragment_to_nav_airtime"
+            app:destination="@id/nav_airtime" />
+        <action
+            android:id="@+id/action_africellServicesFragment2_to_nav_bundle"
+            app:destination="@id/nav_databundle" />
+
+    </fragment>
+    <include app:graph="@navigation/nav_airtime" />
+    <navigation
+        android:id="@+id/nav_unlimited_bundle"
+        app:startDestination="@id/unlimitedBundleFragment2">
+        <fragment
+            android:id="@+id/unlimitedBundleFragment2"
+            android:name="com.tedmob.afrimoney.features.africellservices.unlimitedbundle.UnlimitedBundleFragment"
+            android:label="UnlimitedBundleFragment">
+            <action
+                android:id="@+id/action_unlimitedBundleFragment2_to_unlimitedBundleConfirmationFragment"
+                app:destination="@id/unlimitedBundleConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/unlimitedBundleConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.unlimitedbundle.UnlimitedBundleConfirmationFragment"
+            android:label="UnlimitedBundleConfirmationFragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/nav_ya_special"
+        app:startDestination="@id/yaSpecialFragment">
+        <fragment
+            android:id="@+id/yaSpecialFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.yaspecial.YaSpecialFragment"
+            android:label="YaSpecialFragment">
+            <action
+                android:id="@+id/action_yaSpecialFragment_to_yaSpecialConfirmationFragment"
+                app:destination="@id/yaSpecialConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/yaSpecialConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.yaspecial.YaSpecialConfirmationFragment"
+            android:label="YaSpecialConfirmationFragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/nav_ya_remix"
+        app:startDestination="@id/yaRemixFragment">
+        <fragment
+            android:id="@+id/yaRemixFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.yaremix.YaRemixFragment"
+            android:label="YaRemixFragment">
+            <action
+                android:id="@+id/action_yaRemixFragment_to_yaRemixConfirmationFragment"
+                app:destination="@id/yaRemixConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/yaRemixConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.yaremix.YaRemixConfirmationFragment"
+            android:label="YaRemixConfirmationFragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/nav_databundle"
+        app:startDestination="@id/bundleFragment">
+        <fragment
+            android:id="@+id/bundleFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.databundle.DataBundleFragment"
+            android:label="">
+            <argument
+                android:name="data"
+                app:argType="com.tedmob.afrimoney.data.entity.BundlelistParent" />
+            <action
+                android:id="@+id/action_bundleFragment_to_bundleConfirmationFragment"
+                app:destination="@id/bundleConfirmationFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/bundleConfirmationFragment"
+            android:name="com.tedmob.afrimoney.features.africellservices.databundle.BundleConfirmationFragment"
+            android:label="BundleConfirmationFragment" />
+    </navigation>
+</navigation>

@@ -3,7 +3,7 @@
     <color name="bgdColor">@color/white</color>
 
     <color name="placeholder">@color/grey_100</color>
-    
+    <color name="darkGrey">#c9c9c9</color>
     <color name="violetMain">#A01775</color>
     <color name="violetMainDark">#900664</color>
     <color name="orangeMain">#EB7D00</color>

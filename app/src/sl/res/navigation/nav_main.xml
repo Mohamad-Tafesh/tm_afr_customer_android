@@ -25,6 +25,9 @@
         <action
                 android:id="@+id/action_homeFragment_to_vasServicesFragment"
                 app:destination="@id/vasServicesFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_afrimoneyActivity"
+                app:destination="@id/afrimoneyActivity" />
     </fragment>
     <fragment
             android:id="@+id/settingsFragment"
@@ -212,5 +215,9 @@
                 app:argType="string"
                 app:nullable="true"/>
     </fragment>
+    <activity
+            android:id="@+id/afrimoneyActivity"
+            android:name="com.africell.africell.features.afrimoney.AfrimoneyActivity"
+            android:label="AfrimoneyActivity" />
 
 </navigation>

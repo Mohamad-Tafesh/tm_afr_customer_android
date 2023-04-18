@@ -6,29 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import coil.loadAny
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.entity.UserHomeData
-import com.tedmob.afrimoney.databinding.FragmentHomeBinding
-import com.tedmob.afrimoney.databinding.ItemHomeOptionBinding
-import com.tedmob.afrimoney.exception.AppException
+import com.tedmob.afrimoney.databinding.FragmentHomeNewBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
-import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
-import com.tedmob.afrimoney.util.adapter.adapter
 import com.tedmob.afrimoney.util.security.StringEncryptor
-import com.tedmob.afrimoney.util.security.decryptWith
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
     @Inject
     @Named("local-string")
@@ -45,7 +39,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return createViewBinding(container, FragmentHomeBinding::inflate, true)
+        return createViewBinding(container, FragmentHomeNewBinding::inflate, false)
     }
 
     override fun configureToolbar() {
@@ -56,11 +50,14 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        withVBAvailable {
+            setupToolbar()
+            setupOptions()
+        }
 
 
         observeResourceInline(viewModel.data) {
             setupUser(it)
-            setupOptions(it.nbOfPendingTransaction)
         }
 
         viewModel.balance.observe(viewLifecycleOwner) {
@@ -74,8 +71,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
                     if ((newBalance.split("."))[1] == "00") {
                         val bal = newBalance.toDoubleOrNull()?.toInt()
-                        binding?.balanceText?.text = bal.toString()+"NLe"
-                    } else binding?.balanceText?.text = newBalance+"NLe"
+                        binding?.balanceText?.text = bal.toString() + "NLe"
+                    } else binding?.balanceText?.text = newBalance + "NLe"
 
 
                     binding?.userName?.text = it.userName
@@ -83,10 +80,6 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
             }
         }
 
-
-        requireBinding().messagesLayout.setOnClickListener {
-            //findNavController().navigate(R.id.nav_notif_messages)
-        }
 
         requireBinding().transactionsLayout.setOnClickListener {
 
@@ -97,54 +90,49 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
         viewModel.getData()
         viewModel.getBalance()
+
     }
-
-    private inline fun setupOptions(nb: Int) {
-        withVBAvailable {
-            optionsRV.adapter = adapter(getOptions().toMutableList()) {
-                viewBinding(ItemHomeOptionBinding::inflate)
-                onBindItemToViewBinding<ItemHomeOptionBinding> { option ->
-                    image.loadAny(option.imageData)
-                    label.setText(option.label)
-                    if (option == HomeOption.PendingTransactions) {
-                        //messagesBadge.isVisible=true
-                        //messagesBadge.text=nb.toString()
-                    } else {
-                        //messagesBadge.isVisible=false
-
-                    }
-                    root.setDebouncedOnClickListener { redirectTo(option) }
-                }
-            }
-        }
-    }
-
-    private inline fun getOptions() = listOf(
-        HomeOption.TransferMoney,
-        HomeOption.PendingTransactions,
-        HomeOption.WithdrawMoney,
-        HomeOption.BuyAirtime,
-        HomeOption.PayMyBills,
-        HomeOption.MerchantPayment,
-        HomeOption.BankingServices,
-        HomeOption.AfricellServices)
-
 
     private fun setupUser(data: UserHomeData) {
         withVBAvailable {
-            /*data.messagesCount.let {
-                messagesBadge.isVisible = it > 0
-                messagesBadge.text = it.toString()
-            }
             data.transactionsCount.let {
                 transactionsBadge.isVisible = it > 0
                 transactionsBadge.text = it.toString()
-            }*/
+            }
         }
     }
 
 
-    private fun redirectTo(option: HomeOption) {
-        findNavController().navigate(option.destination, option.arguments)
+    private fun FragmentHomeNewBinding.setupToolbar() {
+        actionbar?.title = ""
+        actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun FragmentHomeNewBinding.setupOptions() {
+        transactionsLayout.setDebouncedOnClickListener {
+            //findNavController().navigate(R.id.)
+        }
+        transferMoneyOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_transfer_money)
+        }
+        pendingTransactionsOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_pending_transactions)
+        }
+        withdrawMoneyOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_withdraw)
+        }
+        buyAnytimeOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_airtime)
+        }
+        payMyBillsOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_pay_my_bills)
+        }
+        merchantPaymentOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_merchant_payment)
+        }
+        bankingServicesOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_banking_services)
+        }
     }
 }

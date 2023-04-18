@@ -261,4 +261,8 @@
     <string name="you_are_about_to_e_register_for_waec">Your are about to E-register for WAEC</string>
     <string name="enable_location">Enable Location</string>
     <string name="logout_text">Are you sure you want to logout?</string>
+    <string name="bonus_balance">Bonus balance</string>
+    <string name="banking_nservices">Banking\nServices</string>
+    <string name="merchant_n_payment">Paiement\nmarchand</string>
+    <string name="buy_anytime">Buy\nAnytime</string>
 </resources>

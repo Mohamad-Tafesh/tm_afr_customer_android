@@ -150,6 +150,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             bottomNavigationView.setOnItemSelectedListener {
                 if (it.itemId == R.id.afrimoneyFragment) {
                     viewModel.verify(session.msisdnAfrimoney)
+
                 } else {
                     onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
                 }
@@ -233,6 +234,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 })
             }
         }
+
     }
 
     private fun ActivityMainBinding.setupBottomNavigationStyle() {

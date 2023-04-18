@@ -20,7 +20,7 @@
             tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
         <activity
-                android:name="com.tedmob.afrimoney.features.launch.RootActivity"
+                android:name="com.africell.africell.features.afrimoney.RootActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.Launch" />
 

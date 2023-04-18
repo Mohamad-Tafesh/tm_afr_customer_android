@@ -55,6 +55,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent(ActivityAfrimoneyNewBinding::inflate, false)
+        setSupportActionBar(requireBinding().drawerToolbar)
         withVBAvailable {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
@@ -108,6 +109,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                     }
                 }
             })
+
+            afrimoneyImg.setImageResource(
+                R.mipmap.tab_afrimoney_selected
+            )
 
             navigationView.setupWithNavController(
                 it,

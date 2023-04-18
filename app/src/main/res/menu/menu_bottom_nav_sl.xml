@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<item
-        android:id="@+id/afrimoneyFragment"
-        android:icon="@mipmap/tab_home"
-        android:title="@string/home" />
+    <item
+            android:id="@+id/homeFragment"
+            android:icon="@mipmap/tab_home"
+            android:title="@string/home" />
 
-<item
-        android:id="@+id/customerCareFragment"
-        android:icon="@drawable/tab_customer_care"
-        android:title="@string/customer_care" />
+    <item
+            android:id="@+id/customerCareFragment"
+            android:icon="@drawable/tab_customer_care"
+            android:title="@string/customer_care" />
 
-<item
-        android:id="@+id/homeFragment"
-        android:title="" />
+    <item
+            android:id="@+id/afrimoneyFragment"
+            android:title="" />
 
 
-<item
-        android:id="@+id/SMSFragment"
-        android:icon="@drawable/tab_sms"
-        android:title="@string/sms" />
+    <item
+            android:id="@+id/SMSFragment"
+            android:icon="@drawable/tab_sms"
+            android:title="@string/sms" />
 
-<item
-        android:id="@+id/locationListFragment"
-        android:icon="@drawable/tab_location"
-        android:title="@string/location" />
+    <item
+            android:id="@+id/locationListFragment"
+            android:icon="@drawable/tab_location"
+            android:title="@string/location" />
 </menu>

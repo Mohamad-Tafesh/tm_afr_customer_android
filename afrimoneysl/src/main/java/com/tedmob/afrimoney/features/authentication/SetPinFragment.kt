@@ -1,10 +1,10 @@
 package com.tedmob.afrimoney.features.authentication
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -13,25 +13,17 @@ import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
-import com.tedmob.afrimoney.data.entity.UserState
-import com.tedmob.afrimoney.databinding.FragmentEnterPinBinding
-import com.tedmob.afrimoney.databinding.FragmentLoginBinding
 import com.tedmob.afrimoney.databinding.FragmentSetPinBinding
-import com.tedmob.afrimoney.exception.AppException
 import com.tedmob.afrimoney.ui.blocks.showLoading
-import com.tedmob.afrimoney.ui.blocks.showMessage
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceProgress
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.setText
-import com.tedmob.afrimoney.util.suspendForOneSignalUserId
 import com.tedmob.libraries.validators.formValidator
 import com.tedmob.libraries.validators.rules.NotEmptyRule
-import com.tedmob.libraries.validators.rules.Rule
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -48,8 +40,6 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createViewBinding(container, FragmentSetPinBinding::inflate)
     }
-
-
 
 
     override fun configureToolbar() {
@@ -70,14 +60,14 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
             }
 
             debugOnly {//4827 077928946
-            binding?.pinInputLayout?.setText(R.string.debug_password)
+                binding?.pinInputLayout?.setText(R.string.debug_password)
             }
         }
 
 
         withVBAvailable {
-          val validator = setupValidation()
-     proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope)  }
+            val validator = setupValidation()
+            proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
             logoutButton.setDebouncedOnClickListener { viewModel.logout() }
 
 
@@ -95,12 +85,15 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
 
         onValid = {
             //viewModel.enterPin(args.mobilenb.orEmpty(),pinInputLayout.getText())
-            viewModel.enterPin("090227946",pinInputLayout.getText())
+            viewModel.enterPin("090227946", pinInputLayout.getText())
         }
     }
-    private inline fun proceedWith() {
-     //   findNavController().navigate(SetPinFragmentDirections.actionSetPinFragmentToMainActivity(false))
-       // findNavController().navigate(R.id.afrimoneyFragment)
+
+    private fun proceedWith() {
+        //findNavController().navigate(SetPinFragmentDirections.actionSetPinFragmentToMainActivity(false))
+        /* activity?.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
+             //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+         })*/
 
     }
 

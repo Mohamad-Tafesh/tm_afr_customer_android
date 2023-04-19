@@ -18,10 +18,8 @@
         <item name="loadingViewStyle">@style/Blocks.LoadingView</item>
         <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrow</item>
-        <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle
-        </item><!--has to be declared-->
-        <item name="materialDateInputStyle">@style/MaterialSpinnerStyle
-        </item><!--has to be declared-->
+        <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle.Afrimoney</item><!--has to be declared-->
+        <item name="materialDateInputStyle">@style/MaterialSpinnerStyle.Afrimoney</item><!--has to be declared-->
 
         <!--<item name="homeAsUpIndicator">@drawable/ic_nav_back_white</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_nav_back_white</item>-->
@@ -62,10 +60,8 @@
         <item name="loadingViewStyle">@style/Blocks.LoadingView</item>
         <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrow</item>
-        <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle
-        </item><!--has to be declared-->
-        <item name="materialDateInputStyle">@style/MaterialSpinnerStyle
-        </item><!--has to be declared-->
+        <item name="materialSpinnerStyle">@style/MaterialSpinnerStyle.Afrimoney</item><!--has to be declared-->
+        <item name="materialDateInputStyle">@style/MaterialSpinnerStyle.Afrimoney</item><!--has to be declared-->
 
         <!--<item name="homeAsUpIndicator">@drawable/ic_nav_back_white</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_nav_back_white</item>-->
@@ -79,9 +75,12 @@
         <item name="fontFamily">@font/font_regular</item>
     </style>
 
-    <style name="MaterialSpinnerStyle" parent="AppTheme.TextInput">
+    <style name="MaterialSpinnerStyle.Afrimoney" parent="AppTheme.TextInput">
         <!--<item name="contentStyle">@style/TextInputEditTextStyle</item>-->
     </style>
+
+
+
 
     <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="android:minHeight">64dp</item>
@@ -228,7 +227,6 @@
         <item name="android:background">?colorSecondary</item>
         <item name="android:autoSizeMaxTextSize" tools:targetApi="o">8sp</item>
         <item name="labelVisibilityMode">labeled</item>
-
         <item name="itemTextColor">@null</item>
         <item name="itemTextAppearanceActive">
             @style/AppTheme.BottomNavigation.TextAppearanceActive

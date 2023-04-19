@@ -1,5 +1,6 @@
 package com.tedmob.afrimoney.features.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.databinding.FragmentSetPinBinding
+import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
 import com.tedmob.afrimoney.ui.blocks.showLoading
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
@@ -91,9 +93,9 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
 
     private fun proceedWith() {
         //findNavController().navigate(SetPinFragmentDirections.actionSetPinFragmentToMainActivity(false))
-        /* activity?.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
-             //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-         })*/
+         activity?.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
+           flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+         })
 
     }
 

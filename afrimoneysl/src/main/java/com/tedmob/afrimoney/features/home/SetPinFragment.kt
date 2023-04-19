@@ -48,10 +48,10 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindLoggedOut()
 
         viewLifecycleOwner.lifecycleScope.launch {
             withVBAvailable {
+                logoutButton.text = resources.getText(R.string.back)
                 barcodeLayout.showLoading()
                 barcodeLayout.showContent()
                 setupBarcode(session.msisdn)
@@ -67,13 +67,15 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
         withVBAvailable {
             val validator = setupValidation()
             proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
-            logoutButton.setDebouncedOnClickListener { viewModel.logout() }
+            logoutButton.setDebouncedOnClickListener {
+                activity?.finish()
+
+            }
 
 
         }
 
         observeResourceFromButton(viewModel.pinEntered, R.id.proceedButton) {
-            unblockApp()
             proceedWith()
         }
 
@@ -107,13 +109,4 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
         }
     }
 
-    private fun bindLoggedOut() {
-        observeResourceInline(viewModel.loggedOut) {
-            activity?.finish()
-        }
-    }
-
-    private fun unblockApp() {
-        // activity?.finish()
-    }
 }

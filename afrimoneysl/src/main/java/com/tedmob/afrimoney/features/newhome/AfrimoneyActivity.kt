@@ -231,10 +231,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                             R.id.balanceEnquiryFragment,
                             R.id.confirmPendingTransactionsFragment,
                             R.id.airtimeConfirmationfragment
-                            -> R.drawable.ic_nav_back_white
+                            -> R.drawable.navback
 
 
-                            else -> R.drawable.ic_nav_back_black
+                            else -> R.drawable.navback
                         }
                     )
 

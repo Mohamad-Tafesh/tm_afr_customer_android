@@ -2,6 +2,8 @@ package com.africell.africell.features.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import androidx.activity.addCallback
@@ -21,6 +23,7 @@ import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.navigation.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
@@ -43,7 +46,6 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         list
     }
 
-    private val destination: Int by lazy { intent.getIntExtra("destination", -1) }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -76,6 +78,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 withVBAvailable {
                     bottomNavigationView.selectedItemId = it.itemId
                 }
+                AfricellDestination.destination.value = null
             }
         }
 
@@ -83,6 +86,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             it?.let {
                 onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
             }
+            AfricellDestination.side_menu_destination.value = null
         }
     }
 
@@ -231,6 +235,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 })
+                AfricellDestination.destination.value  = binding?.bottomNavigationView?.menu?.getItem(0)
             }
             is UserState.Registered -> {
                 activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
@@ -239,10 +244,13 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     putExtra("token", session.accessToken)
 
                 })
+
+                AfricellDestination.destination.value  = binding?.bottomNavigationView?.menu?.getItem(0)
             }
             else -> {}
         }
     }
+
 
 
     private fun ActivityMainBinding.setupBottomNavigationStyle() {

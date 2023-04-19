@@ -42,14 +42,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+            <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/main_logo_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                     android:id="@+id/userImage"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
+                    android:background="@drawable/bgd_option_primary"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_tab_account"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarBottom" />
+                    app:layout_constraintTop_toBottomOf="@+id/logo" />
 
             <TextView
                     android:id="@+id/userName"
@@ -68,28 +83,20 @@
                     app:layout_constraintTop_toBottomOf="@+id/userImage"
                     tools:text="Some Name" />
 
-            <ImageView
-                    android:id="@+id/countryFlagImage"
-                    android:layout_width="18.3dp"
-                    android:layout_height="12.1dp"
-                    android:layout_marginTop="12.5dp"
-                    app:layout_constraintEnd_toStartOf="@+id/addressText"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userName" />
-
             <TextView
                     android:id="@+id/addressText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12.3dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/country_icon_resized"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/sierra_leone"
                     android:textColor="?colorOnPrimary"
-                    android:textSize="9sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/countryFlagImage"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/userName"
-                    app:layout_constraintWidth_max="300dp"
-                    tools:text="Some Country, some region" />
+                    app:layout_constraintWidth_max="300dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/userAdditionalInformationLayout"
@@ -238,25 +245,6 @@
                             android:layout_marginBottom="8dp"
                             app:layout_constraintBottom_toTopOf="@id/transactionsIcon"
                             app:layout_constraintStart_toEndOf="@id/transactionsIcon" />
-
-                    <TextView
-                            android:id="@+id/transactionsBadge"
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:background="@drawable/bgd_home_badge"
-                            android:gravity="center"
-                            android:lines="1"
-                            android:padding="0.2dp"
-                            android:textAppearance="?textAppearanceCaption"
-                            android:textColor="?colorOnPrimary"
-                            android:textStyle="bold"
-                            app:autoSizeMaxTextSize="9sp"
-                            app:autoSizeMinTextSize="4sp"
-                            app:autoSizeStepGranularity="1sp"
-                            app:autoSizeTextType="uniform"
-                            app:layout_constraintEnd_toEndOf="@+id/transactionsBadgeSpace"
-                            app:layout_constraintTop_toTopOf="@+id/transactionsBadgeSpace"
-                            tools:text="11+" />
 
                     <TextView
                             android:id="@+id/transactionsText"
@@ -416,7 +404,7 @@
                         android:ellipsize="end"
                         android:lines="2"
                         android:maxLines="2"
-                        android:text="@string/buy_anytime"
+                        android:text="@string/buy_airtime"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="9sp"

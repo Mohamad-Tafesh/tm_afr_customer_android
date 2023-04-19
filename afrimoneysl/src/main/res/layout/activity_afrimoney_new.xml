@@ -30,7 +30,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:navGraph="@navigation/nav_main_new" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
+             <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottomNavigationView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,7 +39,6 @@
                     android:background="@color/purple"
                     android:clipChildren="true"
                     android:elevation="0dp"
-
                     app:elevation="0dp"
                     app:itemBackground="@color/transparent"
                     app:itemIconTint="@color/purple"
@@ -49,9 +48,6 @@
                     app:labelVisibilityMode="labeled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:menu="@menu/menu_bottom_nav_sl"/>
-
-
-
 
             <ImageView
                     android:id="@+id/afrimoneyImg"
@@ -70,6 +66,7 @@ android:src="@mipmap/tab_afrimoney_selected"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
             <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/drawerToolbar"
                     android:layout_width="0dp"

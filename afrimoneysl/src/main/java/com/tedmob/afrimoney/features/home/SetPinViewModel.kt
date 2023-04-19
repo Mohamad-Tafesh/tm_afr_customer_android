@@ -1,4 +1,4 @@
-package com.africell.africell.features.afrimoney
+package com.tedmob.afrimoney.features.home
 
 import androidx.lifecycle.LiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator

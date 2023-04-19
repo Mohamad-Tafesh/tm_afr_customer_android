@@ -1,26 +1,26 @@
-package com.africell.africell.features.afrimoney
+package com.tedmob.afrimoney.features.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.africell.africell.R
-import com.africell.africell.app.AppSessionNavigator
-import com.africell.africell.app.debugOnly
-import com.africell.africell.app.viewbinding.BaseVBFragment
-import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.databinding.FragmentSetPinAfricellBinding
-import com.africell.africell.ui.blocks.showLoading
-import com.africell.africell.ui.button.setDebouncedOnClickListener
-import com.africell.africell.ui.viewmodel.observeResourceFromButton
-import com.africell.africell.ui.viewmodel.observeResourceInline
-import com.africell.africell.ui.viewmodel.provideViewModel
-import com.africell.africell.util.getText
-import com.africell.africell.util.setText
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.tedmob.afrimoney.R
+import com.tedmob.afrimoney.app.AppSessionNavigator
+import com.tedmob.afrimoney.app.BaseVBFragment
+import com.tedmob.afrimoney.app.debugOnly
+import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.databinding.FragmentSetPinBinding
+import com.tedmob.afrimoney.ui.blocks.showLoading
+import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
+import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
+import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
+import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
+import com.tedmob.afrimoney.util.getText
+import com.tedmob.afrimoney.util.setText
 import com.tedmob.libraries.validators.formValidator
 import com.tedmob.libraries.validators.rules.NotEmptyRule
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,16 +29,15 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class SetPinFragment : BaseVBFragment<FragmentSetPinAfricellBinding>() {
+class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
 
     @Inject
     lateinit var appSessionNavigator: AppSessionNavigator
 
     private val viewModel by provideViewModel<SetPinViewModel>()
-    private val args by navArgs<SetPinFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return createViewBinding(container, FragmentSetPinAfricellBinding::inflate)
+        return createViewBinding(container, FragmentSetPinBinding::inflate)
     }
 
 
@@ -55,7 +54,7 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinAfricellBinding>() {
             withVBAvailable {
                 barcodeLayout.showLoading()
                 barcodeLayout.showContent()
-                //setupBarcode(args.mobilenb.orEmpty())
+                setupBarcode(session.msisdn)
 
             }
 
@@ -80,7 +79,7 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinAfricellBinding>() {
 
     }
 
-    private fun FragmentSetPinAfricellBinding.setupValidation() = formValidator {
+    private fun FragmentSetPinBinding.setupValidation() = formValidator {
         pinInputLayout.validate(NotEmptyRule(getString(R.string.mandatory_field)))
 
         onValid = {
@@ -89,13 +88,13 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinAfricellBinding>() {
         }
     }
 
-    private inline fun proceedWith() {
-        //   findNavController().navigate(SetPinFragmentDirections.actionSetPinFragmentToMainActivity(false))
-        findNavController().navigate(R.id.afrimoneyFragment)
+    private fun proceedWith() {
+        findNavController().navigate(SetPinFragmentDirections.actionSetPinFragment2ToHomeFragment())
+
 
     }
 
-    private fun FragmentSetPinAfricellBinding.setupBarcode(userId: String) {
+    private fun FragmentSetPinBinding.setupBarcode(userId: String) {
         val code = userId
         try {
             val requiredWidth =
@@ -110,11 +109,11 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinAfricellBinding>() {
 
     private fun bindLoggedOut() {
         observeResourceInline(viewModel.loggedOut) {
-            appSessionNavigator.restart()
+            activity?.finish()
         }
     }
 
     private fun unblockApp() {
-       // activity?.finish()
+        // activity?.finish()
     }
 }

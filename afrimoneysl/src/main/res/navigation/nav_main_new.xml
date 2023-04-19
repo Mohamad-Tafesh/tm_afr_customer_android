@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main_new"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/setPinFragment2">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -231,4 +231,13 @@
             android:name="com.tedmob.afrimoney.features.africellservices.databundle.BundleConfirmationFragment"
             android:label="BundleConfirmationFragment" />
     </navigation>
+
+    <fragment
+            android:id="@+id/setPinFragment2"
+            android:name="com.tedmob.afrimoney.features.home.SetPinFragment"
+            android:label="SetPinFragment" >
+        <action
+                android:id="@+id/action_setPinFragment2_to_homeFragment"
+                app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

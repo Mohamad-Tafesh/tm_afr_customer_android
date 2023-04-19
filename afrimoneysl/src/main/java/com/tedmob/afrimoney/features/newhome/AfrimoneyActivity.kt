@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBActivity
 import com.tedmob.afrimoney.app.withVBAvailable
@@ -81,10 +82,9 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     ) || findNavController(R.id.nav_host_main).navigateUp()
 
     private fun ActivityAfrimoneyNewBinding.setupNavigation() {
-        //    navigationView.itemIconTintList = null
-
+       navigationView.itemIconTintList = null
         findNavController(R.id.nav_host_main).let {
-//            setupActionBarWithNavController(it, drawerLayout)
+           setupActionBarWithNavController(it, drawerLayout)
             navigationView.setupWithNavController(
                 it,
                 customHasPriority = true,
@@ -173,7 +173,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 true
             }
 
-            supportActionBar?.setHomeAsUpIndicator(com.tedmob.afrimoney.R.drawable.sidemenunav)
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.sidemenunav)
             it.addOnDestinationChangedListener { _, destination, _ ->
                 withVBAvailable {
                     supportActionBar?.setHomeAsUpIndicator(

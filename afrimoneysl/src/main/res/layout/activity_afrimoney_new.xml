@@ -42,7 +42,7 @@
 
                     app:elevation="0dp"
                     app:itemBackground="@color/transparent"
-                    app:itemIconTint="@color/colorPrimary"
+                    app:itemIconTint="@color/purple"
                     app:itemTextAppearanceActive="@style/bottomNavigationTextStyle"
                     app:itemTextAppearanceInactive="@style/bottomNavigationTextStyle"
                     app:itemTextColor="@color/white"
@@ -86,7 +86,7 @@
                     android:paddingTop="@dimen/spacing_tiny"
                     android:paddingBottom="@dimen/spacing_small"
                     android:textColor="@color/white"
-                    android:src="@mipmap/tab_afrimoney_not_selected"
+
                     app:elevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

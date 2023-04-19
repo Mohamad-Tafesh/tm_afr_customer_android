@@ -1,5 +1,6 @@
 package com.tedmob.afrimoney.features.newhome
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -13,12 +14,27 @@ import com.tedmob.afrimoney.app.BaseVBActivity
 import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
+import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.databinding.ActivityAfrimoneyNewBinding
+import com.tedmob.afrimoney.ui.viewmodel.observeResource
+import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import com.tedmob.afrimoney.util.navigation.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
+
+
+    @Inject
+    lateinit var session: SessionRepository
+
+    private val viewModel by provideViewModel<ActivityViewModel>()
+
+    private val number: String? by lazy { intent.getStringExtra("number") }
+    private val token: String? by lazy { intent.getStringExtra("token") }
+
+
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
         requireBinding().bottomNavigationView.menu.let { menu ->
@@ -37,6 +53,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
             (0 until menu.size()).map { menu.getItem(it).itemId }
         }
     }
+
 
     val topLevelDestinations: Set<Int> by lazy {
         val list = mutableListOf<Int>()
@@ -119,10 +136,11 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 }
             )
 
-/*
             observeResource(viewModel.verified) {
                 proceedWith(it)
-            }*/
+            }
+            viewModel.verify(number.orEmpty(), token.orEmpty())
+            session.msisdn = number.orEmpty()
 
 
             bottomNavigationView.setOnItemSelectedListener {
@@ -226,23 +244,22 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
         }
     }
 
+
     fun proceedWith(state: UserState) {
         when (state) {
             is UserState.NotRegistered -> {
-                /*        findNavController(R.id.nav_host_main).navigate(
-                     *//*       MainActivity.actionLoginVerificationFragmentToNavRegister(
-                                session.msisdnAfrimoney
-                            )*//*
-                        )*/
-                val bundle = Bundle()
-                /*  bundle.putString("mobilenb", session.msisdnAfrimoney)
-                  findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)*/
+                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
             }
             is UserState.Registered -> {
                 //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
                 val bundle = Bundle()
                 /*    bundle.putString("mobilenb", session.msisdnAfrimoney)
                     findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)*/
+                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
             }
         }
     }

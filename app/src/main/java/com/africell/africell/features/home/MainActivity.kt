@@ -18,18 +18,15 @@ import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
 import com.africell.africell.ui.viewmodel.observe
-import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.util.navigation.setupWithNavController
 import com.tedmob.afrimoney.data.entity.AfricellDestination
-import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
-import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : BaseVBActivity<ActivityMainBinding>() {
-    private val viewModel by provideViewModel<ActivityViewModel>()
+
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
         requireBinding().bottomNavigationView.menu.let { menu ->
@@ -133,12 +130,6 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             )
 
 
-            observeResource(viewModel.verified) {
-                proceedWith(it)
-            }
-
-
-
 
             bottomNavigationView.setupWithNavController(it)
             //preventing reselection by passing empty listener; a null listener will result in onItemSelected listener to be called on reselection.
@@ -148,8 +139,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
             bottomNavigationView.setOnItemSelectedListener {
                 if (it.itemId == R.id.afrimoneyFragment) {
-                    viewModel.verify(session.msisdnAfrimoney)
+                    activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
+                        //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        putExtra("number",session.msisdnAfrimoney)
+                        putExtra("token",session.accessToken)
 
+                    })
                 } else {
                     onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
                 }
@@ -211,50 +206,9 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         }
     }
 
-    fun proceedWith(state: UserState) {
-        when (state) {
-            is UserState.NotRegistered -> {
-                /*        findNavController(R.id.nav_host_main).navigate(
-                     *//*       MainActivity.actionLoginVerificationFragmentToNavRegister(
-                                session.msisdnAfrimoney
-                            )*//*
-                        )*/
-                val bundle = Bundle()
-                bundle.putString("mobilenb", session.msisdnAfrimoney)
-                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
-            }
-            is UserState.Registered -> {
-                val bundle = Bundle()
-                bundle.putString("mobilenb", session.msisdnAfrimoney)
-                //findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
-                activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
-                    //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                })
-            }
-        }
-
-    }
 
     private fun ActivityMainBinding.setupBottomNavigationStyle() {
         bottomNavigationView.itemIconTintList = null
-        /*   val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
-           // make second item bigger
-           val iconView =
-               menuView.getChildAt(2)?.findViewById<View>(com.google.android.material.R.id.icon)
-           val size = resources.getDimensionPixelSize(R.dimen.spacing_large)
-           val padding = resources.getDimensionPixelSize(R.dimen.spacing_medium)
-           iconView?.setPadding(0, 0, 0, padding)
-
-           val layoutParams = iconView?.layoutParams
-           val displayMetrics = resources.displayMetrics
-           // set your height here
-           // set your height here
-           layoutParams?.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
-           // set your width here
-           // set your width here
-           layoutParams?.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45f, displayMetrics).toInt()
-           iconView?.layoutParams = layoutParams*/
     }
 
     private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {

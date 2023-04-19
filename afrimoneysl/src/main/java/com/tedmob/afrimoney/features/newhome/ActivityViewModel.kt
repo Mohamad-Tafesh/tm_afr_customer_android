@@ -1,16 +1,15 @@
-package com.africell.africell.features.home
+package com.tedmob.afrimoney.features.newhome
 
 import androidx.lifecycle.LiveData
-import com.africell.africell.app.AppSessionNavigator
-import com.africell.africell.exception.AppExceptionFactory
-import com.africell.africell.features.home.domain.VerifyUseCase
-import com.africell.africell.ui.BaseViewModel
+import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.SingleLiveEvent
 import com.tedmob.afrimoney.data.entity.UserState
+import com.tedmob.afrimoney.exception.AppExceptionFactory
+import com.tedmob.afrimoney.features.newhome.domain.VerifyUseCase
+import com.tedmob.afrimoney.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
 
 @HiltViewModel
 class ActivityViewModel
@@ -24,10 +23,10 @@ class ActivityViewModel
     private val _verified = SingleLiveEvent<Resource<UserState>>()
 
 
-    fun verify(mobilenb: String) {
+    fun verify(mobilenb: String, token: String) {
         executeResource(
             verifyUseCase,
-            mobilenb,
+            VerifyUseCase.Params(mobilenb, token),
             _verified,
             appExceptionFactory,
             null,

@@ -14,7 +14,7 @@ class AfrimoneyRegistrationActivity : BaseVBActivity<ActivityAfrimoneyRegistrati
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent(ActivityAfrimoneyRegistrationBinding::inflate, false, ToolbarDefaultBinding::inflate)
+        setContent(ActivityAfrimoneyRegistrationBinding::inflate, false)
     }
 
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()

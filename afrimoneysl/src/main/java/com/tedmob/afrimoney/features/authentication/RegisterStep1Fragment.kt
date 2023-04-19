@@ -58,7 +58,7 @@ class RegisterStep1Fragment : BaseVBFragment<FragmentRegisterStep1Binding>() {
         }
 
     private val viewModel by provideNavGraphViewModel<RegisterViewModel>(R.id.nav_register)
-    private val args by navArgs<RegisterStep1FragmentArgs>()
+
 
     private val mediaPicker: MediaPicker by lazy {
         MediaPicker.Builder(requireActivity())
@@ -283,7 +283,7 @@ class RegisterStep1Fragment : BaseVBFragment<FragmentRegisterStep1Binding>() {
     private fun proceed() {
         findNavController().navigate(
             RegisterStep1FragmentDirections.actionRegisterFragmentToRegisterStep2Fragment(
-                args.mobilenb
+             session.msisdn
             )
         )
 

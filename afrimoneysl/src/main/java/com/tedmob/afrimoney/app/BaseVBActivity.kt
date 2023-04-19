@@ -3,8 +3,12 @@ package com.tedmob.afrimoney.app
 import android.view.LayoutInflater
 import androidx.annotation.CallSuper
 import androidx.viewbinding.ViewBinding
+import com.tedmob.afrimoney.data.repository.domain.SessionRepository
+import javax.inject.Inject
 
 abstract class BaseVBActivity<VB : ViewBinding> : BaseActivity() {
+
+
 
     var binding: VB? = null
     fun requireBinding(): VB = requireNotNull(binding) { "View Binding required and was not found." }

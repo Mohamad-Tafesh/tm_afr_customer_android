@@ -101,6 +101,25 @@ class TedmobApis
         }
     }
 
+    suspend fun userInfoCheck(msisdn: String,token: String): UserDTO {
+        return refetchTokenIfNeeded {
+            post<CommandContainerDTO<UserDTO>>(
+                "UserEnquiry",
+                appHeaders(token),
+                body = gsonBody(
+                    buildMap {
+                        this["COMMAND"] = buildMap {
+                            this["TYPE"] = "USERINFOREQ"
+                            this["LEVEL"] = "LOW"
+                            this["INPUTTYPE"] = "MSISDN"
+                            this["IDENTIFICATION"] = msisdn
+                        }
+                    }
+                )
+            ).getCommandOrThrow()
+        }
+    }
+
     suspend fun changePin(oldpin: String, newpin: String): ChangePinDTO {
         return refreshTokenIfNeeded {
             post<CommandContainerDTO<ChangePinDTO>>(

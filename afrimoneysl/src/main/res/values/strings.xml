@@ -265,4 +265,7 @@
     <string name="banking_nservices">Banking\nServices</string>
     <string name="merchant_n_payment">Paiement\nmarchand</string>
     <string name="buy_anytime">Buy\nAnytime</string>
+    <string name="customer_care">Customer Care</string>
+    <string name="sms">SMS</string>
+    <string name="location">Location</string>
 </resources>

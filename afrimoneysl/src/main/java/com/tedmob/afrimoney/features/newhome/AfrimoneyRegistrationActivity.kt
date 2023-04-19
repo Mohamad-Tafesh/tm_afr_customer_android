@@ -1,10 +1,10 @@
-package com.africell.africell.features.afrimoney
+package com.tedmob.afrimoney.features.newhome
 
 import android.os.Bundle
 import androidx.navigation.findNavController
-import com.africell.africell.databinding.ActivityAfrimoneyRegistrationBinding
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBActivity
+import com.tedmob.afrimoney.databinding.ActivityAfrimoneyRegistrationBinding
 import com.tedmob.afrimoney.databinding.ToolbarDefaultBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -51,5 +51,16 @@
                 android:label=""
                 android:theme="@style/AfrimoneyAppThemeBase"
                 android:screenOrientation="portrait" />
+
+        <activity
+                android:name=".features.newhome.AfrimoneyRegistrationActivity"
+                android:label=""
+                android:theme="@style/AfrimoneyAppThemeBase"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".features.newhome.AfrimoneyActivity"
+                android:label=""
+                android:theme="@style/AfrimoneyAppThemeBase"
+                android:screenOrientation="portrait" />
     </application>
 </manifest>

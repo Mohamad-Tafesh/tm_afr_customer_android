@@ -1,4 +1,4 @@
-package com.africell.africell.features.afrimoney
+package com.tedmob.afrimoney.features.newhome
 
 import android.os.Bundle
 import android.view.View
@@ -8,23 +8,17 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.africell.africell.BuildConfig
-import com.africell.africell.R
-import com.africell.africell.app.viewbinding.BaseVBActivity
-import com.africell.africell.app.viewbinding.withVBAvailable
-import com.africell.africell.databinding.ActivityAfrimoneyNewBinding
-import com.africell.africell.features.home.ActivityViewModel
-import com.africell.africell.ui.viewmodel.observeResource
-import com.africell.africell.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.R
+import com.tedmob.afrimoney.app.BaseVBActivity
+import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
-import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
+import com.tedmob.afrimoney.databinding.ActivityAfrimoneyNewBinding
+import com.tedmob.afrimoney.util.navigation.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
-    private val viewModel by provideViewModel<ActivityViewModel>()
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
         requireBinding().bottomNavigationView.menu.let { menu ->
@@ -125,10 +119,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 }
             )
 
-
+/*
             observeResource(viewModel.verified) {
                 proceedWith(it)
-            }
+            }*/
 
 
             bottomNavigationView.setOnItemSelectedListener {
@@ -241,14 +235,14 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                             )*//*
                         )*/
                 val bundle = Bundle()
-                bundle.putString("mobilenb", session.msisdnAfrimoney)
-                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+                /*  bundle.putString("mobilenb", session.msisdnAfrimoney)
+                  findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)*/
             }
             is UserState.Registered -> {
                 //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
                 val bundle = Bundle()
-                bundle.putString("mobilenb", session.msisdnAfrimoney)
-                findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)
+                /*    bundle.putString("mobilenb", session.msisdnAfrimoney)
+                    findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)*/
             }
         }
     }

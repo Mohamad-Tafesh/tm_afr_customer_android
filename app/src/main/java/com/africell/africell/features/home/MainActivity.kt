@@ -17,13 +17,12 @@ import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
-import com.africell.africell.features.afrimoney.AfrimoneyActivity
-import com.africell.africell.features.authentication.AuthenticationActivity
 import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.util.navigation.setupWithNavController
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
+import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

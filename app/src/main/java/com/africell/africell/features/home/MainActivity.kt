@@ -75,16 +75,18 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 withVBAvailable {
                     bottomNavigationView.selectedItemId = it.itemId
                 }
-                AfricellDestination.destination.value = null
+
             }
         }
+        AfricellDestination.destination.value = null
 
         observe(AfricellDestination.side_menu_destination) {
             it?.let {
                 onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
             }
-            AfricellDestination.side_menu_destination.value = null
+
         }
+        AfricellDestination.side_menu_destination.value = null
     }
 
 

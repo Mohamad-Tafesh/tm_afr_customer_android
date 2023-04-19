@@ -1,6 +1,5 @@
 package com.tedmob.afrimoney.features.newhome
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
@@ -14,11 +13,8 @@ import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBActivity
 import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.entity.AfricellDestination
-import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.databinding.ActivityAfrimoneyNewBinding
-import com.tedmob.afrimoney.ui.viewmodel.observeResource
-import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import com.tedmob.afrimoney.util.navigation.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -82,9 +78,9 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     ) || findNavController(R.id.nav_host_main).navigateUp()
 
     private fun ActivityAfrimoneyNewBinding.setupNavigation() {
-       navigationView.itemIconTintList = null
+        navigationView.itemIconTintList = null
         findNavController(R.id.nav_host_main).let {
-           setupActionBarWithNavController(it, drawerLayout)
+            setupActionBarWithNavController(it, drawerLayout)
             navigationView.setupWithNavController(
                 it,
                 customHasPriority = true,
@@ -135,6 +131,12 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                     }
                 }
             )
+
+            navigationView.setNavigationItemSelectedListener {
+                AfricellDestination.side_menu_destination.value = it
+                finish()
+                true
+            }
 
             it.addOnDestinationChangedListener { _, destination, _ ->
                 Timber.d("Navigate to %s", destination.label)
@@ -190,10 +192,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
 
                             //fixme black menu
 
-                           R.id.chooseBankingServiceTypeFragment,
-                           R.id.termsOfUseFragment,
-                           R.id.settingsFragment,
-                           R.id.contactUsFragment
+                            R.id.chooseBankingServiceTypeFragment,
+                            R.id.termsOfUseFragment,
+                            R.id.settingsFragment,
+                            R.id.contactUsFragment
 
                             -> R.drawable.sidemenunavblack
 
@@ -229,10 +231,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                             R.id.balanceEnquiryFragment,
                             R.id.confirmPendingTransactionsFragment,
                             R.id.airtimeConfirmationfragment
-                            ->R.drawable.ic_nav_back_white
+                            -> R.drawable.ic_nav_back_white
 
 
-                            else ->R.drawable.ic_nav_back_black
+                            else -> R.drawable.ic_nav_back_black
                         }
                     )
 

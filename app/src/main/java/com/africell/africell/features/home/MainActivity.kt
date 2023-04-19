@@ -78,6 +78,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 }
             }
         }
+
+        observe(AfricellDestination.side_menu_destination) {
+            it?.let {
+                onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+            }
+        }
     }
 
 
@@ -107,8 +113,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             val backPressedCallback = onBackPressedDispatcher.addCallback(this@MainActivity, enabled = false) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
+
+
+
             drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
                 override fun onDrawerStateChanged(newState: Int) {
+
                 }
 
                 override fun onDrawerSlide(drawerView: View, slideOffset: Float) {

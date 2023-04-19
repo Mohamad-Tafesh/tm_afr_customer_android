@@ -1,4 +1,4 @@
-package com.tedmob.afrimoney.features.newhome.domain
+package com.africell.africell.features.home.domain
 
 import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import com.tedmob.afrimoney.data.analytics.AnalyticsHandler
@@ -22,14 +22,14 @@ class VerifyUseCase
     private val analytics: AnalyticsHandler,
     private val crashlytics: CrashlyticsHandler,
     @Named("local-string") private val encryptor: StringEncryptor,
-) : SuspendableUseCase<UserState, String>() {
+) : SuspendableUseCase<UserState, VerifyUseCase.Params>() {
 
-    override suspend fun execute(params: String): UserState {
+    override suspend fun execute(params: Params): UserState {
         return withContext(Dispatchers.IO) {
 
             try {
              //   val info = api.userInfoCheck(params.number, params.token)
-                val info = api.userInfo(params)
+                val info = api.userInfo(params.number)
                 val user = User(
                     info.msisdn.orEmpty(),
                     info.name.orEmpty(),
@@ -47,7 +47,7 @@ class VerifyUseCase
                 session.msisdn = ""
                 session.accessToken = ""
                 session.refreshToken = ""
-                UserState.NotRegistered(params)
+                UserState.NotRegistered(params.number)
             }
         }
     }

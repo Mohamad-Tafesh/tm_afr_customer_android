@@ -20,6 +20,7 @@ import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import com.tedmob.afrimoney.util.navigation.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +30,6 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     @Inject
     lateinit var session: SessionRepository
 
-    private val viewModel by provideViewModel<ActivityViewModel>()
 
     private val number: String? by lazy { intent.getStringExtra("number") }
     private val token: String? by lazy { intent.getStringExtra("token") }
@@ -136,10 +136,14 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 }
             )
 
-            observeResource(viewModel.verified) {
-                proceedWith(it)
+            it.addOnDestinationChangedListener { _, destination, _ ->
+                Timber.d("Navigate to %s", destination.label)
+                bottomNavigationView.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                afrimoneyImg.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
             }
-            viewModel.verify(number.orEmpty(), token.orEmpty())
+
             session.msisdn = number.orEmpty()
 
 
@@ -244,25 +248,6 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
         }
     }
 
-
-    fun proceedWith(state: UserState) {
-        when (state) {
-            is UserState.NotRegistered -> {
-                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                })
-            }
-            is UserState.Registered -> {
-                //findNavController(R.id.nav_host_main).navigate(R.id.afrimoneyFragment)
-                val bundle = Bundle()
-                /*    bundle.putString("mobilenb", session.msisdnAfrimoney)
-                    findNavController(R.id.nav_host_main).navigate(R.id.setPinFragment2, bundle)*/
-                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                })
-            }
-        }
-    }
 
     private fun ActivityAfrimoneyNewBinding.setupBottomNavigationStyle() {
         bottomNavigationView.itemIconTintList = null

@@ -1,4 +1,4 @@
-package com.tedmob.afrimoney.features.newhome
+package com.africell.africell.features.home
 
 import androidx.lifecycle.LiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator
@@ -23,19 +23,18 @@ class ActivityViewModel
     private val _verified = SingleLiveEvent<Resource<UserState>>()
 
 
-/*    fun verify(mobilenb: String, token: String) {
+    fun verify(mobilenb: String) {
         executeResource(
             verifyUseCase,
-            VerifyUseCase.Params(mobilenb, token),
+            mobilenb,
             _verified,
             appExceptionFactory,
             null,
             null
         )
-    }*/
+    }
 
     override fun onCleared() {
         super.onCleared()
-
     }
 }

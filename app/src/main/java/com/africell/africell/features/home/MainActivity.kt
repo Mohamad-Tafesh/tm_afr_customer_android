@@ -18,14 +18,20 @@ import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
 import com.africell.africell.ui.viewmodel.observe
+import com.africell.africell.ui.viewmodel.observeResource
+import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.navigation.setupWithNavController
 import com.tedmob.afrimoney.data.entity.AfricellDestination
+import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
+import com.tedmob.afrimoney.features.newhome.AfrimoneyRegistrationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : BaseVBActivity<ActivityMainBinding>() {
+
+    private val viewModel by provideViewModel<ActivityViewModel>()
 
     private val bottomNavFragmentIds: List<Int> by lazy {
         val list = mutableListOf<Int>()
@@ -129,6 +135,10 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 }
             )
 
+            observeResource(viewModel.verified) {
+                proceedWith(it)
+            }
+
 
 
             bottomNavigationView.setupWithNavController(it)
@@ -139,12 +149,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
             bottomNavigationView.setOnItemSelectedListener {
                 if (it.itemId == R.id.afrimoneyFragment) {
-                    activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
-                        //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        putExtra("number",session.msisdnAfrimoney)
-                        putExtra("token",session.accessToken)
-
-                    })
+                    viewModel.verify(session.msisdnAfrimoney)
                 } else {
                     onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
                 }
@@ -202,6 +207,25 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
                 }
 
+            }
+        }
+    }
+
+
+    fun proceedWith(state: UserState) {
+        when (state) {
+            is UserState.NotRegistered -> {
+                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
+            }
+            is UserState.Registered -> {
+                activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
+                    //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    putExtra("number", session.msisdnAfrimoney)
+                    putExtra("token", session.accessToken)
+
+                })
             }
         }
     }

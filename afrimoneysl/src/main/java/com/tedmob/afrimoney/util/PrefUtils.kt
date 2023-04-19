@@ -2,12 +2,13 @@ package com.tedmob.afrimoney.util
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 class PrefUtils
 @Inject
-constructor(preferences: RxSharedPreferences) {
+constructor(@Named("Afrimoney") preferences: RxSharedPreferences) {
 
     val userChangedLanguage = preferences.getBoolean("user_changed_language", false)
     val deviceToken = preferences.getString("device_token", "")

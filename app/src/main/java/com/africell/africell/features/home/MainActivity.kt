@@ -73,6 +73,9 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         observe(AfricellDestination.destination) {
             it?.let {
                 onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
+                withVBAvailable {
+                    bottomNavigationView.selectedItemId = it.itemId
+                }
             }
         }
     }

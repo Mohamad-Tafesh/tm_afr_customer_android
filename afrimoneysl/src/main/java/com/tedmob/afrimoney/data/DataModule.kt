@@ -1,8 +1,8 @@
 package com.tedmob.afrimoney.data
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -20,6 +20,7 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -29,15 +30,17 @@ object DataModule {
     private const val DISK_CACHE_SIZE = 20 * 1024 * 1024 // 20 MiB
 
 
+    @Named("Afrimoney")
     @Provides
     @Singleton
     internal fun providesSharedPreferences(application: Application): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(application)
+        return application.getSharedPreferences(application.getPackageName() + "_prefs", Context.MODE_PRIVATE)
     }
 
+    @Named("Afrimoney")
     @Provides
     @Singleton
-    internal fun provideRxSharedPreferences(prefs: SharedPreferences): RxSharedPreferences {
+    internal fun provideRxSharedPreferences(@Named("Afrimoney") prefs: SharedPreferences): RxSharedPreferences {
         return RxSharedPreferences.create(prefs)
     }
 

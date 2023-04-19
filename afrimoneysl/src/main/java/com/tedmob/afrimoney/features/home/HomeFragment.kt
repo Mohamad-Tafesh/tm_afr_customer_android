@@ -39,7 +39,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return createViewBinding(container, FragmentHomeNewBinding::inflate, false)
+        return createViewBinding(container, FragmentHomeNewBinding::inflate, true)
     }
 
     override fun configureToolbar() {

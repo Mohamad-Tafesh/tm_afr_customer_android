@@ -230,6 +230,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
                 })
             }
+            else -> {}
         }
     }
 

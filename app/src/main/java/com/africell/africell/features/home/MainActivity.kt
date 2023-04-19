@@ -2,8 +2,6 @@ package com.africell.africell.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import androidx.activity.addCallback
@@ -23,7 +21,6 @@ import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.navigation.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
@@ -232,12 +229,11 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
     fun proceedWith(state: UserState) {
         when (state) {
             is UserState.NotRegistered -> {
-                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                })
-                AfricellDestination.destination.value  = binding?.bottomNavigationView?.menu?.getItem(0)
+                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {})
+                AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }
             is UserState.Registered -> {
+
                 activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
                     //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     putExtra("number", session.msisdnAfrimoney)
@@ -245,12 +241,11 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
                 })
 
-                AfricellDestination.destination.value  = binding?.bottomNavigationView?.menu?.getItem(0)
+                AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }
             else -> {}
         }
     }
-
 
 
     private fun ActivityMainBinding.setupBottomNavigationStyle() {

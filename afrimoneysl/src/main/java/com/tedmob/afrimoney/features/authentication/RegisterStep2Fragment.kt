@@ -116,7 +116,9 @@ class RegisterStep2Fragment : BaseVBFragment<FragmentRegisterStep2Binding>() {
             backButton.setDebouncedOnClickListener { findNavController().popBackStack() }
 
             setupValidator()
-            confirmingButton.setDebouncedOnClickListener { validator?.submit(viewLifecycleOwner.lifecycleScope) }
+            confirmingButton.setDebouncedOnClickListener {
+                validator?.submit(viewLifecycleOwner.lifecycleScope)
+            }
 /*
             frontImageView.setDebouncedOnClickListener {
                 currentImageSelected = FRONT

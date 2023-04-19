@@ -147,7 +147,7 @@ class RegisterStep1Fragment : BaseVBFragment<FragmentRegisterStep1Binding>() {
         bindAddress()
 
         binding?.let {
-            it.backButton.setDebouncedOnClickListener { findNavController().popBackStack() }
+            it.backButton.setDebouncedOnClickListener { activity?.finish() }
 
             /*    it.userImage.load(R.drawable.ic_camera) {
                     size(ViewSizeResolver(it.userImage))

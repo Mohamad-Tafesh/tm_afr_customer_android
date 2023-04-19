@@ -1,19 +1,18 @@
 package com.tedmob.afrimoney.features.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.withVBAvailable
-import com.tedmob.afrimoney.databinding.DialogChangeSuccessBinding
 import com.tedmob.afrimoney.databinding.FragmentChangePinRegisterBinding
 import com.tedmob.afrimoney.features.account.ChangePinViewModel
+import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
+import com.tedmob.afrimoney.features.newhome.AfrimoneyRegistrationActivity
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.hideKeyboard
 import com.tedmob.afrimoney.ui.viewmodel.observeTransactionSubmit
@@ -51,8 +50,17 @@ class ChangePinRegisterFragment : BaseVBFragment<FragmentChangePinRegisterBindin
             }
         }
 
-        observeTransactionSubmit(viewModel.pinChanged, requireBinding().proceedButton,"Your account has been created successfully") {
-         findNavController().navigate(ChangePinRegisterFragmentDirections.actionChangePinRegisterFragmentToSetPinFragment(session.msisdn)) }
+        observeTransactionSubmit(
+            viewModel.pinChanged,
+            requireBinding().proceedButton,
+            "Your account has been created successfully"
+        ) {
+            startActivity(Intent(context, AfrimoneyRegistrationActivity::class.java).apply {
+                putExtra("number", session.msisdn)
+                activity?.finish()
+            })
+        }
+
     }
 
     private fun FragmentChangePinRegisterBinding.setupValidation() = formValidator {
@@ -77,9 +85,5 @@ class ChangePinRegisterFragment : BaseVBFragment<FragmentChangePinRegisterBindin
     }
 
 
-
-    private fun unblockApp() {
-        activity?.finish()
-    }
 
 }

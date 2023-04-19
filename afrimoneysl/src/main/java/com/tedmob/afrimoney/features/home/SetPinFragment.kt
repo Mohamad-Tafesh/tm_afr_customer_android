@@ -85,8 +85,8 @@ class SetPinFragment : BaseVBFragment<FragmentSetPinBinding>() {
         pinInputLayout.validate(NotEmptyRule(getString(R.string.mandatory_field)))
 
         onValid = {
-            //viewModel.enterPin(args.mobilenb.orEmpty(),pinInputLayout.getText())
-            viewModel.enterPin("090227946", pinInputLayout.getText())
+            viewModel.enterPin(session.msisdn,pinInputLayout.getText())
+           // viewModel.enterPin("090227946", pinInputLayout.getText())
         }
     }
 

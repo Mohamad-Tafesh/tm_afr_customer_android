@@ -174,61 +174,61 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 withVBAvailable {
                     supportActionBar?.setHomeAsUpIndicator(
                         when (destination.id) {
-                            com.tedmob.afrimoney.R.id.homeFragment,
-                            com.tedmob.afrimoney.R.id.aboutUsFragment,
-                            com.tedmob.afrimoney.R.id.referFriendFragment,
-                            com.tedmob.afrimoney.R.id.faqFragment,
-                            com.tedmob.afrimoney.R.id.helpFragment,
-                            com.tedmob.afrimoney.R.id.accountFragment,
-                            com.tedmob.afrimoney.R.id.locateUsFragment,
-                            com.tedmob.afrimoney.R.id.africellServicesFragment2
+                            R.id.homeFragment,
+                            R.id.aboutUsFragment,
+                            R.id.referFriendFragment,
+                            R.id.faqFragment,
+                            R.id.helpFragment,
+                            R.id.accountFragment,
+                            R.id.locateUsFragment,
+                            R.id.africellServicesFragment2
                             -> R.mipmap.nav_side_menu
 
                             //fixme black menu
 
-                            com.tedmob.afrimoney.R.id.chooseBankingServiceTypeFragment,
-                            com.tedmob.afrimoney.R.id.termsOfUseFragment,
-                            com.tedmob.afrimoney.R.id.settingsFragment,
-                            com.tedmob.afrimoney.R.id.contactUsFragment
+                           R.id.chooseBankingServiceTypeFragment,
+                           R.id.termsOfUseFragment,
+                           R.id.settingsFragment,
+                           R.id.contactUsFragment
 
-                            -> com.tedmob.afrimoney.R.drawable.sidemenunavblack
-
-
-                            com.tedmob.afrimoney.R.id.transferMoneyConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.merchantPaymentConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.pending_transactionsMainFragment,
-                            com.tedmob.afrimoney.R.id.africellServicesFragment,
-                            com.tedmob.afrimoney.R.id.withdrawMain,
-                            com.tedmob.afrimoney.R.id.payMyBillsFragment,
-                            com.tedmob.afrimoney.R.id.payMyBillsConfirmRenewDSTVFragment,
-                            com.tedmob.afrimoney.R.id.bankingServicesFragment,
-                            com.tedmob.afrimoney.R.id.agentCodeConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.mercuryConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.agentPhoneNumberConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.bankToWalletConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.walletToBankConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.powergenConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.payMyBillsOptionsFragment,
-                            com.tedmob.afrimoney.R.id.changePinFragment,
-                            com.tedmob.afrimoney.R.id.enterPin_from_home,
-                            com.tedmob.afrimoney.R.id.enterPin_from_account,
-                            com.tedmob.afrimoney.R.id.enterPin,
-                            com.tedmob.afrimoney.R.id.yaRemixConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.yaSpecialConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.postPaidConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.risingAcademyConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.edsaConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.fccConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.waecConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.bundleConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.checkDSTVConfirmationFragment,
-                            com.tedmob.afrimoney.R.id.balanceEnquiryFragment,
-                            com.tedmob.afrimoney.R.id.confirmPendingTransactionsFragment,
-                            com.tedmob.afrimoney.R.id.airtimeConfirmationfragment
-                            -> com.tedmob.afrimoney.R.drawable.ic_nav_back_white
+                            -> R.drawable.sidemenunavblack
 
 
-                            else -> com.tedmob.afrimoney.R.drawable.ic_nav_back_black
+                            R.id.transferMoneyConfirmationFragment,
+                            R.id.merchantPaymentConfirmationFragment,
+                            R.id.pending_transactionsMainFragment,
+                            R.id.africellServicesFragment,
+                            R.id.withdrawMain,
+                            R.id.payMyBillsFragment,
+                            R.id.payMyBillsConfirmRenewDSTVFragment,
+                            R.id.bankingServicesFragment,
+                            R.id.agentCodeConfirmationFragment,
+                            R.id.mercuryConfirmationFragment,
+                            R.id.agentPhoneNumberConfirmationFragment,
+                            R.id.bankToWalletConfirmationFragment,
+                            R.id.walletToBankConfirmationFragment,
+                            R.id.powergenConfirmationFragment,
+                            R.id.payMyBillsOptionsFragment,
+                            R.id.changePinFragment,
+                            R.id.enterPin_from_home,
+                            R.id.enterPin_from_account,
+                            R.id.enterPin,
+                            R.id.yaRemixConfirmationFragment,
+                            R.id.yaSpecialConfirmationFragment,
+                            R.id.postPaidConfirmationFragment,
+                            R.id.risingAcademyConfirmationFragment,
+                            R.id.edsaConfirmationFragment,
+                            R.id.fccConfirmationFragment,
+                            R.id.waecConfirmationFragment,
+                            R.id.bundleConfirmationFragment,
+                            R.id.checkDSTVConfirmationFragment,
+                            R.id.balanceEnquiryFragment,
+                            R.id.confirmPendingTransactionsFragment,
+                            R.id.airtimeConfirmationfragment
+                            ->R.drawable.ic_nav_back_white
+
+
+                            else ->R.drawable.ic_nav_back_black
                         }
                     )
 

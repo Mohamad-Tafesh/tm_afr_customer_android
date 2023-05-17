@@ -111,8 +111,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         withdrawMoneyOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_withdraw)
         }
-        buyAnytimeOption.setDebouncedOnClickListener {
-            findNavController().navigate(R.id.nav_airtime)
+        africellServices.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_services)
         }
         payMyBillsOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_pay_my_bills)

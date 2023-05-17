@@ -381,7 +381,7 @@
                     app:constraint_referenced_ids="transferMoneyOption,pendingTransactionsOption,withdrawMoneyOption" />
 
             <LinearLayout
-                    android:id="@+id/buyAnytimeOption"
+                    android:id="@+id/africellServices"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="33.5dp"
@@ -404,7 +404,7 @@
                         android:ellipsize="end"
                         android:lines="2"
                         android:maxLines="2"
-                        android:text="@string/buy_airtimeh"
+                        android:text="@string/africell_services"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="9sp"
@@ -424,7 +424,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/buyAnytimeOption"
+                    app:layout_constraintStart_toEndOf="@id/africellServices"
                     app:layout_constraintTop_toBottomOf="@id/optionsBarrier1">
 
                 <ImageView
@@ -453,7 +453,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="buyAnytimeOption,payMyBillsOption" />
+                    app:constraint_referenced_ids="africellServices,payMyBillsOption" />
 
             <LinearLayout
                     android:id="@+id/merchantPaymentOption"
@@ -530,7 +530,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/merchantPaymentOption"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/buyAnytimeOption" />
+                    app:layout_constraintTop_toTopOf="@id/africellServices" />
 
             <View
                     android:layout_width="0dp"
@@ -538,7 +538,7 @@
                     android:background="@color/darkGrey"
                     app:layout_constraintBottom_toTopOf="@id/merchantPaymentOption"
                     app:layout_constraintEnd_toEndOf="@id/payMyBillsOption"
-                    app:layout_constraintStart_toStartOf="@id/buyAnytimeOption" />
+                    app:layout_constraintStart_toStartOf="@id/africellServices" />
 
             <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/optionsBarrier3"

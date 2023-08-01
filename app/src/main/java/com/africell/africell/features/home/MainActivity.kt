@@ -234,6 +234,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {})
                 AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }
+
             is UserState.Registered -> {
 
                 activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
@@ -245,6 +246,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
                 AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }
+
             else -> {}
         }
     }

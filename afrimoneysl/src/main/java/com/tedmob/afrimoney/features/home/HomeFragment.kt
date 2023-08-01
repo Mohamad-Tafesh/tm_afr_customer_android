@@ -63,8 +63,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             it.let {
 
 
-                val newBalance =
-                    (it.balance.toDouble() - it.fbr.toDouble() - it.fic.toDouble()).toString()
+                val newBalance = it.balance
+                  //  (it.balance.toDouble() - it.fbr.toDouble() - it.fic.toDouble()).toString()
 
 
                 if ((newBalance.split("."))[1] == "00") {

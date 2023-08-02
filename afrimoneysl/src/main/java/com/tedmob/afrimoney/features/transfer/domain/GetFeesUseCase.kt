@@ -16,13 +16,16 @@ class GetFeesUseCase
 
         val serviceCharges = data?.getList("serviceCharges")?.firstOrNull()
         val taxes1 = serviceCharges?.getString("amount")?.toDoubleOrNull()
-      val taxes2 = serviceCharges?.getList("taxes")?.sumOf { it.getString("amount")?.toDoubleOrNull() ?: 0.0 }
+        val taxes2 = serviceCharges?.getList("taxes")
+            ?.sumOf { it.getString("amount")?.toDoubleOrNull() ?: 0.0 }
 
-        val receiverName = data?.getObject("receiver")
-            ?.getString("parentName")
+        var receiverName = data?.getObject("receiver")?.getString("parentName")
+        if (receiverName == null) receiverName =
+            data?.getObject("receiver")?.getString("userName") + " " + data?.getObject("receiver")
+                ?.getString("lastName")
 
-        val total=taxes1!!+taxes2!!+ params.amount.toDouble()
-       return GetFeesData( params.number ,params.amount,(taxes1 + taxes2).toString(),receiverName!!,total.toString())
+        val total = taxes1!! + (taxes2 ?: 0.0) + params.amount.toDouble()
+       return GetFeesData( params.number ,params.amount,(taxes1 + (taxes2 ?:0.0)).toString(),receiverName!!,total.toString())
     }
 
     class Params(

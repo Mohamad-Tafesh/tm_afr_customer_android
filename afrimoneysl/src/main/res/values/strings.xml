@@ -61,7 +61,7 @@
     <string name="africell_services">Africell Services</string>
     <string name="africredit">Africredit</string>
     <string name="pay_my_billsh">Pay\nMy Bills</string>
-    <string name="pay_my_bills">Pay My Bills</string>
+    <string name="pay_my__bills">Pay My Bills</string>
     <string name="merchant_paymenth">Merchant\nPayment</string>
     <string name="merchant_payment">Merchant Payment</string>
     <string name="banking_servicesh">Banking\nServices</string>
@@ -190,6 +190,7 @@
     <string name="renew_my_Dstv">Renew my DSTV subscription</string>
     <string name="you_are_about_to_renew">You are about to Renew Your\nDSTV Subscription</string>
     <string name="smart_card_number">Smart Card Number</string>
+    <string name="subscription">Subscription</string>
     <string name="smart_card_number_c">Smart Card Number:</string>
     <string name="subscription_type">Subscription Type</string>
     <string name="subscription_type_c">Subscription Type:</string>

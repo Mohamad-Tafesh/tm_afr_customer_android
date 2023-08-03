@@ -69,22 +69,21 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.tedmob.afrimoney.ui.spinner.MaterialSpinner
-            android:id="@+id/language"
-            android:hint="@string/press"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            app:endIconDrawable="@drawable/arrowsblackdown"
-            app:endIconMode="custom"
-            app:spinnerMode="dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/smart_card" />
+                android:id="@+id/subscription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/subscription"
+                app:endIconDrawable="@drawable/arrowsblackdown"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/smart_card"
+                app:spinnerMode="dialog" />
 
         <com.tedmob.afrimoney.ui.spinner.MaterialSpinner
-            android:enabled="false"
             android:id="@+id/subs_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,7 +96,7 @@
             app:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/language" />
+            app:layout_constraintTop_toBottomOf="@+id/subscription" />
 
         <com.tedmob.afrimoney.ui.spinner.MaterialSpinner
             app:hintTextColor="@color/violetMain"
@@ -114,6 +113,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subs_type" />
+
+        <View
+                android:id="@+id/viewForClick"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/subs_type"
+                app:layout_constraintEnd_toEndOf="@+id/subs_type"
+                app:layout_constraintStart_toStartOf="@+id/subs_type"
+                app:layout_constraintTop_toTopOf="@+id/subs_type" />
 
         <com.tedmob.afrimoney.ui.button.LoadingProgressButton
             android:id="@+id/proceedButton"

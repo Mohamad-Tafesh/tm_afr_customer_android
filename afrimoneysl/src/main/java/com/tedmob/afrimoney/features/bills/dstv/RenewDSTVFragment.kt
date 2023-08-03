@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -20,6 +21,7 @@ import com.tedmob.afrimoney.ui.spinner.MaterialSpinner
 import com.tedmob.afrimoney.ui.spinner.OnItemSelectedListener
 import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
+import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
 import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.phone.BaseVBFragmentWithImportContact
@@ -41,7 +43,7 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return createViewBinding(container, FragmentRenewDstvBinding::inflate)
+        return createViewBinding(container, FragmentRenewDstvBinding::inflate,true)
     }
 
     override fun configureToolbar() {
@@ -52,6 +54,13 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        withVBAvailable {
+            viewForClick.setOnClickListener {
+                if (subscription.selection == -1) {
+                    showMaterialMessageDialog("Please select subscription first")
+                }
+            }
+        }
 
         viewModel.getPress()
 
@@ -60,14 +69,14 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
 
         }
 
-        observeResource(viewModel.data) {
+        observeResourceInline(viewModel.data) {
             withVBAvailable {
                 val list1: List<String> = buildList<String> {
                     for (index in 0 until it.size) {
                         add(it.get(index).name)
                     }
                 }
-                language.adapter = ArrayAdapter(
+                subscription.adapter = ArrayAdapter(
                     requireContext(),
                     R.layout.support_simple_spinner_dropdown_item,
                     resources.let { list1 }
@@ -76,14 +85,16 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
 
 
 
-                language.onItemSelectedListener = object : OnItemSelectedListener {
+
+
+                subscription.onItemSelectedListener = object : OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: MaterialSpinner,
                         view: View?,
                         position: Int,
                         id: Long
                     ) {
-                        subsType.isEnabled = true
+                        viewForClick.isVisible = false
                         val list2: List<String> = buildList<String> {
                             for (index2 in 0 until it.get(position).SubscriptionType.size) {
                                 add(it.get(position).SubscriptionType.get(index2))
@@ -135,7 +146,7 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
             notEmptyRule,
         )
 
-        language.validate(
+        subscription.validate(
             notEmptyRule,
         )
         subsType.validate(
@@ -149,7 +160,7 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
         onValid = {
             viewModel.proceed(
                 smartCard.getText(),
-                language.getText(),
+                subscription.getText(),
                 subsType.getText(),
                 nbOfMonths.getText()
             )

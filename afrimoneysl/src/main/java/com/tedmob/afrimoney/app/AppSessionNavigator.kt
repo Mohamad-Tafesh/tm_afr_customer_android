@@ -5,11 +5,13 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.navigation.NavDeepLinkBuilder
 import com.tedmob.afrimoney.R
+import com.tedmob.afrimoney.data.SingleLiveEvent
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.exception.AppException
 import com.tedmob.afrimoney.features.authentication.EnterPinActivity
 import com.tedmob.afrimoney.features.authentication.SetPinFragmentArgs
 import com.tedmob.afrimoney.features.launch.RootActivity
+import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
 import dagger.Reusable
 import javax.inject.Inject
 
@@ -17,9 +19,11 @@ import javax.inject.Inject
 class AppSessionNavigator
 @Inject constructor(
     private val session: SessionRepository,
-    private val application: Application
-) {
+    private val application: Application,
 
+    ) {
+
+    var onAppRestarted: SingleLiveEvent<Unit> = SingleLiveEvent()
     fun invalidateSessionAndRestart(exceptionToShow: AppException) {
         session.accessToken = ""
         session.refreshToken = ""
@@ -35,18 +39,19 @@ class AppSessionNavigator
 
 
     fun restart() {
+
         application.startActivity(
-            Intent(application, RootActivity::class.java).apply {
+            Intent(application, AfrimoneyActivity::class.java).apply {
                 addFlags(
                     Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or
                             Intent.FLAG_ACTIVITY_NEW_TASK
                 )
+                putExtra("restart", 401)
             }
         )
     }
 
-    fun resetPin(){
+    fun resetPin() {
 
         NavDeepLinkBuilder(application)
             .setComponentName(RootActivity::class.java)
@@ -80,6 +85,7 @@ inline fun AppException.handleInvalidSession(
             appSessionNavigator.openPinScreen(this)
             true
         }
+
         else -> {
             onOtherError(this)
             false

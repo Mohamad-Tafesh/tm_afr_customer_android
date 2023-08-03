@@ -30,6 +30,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
 
     private val number: String? by lazy { intent.getStringExtra("number") }
     private val token: String? by lazy { intent.getStringExtra("token") }
+    private val restart: Int? by lazy { intent.getIntExtra("restart", -1) }
 
 
     private val bottomNavFragmentIds: List<Int> by lazy {
@@ -68,6 +69,9 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
             setupBottomNavigationStyle()
+        }
+        if (restart == 401) {
+            this.finish()
         }
     }
 
@@ -156,18 +160,22 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                         AfricellDestination.destination.value = it
                         finish()
                     }
+
                     R.id.customerCareFragment -> {
                         AfricellDestination.destination.value = it
                         finish()
                     }
+
                     R.id.SMSFragment -> {
                         AfricellDestination.destination.value = it
                         finish()
                     }
+
                     R.id.locationListFragment -> {
                         AfricellDestination.destination.value = it
                         finish()
                     }
+
                     else -> {}
 
                 }
@@ -238,10 +246,10 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                         }
                     )
 
-/*                    bottomNavigationView.visibility =
-                        if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                    fabQR.visibility =
-                        if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE*/
+                    /*                    bottomNavigationView.visibility =
+                                            if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                                        fabQR.visibility =
+                                            if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE*/
 
 
                 }

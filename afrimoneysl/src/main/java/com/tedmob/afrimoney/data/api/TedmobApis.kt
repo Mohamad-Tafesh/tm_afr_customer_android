@@ -6,6 +6,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonIOException
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonToken
+import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.data.api.dto.*
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.exception.AppException
@@ -31,6 +32,7 @@ class TedmobApis
     private val session: SessionRepository,
     @Named("Api") private val gson: Gson,
     private val appExceptionFactory: AppExceptionFactory,
+    private val appSessionNavigator: AppSessionNavigator,
 ) {
 
 
@@ -1596,19 +1598,26 @@ class TedmobApis
             ).getCommandOrThrow()
         }
     }
-    //...
 
 
     suspend fun refreshToken() {
-        val response = post<RefreshTokenDTO>(
-            "RefreshUserToken",
-            body = fields {
-                this["grant_type"] = "refresh_token"
-                this["refresh_token"] = session.refreshToken
-            },
-        )
-        session.accessToken = response.accessToken
-        session.refreshToken = response.refreshToken
+
+        try {
+            val response = post<RefreshTokenDTO>(
+                "RefreshUserToken",
+                body = fields {
+                    this["grant_type"] = "refresh_token"
+                    this["refresh_token"] = session.refreshToken
+                },
+            )
+            session.accessToken = response.accessToken
+            session.refreshToken = response.refreshToken
+        }catch (e:Exception){
+            appSessionNavigator.restart()
+        }
+
+
+
     }
 
     private suspend inline fun <reified T> refreshTokenIfNeeded(block: () -> T): T {

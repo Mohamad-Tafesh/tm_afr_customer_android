@@ -56,9 +56,7 @@ class RenewDSTVFragment : BaseVBFragmentWithImportContact<FragmentRenewDstvBindi
 
         withVBAvailable {
             viewForClick.setOnClickListener {
-                if (subscription.selection == -1) {
                     showMaterialMessageDialog("Please select subscription first")
-                }
             }
         }
 

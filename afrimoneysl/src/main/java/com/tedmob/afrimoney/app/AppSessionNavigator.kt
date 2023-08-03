@@ -29,7 +29,7 @@ class AppSessionNavigator
         session.refreshToken = ""
         session.user = null
         Toast.makeText(application, exceptionToShow.userMessage, Toast.LENGTH_LONG).show()
-        resetPin()
+        restart()
     }
 
     fun invalidateSessionAndRestart() {

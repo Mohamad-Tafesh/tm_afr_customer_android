@@ -1548,6 +1548,8 @@ class TedmobApis
                             this["PAYID"] = "12"
                             this["LANGUAGE1"] = "1"
                             this["BLOCKSMS"] = "BOTH"
+                            this["CELLID"] = ""
+                            this["FTXNID"] = ""
 
                         }
                     }

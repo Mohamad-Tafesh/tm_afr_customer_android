@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
+import com.tedmob.afrimoney.data.entity.AllowedWallets
 import com.tedmob.afrimoney.data.entity.Bundlelist
 import com.tedmob.afrimoney.data.entity.BundlelistParent
 import com.tedmob.afrimoney.data.entity.Country
@@ -100,14 +101,13 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
 
     }
 
-    fun setWallet(data: Bundlelist) {
+    fun setWallet(list: List<AllowedWallets>) {
         binding?.wallet?.adapter = ArrayAdapter(
             requireContext(),
             R.layout.support_simple_spinner_dropdown_item,
-            data.allowedWallets
+            list
         )
     }
-
     fun setData(data: BundlelistParent) {
         withVBAvailable {
 
@@ -117,14 +117,18 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                     R.id.others -> {
                         mobileNumberInput.isVisible = true
                         countryCode.isVisible = true
-
+                        wallet.selection = - 1
+                        setWallet(data.bundlelist[0].allowedWallets.filter {
+                            it.id != "17"
+                        })
                         validator?.stop()
                         validator = setupValidation(data, data.bundlelist.get(0))
                     }
                     R.id.self -> {
                         mobileNumberInput.isVisible = false
                         countryCode.isVisible = false
-
+                        wallet.selection = - 1
+                        setWallet(data.bundlelist[0].allowedWallets)
                         validator?.stop()
                         validator = setupValidation(data, data.bundlelist.get(0))
                     }
@@ -149,7 +153,6 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                 }
             }
             wallet.isVisible = true
-            setWallet(data.bundlelist.get(0))
 
 
         }

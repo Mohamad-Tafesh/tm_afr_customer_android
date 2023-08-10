@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
+import com.tedmob.afrimoney.data.entity.AllowedWallets
 import com.tedmob.afrimoney.data.entity.Country
 import com.tedmob.afrimoney.databinding.FragmentDataBundleBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
@@ -113,14 +114,18 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                             R.id.others -> {
                                 mobileNumberInput.isVisible = true
                                 countryCode.isVisible = true
-
+                                wallet.selection = - 1
+                                setWallet(args.data.bundlelist[index].allowedWallets.filter {
+                                    it.id != "17"
+                                })
                                 validator?.stop()
                                 validator = setupValidation()
                             }
                             R.id.self -> {
                                 mobileNumberInput.isVisible = false
                                 countryCode.isVisible = false
-
+                                wallet.selection = - 1
+                                setWallet(args.data.bundlelist[index].allowedWallets)
                                 validator?.stop()
                                 validator = setupValidation()
                             }
@@ -145,7 +150,7 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                         }
                     }
                     wallet.isVisible = true
-                    setWallet(position)
+
 
 
                 }
@@ -158,11 +163,11 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
         }
     }
 
-    fun setWallet(index: Int) {
+    fun setWallet(list: List<AllowedWallets>) {
         binding?.wallet?.adapter = ArrayAdapter(
             requireContext(),
             R.layout.support_simple_spinner_dropdown_item,
-            args.data.bundlelist.get(index).allowedWallets
+            list
         )
     }
 

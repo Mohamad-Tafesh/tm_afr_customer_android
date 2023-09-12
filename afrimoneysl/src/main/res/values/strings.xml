@@ -269,4 +269,5 @@
     <string name="customer_care">Customer Care</string>
     <string name="sms">SMS</string>
     <string name="location">Location</string>
+    <string name="coming_soon">Coming soon.</string>
 </resources>

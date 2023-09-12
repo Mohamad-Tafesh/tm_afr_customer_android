@@ -12,6 +12,8 @@ import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.withVBAvailable
+import com.tedmob.afrimoney.databinding.DialogPendingTransactionsBinding
+import com.tedmob.afrimoney.databinding.DialogTransactionResultBinding
 import com.tedmob.afrimoney.databinding.FragmentHomeNewBinding
 import com.tedmob.afrimoney.databinding.QrcodeAlertBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
@@ -64,7 +66,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
 
                 val newBalance = it.balance
-                  //  (it.balance.toDouble() - it.fbr.toDouble() - it.fic.toDouble()).toString()
+                //  (it.balance.toDouble() - it.fbr.toDouble() - it.fic.toDouble()).toString()
 
 
                 if ((newBalance.split("."))[1] == "00") {
@@ -106,7 +108,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             findNavController().navigate(R.id.nav_transfer_money)
         }
         pendingTransactionsOption.setDebouncedOnClickListener {
-            findNavController().navigate(R.id.nav_pending_transactions)
+            // findNavController().navigate(R.id.nav_pending_transactions)
+            dialogPendingTransactions{}
         }
         withdrawMoneyOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_withdraw)
@@ -155,7 +158,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
     }
 
-     fun provideMenu() = object : MenuProvider {
+    fun provideMenu() = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
             menuInflater.inflate(R.menu.menu_barcode, menu)
         }
@@ -166,11 +169,31 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
                     showDialog()
                     true
                 }
+
                 else -> false
 
             }
 
 
+        }
+    }
+
+    fun dialogPendingTransactions(
+        onDismiss: (() -> Unit)? = null
+    ) {
+        activity?.let {
+            val viewBinding = DialogPendingTransactionsBinding.inflate(it.layoutInflater, FrameLayout(it), false)
+
+            val dialog = MaterialAlertDialogBuilder(it)
+                .setView(viewBinding.root)
+                .setOnDismissListener { onDismiss?.invoke() }
+                .show()
+
+            viewBinding.run {
+                closeButton.setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
         }
     }
 

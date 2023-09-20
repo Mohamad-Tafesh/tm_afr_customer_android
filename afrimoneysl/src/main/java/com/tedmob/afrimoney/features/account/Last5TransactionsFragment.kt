@@ -129,7 +129,7 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                         }
                     }
 
-                    append(" " + it.txnType.orEmpty())
+                    append(" " + it.service.orEmpty())
                 }
 
                 statusText.text = buildSpannedString {

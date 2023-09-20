@@ -76,6 +76,7 @@ class AgentCodeConfirmationFragment :
             amountText.text = getString(R.string.amount_currency,amount)
             agentCodeText.text = number
             totalText.text =  getString(R.string.amount_currency,total)
+            feesText.text = getString(R.string.fees_new, data.fees)
             nameText.text =name
 
         }

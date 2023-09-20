@@ -1,195 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollParent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scrollParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_top_image_registration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_top_image_registration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:id="@+id/header"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            android:textSize="20sp"
-            android:text="@string/you_are_about_to_withdraw"
-            android:textAppearance="@style/AppTheme.TextAppearance.Header1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
+                android:id="@+id/header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/you_are_about_to_withdraw"
+                android:textAppearance="@style/AppTheme.TextAppearance.Header1"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+
         <com.tedmob.afrimoney.ui.blocks.LoadingLayout
-            android:id="@+id/contentLL"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="?android:colorBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header">
+                android:id="@+id/contentLL"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?android:colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.Barrier
-                    android:id="@+id/headersBarrier"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:barrierDirection="end"
-                    app:constraint_referenced_ids="agent_number_header,agent_name_header" />
+                        android:id="@+id/headersBarrier"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:barrierDirection="end"
+                        app:constraint_referenced_ids="agent_number_header,agent_name_header" />
 
                 <TextView
-                    android:id="@+id/amount_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/amount"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        android:id="@+id/amount_header"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        android:textSize="18sp"
+                        app:autoSizeMaxTextSize="18sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/amount_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/headersBarrier"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="LE1,000,000" />
+                        android:id="@+id/amount_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        android:textColor="?colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/headersBarrier"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="LE1,000,000" />
 
                 <TextView
-                    android:id="@+id/agent_number_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/agent_number"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/amount_header" />
+                        android:id="@+id/agent_number_header"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/agent_number"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        app:autoSizeMaxTextSize="18sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/amount_text" />
 
                 <TextView
-                    android:id="@+id/agent_number_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="24dp"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/headersBarrier"
-                    app:layout_constraintTop_toBottomOf="@+id/amount_header"
-                    tools:text="12345" />
+                        android:id="@+id/agent_number_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="24dp"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        android:textColor="?colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@id/agent_number_header"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/headersBarrier"
+                        app:layout_constraintTop_toBottomOf="@+id/amount_text"
+                        app:layout_constraintVertical_bias="1"
+                        tools:text="12345" />
 
                 <TextView
-                    android:id="@+id/agent_name_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/agent_name"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/agent_number_header" />
+                        android:id="@+id/agent_name_header"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/agent_name"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        app:autoSizeMaxTextSize="18sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeStepGranularity="1sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/agent_number_text" />
 
                 <TextView
-                    android:id="@+id/nameText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="24dp"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/headersBarrier"
-                    app:layout_constraintTop_toBottomOf="@+id/agent_number_header"
-                    tools:text="Name" />
-
-
+                        android:id="@+id/nameText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                        android:textColor="?colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/headersBarrier"
+                        app:layout_constraintTop_toTopOf="@+id/agent_name_header"
+                        app:layout_constraintVertical_bias="1"
+                        tools:text="Name" />
 
                 <TextView
-                    android:id="@+id/totalHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/total__header"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/agent_name_header" />
+                        android:id="@+id/feesText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="24dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameText"
+                        tools:text="FeeLE NetPayable LE +35,000" />
 
                 <TextView
-                    android:id="@+id/totalText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="24dp"
-                    android:textAppearance="@style/AppTheme.TextAppearance.Header1"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/totalHeader"
-                    app:layout_constraintTop_toBottomOf="@+id/agent_name_header"
-                    tools:text="1,0350,000" />
+                        android:id="@+id/totalHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/total__header"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/feesText" />
+
+                <TextView
+                        android:id="@+id/totalText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="24dp"
+                        android:autoSizeMaxTextSize="24sp"
+                        android:autoSizeMinTextSize="15sp"
+                        android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Header1"
+                        android:textColor="?colorPrimary"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/totalHeader"
+                        app:layout_constraintTop_toBottomOf="@+id/feesText"
+                        tools:text="1,0350,000" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/pinInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:hint="@string/enter_pin"
-                    app:endIconTint="@null"
-                    app:endIconDrawable="@drawable/ic_password_toggle"
-                    app:endIconMode="password_toggle"
-                    app:layout_constraintBottom_toTopOf="@+id/confirmButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/totalHeader">
+                        android:id="@+id/pinInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:hint="@string/enter_pin"
+                        app:endIconDrawable="@drawable/ic_password_toggle"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="@null"
+                        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalText">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberPassword" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.tedmob.afrimoney.ui.button.LoadingProgressButton
-                    android:id="@+id/confirmButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/confirm"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                        android:id="@+id/confirmButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/confirm"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.tedmob.afrimoney.ui.blocks.LoadingLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

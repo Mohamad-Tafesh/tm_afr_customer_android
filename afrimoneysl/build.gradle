@@ -32,7 +32,7 @@ android {
     //TODO copy from app:build.gradle
     def versionMajor = 1
     def versionMinor = 2
-    def versionPatch = 8
+    def versionPatch = 9
 
     defaultConfig {
         minSdkVersion project.ext.minimumSdkVersion

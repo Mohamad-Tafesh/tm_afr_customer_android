@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -17,6 +19,7 @@ import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.features.authentication.AuthenticationActivity
 import com.africell.africell.ui.viewmodel.observe
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
@@ -165,7 +168,10 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
             bottomNavigationView.setOnItemSelectedListener {
                 if (it.itemId == R.id.afrimoneyFragment) {
-                    viewModel.verify(session.msisdnAfrimoney)
+                    if (session.isLoggedIn()) {
+                        viewModel.verify(session.msisdnAfrimoney)
+                    } else showLoginMessage()
+
                 } else {
                     onNavDestinationSelected(it, findNavController(R.id.nav_host_main))
                 }
@@ -227,6 +233,25 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         }
     }
 
+    fun showLoginMessage() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.login_first))
+            .setCancelable(false)
+            .setPositiveButton(R.string.login) { dialog, which ->
+                redirectToLogin()
+            }
+            .setNegativeButton(R.string.close) { dialog, which ->
+                AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    fun redirectToLogin() {
+        this.startActivity(Intent(activity, AuthenticationActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
+    }
 
     fun proceedWith(state: UserState) {
         when (state) {

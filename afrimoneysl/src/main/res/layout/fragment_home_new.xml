@@ -122,50 +122,49 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/bonusBalanceLayout"
+                        android:id="@+id/accountLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/balanceLayout"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                            android:id="@+id/bonusBalanceText"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                    <ImageView
+                            android:id="@+id/accountIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_marginTop="16dp"
-                            android:gravity="center_horizontal"
-                            android:maxLines="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="?colorOnPrimary"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"
-                            app:autoSizeMaxTextSize="17sp"
-                            app:autoSizeMinTextSize="12sp"
-                            app:autoSizeStepGranularity="1sp"
-                            app:autoSizeTextType="uniform"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/person1"
+                            app:layout_constraintBottom_toTopOf="@+id/accountText"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="3,200" />
+                            app:layout_constraintVertical_bias="1.0" />
+
+                    <android.widget.Space
+                            android:id="@+id/accountSpace"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toTopOf="@id/accountIcon"
+                            app:layout_constraintStart_toEndOf="@id/accountIcon" />
 
                     <TextView
-                            android:id="@+id/bonusBalanceSubtitle"
+                            android:id="@+id/accountText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:layout_marginBottom="12dp"
                             android:gravity="center_horizontal"
-                            android:text="@string/bonus_balance"
+                            android:text="@string/my_account"
                             android:textColor="?colorOnPrimary"
                             android:textSize="9sp"
-                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/bonusBalanceText"
                             app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -175,7 +174,17 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/transactionsLayout"
-                        app:layout_constraintStart_toEndOf="@+id/bonusBalanceLayout">
+                        app:layout_constraintStart_toEndOf="@+id/accountLayout">
+
+                    <ImageView
+                            android:id="@+id/moneyIcon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/money"
+                            app:layout_constraintBottom_toTopOf="@id/barrier"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                             android:id="@+id/balanceText"
@@ -187,15 +196,27 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="?colorOnPrimary"
                             android:textSize="17sp"
+                            android:visibility="gone"
                             app:autoSizeMaxTextSize="17sp"
                             app:autoSizeMinTextSize="12sp"
                             app:autoSizeStepGranularity="1sp"
                             app:autoSizeTextType="uniform"
                             app:fontFamily="@font/nexa_heavy"
+                            app:layout_constraintBottom_toTopOf="@id/barrier"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="3,200" />
+
+                    <androidx.constraintlayout.widget.Barrier
+                            android:id="@+id/barrier"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:barrierDirection="top"
+                            app:constraint_referenced_ids="balanceSubtitle"
+                            app:layout_constraintBottom_toBottomOf="@id/balanceSubtitle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                             android:id="@+id/balanceSubtitle"
@@ -210,7 +231,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/balanceText"
                             app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

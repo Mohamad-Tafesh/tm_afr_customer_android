@@ -270,4 +270,6 @@
     <string name="sms">SMS</string>
     <string name="location">Location</string>
     <string name="coming_soon">Coming soon.</string>
+    <string name="hide_my_balance">Hide my Balance</string>
+    <string name="my_account">My Account</string>
 </resources>

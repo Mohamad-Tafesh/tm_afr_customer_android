@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_africellServicesFragment2"
             app:destination="@id/africellServicesFragment2" />
+        <action
+                android:id="@+id/action_homeFragment_to_accountFragment"
+                app:destination="@id/accountFragment" />
     </fragment>
     <include app:graph="@navigation/nav_withdraw" />
     <include app:graph="@navigation/nav_airtime" />

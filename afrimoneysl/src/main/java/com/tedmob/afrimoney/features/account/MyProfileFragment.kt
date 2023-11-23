@@ -135,30 +135,12 @@ class MyProfileFragment : BaseVBFragment<FragmentMyProfileBinding>() {
         withVBAvailable {
             backButton.setDebouncedOnClickListener { findNavController().popBackStack() }
 
-            userImageView.load(R.drawable.ic_camera) {
-                size(ViewSizeResolver(userImageView))
-                lifecycle(viewLifecycleOwner)
-                transformations(
-                    BorderedCircleCropTransformation(
-                        resources.dpToPx(2),
-                        primaryColor,
-                        Scale.FIT,
-                        backgroundColor,
-                    ),
-                )
-            }
-
-            //dob.fragmentManagerProvider = { childFragmentManager }
 
             addressOfResidenceEdit.setDebouncedOnClickListener {
                 hideKeyboard()
                 findNavController().navigate(MyProfileFragmentDirections.actionMyProfileFragmentToNavAddress())
             }
 
-            /*userImageView.setDebouncedOnClickListener {
-                currentImageSelected = USER
-                mediaPicker.launch()
-            }*/
             frontImageView.setDebouncedOnClickListener {
                 currentImageSelected = FRONT
                 mediaPicker.launch()

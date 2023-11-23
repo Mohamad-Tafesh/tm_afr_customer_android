@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.zxing.BarcodeFormat
@@ -37,6 +38,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
     private val viewModel by provideViewModel<HomeViewModel>()
 
+    private var hide = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +60,24 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         withVBAvailable {
             setupToolbar()
             setupOptions()
+
+            balanceLayout.setDebouncedOnClickListener {
+                if (hide){
+                    hide = false
+                    balanceText.isVisible=true
+                    moneyIcon.isVisible=false
+                    balanceSubtitle.text=getString(R.string.hide_my_balance)
+                }else{
+                    hide = true
+                    balanceText.isVisible=false
+                    moneyIcon.isVisible=true
+                    balanceSubtitle.text=getString(R.string.my_balance)
+                }
+
+            }
+
+
+
         }
 
 
@@ -87,6 +107,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
 
 
+
         viewModel.getData()
         viewModel.getBalance()
 
@@ -101,6 +122,13 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
     }
 
     private fun FragmentHomeNewBinding.setupOptions() {
+
+        requireBinding().accountLayout.setOnClickListener {
+
+            findNavController().navigate(R.id.accountFragment)
+        }
+
+
         transactionsLayout.setDebouncedOnClickListener {
             //findNavController().navigate(R.id.)
         }
@@ -109,7 +137,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         }
         pendingTransactionsOption.setDebouncedOnClickListener {
             // findNavController().navigate(R.id.nav_pending_transactions)
-            dialogPendingTransactions{}
+            dialogPendingTransactions {}
         }
         withdrawMoneyOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_withdraw)

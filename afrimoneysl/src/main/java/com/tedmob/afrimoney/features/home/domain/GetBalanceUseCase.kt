@@ -36,7 +36,7 @@ class GetBalanceUseCase
                 )
             }
             val response2 = api.getBalance()
-            lastBalance =( response2.BALANCE.orEmpty().toDouble() -response2.FICBALANCE.orEmpty().toDouble()-response2.FRBALANCE.orEmpty().toDouble()).toString()
+            lastBalance = response2.BALANCE.orEmpty().toDouble().toString()
             send(
                 UserAccountInfo(
                     null,

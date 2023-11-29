@@ -877,7 +877,14 @@
                   </entry>
                   <entry key="nav_pending_transactions">
                     <value>
-                      <LayoutPositions />
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="288" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
                     </value>
                   </entry>
                   <entry key="nav_services">

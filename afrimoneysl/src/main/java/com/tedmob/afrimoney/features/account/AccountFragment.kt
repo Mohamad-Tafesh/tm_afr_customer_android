@@ -139,8 +139,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
                 color(ContextCompat.getColor(requireContext(), R.color.violetMain)) {
 
 
-                    val newBalance =
-                        (info.balance.toDouble() - info.fbr.toDouble() - info.fic.toDouble()).toString()
+                    val newBalance = info.balance
                     if ((newBalance.split("."))[1] == "00") {
                         val bal = newBalance.toDoubleOrNull()?.toInt()
                         append(bal.toString() + "NLe")

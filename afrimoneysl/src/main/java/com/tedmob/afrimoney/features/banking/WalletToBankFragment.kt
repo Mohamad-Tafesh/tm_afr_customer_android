@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class WalletToBankFragment : BaseVBFragment<FragmentWalletToBankBinding>() {
 
     private val args by navArgs<BankToWalletFragmentArgs>()
-    private val viewModel by provideNavGraphViewModel<BankToWalletViewModel>(R.id.nav_banking_services)
+    private val viewModel by provideNavGraphViewModel<WalletToBankViewModel>(R.id.nav_banking_services)
 
 
     override fun onCreateView(

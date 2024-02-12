@@ -26,7 +26,7 @@ import com.tedmob.libraries.validators.rules.NotEmptyRule
 
 class WalletToBankConfirmationFragment : BaseVBFragment<FragmentWalletToBankConfirmationBinding>() {
 
-    private val viewModel by provideNavGraphViewModel<BankToWalletViewModel>(R.id.nav_banking_services)
+    private val viewModel by provideNavGraphViewModel<WalletToBankViewModel>(R.id.nav_banking_services)
 
     private val args by navArgs<BankToWalletConfirmationFragmentArgs>()
 

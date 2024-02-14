@@ -15,14 +15,15 @@ class GetFeesBankUseCase
         val data = api.getFeesBankToWallet(params.bankId,params.bankNumber, params.amount).message
 
         val serviceCharges = data?.getList("serviceCharges")?.firstOrNull()
-        //val taxes1 = serviceCharges?.getString("amount")?.toDoubleOrNull()
+        val taxes = serviceCharges?.getString("amount")?.toDoubleOrNull()?: 0.0
      // val taxes2 = serviceCharges?.getList("taxes")?.sumOf { it.getString("amount")?.toDoubleOrNull() ?: 0.0 }
 
         val receiverName = data?.getObject("receiver")
             ?.getString("parentName")
 
-        val total=params.amount.toDouble()
-       return GetFeesData( params.bankNumber ,params.amount, total.toString(),receiverName!!,total.toString())
+
+        val total= taxes.plus(params.amount.toDouble())
+       return GetFeesData( params.bankNumber ,params.amount, taxes.toString(),receiverName!!,total.toString())
     }
 
     class Params(

@@ -190,7 +190,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 afrimoneyImg.visibility =
                     if ((BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 customerCareTxt.visibility =
-                    if ((BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                    if ((BuildConfig.FLAVOR != "sl" || BuildConfig.FLAVOR != "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 if (BuildConfig.FLAVOR == "drc") {
                     afrimoneyImg.visibility = GONE
                     customerCareTxt.visibility = GONE

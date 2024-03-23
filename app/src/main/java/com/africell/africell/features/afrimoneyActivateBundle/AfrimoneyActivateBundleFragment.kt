@@ -88,7 +88,7 @@ class AfrimoneyActivateBundleFragment : BaseVBFragment<FragmentAfrimoneyActivate
 
 
     private fun FragmentAfrimoneyActivateBundleBinding.setupUI() {
-        if (BuildConfig.FLAVOR == "sl") {
+        if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
             pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
@@ -129,7 +129,7 @@ class AfrimoneyActivateBundleFragment : BaseVBFragment<FragmentAfrimoneyActivate
                 val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, it)
                 arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
                 selectWalletLayout.adapter = arrayAdapter
-                if (FLAVOR == "sl")
+                if (FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia")
                     selectWalletLayout.selection = 0
             }
 
@@ -155,7 +155,7 @@ class AfrimoneyActivateBundleFragment : BaseVBFragment<FragmentAfrimoneyActivate
                     ?.replace("+", "")
             val subMsisdn =
                 if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
-            val request = if (FLAVOR == "sl") {
+            val request = if (FLAVOR == "sl" || FLAVOR == "gambia") {
                 val slNumber = PhoneNumberHelper.getFormattedIfValid(
                     "",
                     countryTxt.text.toString().replace("+", "") + mobileNumberLayout.getText()

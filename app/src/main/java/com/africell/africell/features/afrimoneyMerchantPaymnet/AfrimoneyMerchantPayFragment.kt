@@ -47,7 +47,7 @@ class AfrimoneyMerchantPayFragment : BaseVBFragment<FragmentAfrimoneyMerchantPay
         super.onActivityCreated(savedInstanceState)
 
         withVBAvailable {
-            if (BuildConfig.FLAVOR == "sl") {
+            if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                 pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
                 pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
             }
@@ -89,7 +89,7 @@ class AfrimoneyMerchantPayFragment : BaseVBFragment<FragmentAfrimoneyMerchantPay
                 val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
                 arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
                 selectWalletLayout.adapter = arrayAdapter
-                if (BuildConfig.FLAVOR == "sl") {
+                if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                     selectWalletLayout.selection = 0
 
                 }

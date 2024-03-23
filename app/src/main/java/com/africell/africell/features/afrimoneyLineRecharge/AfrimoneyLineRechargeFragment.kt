@@ -77,7 +77,7 @@ class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechar
 
 
     private fun FragmentAfrimoneyLineRechargeBinding.setupUI() {
-        if (BuildConfig.FLAVOR == "sl") {
+        if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
             pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
@@ -109,7 +109,7 @@ class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechar
                 val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
                 arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
                 selectWalletLayout.adapter = arrayAdapter
-                if (BuildConfig.FLAVOR == "sl")
+                if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia")
                     selectWalletLayout.selection = 0
             }
         }
@@ -135,7 +135,7 @@ class AfrimoneyLineRechargeFragment : BaseVBFragment<FragmentAfrimoneyLineRechar
             toNumber?.let {
                 val subMsisdn =
                     if (sessionRepository.selectedMsisdn != sessionRepository.msisdn) sessionRepository.selectedMsisdn else sessionRepository.msisdn
-                var request: AirlineRequest = if (FLAVOR == "sl") {
+                var request: AirlineRequest = if (FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                     val slNumber = PhoneNumberHelper.getFormattedIfValid(
                         "",
                         countryTxt.text.toString().replace("+", "") +

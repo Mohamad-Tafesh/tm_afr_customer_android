@@ -61,7 +61,7 @@ class AfrimoneyP2PFragment : BaseVBFragment<FragmentAfrimoneyP2pBinding>(), Liv.
         super.onActivityCreated(savedInstanceState)
 
         withVBAvailable {
-            if (BuildConfig.FLAVOR == "sl") {
+            if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                 pinCodeLayout.editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
                 pinCodeLayout.editText?.transformationMethod = PasswordTransformationMethod.getInstance();
 
@@ -111,7 +111,7 @@ class AfrimoneyP2PFragment : BaseVBFragment<FragmentAfrimoneyP2pBinding>(), Liv.
                 val arrayAdapter = ArrayAdapter(requireContext(), R.layout.textview_spinner, wallet)
                 arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
                 selectWalletLayout.adapter = arrayAdapter
-                if (BuildConfig.FLAVOR == "sl")
+                if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia")
                     selectWalletLayout.selection = 0
             }
         }
@@ -140,7 +140,7 @@ class AfrimoneyP2PFragment : BaseVBFragment<FragmentAfrimoneyP2pBinding>(), Liv.
                 )?.replace("+", "")
 
             toNumber?.let {
-                val request: P2PRequest = if (FLAVOR == "sl") {
+                val request: P2PRequest = if (FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                     val slNumber = PhoneNumberHelper.getFormattedIfValid(
                         "",
                         countryTxt.text.toString().replace("+", "") +

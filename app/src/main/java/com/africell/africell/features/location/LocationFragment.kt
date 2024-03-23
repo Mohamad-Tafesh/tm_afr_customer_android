@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.africell.africell.BuildConfig
 import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBFragment
@@ -68,7 +69,7 @@ class LocationFragment : BaseVBFragment<FragmentLocationBinding>() {
 
     override fun configureToolbar() {
         super.configureToolbar()
-        if (FLAVOR == "sl") {
+        if (FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
             actionbar?.title = getString(R.string.post_stores)
         } else {
             actionbar?.title = getString(R.string.location)

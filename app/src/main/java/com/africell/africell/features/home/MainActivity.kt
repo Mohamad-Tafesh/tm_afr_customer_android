@@ -188,9 +188,9 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
                 afrimoneyImg.visibility =
-                    if (BuildConfig.FLAVOR == "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                    if ((BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 customerCareTxt.visibility =
-                    if (BuildConfig.FLAVOR != "sl" && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                    if ((BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 if (BuildConfig.FLAVOR == "drc") {
                     afrimoneyImg.visibility = GONE
                     customerCareTxt.visibility = GONE
@@ -198,7 +198,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 }
 
                 if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (BuildConfig.FLAVOR == "sl") {
+                    if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
                         if (destination.id == R.id.afrimoneyFragment) {
                             afrimoneyImg.setImageResource(
                                 R.mipmap.tab_afrimoney_selected

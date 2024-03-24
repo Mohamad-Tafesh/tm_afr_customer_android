@@ -1640,9 +1640,9 @@ class TedmobApis
 
     suspend fun fetchToken(): FetchTokenDTO {
         val response = post<FetchTokenDTO>(
-            "FetchSystemToken",
+            "https://api.sandbox.afrimoney.gm/v1/oauth2/token",
             headers = headers {
-                this["Authorization"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
+                this["Authorization"] = "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")
             },
             body = fields {
                 this["grant_type"] = "client_credentials"
@@ -1736,7 +1736,7 @@ class TedmobApis
         if (token != null)
             this["Authorization"] = "Bearer $token"
         else
-            this["Authorization"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
+            this["Authorization"] = "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")
 
         additionalHeadersBlock()
     }

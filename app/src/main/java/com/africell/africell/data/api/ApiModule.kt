@@ -1,12 +1,13 @@
 package com.africell.africell.data.api
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.africell.africell.BuildConfig
 import com.africell.africell.BuildConfig.FLAVOR
 import com.africell.africell.Constant.BASE_URL
 import com.africell.africell.app.debugOnly
 import com.africell.africell.data.repository.domain.SessionRepository
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,10 +24,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import timber.log.Timber
-import java.nio.charset.StandardCharsets.UTF_8
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.text.Charsets.UTF_8
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -75,19 +76,28 @@ object ApiModule {
                 HttpLoggingInterceptor { message -> Timber.tag("OkHttp").v(message) }
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
+            /** OkHttp Profiler Interceptor  */
+            builder.addInterceptor(OkHttpProfilerInterceptor())
         }
 
         val block: (chain: Interceptor.Chain) -> Response = {
 
             var credentials = ""
-            credentials = if (FLAVOR == "sl" ) {
-                Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
-            }else if (FLAVOR == "drc") {
-            Credentials.basic("ProdAPI", "ProdAPIP@ssw0rd")
-            } else {
-                Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
-            }
+            credentials = when (FLAVOR) {
+                "sl" -> {
+                    Credentials.basic("sc-afr-sl-api", "s@c_2hg!0m9k")
+                }
 
+                "drc" -> {
+                    Credentials.basic("ProdAPI", "ProdAPIP@ssw0rd")
+                }
+
+                else -> {
+                    Credentials.basic("sc-afr-gm-api", "s@c_2hg!0m9k")
+                }
+            }
+            /** */
+//            credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             debugOnly {
                 //credentials = Credentials.basic("TestingAPI", "TestingAPI", UTF_8)
             }
@@ -97,7 +107,7 @@ object ApiModule {
                 it.request().let { request ->
 
                     Timber.tag("OkHttp").d("Request: ${request.url}")
-                    Timber.tag("OkHttp").d("BasicToken: ${credentials}")
+                    Timber.tag("OkHttp").d("BasicToken: $credentials")
 
                     if (FLAVOR == "drc") {
                         request.newBuilder()

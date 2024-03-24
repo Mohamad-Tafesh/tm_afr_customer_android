@@ -240,4 +240,7 @@ dependencies {
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.2'
 
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
+
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
+
 }

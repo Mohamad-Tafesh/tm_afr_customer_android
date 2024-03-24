@@ -1,5 +1,6 @@
 package com.africell.africell.util.validation
 
+import com.africell.africell.BuildConfig.FLAVOR
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
@@ -13,6 +14,7 @@ object PhoneNumberHelper {
         const val FIXED_LINE_OR_MOBILE = 1
         const val MOBILE = 2
         const val FIXED_LINE = 3
+        const val UNKNOWN = 11
     }
 
     fun getFormattedIfValid(
@@ -33,9 +35,11 @@ object PhoneNumberHelper {
         try {
 
             isoCode = if (countryCode == null || countryCode == "") null
-            else phoneNumberUtil.getRegionCodeForCountryCode(Integer.parseInt(
+            else phoneNumberUtil.getRegionCodeForCountryCode(
+                Integer.parseInt(
                     if (countryCode.startsWith("+")) countryCode.substring(1) else countryCode
-            ))
+                )
+            )
 
             if (!numberTemp.startsWith("+") && isoCode == null) {
                 numberTemp = "+$numberTemp"
@@ -64,13 +68,24 @@ object PhoneNumberHelper {
             Type.FIXED_LINE -> phoneType == PhoneNumberUtil.PhoneNumberType.FIXED_LINE
                     || phoneType == PhoneNumberUtil.PhoneNumberType.FIXED_LINE_OR_MOBILE
 
+            Type.UNKNOWN -> phoneType == PhoneNumberUtil.PhoneNumberType.UNKNOWN
+
             else -> false
         }
 
         return if (isNumberValid && isNeededType)
             phoneNumberUtil.format(phoneNumber, format)
-        else
-            null
+        else if (FLAVOR == "gambia" && (
+                    number.startsWith("22040") ||
+                            number.startsWith("22041") ||
+                            (number.startsWith("40") && countryCode == "220") ||
+                            (number.startsWith("40") && countryCode == "+220") ||
+                            (number.startsWith("41") && countryCode == "220") ||
+                            (number.startsWith("41") && countryCode == "+220")
+                    )
+        ) {
+            phoneNumberUtil.format(phoneNumber, format)
+        } else null
     }
 
     fun isValid(countryCode: String? = null, phoneNumber: String): Boolean {

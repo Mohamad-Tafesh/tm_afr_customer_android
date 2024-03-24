@@ -35,15 +35,57 @@ data class BundleInfo(
     val primaryColor: String?,
     @field:[Expose SerializedName("secondaryColor")]
     val secondaryColor: String?,
+    @field:[Expose SerializedName("isAutoRenewActive")]
+    val isAutoRenewActive: String?,
+    @field:[Expose SerializedName("extraInfo")]
+    val extraInfo: ExtraInfo?,
+
+    var isFromMe: Boolean,
 ) : Parcelable {
     fun getFormatVolume(): String {
-        return volume + " " + unit
+        return "$volume $unit"
     }
+
     fun getFormatValidity(): String {
-        return volume + unit+ "/"+ validity + validityUnit
+        return "$volume$unit/$validity$validityUnit"
     }
-    fun getTitle():String{
-        return  "$category"
+
+    fun getTitle(): String {
+        return "$category"
+    }
+
+    @Parcelize
+    data class ExtraInfo(
+        @field:[Expose SerializedName("left")]
+        val left: Left?,
+        @field:[Expose SerializedName("main")]
+        val main: Main?,
+        @field:[Expose SerializedName("right")]
+        val right: Right?
+    ) : Parcelable {
+        @Parcelize
+        data class Left(
+            @field:[Expose SerializedName("title")]
+            val title: String?,
+            @field:[Expose SerializedName("value")]
+            val value: String?
+        ) : Parcelable
+
+        @Parcelize
+        data class Main(
+            @field:[Expose SerializedName("title")]
+            val title: String?,
+            @field:[Expose SerializedName("value")]
+            val value: String?
+        ) : Parcelable
+
+        @Parcelize
+        data class Right(
+            @field:[Expose SerializedName("title")]
+            val title: String?,
+            @field:[Expose SerializedName("value")]
+            val value: String?
+        ) : Parcelable
     }
 
 }

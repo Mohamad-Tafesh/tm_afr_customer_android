@@ -133,13 +133,13 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>(), Liv.Action {
     override fun performAction() {
         withVBAvailable {
             val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
-            val formatted =
-                PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+            val formatted = PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())
+                ?.replace("+", "")
+
             formatted?.let {
                 viewModel.login(it, password.getText())
             } ?: showMessage(getString(R.string.phone_number_not_valid))
         }
-
     }
 
     override fun onDestroyView() {

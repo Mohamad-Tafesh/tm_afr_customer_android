@@ -152,4 +152,10 @@
     <string name="buy_anytime">Buy\nAnytime</string>
     <string name="pay_my_bills">Pay\nMy Bills</string>
     <string name="banking_nservices">Banking\nServices</string>
+    <string name="strong_password_error">The password does not meet the complexity requirements (1 capital letter, 1 small letter, 1 digit and 1 special character)</string>
+    <string name="with_your_mobile_number">with your Mobile Number</string>
+    <string name="password_length_validation_error">Password must be at least 4 digits</string>
+    <string name="data_limit">Data Limit</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
 </resources>

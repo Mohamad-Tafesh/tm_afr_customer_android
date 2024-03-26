@@ -18,6 +18,7 @@ import com.tedmob.afrimoney.databinding.DialogTransactionResultBinding
 import com.tedmob.afrimoney.databinding.FragmentHomeNewBinding
 import com.tedmob.afrimoney.databinding.QrcodeAlertBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
+import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
 import com.tedmob.afrimoney.util.security.StringEncryptor
@@ -46,7 +47,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.addMenuProvider(provideMenu(), viewLifecycleOwner)
-        return createViewBinding(container, FragmentHomeNewBinding::inflate, true)
+        return createViewBinding(container, FragmentHomeNewBinding::inflate, false)
     }
 
     override fun configureToolbar() {
@@ -81,7 +82,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         }
 
 
-        observeResourceInline(viewModel.balance) {
+        observeResource(viewModel.balance) {//TODO add observe inline
             it.let {
 
 

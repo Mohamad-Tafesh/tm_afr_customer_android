@@ -52,7 +52,8 @@ class TedmobApis
                             this["PROVIDER"] = "101"
                             this["MPIN"] = pin
                             this["LANGUAGE1"] = "1"
-                            this["BASIC_AUTH"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
+                            //this["BASIC_AUTH"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
+                            this["BASIC_AUTH"] = Credentials.basic("AfriMoney", "zaqwsxasdf12345")
                         }
                     }
                 ),
@@ -103,7 +104,7 @@ class TedmobApis
         }
     }
 
-    suspend fun userInfoCheck(msisdn: String,token: String): UserDTO {
+    suspend fun userInfoCheck(msisdn: String, token: String): UserDTO {
         return refetchTokenIfNeeded {
             post<CommandContainerDTO<UserDTO>>(
                 "UserEnquiry",
@@ -651,18 +652,18 @@ class TedmobApis
             }
         }
     }
-/*
-    suspend fun airtimeServices(
-    ): AfricellServicesDTO {
-        return refreshTokenIfNeeded {
-            val response = get<AfricellServicesDTO>(
-                "AirtimeLookUp",
-                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
-            )
-            response
+    /*
+        suspend fun airtimeServices(
+        ): AfricellServicesDTO {
+            return refreshTokenIfNeeded {
+                val response = get<AfricellServicesDTO>(
+                    "AirtimeLookUp",
+                    appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                )
+                response
+            }
         }
-    }
-*/
+    */
 
     suspend fun getAvailBank(): AvailBankDTO {
         return refreshTokenIfNeeded {
@@ -1614,10 +1615,9 @@ class TedmobApis
             )
             session.accessToken = response.accessToken
             session.refreshToken = response.refreshToken
-        }catch (e:Exception){
+        } catch (e: Exception) {
             appSessionNavigator.restart()
         }
-
 
 
     }
@@ -1642,7 +1642,8 @@ class TedmobApis
         val response = post<FetchTokenDTO>(
             "https://api.sandbox.afrimoney.gm/v1/oauth2/token",
             headers = headers {
-                this["Authorization"] = "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")
+                this["Authorization"] =
+                    "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")
             },
             body = fields {
                 this["grant_type"] = "client_credentials"
@@ -1736,7 +1737,8 @@ class TedmobApis
         if (token != null)
             this["Authorization"] = "Bearer $token"
         else
-            this["Authorization"] = "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")
+        // this["Authorization"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
+            this["Authorization"]  = Credentials.basic("AfriMoney", "zaqwsxasdf12345")
 
         additionalHeadersBlock()
     }

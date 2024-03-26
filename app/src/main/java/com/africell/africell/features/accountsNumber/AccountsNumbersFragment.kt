@@ -108,7 +108,7 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
 
     fun customNumber(number: String): String {
         val nb = number.substring(3, number.length)
-        return "0$nb"
+        return "$nb"
     }
 
 

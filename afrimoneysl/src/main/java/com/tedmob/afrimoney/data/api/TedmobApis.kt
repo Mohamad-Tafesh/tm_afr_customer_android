@@ -929,7 +929,7 @@ class TedmobApis
     ): PendingTransactionsDTO {
         return refreshTokenIfNeeded {
             val response = post<PendingTransactionsDTO>(
-                "PendingTransaction",
+                "PendingTransaction0",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {

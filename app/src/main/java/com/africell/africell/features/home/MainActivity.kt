@@ -170,6 +170,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 if (it.itemId == R.id.afrimoneyFragment) {
                     if (session.isLoggedIn()) {
                         viewModel.verify(session.msisdnAfrimoney)
+                        //viewModel.verify("2507775")
                     } else showLoginMessage()
 
                 } else {
@@ -256,7 +257,10 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
     fun proceedWith(state: UserState) {
         when (state) {
             is UserState.NotRegistered -> {
-                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {})
+                startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
+                    //putExtra("number", session.msisdnAfrimoney)
+                    putExtra("number", "2507775") //todo remove
+                })
                 AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }
 

@@ -13,12 +13,15 @@ class GetMetersUseCase
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun execute(params: Unit): ListOrObject<ClientDetails> {
-        val data = api.getMeters()
+        val list = api.getMeters().commad.data?.clientDetails?: ListOrObject(emptyList())
+        return list
+
+        /*val data = api.getMeters()
         if (data.commad.status=="200"){
             return data.commad.clientDetails?: ListOrObject(emptyList())
         }
         return ListOrObject(emptyList())
-
+*/
     }
 
 }

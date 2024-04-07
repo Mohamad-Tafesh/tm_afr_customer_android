@@ -12,7 +12,7 @@ data class Country(
 
     companion object {
         const val LEBANON_CODE = "+961"
-        const val DEFAULT_CODE = "+232"
+        const val DEFAULT_CODE = "+220"
     }
 
 

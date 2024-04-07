@@ -14,7 +14,7 @@ class DeleteNawecUseCase
 
     override suspend fun execute(params: Params): SubmitResult {
 
-        val response = api.deleteCustomer(params.accNb, params.pin)
+        val response = api.deleteCustomer(params.accNb,params.nickname, params.pin)
         lateinit var message: String
         if (!response.command?.status.equals("200", true)) {
             if (response.command?.errors.isNullOrEmpty()) {
@@ -34,6 +34,7 @@ class DeleteNawecUseCase
     }
     class Params(
         val accNb: String,
+        val nickname: String,
         val pin: String,
 
 

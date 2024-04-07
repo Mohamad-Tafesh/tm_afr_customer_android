@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="number"
-                android:text="+232" />
+                android:text="+220" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

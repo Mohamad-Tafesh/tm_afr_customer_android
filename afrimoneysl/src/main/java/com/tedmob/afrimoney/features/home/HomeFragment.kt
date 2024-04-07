@@ -92,8 +92,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
 
                 if ((newBalance.split("."))[1] == "00") {
                     val bal = newBalance.toDoubleOrNull()?.toInt()
-                    binding?.balanceText?.text = bal.toString() + "NLe"
-                } else binding?.balanceText?.text = newBalance + "NLe"
+                    binding?.balanceText?.text = bal.toString() + "GMD"
+                } else binding?.balanceText?.text = newBalance + "GMD"
 
 
                 binding?.userName?.text = it.userName

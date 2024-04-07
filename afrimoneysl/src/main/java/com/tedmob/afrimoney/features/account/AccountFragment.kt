@@ -142,8 +142,8 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
                     val newBalance = info.balance
                     if ((newBalance.split("."))[1] == "00") {
                         val bal = newBalance.toDoubleOrNull()?.toInt()
-                        append(bal.toString() + "NLe")
-                    } else append(newBalance + "NLe")
+                        append(bal.toString() + "GMD")
+                    } else append(newBalance + "GMD")
 
                 }
                 bold {

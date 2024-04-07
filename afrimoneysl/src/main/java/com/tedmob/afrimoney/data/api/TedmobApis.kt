@@ -6,7 +6,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonIOException
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonToken
-import com.tedmob.afrimoney.BuildConfig
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.data.api.dto.*
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
@@ -1462,18 +1461,16 @@ class TedmobApis
     ): ClientDTO {
         return refreshTokenIfNeeded {
             post(
-                "SubsBillerAssociationList",
+                "NAWEC/GetMeter",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() }
                     ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
                         this["COMMAND"] = buildMap {
-                            this["TYPE"] = "ACCBILLREQ"
-                            this["BILLERCODE"] = "ENDE"
-                            this["CONSUMERMOBILENUMBER"] = session.msisdn
+                            this["TYPE"] = "SUBBILREQ"
                             this["PROVIDER"] = "101"
-                            this["BLOCKSMS"] = "BOTH"
-                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                            this["MPIN"] = ""
+                            this["MSISDN"] = session.msisdn
 
                         }
                     }
@@ -1499,7 +1496,7 @@ class TedmobApis
                         this["serviceName"] = "TRIALCREDVEND"
                         this["txnAmount"] = amount
                         this["meterNumber"] = meterNumber
-                        this["interfaceId"] = "ENDE"
+                        this["interfaceId"] = "NAWEC"
                         this["serviceType"] = "TRIALCREDVEND"
                         this["TYPE"] = "TRIALCREDVEND"
                     }
@@ -1512,7 +1509,7 @@ class TedmobApis
     }
 
 
-    suspend fun confirmNawecPrePaid(
+    suspend fun confirmBuyNawec(
         number: String,
         transactionAmount: String,
         pin: String,
@@ -1527,14 +1524,14 @@ class TedmobApis
                     buildMap<String, Any> {
                         this["serviceCode"] = "BILLPAY"
                         this["initiator"] = "transactor"
-                        this["bearerCode"] = "MOBILE"
+                        this["bearerCode"] = "USSD"
                         this["currency"] = "101"
-                        this["language"] = session.language
+                        this["language"] = "1"
                         this["transactionMode"] = ""
                         this["remarks"] = ""
                         this["transactionAmount"] = transactionAmount
                         this["receiver"] = buildMap {
-                            this["idValue"] = "ENDE"
+                            this["idValue"] = "NAWEC"
                             this["idType"] = "billerCode"
                         }
                         this["extensibleFields"] = buildMap {
@@ -1592,7 +1589,7 @@ class TedmobApis
     ): AddClientDTO {
         return refreshTokenIfNeeded {
             post<CommandContainerSpecialCaseDTO<AddClientDTO>>(
-                "SubsBillerAssociation",
+                "NAWEC/RegisterMeter",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
@@ -1600,14 +1597,15 @@ class TedmobApis
                             this["TYPE"] = "BPREGREQ"
                             this["MSISDN"] = session.msisdn
                             this["PROVIDER"] = "101"
-                            this["BPCODE"] = "ENDE"
+                            this["BPCODE"] = "NAWEC"
                             this["MPIN"] = pin
                             this["BLOCKSMS"] = "NONE"
                             this["TXNMODE"] = ""
                             this["NICK_NAME"] = nickname
                             this["PREF1"] = meterNumber
                             this["PREF2"] = ""
-                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                            this["LANGUAGE1"] = "1"
+                            this["LANGUAGE2"] = "1"
                         }
                     }
                 )
@@ -1617,23 +1615,28 @@ class TedmobApis
 
     suspend fun deleteCustomer(
         accNb: String,
+        nickname: String,
         pin: String
     ): ConfirmNawecDTO {
         return refreshTokenIfNeeded {
             post<ConfirmNawecDTO>(
-                "SubsBillerDeAssociation",
+                "NAWEC/RegisterMeter",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
                         this["COMMAND"] = buildMap {
-                            this["TYPE"] = "DUREGREQ"
+                            this["TYPE"] = "CBPREGDREQ"
                             this["MSISDN"] = session.msisdn
                             this["PROVIDER"] = "101"
-                            this["BILLERCODE"] = "ENDE"
+                            this["BILLERCODE"] = "NAWEC"
                             this["MPIN"] = pin
                             this["BLOCKSMS"] = "NONE"
-                            this["ACCNO"] = accNb
-                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                            this["TXNMODE"] = ""
+                            this["LANGUAGE1"] = "1"
+                            this["LANGUAGE2"] = "1"
+                            this["NICK_NAME"] = nickname
+                            this["PREF1"] = accNb
+                            this["PREF2"] = ""
                         }
                     }
                 )

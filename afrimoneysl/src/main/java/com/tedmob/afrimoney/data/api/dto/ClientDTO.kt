@@ -12,9 +12,14 @@ data class ClientDTO(
 
 ){
     data class COMMAND(
+        @SerializedName("DATA")
+        @Expose val data: Data?,
+        @SerializedName("MESSAGE")
+        @Expose val message: String?,
+    )
+
+    data class Data(
         @SerializedName("DETAILS")
         @Expose val clientDetails: ListOrObject<ClientDetails>?,
-        @SerializedName("TXNSTATUS")
-        @Expose val status: String?,
     )
 }

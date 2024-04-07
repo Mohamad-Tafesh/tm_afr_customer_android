@@ -108,11 +108,6 @@ class NawecViewModel
     }
 
 
-    fun proceedToInvoices(meterId: String?) {
-        this.meterId = meterId
-        _proceedToInvoices.emitSuccess(Unit)
-    }
-
 
     fun getClients() {
 
@@ -183,7 +178,7 @@ class NawecViewModel
 
         execute(
             deleteNawecUseCase,
-            DeleteNawecUseCase.Params(meterId.orEmpty(), pin),
+            DeleteNawecUseCase.Params(meterId.orEmpty(),nickname.orEmpty(), pin),
             onLoading = {
                 _confirmDeleteData.emitLoading()
             },

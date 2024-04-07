@@ -117,7 +117,7 @@ abstract class BaseVBFragmentWithImportContact<VB : ViewBinding> : BaseVBFragmen
                 cursor?.close()
 
                 phoneNumber?.let {
-                    val data = phoneHelper.getCodeAndNumber(phoneNumber, "+232")
+                    val data = phoneHelper.getCodeAndNumber(phoneNumber, "+220")
                     if (data != null) {
                         //number has the country code included
                         //phoneNumber

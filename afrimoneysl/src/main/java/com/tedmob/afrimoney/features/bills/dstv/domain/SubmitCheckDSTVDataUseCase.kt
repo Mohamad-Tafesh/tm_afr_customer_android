@@ -23,7 +23,7 @@ class SubmitCheckDSTVDataUseCase
         val response = api.checkDSTV(params)
         if (response.txnStatus == "200") {
             return SubmitResult.Success(
-                "Your Amount: NLe" + response.dueAmount + "\nDue Date: " + response.dueDate
+                "Your Amount: GMD" + response.dueAmount + "\nDue Date: " + response.dueDate
             )
         } else {
             return SubmitResult.Failure(

@@ -3,7 +3,7 @@ package com.tedmob.afrimoney.util.number
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
-val defaultCurrency: String = "NLe"
+val defaultCurrency: String = "GMD"
 
 
 inline fun BigDecimal.formatAmount() =

@@ -142,7 +142,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/headersBarrier"
                     app:layout_constraintTop_toBottomOf="@+id/bundle_name_header"
-                    tools:text="+232 ..." />
+                    tools:text="+220 ..." />
 
 
                 <com.google.android.material.textfield.TextInputLayout

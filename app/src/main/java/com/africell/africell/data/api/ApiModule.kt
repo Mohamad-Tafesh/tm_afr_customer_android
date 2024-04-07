@@ -8,6 +8,7 @@ import com.africell.africell.data.repository.domain.SessionRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
+import com.tedmob.afrimoney.data.api.dto.ListOrObjectTypeAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,6 +40,7 @@ object ApiModule {
     internal fun provideGson(): Gson {
         return GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
+            .registerTypeAdapterFactory(ListOrObjectTypeAdapter.FACTORY)
             .create()
     }
 

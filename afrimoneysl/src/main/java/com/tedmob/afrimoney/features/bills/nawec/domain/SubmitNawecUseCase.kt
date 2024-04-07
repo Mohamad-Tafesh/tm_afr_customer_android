@@ -14,7 +14,7 @@ class SubmitNawecUseCase
 ) : SuspendableUseCase<SubmitResult, SubmitNawecUseCase.Params>() {
 
     override suspend fun execute(params: Params): SubmitResult {
-        val response = api.confirmNawecPrePaid(
+        val response = api.confirmBuyNawec(
             params.number,
             params.amount,
             params.pin,

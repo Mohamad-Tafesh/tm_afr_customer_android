@@ -107,8 +107,14 @@ class AccountsNumbersFragment : BottomSheetDialogFragment() {
     }
 
     fun customNumber(number: String): String {
-        val nb = number.substring(3, number.length)
-        return "$nb"
+        var mobileNumber = number
+        if (mobileNumber.startsWith("220")) {
+            mobileNumber = mobileNumber.removePrefix("220")
+        }
+        if (mobileNumber.length == 8) {
+            mobileNumber = "0$mobileNumber"
+        }
+        return mobileNumber
     }
 
 

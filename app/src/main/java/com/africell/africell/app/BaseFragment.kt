@@ -190,8 +190,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun customNumber(number: String): String {
-        var nb = number.substring(3, number.length)
-        return "0$nb"
+        var mobileNumber = number
+        if (mobileNumber.startsWith("220")) {
+            mobileNumber = mobileNumber.removePrefix("220")
+        }
+        if (mobileNumber.length == 8) {
+            mobileNumber = "0$mobileNumber"
+        }
+        return mobileNumber
     }
 
     fun showInlineLoading() {

@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_payMyBillsFragment_to_nav_waec"
             app:destination="@id/nav_waec" />
+        <action
+                android:id="@+id/action_payMyBillsFragment_to_nav_nawec"
+                app:destination="@id/nav_nawec" />
     </fragment>
 
     <navigation

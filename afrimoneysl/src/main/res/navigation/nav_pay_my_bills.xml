@@ -208,4 +208,78 @@
         </dialog>
     </navigation>
 
+
+
+    <navigation
+            android:id="@+id/nav_nawec"
+            app:startDestination="@id/nawecOptionsFragment">
+        <dialog
+                android:id="@+id/nawecOptionsFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecOptionsFragment"
+                android:label="WaecOptionsFragment">
+            <action
+                    android:id="@+id/action_nawecOptionsFragment_to_buyNawecFragment"
+                    app:destination="@id/buyNawecFragment" />
+            <action
+                    android:id="@+id/action_nawecOptionsFragment_to_nawecAddFragment"
+                    app:destination="@id/nawecAddFragment" />
+            <action
+                    android:id="@+id/action_nawecOptionsFragment_to_nawecDeleteFragment"
+                    app:destination="@id/nawecDeleteFragment" />
+        </dialog>
+        <fragment
+                android:id="@+id/buyNawecFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.BuyNawecFragment"
+                android:label="">
+            <action
+                    android:id="@+id/action_buyNawecFragment_to_nawecMetersBottomSheetFragment"
+                    app:destination="@id/nawecMetersBottomSheetFragment" />
+            <action
+                    android:id="@+id/action_buyNawecFragment_to_buyNawecConfirmationFragment"
+                    app:destination="@id/buyNawecConfirmationFragment" />
+        </fragment>
+        <dialog
+                android:id="@+id/nawecMetersBottomSheetFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecMetersBottomSheetFragment"
+                android:label="">
+            <argument
+                    android:name="data"
+                    app:argType="com.tedmob.afrimoney.data.api.dto.ClientDetails[]" />
+        </dialog>
+        <fragment
+                android:id="@+id/buyNawecConfirmationFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.BuyNawecConfirmationFragment"
+                android:label="" />
+
+        <fragment
+                android:id="@+id/nawecAddFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecAddFragment"
+                android:label="EndeAddFragment">
+            <action
+                    android:id="@+id/action_nawecAddFragment_to_nawecAddConfirmationFragment"
+                    app:destination="@id/endeAddConfirmationFragment" />
+        </fragment>
+        <fragment
+                android:id="@+id/nawecAddConfirmationFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecAddConfirmationFragment"
+                android:label="EndeAddConfirmationFragment" />
+
+        <fragment
+                android:id="@+id/nawecDeleteFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecDeleteFragment"
+                android:label="EndeDeleteFragment">
+            <action
+                    android:id="@+id/action_nawecDeleteFragment_to_nawecDeleteConfirmationFragment"
+                    app:destination="@id/nawecDeleteConfirmationFragment" />
+            <action
+                    android:id="@+id/action_nawecDeleteFragment_to_nawecMetersBottomSheetFragment"
+                    app:destination="@id/nawecMetersBottomSheetFragment" />
+        </fragment>
+        <fragment
+                android:id="@+id/nawecDeleteConfirmationFragment"
+                android:name="com.tedmob.afrimoney.features.bills.nawec.NawecDeleteConfirmationFragment"
+                android:label="NawecDeleteConfirmationFragment" />
+    </navigation>
+
+
 </navigation>

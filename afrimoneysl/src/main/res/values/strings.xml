@@ -244,6 +244,7 @@
     <string name="you_are_about_to_pay_for_your_edsa">Your are about to Pay your\nEDSA</string>
     <string name="meter_number">Meter Number</string>
     <string name="meter_number_i">Meter Number:</string>
+    <string name="nickname_">Nickname:</string>
     <string name="you_are_about_to_pay_for_your_mercury">You are about to Pay for\nMercury</string>
     <string name="tpm_number">TPM Number</string>
     <string name="tpm_number_i">TPM Number:</string>
@@ -273,4 +274,19 @@
     <string name="coming_soon">Coming soon.</string>
     <string name="hide_my_balance">Hide my Balance</string>
     <string name="my_account">My Account</string>
+    <string name="buy_nawec">Buy NAWEC Cashpower</string>
+    <string name="add_meter_number">Add Meter Number</string>
+    <string name="delete_meter_number">Delete Meter Number</string>
+    <string name="new_radio_btn">New</string>
+    <string name="saved_radio_btn">Saved</string>
+    <string name="nawec">NAWEC</string>
+    <string name="you_are_about_to_buy_nawec">You are about to buy NAWEC Cashpower</string>
+    <string name="you_are_about_to_add_your_nawec">You are about to Add Your NAWEC Meter Number</string>
+    <string name="you_are_about_to_delete_your_nawec_meter_number">You are about to Delete Your\nNawec Meter Number</string>
+    <string name="name_">Name:</string>
+    <string name="payment_amount">Payment Amount:</string>
+    <string name="unit_value">Unit Value:</string>
+    <string name="please_select_your_client_id_first">Please select your Client Id first</string>
+    <string name="please_select_your_meter_number_first">Please select your Meter Number first</string>
+    <string name="failed">Failed</string>
 </resources>

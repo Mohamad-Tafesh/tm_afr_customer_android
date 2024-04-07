@@ -296,14 +296,19 @@ abstract class BaseFragment : Fragment() {
 
     inline fun showTransactionSuccess(
         message: CharSequence,
+        title: String? = null,
         noinline onDismiss: (() -> Unit)? = null
     ) {
         activity?.let {
-            val viewBinding = DialogTransactionResultBinding.inflate(it.layoutInflater, FrameLayout(it), false)
+            val viewBinding =
+                DialogTransactionResultBinding.inflate(it.layoutInflater, FrameLayout(it), false)
 
             viewBinding.run {
                 resultImage.setImageResource(R.drawable.ic_transaction_success)
                 resultTitle.setText(R.string.successful)
+                title?.let {
+                    resultTitle.text = it
+                }
                 resultMessage.text = message
             }
 
@@ -323,14 +328,19 @@ abstract class BaseFragment : Fragment() {
 
     inline fun showTransactionFailure(
         message: CharSequence,
+        title: String? = null,
         noinline onDismiss: (() -> Unit)? = null
     ) {
         activity?.let {
-            val viewBinding = DialogTransactionResultBinding.inflate(it.layoutInflater, FrameLayout(it), false)
+            val viewBinding =
+                DialogTransactionResultBinding.inflate(it.layoutInflater, FrameLayout(it), false)
 
             viewBinding.run {
                 resultImage.setImageResource(R.drawable.ic_transaction_failed)
                 resultTitle.setText(R.string.transaction_failed)
+                title?.let {
+                    resultTitle.text = it
+                }
                 resultMessage.text = message
             }
 

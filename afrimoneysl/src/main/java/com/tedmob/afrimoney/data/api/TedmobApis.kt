@@ -6,6 +6,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonIOException
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonToken
+import com.tedmob.afrimoney.BuildConfig
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.data.api.dto.*
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
@@ -1434,6 +1435,209 @@ class TedmobApis
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
             )
             response
+        }
+    }
+
+    suspend fun getMeter(meterId: String): ClientNawecDTO {
+        return refreshTokenIfNeeded {
+            post<ClientNawecDTO>(
+                "endeCustomerSearch",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap {
+
+                        this["serviceType"] = "CUSTCONFIRM"
+                        this["serviceName"] = "CUSTCONFIRM"
+                        this["TYPE"] = "CUSTCONFIRM"
+                        this["interfaceId"] = "ENDE"
+                        this["meterNumber"] = meterId
+
+                    }
+                )
+            )
+        }
+    }
+
+    suspend fun getMeters(
+    ): ClientDTO {
+        return refreshTokenIfNeeded {
+            post(
+                "SubsBillerAssociationList",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() }
+                    ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap {
+                        this["COMMAND"] = buildMap {
+                            this["TYPE"] = "ACCBILLREQ"
+                            this["BILLERCODE"] = "ENDE"
+                            this["CONSUMERMOBILENUMBER"] = session.msisdn
+                            this["PROVIDER"] = "101"
+                            this["BLOCKSMS"] = "BOTH"
+                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+
+                        }
+                    }
+                )
+            )
+        }
+
+    }
+
+
+    suspend fun getFeesNawec(
+        meterNumber: String,
+        amount: String,
+    ): NawecFeesDTO {
+        return refreshTokenIfNeeded {
+            val response = post<NawecFeesDTO>(
+                "trialCreditVendReq",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+
+
+                body = gsonBody(
+                    buildMap<String, Any> {
+                        this["serviceName"] = "TRIALCREDVEND"
+                        this["txnAmount"] = amount
+                        this["meterNumber"] = meterNumber
+                        this["interfaceId"] = "ENDE"
+                        this["serviceType"] = "TRIALCREDVEND"
+                        this["TYPE"] = "TRIALCREDVEND"
+                    }
+                )
+            )
+
+            //throwIfInvalid(response.status, response.errors)
+            response
+        }
+    }
+
+
+    suspend fun confirmNawecPrePaid(
+        number: String,
+        transactionAmount: String,
+        pin: String,
+        uAddress: String,
+        field2: String,
+    ): ConfirmTransferMoneyDTO {
+        return refreshTokenIfNeeded {
+            val response = post<ConfirmTransferMoneyDTO>(
+                "BILLPAY",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap<String, Any> {
+                        this["serviceCode"] = "BILLPAY"
+                        this["initiator"] = "transactor"
+                        this["bearerCode"] = "MOBILE"
+                        this["currency"] = "101"
+                        this["language"] = session.language
+                        this["transactionMode"] = ""
+                        this["remarks"] = ""
+                        this["transactionAmount"] = transactionAmount
+                        this["receiver"] = buildMap {
+                            this["idValue"] = "ENDE"
+                            this["idType"] = "billerCode"
+                        }
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = uAddress
+                            this["field2"] = field2
+                        }
+                        this["billDetails"] = buildMap {
+                            this["billAccountNumber"] = number
+                            this["billNumber"] = ""
+                        }
+                        this["transactor"] = buildMap {
+                            this["idType"] = "mobileNumber"
+                            this["mpin"] = pin
+                            this["idValue"] = session.msisdn
+                            this["productId"] = "12"
+                            this["priceUSDDstv"] = ""
+                            this["ufirstName"] = ""
+                            this["ulastName"] = ""
+                            this["uaddress"] = uAddress
+                            this["invoiceMonthNo"] = field2
+                        }
+                    }
+                )
+            )
+
+            response
+        }
+    }
+
+    suspend fun getCustomerInvoices(meterId: String): CustomerInvoiceDTO {
+        return refreshTokenIfNeeded {
+            post<CustomerInvoiceDTO>(
+                "endeRePrint",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap {
+                        this["COMMAND"] = buildMap {
+                            this["INTERFACEID"] = "ENDE"
+                            this["MSISDN"] = session.msisdn
+                            this["TYPE"] = "VALINFOREQ"
+                            this["SUBTYPE"] = "REPRINT"
+                            this["METNUM"] = meterId
+                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                        }
+                    }
+                )
+            )
+        }
+    }
+
+    suspend fun nawecAddClient(
+        meterNumber: String,
+        nickname: String,
+        pin: String
+    ): AddClientDTO {
+        return refreshTokenIfNeeded {
+            post<CommandContainerSpecialCaseDTO<AddClientDTO>>(
+                "SubsBillerAssociation",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap {
+                        this["COMMAND"] = buildMap {
+                            this["TYPE"] = "BPREGREQ"
+                            this["MSISDN"] = session.msisdn
+                            this["PROVIDER"] = "101"
+                            this["BPCODE"] = "ENDE"
+                            this["MPIN"] = pin
+                            this["BLOCKSMS"] = "NONE"
+                            this["TXNMODE"] = ""
+                            this["NICK_NAME"] = nickname
+                            this["PREF1"] = meterNumber
+                            this["PREF2"] = ""
+                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                        }
+                    }
+                )
+            ).getCommandOrThrow()
+        }
+    }
+
+    suspend fun deleteCustomer(
+        accNb: String,
+        pin: String
+    ): ConfirmNawecDTO {
+        return refreshTokenIfNeeded {
+            post<ConfirmNawecDTO>(
+                "SubsBillerDeAssociation",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap {
+                        this["COMMAND"] = buildMap {
+                            this["TYPE"] = "DUREGREQ"
+                            this["MSISDN"] = session.msisdn
+                            this["PROVIDER"] = "101"
+                            this["BILLERCODE"] = "ENDE"
+                            this["MPIN"] = pin
+                            this["BLOCKSMS"] = "NONE"
+                            this["ACCNO"] = accNb
+                            this["LANGUAGE1"] = if (session.language == "en") "1" else "4"
+                        }
+                    }
+                )
+            )
         }
     }
 

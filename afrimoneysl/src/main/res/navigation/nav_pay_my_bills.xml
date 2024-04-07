@@ -257,7 +257,7 @@
                 android:label="EndeAddFragment">
             <action
                     android:id="@+id/action_nawecAddFragment_to_nawecAddConfirmationFragment"
-                    app:destination="@id/endeAddConfirmationFragment" />
+                    app:destination="@id/nawecAddConfirmationFragment" />
         </fragment>
         <fragment
                 android:id="@+id/nawecAddConfirmationFragment"

@@ -1628,13 +1628,13 @@ class TedmobApis
                             this["TYPE"] = "CBPREGDREQ"
                             this["MSISDN"] = session.msisdn
                             this["PROVIDER"] = "101"
-                            this["BILLERCODE"] = "NAWEC"
+                            this["BPCODE"] = "NAWEC"
                             this["MPIN"] = pin
                             this["BLOCKSMS"] = "NONE"
                             this["TXNMODE"] = ""
                             this["LANGUAGE1"] = "1"
                             this["LANGUAGE2"] = "1"
-                            this["NICK_NAME"] = nickname
+                            this["NICK_NAME"] = accNb
                             this["PREF1"] = accNb
                             this["PREF2"] = ""
                         }

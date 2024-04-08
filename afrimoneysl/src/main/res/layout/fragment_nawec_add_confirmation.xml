@@ -94,6 +94,7 @@
 
 
             <TextView
+                    android:visibility="gone"
                 android:id="@+id/header"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"

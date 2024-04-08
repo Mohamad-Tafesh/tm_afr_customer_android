@@ -25,10 +25,10 @@ class GetFeesUseCase
             ?.getString("userName") +" "+response?.getObject("receiver")
             ?.getString("lastName")
 
-            val total=taxes!!+ params.amount.toDouble()
+        val total= (taxes?:0.0) + params.amount.toDouble()
 
 
-       return MerchantPaymentData( params.merchantCode ,params.amount,receiverName.toString(),taxes.toString(),total.toString())
+       return MerchantPaymentData( params.merchantCode ,params.amount,receiverName,(taxes?:0.0).toString(),total.toString())
     }
 
     class Params(

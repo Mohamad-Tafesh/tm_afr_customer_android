@@ -137,8 +137,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             findNavController().navigate(R.id.nav_transfer_money)
         }
         pendingTransactionsOption.setDebouncedOnClickListener {
-            // findNavController().navigate(R.id.nav_pending_transactions)
-            dialogPendingTransactions {}
+             findNavController().navigate(R.id.nav_pending_transactions)
+            //dialogPendingTransactions {}
         }
         withdrawMoneyOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_withdraw)

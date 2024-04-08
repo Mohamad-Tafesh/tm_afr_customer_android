@@ -8,7 +8,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class PendingTransactionsDTO(
     @field:[Expose SerializedName("COMMAND")]
-    val command: COMMAND?
+    val command: COMMAND?   ,
+    @field:[Expose SerializedName("TXNSTATUS")]
+    val txnStatus: String?
 ) : Parcelable {
     @Parcelize
     data class COMMAND(

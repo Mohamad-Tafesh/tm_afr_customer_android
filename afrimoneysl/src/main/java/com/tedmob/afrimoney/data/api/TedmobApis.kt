@@ -925,15 +925,16 @@ class TedmobApis
     suspend fun pendingTransactions(
         pin: String,
         service: String
-    ): PendingTransactionsDTO {
+    ): BankDTO {
         return refreshTokenIfNeeded {
-            val response = post<PendingTransactionsDTO>(
+
+            val response = post<CommandContainerDTO<BankDTO>>(
                 "PendingTransaction",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
                         this["COMMAND"] =
-                            buildMap{
+                            buildMap {
                                 this["TYPE"] = "CSMTPREQ"
                                 this["MSISDN"] = session.msisdn
                                 this["PROVIDER"] = "101"
@@ -952,8 +953,13 @@ class TedmobApis
                 )
             )
 
-            //throwIfInvalid(response.status, response.errors)
-            response
+            if (response.command.status == "9900222") {
+                response.command
+            } else {
+                response.getCommandOrThrow()
+            }
+
+
         }
     }
 

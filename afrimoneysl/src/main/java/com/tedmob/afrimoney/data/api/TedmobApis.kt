@@ -929,27 +929,26 @@ class TedmobApis
     ): PendingTransactionsDTO {
         return refreshTokenIfNeeded {
             val response = post<PendingTransactionsDTO>(
-                "PendingTransaction0",
+                "PendingTransaction",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
-                    buildMap<String, Any> {
-                        this["language"] = ""
-                        this["initiator"] = "transactor"
-                        this["service"] = service
-                        this["transactor"] = buildMap {
-                            this["idType"] = "mobileNumber"
-                            this["idValue"] = session.msisdn
-                            this["mpin"] = pin
-                            this["userRole"] = "Customer"
-                            this["productId"] = "12"
-                        }
-                        this["bearerCode"] = "USSD"
-                        this["ftxnId"] = ""
-                        this["currency"] = "101"
-                        this["serviceCode"] = "SMSTXNHIS"
-                        this["cellId"] = ""
-                        this["numberOfTxns"] = "10"
+                    buildMap {
+                        this["COMMAND"] =
+                            buildMap{
+                                this["TYPE"] = "CSMTPREQ"
+                                this["MSISDN"] = session.msisdn
+                                this["PROVIDER"] = "101"
+                                this["PAYID"] = "12"
+                                this["TXNID"] = "Y"
+                                this["LANGUAGE1"] = "1"
+                                this["TXNMODE"] = ""
+                                this["BLOCKSMS"] = "BOTH"
+                                this["NOOFTXNREQ"] = "10"
+                                this["SERVICE"] = service
+                                this["MPIN"] = pin
 
+
+                            }
                     }
                 )
             )
@@ -1513,8 +1512,8 @@ class TedmobApis
         number: String,
         transactionAmount: String,
         pin: String,
-   /*     uAddress: String,
-        field2: String,*/
+        /*     uAddress: String,
+             field2: String,*/
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1534,10 +1533,10 @@ class TedmobApis
                             this["idValue"] = "NAWEC"
                             this["idType"] = "billerCode"
                         }
-                   /*     this["extensibleFields"] = buildMap {
-                            this["field1"] = uAddress
-                            this["field2"] = field2
-                        }*/
+                        /*     this["extensibleFields"] = buildMap {
+                                 this["field1"] = uAddress
+                                 this["field2"] = field2
+                             }*/
                         this["billDetails"] = buildMap {
                             this["billAccountNumber"] = number
                             this["billNumber"] = ""
@@ -1945,7 +1944,7 @@ class TedmobApis
             this["Authorization"] = "Bearer $token"
         else
         // this["Authorization"] = Credentials.basic("MobileApp", "zaqwsxasdf1234")
-            this["Authorization"]  = Credentials.basic("AfriMoney", "zaqwsxasdf12345")
+            this["Authorization"] = Credentials.basic("AfriMoney", "zaqwsxasdf12345")
 
         additionalHeadersBlock()
     }

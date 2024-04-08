@@ -2500,6 +2500,18 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="buyNawecConfirmationFragment">
+                              <value>
+                                <LayoutPositions>
+                                  <option name="myPosition">
+                                    <Point>
+                                      <option name="x" value="12" />
+                                      <option name="y" value="12" />
+                                    </Point>
+                                  </option>
+                                </LayoutPositions>
+                              </value>
+                            </entry>
                             <entry key="buyNawecFragment">
                               <value>
                                 <LayoutPositions>
@@ -2511,12 +2523,12 @@
                                   </option>
                                   <option name="myPositions">
                                     <map>
-                                      <entry key="action_endePrePaidFragment_to_endeMetersBottomSheetFragment">
+                                      <entry key="action_buyNawecFragment_to_buyNawecConfirmationFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
                                       </entry>
-                                      <entry key="action_endePrePaidFragment_to_endePrePaidConfirmationFragment">
+                                      <entry key="action_buyNawecFragment_to_nawecMetersBottomSheetFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
@@ -2526,7 +2538,7 @@
                                 </LayoutPositions>
                               </value>
                             </entry>
-                            <entry key="endeAddConfirmationFragment">
+                            <entry key="nawecAddConfirmationFragment">
                               <value>
                                 <LayoutPositions>
                                   <option name="myPosition">
@@ -2538,7 +2550,7 @@
                                 </LayoutPositions>
                               </value>
                             </entry>
-                            <entry key="endeAddFragment">
+                            <entry key="nawecAddFragment">
                               <value>
                                 <LayoutPositions>
                                   <option name="myPosition">
@@ -2549,7 +2561,7 @@
                                   </option>
                                   <option name="myPositions">
                                     <map>
-                                      <entry key="action_endeAddFragment_to_endeAddConfirmationFragment">
+                                      <entry key="action_nawecAddFragment_to_nawecAddConfirmationFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
@@ -2559,102 +2571,52 @@
                                 </LayoutPositions>
                               </value>
                             </entry>
-                            <entry key="endeDeleteConfirmationFragment">
-                              <value>
-                                <LayoutPositions>
-                                  <option name="myPosition">
-                                    <Point>
-                                      <option name="x" value="500" />
-                                      <option name="y" value="368" />
-                                    </Point>
-                                  </option>
-                                </LayoutPositions>
-                              </value>
-                            </entry>
-                            <entry key="endeDeleteFragment">
+                            <entry key="nawecDeleteConfirmationFragment">
                               <value>
                                 <LayoutPositions>
                                   <option name="myPosition">
                                     <Point>
                                       <option name="x" value="256" />
-                                      <option name="y" value="410" />
-                                    </Point>
-                                  </option>
-                                  <option name="myPositions">
-                                    <map>
-                                      <entry key="action_endeDeleteFragment_to_endeDeleteConfirmationFragment">
-                                        <value>
-                                          <LayoutPositions />
-                                        </value>
-                                      </entry>
-                                      <entry key="action_endeDeleteFragment_to_endeMetersBottomSheetFragment">
-                                        <value>
-                                          <LayoutPositions />
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
-                                </LayoutPositions>
-                              </value>
-                            </entry>
-                            <entry key="endeInvoicesFragment">
-                              <value>
-                                <LayoutPositions>
-                                  <option name="myPosition">
-                                    <Point>
-                                      <option name="x" value="500" />
-                                      <option name="y" value="1436" />
-                                    </Point>
-                                  </option>
-                                </LayoutPositions>
-                              </value>
-                            </entry>
-                            <entry key="endeMetersBottomSheetFragment">
-                              <value>
-                                <LayoutPositions>
-                                  <option name="myPosition">
-                                    <Point>
-                                      <option name="x" value="500" />
-                                      <option name="y" value="1080" />
-                                    </Point>
-                                  </option>
-                                </LayoutPositions>
-                              </value>
-                            </entry>
-                            <entry key="endePrePaidConfirmationFragment">
-                              <value>
-                                <LayoutPositions>
-                                  <option name="myPosition">
-                                    <Point>
-                                      <option name="x" value="500" />
                                       <option name="y" value="724" />
                                     </Point>
                                   </option>
                                 </LayoutPositions>
                               </value>
                             </entry>
-                            <entry key="endeReprintFragment">
+                            <entry key="nawecDeleteFragment">
                               <value>
                                 <LayoutPositions>
                                   <option name="myPosition">
                                     <Point>
-                                      <option name="x" value="256" />
-                                      <option name="y" value="1393" />
+                                      <option name="x" value="12" />
+                                      <option name="y" value="410" />
                                     </Point>
                                   </option>
                                   <option name="myPositions">
                                     <map>
-                                      <entry key="action_endeReprintFragment_to_endeInvoicesFragment">
+                                      <entry key="action_nawecDeleteFragment_to_nawecDeleteConfirmationFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
                                       </entry>
-                                      <entry key="action_endeReprintFragment_to_endeMetersBottomSheetFragment">
+                                      <entry key="action_nawecDeleteFragment_to_nawecMetersBottomSheetFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
                                       </entry>
                                     </map>
+                                  </option>
+                                </LayoutPositions>
+                              </value>
+                            </entry>
+                            <entry key="nawecMetersBottomSheetFragment">
+                              <value>
+                                <LayoutPositions>
+                                  <option name="myPosition">
+                                    <Point>
+                                      <option name="x" value="256" />
+                                      <option name="y" value="368" />
+                                    </Point>
                                   </option>
                                 </LayoutPositions>
                               </value>
@@ -2670,22 +2632,17 @@
                                   </option>
                                   <option name="myPositions">
                                     <map>
-                                      <entry key="action_endeOptionsFragment_to_endeAddFragment">
+                                      <entry key="action_nawecOptionsFragment_to_buyNawecFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
                                       </entry>
-                                      <entry key="action_endeOptionsFragment_to_endeDeleteFragment">
+                                      <entry key="action_nawecOptionsFragment_to_nawecAddFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
                                       </entry>
-                                      <entry key="action_endeOptionsFragment_to_endePrePaidFragment">
-                                        <value>
-                                          <LayoutPositions />
-                                        </value>
-                                      </entry>
-                                      <entry key="action_endeOptionsFragment_to_endeReprintFragment">
+                                      <entry key="action_nawecOptionsFragment_to_nawecDeleteFragment">
                                         <value>
                                           <LayoutPositions />
                                         </value>
@@ -2889,6 +2846,11 @@
                               </value>
                             </entry>
                             <entry key="action_payMyBillsFragment_to_nav_mercury">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_payMyBillsFragment_to_nav_nawec">
                               <value>
                                 <LayoutPositions />
                               </value>

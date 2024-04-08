@@ -48,19 +48,20 @@
         <item>12</item>
     </string-array>
     <string-array name="region">
-        <item>West Coast Region (Kombo North, South, East, and the Fonis)</item>
-        <item>Lower River Region (Mansa Konko)</item>
-        <item>North Bank Region (Kerewan)</item>
-        <item>Central River Region (Janjanbureh)</item>
-        <item>Upper River Region (Basse)</item>
+        <item>Greater Banjul</item>
+        <item>West Coast Region</item>
+        <item>Lower River Region</item>
+        <item>North Bank Region</item>
+        <item>Central River Region</item>
+        <item>Upper River Region</item>
     </string-array>
     <string-array name="region_values">
-        <item>Banjul City Council (Kanifing Municipal Council)</item>
-        <item>West Coast Region (Kombo North, South, East, and the Fonis)</item>
-        <item>Lower River Region (Mansa Konko)</item>
-        <item>North Bank Region (Kerewan)</item>
-        <item>Central River Region (Janjanbureh)</item>
-        <item>Upper River Region (Basse)</item>
+        <item>Greater Banjul</item>
+        <item>West Coast Region</item>
+        <item>Lower River Region</item>
+        <item>North Bank Region</item>
+        <item>Central River Region</item>
+        <item>Upper River Region</item>
     </string-array>
 
 </resources>

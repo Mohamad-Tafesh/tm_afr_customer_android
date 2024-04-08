@@ -258,8 +258,8 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         when (state) {
             is UserState.NotRegistered -> {
                 startActivity(Intent(this, AfrimoneyRegistrationActivity::class.java).apply {
-                    //putExtra("number", session.msisdnAfrimoney)
-                    putExtra("number", "2507775") //todo remove
+                    putExtra("number", session.msisdnAfrimoney)
+                    //putExtra("number", "2507775") //todo remove
                 })
                 AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
             }

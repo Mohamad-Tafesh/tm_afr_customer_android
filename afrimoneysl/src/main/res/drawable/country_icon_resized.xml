@@ -3,5 +3,5 @@
 <item
     android:width="30dp"
     android:height="20dp"
-    android:drawable="@drawable/cf_sl"/>
+    android:drawable="@drawable/cf_gm"/>
 </layer-list>

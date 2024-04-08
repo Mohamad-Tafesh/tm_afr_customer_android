@@ -116,7 +116,7 @@
             android:drawableStart="@drawable/country_icon_resized"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:text="@string/sierra_leone"
+            android:text="@string/gambia"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/countryFlagImage"
             app:layout_constraintStart_toStartOf="parent"

@@ -55,9 +55,11 @@ class ChangePinRegisterFragment : BaseVBFragment<FragmentChangePinRegisterBindin
             requireBinding().proceedButton,
             "Your account has been created successfully"
         ) {
-            startActivity(Intent(context, AfrimoneyRegistrationActivity::class.java).apply {
+
+            startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
                 putExtra("number", session.msisdn)
-                activity?.finish()
+                putExtra("token", session.accessToken)
+
             })
         }
 

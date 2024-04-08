@@ -95,6 +95,7 @@
 
 
             <TextView
+                    android:visibility="gone"
                 android:id="@+id/name_header"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -111,6 +112,7 @@
                 app:layout_constraintTop_toBottomOf="@id/meter_number" />
 
             <TextView
+                    android:visibility="gone"
                 android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -173,6 +175,7 @@
 
 
             <TextView
+                    android:visibility="gone"
                 android:id="@+id/unit_header"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -189,6 +192,7 @@
                 app:layout_constraintTop_toBottomOf="@id/feesText" />
 
             <TextView
+                    android:visibility="gone"
                 android:id="@+id/unit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

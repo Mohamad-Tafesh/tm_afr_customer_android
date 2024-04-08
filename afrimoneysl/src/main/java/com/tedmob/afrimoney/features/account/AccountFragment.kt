@@ -44,7 +44,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
     }
 
     override fun configureToolbar() {
@@ -79,6 +79,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
     }
 
 
+/*
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_account, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -93,6 +94,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+*/
 
     private fun showLogoutDialog(onDismiss: (() -> Unit)? = null) {
         this.let {

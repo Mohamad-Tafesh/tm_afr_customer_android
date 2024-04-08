@@ -193,7 +193,6 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                             R.id.referFriendFragment,
                             R.id.faqFragment,
                             R.id.helpFragment,
-                            R.id.accountFragment,
                             R.id.locateUsFragment,
                             R.id.africellServicesFragment2
                             -> R.mipmap.nav_side_menu
@@ -238,7 +237,8 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                             R.id.checkDSTVConfirmationFragment,
                             R.id.balanceEnquiryFragment,
                             R.id.confirmPendingTransactionsFragment,
-                            R.id.airtimeConfirmationfragment
+                            R.id.airtimeConfirmationfragment,
+                            R.id.accountFragment,
                             -> R.drawable.navback
 
 

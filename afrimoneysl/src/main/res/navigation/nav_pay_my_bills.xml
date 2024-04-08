@@ -219,7 +219,7 @@
         <dialog
                 android:id="@+id/nawecOptionsFragment"
                 android:name="com.tedmob.afrimoney.features.bills.nawec.NawecOptionsFragment"
-                android:label="WaecOptionsFragment">
+                android:label="">
             <action
                     android:id="@+id/action_nawecOptionsFragment_to_buyNawecFragment"
                     app:destination="@id/buyNawecFragment" />
@@ -265,12 +265,12 @@
         <fragment
                 android:id="@+id/nawecAddConfirmationFragment"
                 android:name="com.tedmob.afrimoney.features.bills.nawec.NawecAddConfirmationFragment"
-                android:label="EndeAddConfirmationFragment" />
+                android:label="" />
 
         <fragment
                 android:id="@+id/nawecDeleteFragment"
                 android:name="com.tedmob.afrimoney.features.bills.nawec.NawecDeleteFragment"
-                android:label="EndeDeleteFragment">
+                android:label="">
             <action
                     android:id="@+id/action_nawecDeleteFragment_to_nawecDeleteConfirmationFragment"
                     app:destination="@id/nawecDeleteConfirmationFragment" />
@@ -281,7 +281,7 @@
         <fragment
                 android:id="@+id/nawecDeleteConfirmationFragment"
                 android:name="com.tedmob.afrimoney.features.bills.nawec.NawecDeleteConfirmationFragment"
-                android:label="NawecDeleteConfirmationFragment" />
+                android:label="" />
     </navigation>
 
 

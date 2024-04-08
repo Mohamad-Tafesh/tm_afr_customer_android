@@ -18,8 +18,8 @@ class SubmitNawecUseCase
             params.number,
             params.amount,
             params.pin,
-            params.uniqueNumber,
-            params.dateNTime
+         /*   params.uniqueNumber,
+            params.dateNTime*/
         )
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
@@ -39,8 +39,8 @@ class SubmitNawecUseCase
         val number: String,
         val amount: String,
         val pin: String,
-        val uniqueNumber: String,
-        val dateNTime: String,
+     /*   val uniqueNumber: String,
+        val dateNTime: String,*/
     )
 
 }

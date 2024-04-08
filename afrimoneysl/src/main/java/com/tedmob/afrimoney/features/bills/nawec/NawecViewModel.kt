@@ -75,7 +75,7 @@ class NawecViewModel
     val confirmEndePrePaidData: LiveData<Resource<SubmitResult>> get() = _confirmEndePrePaidData
     private val _confirmEndePrePaidData = SingleLiveEvent<Resource<SubmitResult>>()
 
-    var prepaidFeesData: GetNawecFeesData? = null
+    var nawecFeesData: GetNawecFeesData? = null
 
 
     fun proceed(meterId: String) {
@@ -157,11 +157,11 @@ class NawecViewModel
         execute(
             submitNawecUseCase,
             SubmitNawecUseCase.Params(
-                prepaidFeesData!!.number,
-                prepaidFeesData!!.amount,
+                nawecFeesData!!.number,
+                nawecFeesData!!.amount,
                 pin,
-                prepaidFeesData!!.uniqueNumber,
-                prepaidFeesData!!.dateNTime
+/*                prepaidFeesData!!.uniqueNumber,
+                prepaidFeesData!!.dateNTime*/
             ),
             onLoading = {
                 _confirmEndePrePaidData.emitLoading()
@@ -215,9 +215,12 @@ class NawecViewModel
         amount: String,
     ) {
 
-        this.meterId = meterId
+        this.meterId = meterNumber
         this.nickname = meterName
         this.amount = amount
+
+        nawecFeesData = GetNawecFeesData(meterNumber,amount)
+
         _proceedToConfirm.emitSuccess(Unit)
         /*        execute(
                     getFeesNawecUseCase,

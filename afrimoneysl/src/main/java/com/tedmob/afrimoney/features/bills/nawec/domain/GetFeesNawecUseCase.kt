@@ -26,12 +26,12 @@ class GetFeesNawecUseCase
             return GetNawecFeesData(
                 params.meterNumber,
                 params.amount,
-                data.serCharge.orEmpty(),
+         /*       data.serCharge.orEmpty(),
                 data.tariffName,
                 data.unitValue.orEmpty(),
                 data.siUnit.orEmpty(),
                 data.uniqueNumber.orEmpty(),
-                data.dateNTime.orEmpty()
+                data.dateNTime.orEmpty()*/
             )
         }
     }

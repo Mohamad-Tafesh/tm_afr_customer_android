@@ -171,6 +171,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     if (session.isLoggedIn()) {
                         //viewModel.verify(session.msisdnAfrimoney)
                         viewModel.verify("2507775")
+                        //viewModel.verify("7750036")//todo remove
                     } else showLoginMessage()
 
                 } else {
@@ -270,6 +271,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                     //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     //putExtra("number", session.msisdnAfrimoney)
                     putExtra("number", "2507775") //todo remove
+                    //putExtra("number", "7750036") //todo remove
                     putExtra("token", session.accessToken)
 
                 })

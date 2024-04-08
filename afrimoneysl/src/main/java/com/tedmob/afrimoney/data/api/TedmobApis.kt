@@ -1513,8 +1513,8 @@ class TedmobApis
         number: String,
         transactionAmount: String,
         pin: String,
-        uAddress: String,
-        field2: String,
+   /*     uAddress: String,
+        field2: String,*/
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1534,10 +1534,10 @@ class TedmobApis
                             this["idValue"] = "NAWEC"
                             this["idType"] = "billerCode"
                         }
-                        this["extensibleFields"] = buildMap {
+                   /*     this["extensibleFields"] = buildMap {
                             this["field1"] = uAddress
                             this["field2"] = field2
-                        }
+                        }*/
                         this["billDetails"] = buildMap {
                             this["billAccountNumber"] = number
                             this["billNumber"] = ""
@@ -1550,8 +1550,8 @@ class TedmobApis
                             this["priceUSDDstv"] = ""
                             this["ufirstName"] = ""
                             this["ulastName"] = ""
-                            this["uaddress"] = uAddress
-                            this["invoiceMonthNo"] = field2
+                            this["uaddress"] = ""
+                            this["invoiceMonthNo"] = ""
                         }
                     }
                 )

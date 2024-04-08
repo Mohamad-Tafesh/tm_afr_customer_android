@@ -923,7 +923,6 @@ class TedmobApis
      }
  */
     suspend fun pendingTransactions(
-        msisdn: String,
         pin: String,
         service: String
     ): PendingTransactionsDTO {
@@ -953,7 +952,7 @@ class TedmobApis
                 )
             )
 
-            throwIfInvalid(response.status, response.errors)
+            //throwIfInvalid(response.status, response.errors)
             response
         }
     }

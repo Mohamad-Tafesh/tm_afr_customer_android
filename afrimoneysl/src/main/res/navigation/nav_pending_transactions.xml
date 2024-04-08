@@ -47,7 +47,7 @@
         android:label="ConfirmPendingTransactionsFragment" >
         <argument
             android:name="data"
-            app:argType="com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO" />
+            app:argType="com.tedmob.afrimoney.data.api.dto.PendingTransactionsData" />
         <argument
             android:name="type"
             app:argType="string" />

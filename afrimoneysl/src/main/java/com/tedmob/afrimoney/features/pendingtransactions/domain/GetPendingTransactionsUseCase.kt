@@ -2,7 +2,7 @@ package com.tedmob.afrimoney.features.pendingtransactions.domain
 
 import com.tedmob.afrimoney.app.usecase.SuspendableUseCase
 import com.tedmob.afrimoney.data.api.TedmobApis
-import com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO
+import com.tedmob.afrimoney.data.api.dto.PendingTransactionsData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -10,15 +10,38 @@ import javax.inject.Inject
 class GetPendingTransactionsUseCase
 @Inject constructor(
     private val api: TedmobApis,
-) : SuspendableUseCase<List<PendingTransactionsItemDTO>, GetPendingTransactionsUseCase.Params>() {
+) : SuspendableUseCase<List<PendingTransactionsData>, GetPendingTransactionsUseCase.Params>() {
 
-    override suspend fun execute(params: Params): List<PendingTransactionsItemDTO> {
+    override suspend fun execute(params: Params): List<PendingTransactionsData> {
         return withContext(Dispatchers.IO) {
-            api.pendingTransactions(params.msisdn, params.pin, params.service).list
+            buildList{
+                api.pendingTransactions(params.pin, params.service).command?.mESSAGE?.dATA.let {
+
+                    val count = it?.fROM?.size ?: 0
+                    for (i in 0 until count) {
+                        add(
+                            PendingTransactionsData(
+                                it?.tXNDT?.get(i).orEmpty().orEmpty(),
+                                it?.sERVICEREQUESTID?.get(i).orEmpty(),
+                                it?.pAYID?.get(i).orEmpty(),
+                                it?.lASTNAME?.get(i).orEmpty(),
+                                it?.fIRSTNAME?.get(i).orEmpty(),
+                                it?.fROM?.get(i).orEmpty(),
+                                it?.tO?.get(i).orEmpty(),
+                                it?.tXNID?.get(i).orEmpty(),
+                                it?.tXNAMT?.get(i).orEmpty(),
+                                it?.sERVICETYPE?.get(i).orEmpty(),
+                                it?.sERVICENAME?.get(i).orEmpty(),
+                            )
+                        )
+                    }
+
+                }
+            }
         }
     }
 
-    data class Params(val msisdn: String, val pin: String, val service: String)
+    data class Params(val pin: String, val service: String)
 }
 
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.handleInvalidSession
 import com.tedmob.afrimoney.data.*
-import com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO
+import com.tedmob.afrimoney.data.api.dto.PendingTransactionsData
 import com.tedmob.afrimoney.data.entity.SubmitResult
 import com.tedmob.afrimoney.exception.AppExceptionFactory
 import com.tedmob.afrimoney.features.pendingtransactions.domain.GetPendingTransactionsUseCase
@@ -25,8 +25,8 @@ class PendingTransactionsViewModel
     private val appSessionNavigator: AppSessionNavigator,
 ) : BaseViewModel() {
 
-    val transactionData: LiveData<Resource<List<PendingTransactionsItemDTO>>> get() = _transactionData
-    private val _transactionData = MutableLiveData<Resource<List<PendingTransactionsItemDTO>>>()
+    val transactionData: LiveData<Resource<List<PendingTransactionsData>>> get() = _transactionData
+    private val _transactionData = MutableLiveData<Resource<List<PendingTransactionsData>>>()
 
 
     val submitted: LiveData<Resource<SubmitResult>> get() = _submitted
@@ -34,10 +34,10 @@ class PendingTransactionsViewModel
 
 
 
-    fun getData(msisdn: String, pin: String, service: String) {
+    fun getData(pin: String, service: String) {
         executeResource(
             getTransactionsUseCase,
-            GetPendingTransactionsUseCase.Params(msisdn, pin, service),
+            GetPendingTransactionsUseCase.Params(pin, service),
             _transactionData,
             appExceptionFactory,
             appSessionNavigator

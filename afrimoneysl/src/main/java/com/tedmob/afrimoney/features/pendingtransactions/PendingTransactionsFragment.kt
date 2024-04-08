@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBFragment
-import com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO
+import com.tedmob.afrimoney.data.api.dto.PendingTransactionsData
 import com.tedmob.afrimoney.databinding.*
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
@@ -63,20 +63,20 @@ class PendingTransactionsFragment : BaseVBFragment<FragmentTransactionsBinding>(
             requireBinding().contentLL.showContent()
         }
 
-        viewModel.getData(session.msisdn, args.pin, args.service)
+        viewModel.getData(args.pin, args.service)
     }
 
 
 
 
-    private fun PendingTransactionsFragment.setupTransactions(transactions: List<PendingTransactionsItemDTO>) {
+    private fun PendingTransactionsFragment.setupTransactions(transactions: List<PendingTransactionsData>) {
         requireBinding().transactionsRV.adapter = adapter(transactions) {
             viewBinding(ItemTransactionBinding::inflate)
             onBindItemToViewBinding<ItemTransactionBinding> {
-                transactionid.text= it.transaction_id
-                dateText.text= it.date
-                amount.text= context?.getString(R.string.amount_currency,it.amount)
-                initiated.text=it.from
+                transactionid.text= it.TXNID
+                dateText.text= it.TXNDT
+                amount.text= context?.getString(R.string.amount_currency,it.TXNAMT)
+                initiated.text=it.FROM
 
                 root.setOnClickListener(){ abc->
                     lateinit var type:String

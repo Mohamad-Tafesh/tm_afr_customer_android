@@ -8,9 +8,8 @@ import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.withVBAvailable
-import com.tedmob.afrimoney.data.api.dto.PendingTransactionsItemDTO
+import com.tedmob.afrimoney.data.api.dto.PendingTransactionsData
 import com.tedmob.afrimoney.databinding.FragmentConfirmPendingTransactionsBinding
-import com.tedmob.afrimoney.databinding.FragmentMerchantPaymentConfirmationBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.viewmodel.observeTransactionSubmit
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
@@ -65,12 +64,12 @@ class ConfirmPendingTransactionsFragment :
     }
 
 
-    private fun setData(it: PendingTransactionsItemDTO) {
+    private fun setData(it: PendingTransactionsData) {
         withVBAvailable {
-            transactionid.text = it.transaction_id
-            dateText.text = it.date
-            amount.text = context?.getString(R.string.amount_currency, it.amount)
-            initiated.text = it.from
+            transactionid.text = it.TXNID
+            dateText.text = it.TXNDT
+            amount.text = context?.getString(R.string.amount_currency, it.TXNAMT)
+            initiated.text = it.FROM
         }
     }
 
@@ -82,7 +81,7 @@ class ConfirmPendingTransactionsFragment :
             viewModel.getConfirmation(
                 args.type,
                 pinInputLayout.getText(),
-                args.data.serviceRequestId.toString()
+                args.data.SERVICEREQUESTID.toString()
             )
         }
     }

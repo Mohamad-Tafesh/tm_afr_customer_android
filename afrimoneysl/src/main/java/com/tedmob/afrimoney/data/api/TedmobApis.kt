@@ -878,57 +878,14 @@ class TedmobApis
         }
     }
 
-    /* suspend fun pendingTransactions(msisdn: String, pin: String, service: String): TransactionDTO {
-         return refreshTokenIfNeeded {
-             val response = post<Map<String, Any?>>(
-                 "PendingTransaction",
-                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
-                 body = gsonBody(
-                     buildMap {
-                         this["COMMAND"] = buildMap {
-                             this["TYPE"] = "CSMTPREQ"
-                             this["MSISDN"] = msisdn
-                             this["PROVIDER"] = "101"
-                             this["MPIN"] = pin
-                             this["PAYID"] = "12"
-                             this["TXNID"] = "Y"
-                             this["LANGUAGE1"] = "1"
-                             this["SERVICE"] = service
-                             this["TXNMODE"] = ""
-                             this["BLOCKSMS"] = "BOTH"
-                             this["NOOFTXNREQ"] = "100"
 
-                         }
-                     }
-                 )
-             )["COMMAND"] as Map<String, Any?>
-
-             if (response["TXNSTATUS"] != "200") {
-                 throw AppException(
-                     (response["TXNSTATUS"] as? String?)?.toIntOrNull() ?: 0,
-                     (response["MESSAGE"] as? String?).orEmpty(),
-                     response["MESSAGE"] as? String?,
-                 )
-             }
-             val messageJson = gson.toJson(
-                 response["MESSAGE"] as Map<String, Any?>,
-                 object : TypeToken<Map<String, Any?>>() {}.type
-             )
-             return TransactionDTO(
-                 gson.fromJson(messageJson, TransactionDTO.MESSAGE::class.java)
-             )
-
-
-         }
-     }
- */
     suspend fun pendingTransactions(
         pin: String,
         service: String
-    ): BankDTO {
+    ): PendingTransactionsDTO {
         return refreshTokenIfNeeded {
 
-            val response = post<CommandContainerDTO<BankDTO>>(
+            val response = post<PendingTransactionsDTO>(
                 "PendingTransaction",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
@@ -952,12 +909,7 @@ class TedmobApis
                     }
                 )
             )
-
-            if (response.command.status == "9900222") {
-                response.command
-            } else {
-                response.getCommandOrThrow()
-            }
+            response
 
 
         }

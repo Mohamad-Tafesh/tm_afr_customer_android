@@ -82,7 +82,7 @@ class NawecDeleteFragment :
 
             proceedButton.setDebouncedOnClickListener {
                 if (client != null) {
-                    viewModel.proceedDelete(client?.meterNumber, client?.nickname)
+                    viewModel.proceedDelete(client?.meterNumber.orEmpty())
                 } else {
                     showMessage(resources.getString(R.string.please_select_your_meter_number_first))
                 }

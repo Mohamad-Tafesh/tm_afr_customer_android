@@ -141,7 +141,6 @@ class BuyNawecFragment : BaseVBFragmentWithImportContact<FragmentBuyNawecBinding
             onValid = {
                 viewModel.getBuyFees(
                     meterNumberInput.getText(),
-                    meter?.nickname.orEmpty(),
                     amount.getText()
                 )
             }
@@ -152,7 +151,6 @@ class BuyNawecFragment : BaseVBFragmentWithImportContact<FragmentBuyNawecBinding
 
                 viewModel.getBuyFees(
                     meterNumber.text.toString(),
-                    meter?.nickname.orEmpty(),
                     amount.getText()
                 )
 

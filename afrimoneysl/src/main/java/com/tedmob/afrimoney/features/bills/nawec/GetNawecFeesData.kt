@@ -8,6 +8,7 @@ import java.io.Serializable
 class GetNawecFeesData(
     val number: String,
     val amount: String,
+    val name: String,
 /*    val fees: String?,
     val name: String?,
     val unitValue: String,

@@ -80,36 +80,52 @@ class NawecViewModel
 
     fun proceed(meterId: String) {
 
-        _data.emitSuccess(
-            NawecMeterData(meterId, ""))
-            this.meterId = meterId
-            this.nickname = ""
+        /* _data.emitSuccess(
+             NawecMeterData(meterId, ""))
+             this.meterId = meterId
+             this.nickname = ""*/
 
-        /*  execute(
-              getMeterUseCase,
-              meterId,
-              onLoading = {
-                  _data.emitLoading()
-              },
-              onSuccess = {
-                  _data.emitSuccess(NawecMeterData(meterId, it.name.orEmpty()))
-                  this.meterId = meterId
-                  this.nickname = it.name
-              },
-              onError = {
-                  val exception = appExceptionFactory.make(it)
-                  if (!exception.handleInvalidSession(appSessionNavigator)) {
-                      _data.emitError(exception.userMessage)
-                  }
-              }
-          )
-  */
+        execute(
+            getMeterUseCase,
+            meterId,
+            onLoading = {
+                _data.emitLoading()
+            },
+            onSuccess = {
+                _data.emitSuccess(NawecMeterData(meterId, it.name.orEmpty()))
+                this.meterId = meterId
+                this.nickname = it.name
+            },
+            onError = {
+                val exception = appExceptionFactory.make(it)
+                if (!exception.handleInvalidSession(appSessionNavigator)) {
+                    _data.emitError(exception.userMessage)
+                }
+            }
+        )
     }
 
-    fun proceedDelete(meterId: String?, meterName: String?) {
-        this.meterId = meterId
-        this.nickname = meterName
-        _proceedToConfirmDelete.emitSuccess(Unit)
+    fun proceedDelete(meterId: String) {
+
+        execute(
+            getMeterUseCase,
+            meterId,
+            onLoading = {
+                _proceedToConfirm.emitLoading()
+            },
+            onSuccess = {
+                this.meterId = meterId
+                this.nickname = it.name
+                _proceedToConfirmDelete.emitSuccess(Unit)
+            },
+            onError = {
+                val exception = appExceptionFactory.make(it)
+                if (!exception.handleInvalidSession(appSessionNavigator)) {
+                    _proceedToConfirm.emitError(exception.userMessage)
+                }
+            }
+        )
+
     }
 
 
@@ -160,8 +176,8 @@ class NawecViewModel
                 nawecFeesData!!.number,
                 nawecFeesData!!.amount,
                 pin,
-/*                prepaidFeesData!!.uniqueNumber,
-                prepaidFeesData!!.dateNTime*/
+                /*                prepaidFeesData!!.uniqueNumber,
+                                prepaidFeesData!!.dateNTime*/
             ),
             onLoading = {
                 _confirmEndePrePaidData.emitLoading()
@@ -198,30 +214,42 @@ class NawecViewModel
         )
     }
 
-    fun getClientInvoices() {
-        executeResource(
-            getCustomerInvoicesUseCase,
-            meterId.orEmpty(),
-            _customerInvoicesData,
-            appExceptionFactory,
-            appSessionNavigator,
-            action = { getClientInvoices() },
-        )
-    }
 
     fun getBuyFees(
         meterNumber: String,
-        meterName: String,
         amount: String,
     ) {
 
-        this.meterId = meterNumber
-        this.nickname = meterName
-        this.amount = amount
+        /*    this.meterId = meterNumber
+            this.nickname = meterName
+            this.amount = amount
 
-        nawecFeesData = GetNawecFeesData(meterNumber,amount)
+            nawecFeesData = GetNawecFeesData(meterNumber,amount)
 
-        _proceedToConfirm.emitSuccess(Unit)
+            _proceedToConfirm.emitSuccess(Unit)
+    */
+        execute(
+            getMeterUseCase,
+            meterNumber,
+            onLoading = {
+                _proceedToConfirm.emitLoading()
+            },
+            onSuccess = {
+                this.meterId = meterNumber
+                this.nickname = it.name.orEmpty()
+                this.amount = amount
+                nawecFeesData = GetNawecFeesData(meterNumber,amount,it.name.orEmpty())
+                _proceedToConfirm.emitSuccess(Unit)
+            },
+            onError = {
+                val exception = appExceptionFactory.make(it)
+                if (!exception.handleInvalidSession(appSessionNavigator)) {
+                    _proceedToConfirm.emitError(exception.userMessage)
+                }
+            }
+        )
+
+
         /*        execute(
                     getFeesNawecUseCase,
                     GetFeesNawecUseCase.Params(meterNumber, amount),

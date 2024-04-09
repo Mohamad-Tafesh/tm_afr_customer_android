@@ -81,7 +81,7 @@ class BuyNawecConfirmationFragment :
 
     private fun FragmentBuyNawecConfirmationBinding.setupData(data: GetNawecFeesData) {
         meterNumber.text = data.number
-        //name.text = data.name
+        name.text = data.name
         feesText.text = getString(R.string.fees_new, "0")
         payment.text = getString(R.string.amount_currency, data.amount)
         //unit.text = "${data.unitValue}${data.siUnit}"

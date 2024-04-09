@@ -26,6 +26,7 @@ class GetFeesNawecUseCase
             return GetNawecFeesData(
                 params.meterNumber,
                 params.amount,
+                params.name,
          /*       data.serCharge.orEmpty(),
                 data.tariffName,
                 data.unitValue.orEmpty(),
@@ -39,6 +40,7 @@ class GetFeesNawecUseCase
     class Params(
         val meterNumber: String,
         val amount: String,
+        val name: String,
     )
 
 }

@@ -14,7 +14,10 @@ class GetMeterUseCase
 
     override suspend fun execute(params: String): ClientNawecDTO {
 
-        val data = api.getMeter(params)
+    return api.getMeter(params)
+    }
+
+      /*  val data = api.getMeter(params)
 
         if (!data.txnStatus.equals("200", true)) {
             val message = data.message
@@ -27,7 +30,7 @@ class GetMeterUseCase
 
            return data
         }
-    }
+    }*/
 
 
 }

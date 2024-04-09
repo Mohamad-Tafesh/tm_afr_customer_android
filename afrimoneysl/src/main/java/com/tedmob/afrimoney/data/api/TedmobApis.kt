@@ -1395,21 +1395,21 @@ class TedmobApis
 
     suspend fun getMeter(meterId: String): ClientNawecDTO {
         return refreshTokenIfNeeded {
-            post<ClientNawecDTO>(
-                "endeCustomerSearch",
+            post<CommandContainerDTO<ClientNawecDTO>>(
+                "Matontine",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
 
-                        this["serviceType"] = "CUSTCONFIRM"
-                        this["serviceName"] = "CUSTCONFIRM"
-                        this["TYPE"] = "CUSTCONFIRM"
-                        this["interfaceId"] = "ENDE"
-                        this["meterNumber"] = meterId
+                        this["transactionId"] = "0Lilly23"
+                        this["serviceType"] = "CGMREQ"
+                        this["MeterNo"] = meterId
+                        this["interfaceId"] = "getMeter"
+                        this["MSISDN"] = session.msisdn
 
                     }
                 )
-            )
+            ).getCommandOrThrow()
         }
     }
 
@@ -1557,7 +1557,7 @@ class TedmobApis
                             this["MPIN"] = pin
                             this["BLOCKSMS"] = "NONE"
                             this["TXNMODE"] = ""
-                            this["NICK_NAME"] = nickname
+                            this["NICK_NAME"] = meterNumber
                             this["PREF1"] = meterNumber
                             this["PREF2"] = ""
                             this["LANGUAGE1"] = "1"

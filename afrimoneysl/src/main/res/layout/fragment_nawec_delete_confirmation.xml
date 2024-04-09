@@ -102,7 +102,6 @@
                     android:text="@string/nickname_"
                     android:textAppearance="@style/AppTheme.TextAppearance.Header2"
                     android:textSize="18sp"
-                    android:visibility="gone"
                     app:autoSizeMaxTextSize="18sp"
                     app:autoSizeMinTextSize="10sp"
                     app:autoSizeStepGranularity="1sp"

@@ -853,6 +853,7 @@ class TedmobApis
 
     suspend fun getBalanceEnquiry(
         bankId: String,
+        aaccNb: String,
         pin: String
     ): BankBalanceEnquiryDTO {
         return refetchTokenIfNeeded {
@@ -867,7 +868,8 @@ class TedmobApis
                         this["MPIN"] = pin
                         this["LANGUAGE1"] = "1"
                         this["PROVIDER"] = "101"
-                        this["BASIC_AUTH"] = session.msisdn
+                        this["ACCNO"] = aaccNb
+                        this["MSISDN"] = session.msisdn
                     }
                 }
                 ),

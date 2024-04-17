@@ -78,7 +78,7 @@ class BalanceEnquiryFragment : BaseVBFragment<FragmentBalanceEnquiryBinding>() {
         pinInputLayout.validate(NotEmptyRule(getString(R.string.mandatory_field)))
 
         onValid = {
-            viewModel.confirm(args.bank.bankid,pinInputLayout.getText())
+            viewModel.confirm(args.bank.bankid,args.bank.accnum,pinInputLayout.getText())
         }
     }
 

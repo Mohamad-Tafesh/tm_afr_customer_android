@@ -26,11 +26,12 @@ class BalanceEnquiryViewModel
 
     fun confirm(
         bankID: String,
+        accNb: String,
         pin: String
     ) {
         executeResource(
             submit,
-            GetBankBalanceEnquiryUseCase.Params(bankID, pin),
+            GetBankBalanceEnquiryUseCase.Params(bankID,accNb, pin),
             _submitted,
             appExceptionFactory,
             appSessionNavigator,

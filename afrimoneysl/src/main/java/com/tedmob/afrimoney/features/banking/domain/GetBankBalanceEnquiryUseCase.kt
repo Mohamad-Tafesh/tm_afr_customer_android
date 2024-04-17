@@ -13,7 +13,7 @@ class GetBankBalanceEnquiryUseCase
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun execute(params: Params): SubmitResult {
-        val response = api.getBalanceEnquiry(params.bankId,params.pin)
+        val response = api.getBalanceEnquiry(params.bankId,params.accNb,params.pin)
         if (response.commad.status!="200"){
             return SubmitResult.Failure(response.commad.message.toString())
         }else return SubmitResult.Success(
@@ -24,6 +24,7 @@ class GetBankBalanceEnquiryUseCase
 
     class Params(
         val bankId:String,
+        val accNb:String,
         val pin: String,
 
     )

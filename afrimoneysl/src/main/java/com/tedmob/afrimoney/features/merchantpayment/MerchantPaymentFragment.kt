@@ -62,6 +62,8 @@ class MerchantPaymentFragment : BaseVBFragmentWithImportContact<FragmentMerchant
 
         }
 
+        bindData()
+
         withVBAvailable {
             val validator = setupValidation()
             proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
@@ -101,7 +103,7 @@ class MerchantPaymentFragment : BaseVBFragmentWithImportContact<FragmentMerchant
     private fun proceed() {
 
         viewModel.getFees(binding!!.merchantcode.getText(), binding!!.amountInput.getText())
-        bindData()
+
     }
 
     private fun bindData() {

@@ -38,7 +38,6 @@ class AgentPhoneNumberFragment :
     private val viewModel by provideNavGraphViewModel<AgentPhoneNumberViewModel>(R.id.nav_withdraw)
 
 
-
     @Inject
     internal lateinit var phoneUtil: PhoneNumberUtil
 
@@ -68,6 +67,7 @@ class AgentPhoneNumberFragment :
 
         withVBAvailable {
 
+            bindData()
 
             val validator = setupValidation()
 
@@ -103,7 +103,7 @@ class AgentPhoneNumberFragment :
             if (agentNumber.getText().length == 8) number = "0" + agentNumber.getText()
 
             viewModel.getFees(number, amount.getText())
-            bindData()
+
 
         }
     }

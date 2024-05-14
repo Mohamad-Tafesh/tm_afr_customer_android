@@ -54,15 +54,16 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-debugOnly {
-    withVBAvailable {
-        agentCode.setText("34285")
+        debugOnly {
+            withVBAvailable {
+                agentCode.setText("34285")
 
-    }
-}
+            }
+        }
 
         withVBAvailable {
 
+            bindData()
 
             val validator = setupValidation()
 
@@ -72,7 +73,6 @@ debugOnly {
 
 
     }
-
 
 
     private fun FragmentAgentCodeBinding.setupValidation(): FormValidator = formValidator {
@@ -89,14 +89,13 @@ debugOnly {
 
         onValid = {
             viewModel.getFees(binding!!.agentCode.getText(), binding!!.amount.getText())
-            bindData()
+
         }
     }
 
 
-
     private fun bindData() {
-        observeResourceFromButton(viewModel.data,R.id.proceedButton) {
+        observeResourceFromButton(viewModel.data, R.id.proceedButton) {
 
             findNavController().navigate(AgentCodeFragmentDirections.actionAgentcodeToAgentCodeConfirmationFragment())
 

@@ -64,6 +64,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
         super.onViewCreated(view, savedInstanceState)
 
 
+        bindData()
 
         observeResourceFromButton(viewModel.proceedToConfirm, R.id.proceedButton) {
             proceed()
@@ -156,7 +157,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     private fun proceed() {
 
         viewModel.getFees(viewModel.number, binding!!.amountInput.getText())
-        bindData()
+
     }
 
     private fun bindData() {

@@ -7,6 +7,7 @@ import com.google.gson.JsonIOException
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonToken
 import com.tedmob.afrimoney.app.AppSessionNavigator
+import com.tedmob.afrimoney.data.api.ApiContract.FETCH_TOKEN
 import com.tedmob.afrimoney.data.api.dto.*
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.exception.AppException
@@ -1375,7 +1376,7 @@ class TedmobApis
     ): AfricellServicesDTO {
         return refreshTokenIfNeeded {
             val response = get<AfricellServicesDTO>(
-                "DataBundles",
+                "DataBundles1234",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
             )
 
@@ -1805,7 +1806,7 @@ class TedmobApis
 
     suspend fun fetchToken(): FetchTokenDTO {
         val response = post<FetchTokenDTO>(
-            "https://api.sandbox.afrimoney.gm/v1/oauth2/token",
+            FETCH_TOKEN ,
             headers = headers {
                 this["Authorization"] =
                     "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")

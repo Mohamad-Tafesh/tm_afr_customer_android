@@ -84,7 +84,7 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
             Locale.ENGLISH
         )
     }
-    private val localDateFormat by lazy { SimpleDateFormat("EEE dd MMM yyyy", Locale.ENGLISH) }
+    private val localDateFormat by lazy { SimpleDateFormat("EEE dd MMM yyyy HH:mm", Locale.ENGLISH) }
 
     private fun FragmentLast5TransactionsBinding.setupTransactions(transactions: List<LastTransaction>) {
         transactionsRV.adapter = adapter(transactions) {
@@ -140,7 +140,9 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                         }
                     }
 
-                    append(" " + it.txnStatus.orEmpty())
+                    append(" " + if (it.txnStatus.orEmpty().equals("ts",true)) getString(R.string.transaction_successful)
+                    else if (it.txnStatus.orEmpty().equals("tf",true)) getString(R.string.transaction_failed)
+                    else it.txnStatus.orEmpty())
                 }
 
                 //totalText.text = getString(R.string.total__format, it.txnAmt.orEmpty())

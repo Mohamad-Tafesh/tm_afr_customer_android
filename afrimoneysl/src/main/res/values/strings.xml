@@ -85,6 +85,7 @@
     <string name="amount_currency">GMD %s</string>
     <string name="successful">Successful</string>
     <string name="transaction_failed">Transaction Failed</string>
+    <string name="transaction_successful">Transaction successful</string>
     <string name="front">Front</string>
     <string name="back">Back</string>
     <string name="passport">Passport</string>

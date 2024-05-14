@@ -65,7 +65,7 @@ class ConfirmPinFragment : BaseVBFragment<FragmentConfirmPinBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
 
             debugOnly {
-                binding?.pinInputLayout?.setText("1234")
+                binding?.pinInputLayout?.setText(getString(R.string.debug_password))
             }
         }
 

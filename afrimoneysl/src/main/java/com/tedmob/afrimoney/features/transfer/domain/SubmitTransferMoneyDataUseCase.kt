@@ -19,8 +19,9 @@ class SubmitTransferMoneyDataUseCase
 
     override suspend fun execute(params: Params): SubmitResult {
 
+        val isAfrimoneyUser = api.checkIfAfrimoneyUser(params.number)
 
-        val response = api.transferMoney(params.number, params.amount, params.pin)
+        val response = api.transferMoney(params.number, params.amount, params.pin,isAfrimoneyUser)
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
             if (response.errors.isNullOrEmpty()) {

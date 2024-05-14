@@ -988,8 +988,7 @@ class TedmobApis
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {
-                        if (isAfrimoneyUser) this["requestedServiceCode"] = "P2P" else this["requestedServiceCode"] =
-                            "P2PNONREG"
+                        if (isAfrimoneyUser) this["requestedServiceCode"] = "P2P" else this["requestedServiceCode"] = "P2PNONREG"
                         this["transactionAmount"] = amount
                         this["initiator"] = "withdrawer"
                         this["currency"] = "101"
@@ -1019,22 +1018,22 @@ class TedmobApis
     suspend fun transferMoney(
         msisdn: String,
         amount: String,
-        pin: String
+        pin: String,
+        isAfrimoneyUser: Boolean = false
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
-                "P2P",
+                if (isAfrimoneyUser)  "P2P" else  "P2PUnregistered",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {
-                        this["serviceCode"] = "P2P"
+                        if (isAfrimoneyUser) this["serviceCode"] = "P2P" else this["serviceCode"] = "P2PNONREG"
                         this["transactionAmount"] = amount
                         this["initiator"] = "sender"
                         this["currency"] = "101"
                         this["bearerCode"] = "USSD"
                         this["language"] = "en"
                         this["externalReferenceId"] = getUUID()
-                        this["remarks"] = "P2P"
                         this["transactionMode"] = "transactionMode"
                         this["receiver"] = buildMap {
                             this["idType"] = "mobileNumber"
@@ -1048,6 +1047,7 @@ class TedmobApis
                             this["mpin"] = pin
                             this["tpin"] = pin
                             this["pin"] = pin
+                            this["password"] = pin
 
 
                         }

@@ -24,6 +24,7 @@ import com.tedmob.afrimoney.databinding.DialogTransactionResultBinding
 import com.tedmob.afrimoney.ui.blocks.LoadingLayout
 import com.tedmob.afrimoney.ui.blocks.LoadingView
 import com.tedmob.afrimoney.ui.blocks.ToolbarLayout
+import com.tedmob.afrimoney.util.alert.showMaterialAlert
 import com.tedmob.afrimoney.util.dialog.DialogUtils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -209,18 +210,23 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun showMessage(message: CharSequence) {
-        view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+
+        showMaterialAlert {
+            setMessage(message)
+            setPositiveButton(R.string.close, null)
         }
+
     }
 
     fun showMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
-        view?.let { view ->
-            Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
-                .setAction(actionName) { action?.invoke() }
-                .show()
+
+        showMaterialAlert {
+            setMessage(message)
+            setPositiveButton(actionName) { _, _ -> action?.invoke() }
+            setNegativeButton(R.string.dp_s__cancel, null)
         }
     }
+
 
     private fun getActionBar(): ActionBar? {
         return activity?.let {

@@ -119,14 +119,16 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResource(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(viewLifecycleOwner, {
+    liveData?.observe(viewLifecycleOwner) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> {
                 }
+
                 is Resource.Success -> {
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     if (resource.action == null) {
                         showMessage(resource.message)
@@ -140,14 +142,14 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResource(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceProgress(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(viewLifecycleOwner, {
+    liveData?.observe(viewLifecycleOwner) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
@@ -155,6 +157,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceProgress(
                     hideProgressDialog()
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     hideProgressDialog()
                     if (resource.action == null) {
@@ -169,7 +172,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceProgress(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceFromButton(
@@ -182,7 +185,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceFromButton(
 
     loadingProgressButton?.let { viewLifecycleOwner.bindProgressButton(it) }
 
-    liveData?.observe(viewLifecycleOwner, {
+    liveData?.observe(viewLifecycleOwner) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> loadingProgressButton?.showProgress()
@@ -196,6 +199,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceFromButton(
                         400L
                     )
                 }
+
                 is Resource.Error -> {
                     loadingProgressButton?.hideProgress(currentText)//TODO failure text, or retry?
 
@@ -216,23 +220,25 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceFromButton(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(viewLifecycleOwner, {
+    liveData?.observe(viewLifecycleOwner) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     showInlineLoading()
                 }
+
                 is Resource.Success -> {
                     showContent()
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     if (resource.action == null) {
                         showInlineMessage(resource.message)
@@ -246,7 +252,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
@@ -254,16 +260,18 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
     loadingLayout: LoadingLayout,
     body: (T) -> Unit
 ) {
-    liveData?.observe(viewLifecycleOwner, {
+    liveData?.observe(viewLifecycleOwner) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     loadingLayout.showLoading()
                 }
+
                 is Resource.Success -> {
                     loadingLayout.showContent()
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     if (resource.action == null) {
                         loadingLayout.showMessage(resource.message)
@@ -277,21 +285,23 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseFragment.observeResourceInline(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResource(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(this, {
+    liveData?.observe(this) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> {
                 }
+
                 is Resource.Success -> {
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     if (resource.action == null) {
                         showMessage(resource.message)
@@ -305,14 +315,14 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResource(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceProgress(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(this, {
+    liveData?.observe(this) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
@@ -320,6 +330,7 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceProgress(
                     hideProgressDialog()
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     hideProgressDialog()
                     if (resource.action == null) {
@@ -334,23 +345,25 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceProgress(
                 }
             }
         }
-    })
+    }
 }
 
 fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceInline(
     liveData: L?,
     body: (T) -> Unit
 ) {
-    liveData?.observe(this, {
+    liveData?.observe(this) {
         it?.let { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     showInlineLoading()
                 }
+
                 is Resource.Success -> {
                     showContent()
                     body.invoke(resource.data)
                 }
+
                 is Resource.Error -> {
                     if (resource.action == null) {
                         showInlineMessage(resource.message)
@@ -364,5 +377,5 @@ fun <T : Any, L : LiveData<Resource<T>>> BaseActivity.observeResourceInline(
                 }
             }
         }
-    })
+    }
 }

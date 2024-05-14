@@ -16,6 +16,7 @@ import com.africell.africell.ui.blocks.ToolbarLayout
 import com.africell.africell.util.DialogUtils
 import com.africell.africell.util.locale.LocaleHelper
 import com.google.android.material.snackbar.Snackbar
+import com.tedmob.afrimoney.util.alert.showMaterialAlert
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -188,13 +189,21 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showMessage(message: CharSequence) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
+
+        showMaterialAlert {
+            setMessage(message)
+            setPositiveButton(R.string.close, null)
+        }
+
     }
 
     fun showMessageWithAction(message: CharSequence, actionName: String, action: (() -> Unit)?) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
-            .setAction(actionName) { action?.invoke() }
-            .show()
+
+        showMaterialAlert {
+            setMessage(message)
+            setPositiveButton(actionName) { _, _ -> action?.invoke() }
+            setNegativeButton(R.string.dp_s__cancel, null)
+        }
     }
 
     fun showInlineMessage(message: CharSequence) {

@@ -105,11 +105,11 @@ class TedmobApis
         }
     }
 
-    suspend fun userInfoCheck(msisdn: String, token: String): UserDTO {
+    suspend fun checkIfAfrimoneyUser(msisdn: String): Boolean {
         return refetchTokenIfNeeded {
             post<CommandContainerDTO<UserDTO>>(
                 "UserEnquiry",
-                appHeaders(token),
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap {
                         this["COMMAND"] = buildMap {
@@ -120,7 +120,7 @@ class TedmobApis
                         }
                     }
                 )
-            ).getCommandOrThrow()
+            ).getStatus()
         }
     }
 
@@ -981,14 +981,15 @@ class TedmobApis
         }
     }
 
-    suspend fun getFeesCashOut(msisdn: String, amount: String): GetFeesDTO {
+    suspend fun getFeesCashOut(msisdn: String, amount: String, isAfrimoneyUser: Boolean = false): GetFeesDTO {
         return refreshTokenIfNeeded {
             val response = post<GetFeesDTO>(
                 "GetFees",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {
-                        this["requestedServiceCode"] = "P2P"
+                        if (isAfrimoneyUser) this["requestedServiceCode"] = "P2P" else this["requestedServiceCode"] =
+                            "P2PNONREG"
                         this["transactionAmount"] = amount
                         this["initiator"] = "withdrawer"
                         this["currency"] = "101"
@@ -1376,7 +1377,7 @@ class TedmobApis
     ): AfricellServicesDTO {
         return refreshTokenIfNeeded {
             val response = get<AfricellServicesDTO>(
-                "DataBundles1234",
+                "DataBundles",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
             )
 
@@ -1806,7 +1807,7 @@ class TedmobApis
 
     suspend fun fetchToken(): FetchTokenDTO {
         val response = post<FetchTokenDTO>(
-            FETCH_TOKEN ,
+            FETCH_TOKEN,
             headers = headers {
                 this["Authorization"] =
                     "Basic QWZyaU1vbmV5OnphcXdzeGFzZGYxMjM0NQ=="//Credentials.basic("MobileApp", "zaqwsxasdf1234")

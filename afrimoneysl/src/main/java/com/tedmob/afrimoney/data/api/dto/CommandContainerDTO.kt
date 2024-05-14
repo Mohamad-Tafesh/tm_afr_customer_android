@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.tedmob.afrimoney.exception.AppException
 
-class CommandContainerDTO<T: CommandContainerDTO.Item>(
+class CommandContainerDTO<T : CommandContainerDTO.Item>(
     @field:[Expose SerializedName("COMMAND")] val command: T,
 ) {
     open class Item {
@@ -33,6 +33,14 @@ class CommandContainerDTO<T: CommandContainerDTO.Item>(
                     "unexpected error",
                 )
             }
+        }
+    }
+
+    suspend fun getStatus(): Boolean {
+        return if (command.status == "200") {
+            true
+        } else {
+            false
         }
     }
 }

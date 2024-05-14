@@ -27,14 +27,15 @@ class TransferMoneyViewModel
     @Named("local-string") private val encryptor: StringEncryptor,
 ) : BaseViewModel() {
 
-     var number: String by encrypted(encryptor, "")
+    var number: String by encrypted(encryptor, "")
     private var amount: String by encrypted(encryptor, "")
+    var feesData: GetFeesData? = null
 
     val proceedToConfirm: LiveData<Resource<Unit>> get() = _proceedToConfirm
     private val _proceedToConfirm = SingleLiveEvent<Resource<Unit>>()
 
     val data: LiveData<Resource<GetFeesData>> get() = _data
-    private val _data = MutableLiveData<Resource<GetFeesData>>()
+    private val _data = SingleLiveEvent<Resource<GetFeesData>>()
 
 
     val submitted: LiveData<Resource<SubmitResult>> get() = _submitted
@@ -65,8 +66,10 @@ class TransferMoneyViewModel
                         it.total
                     )
 
-                this.amount=it.amount
-                this.number=it.number
+                this.amount = it.amount
+                this.number = it.number
+
+                feesData = data
 
                 _data.emitSuccess(data)
             },
@@ -79,11 +82,11 @@ class TransferMoneyViewModel
         )
     }
 
-    fun getConfirmation(pin:String) {
+    fun getConfirmation(pin: String) {
 
         execute(
             confirmationUseCase,
-            SubmitTransferMoneyDataUseCase.Params(number, amount,pin),
+            SubmitTransferMoneyDataUseCase.Params(number, amount, pin),
             onLoading = {
                 _submitted.emitLoading()
             },
@@ -99,7 +102,6 @@ class TransferMoneyViewModel
             }
         )
     }
-
 
 
 }

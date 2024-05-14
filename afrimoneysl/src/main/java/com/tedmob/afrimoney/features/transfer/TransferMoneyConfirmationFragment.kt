@@ -48,6 +48,8 @@ class TransferMoneyConfirmationFragment :
         withVBAvailable {
             scrollParent.applySheetEffectTo(image)
             observeData()
+            contentLL.showContent()
+            setupData()
 
             val validator = setupValidator()
             confirmButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
@@ -56,23 +58,23 @@ class TransferMoneyConfirmationFragment :
     }
 
     private fun FragmentTransferMoneyConfirmationBinding.observeData() {
-        observeResourceInline(viewModel.data, contentLL) {
-            setupData(it)
-        }
         observeTransactionSubmit(viewModel.submitted, confirmButton) {
             exit()
         }
     }
 
 
-    private fun FragmentTransferMoneyConfirmationBinding.setupData(data: GetFeesData) {
-        with(data) {
-            transferText.text = getString(R.string.amount_currency,amount)
-            toNumberText.text = number
-            feesText.text = getString(R.string.fees_new, data.fees)
-            totalText.text =  getString(R.string.amount_currency,total)
-            nameText.text = name
+    private fun FragmentTransferMoneyConfirmationBinding.setupData() {
+        viewModel.feesData?.let {
+            with(it) {
+                transferText.text = getString(R.string.amount_currency,amount)
+                toNumberText.text = number
+                feesText.text = getString(R.string.fees_new, fees)
+                totalText.text =  getString(R.string.amount_currency,total)
+                nameText.text = name.takeIf { it?.isNotBlank()==true }
+            }
         }
+
     }
 
     private inline fun FragmentTransferMoneyConfirmationBinding.setupValidator() = formValidator {

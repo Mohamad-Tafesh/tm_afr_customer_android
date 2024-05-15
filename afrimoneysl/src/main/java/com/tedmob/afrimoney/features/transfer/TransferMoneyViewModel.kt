@@ -88,7 +88,7 @@ class TransferMoneyViewModel
 
         execute(
             confirmationUseCase,
-            SubmitTransferMoneyDataUseCase.Params(number, amount, pin,type!!),
+            SubmitTransferMoneyDataUseCase.Params(number, amount, pin),
             onLoading = {
                 _submitted.emitLoading()
             },

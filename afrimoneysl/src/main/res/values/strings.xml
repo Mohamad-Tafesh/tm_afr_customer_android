@@ -50,6 +50,8 @@
     <string name="transactions">Transactions</string>
     <string name="transfer_moneyh">Transfer\nMoney</string>
     <string name="transfer_money">Transfer Money</string>
+    <string name="send_money">Send Money</string>
+    <string name="send_moneyh">Send\nMoney</string>
     <string name="pending_transactionsh">Pending\nTransactions</string>
     <string name="pending_transactions">Pending Transactions</string>
     <string name="withdraw_moneyh">Withdraw\nMoney</string>
@@ -290,4 +292,7 @@
     <string name="please_select_your_client_id_first">Please select your Client Id first</string>
     <string name="please_select_your_meter_number_first">Please select your Meter Number first</string>
     <string name="failed">Failed</string>
+    <string name="normal_wallet_">Nomal wallet: %s</string>
+    <string name="bonus_wallet_">Bonus wallet: %s</string>
+    <string name="remittance_wallet_">Remittance wallet: %s</string>
 </resources>

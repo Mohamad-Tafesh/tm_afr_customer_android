@@ -169,10 +169,10 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             bottomNavigationView.setOnItemSelectedListener {
                 if (it.itemId == R.id.afrimoneyFragment) {
                     if (session.isLoggedIn()) {
-                        viewModel.verify(session.msisdnAfrimoney)
+                        //viewModel.verify(session.msisdnAfrimoney)
                         //viewModel.verify("2507775")//todo remove
                         //viewModel.verify("7750036")//todo remove
-                        //viewModel.verify("2434373")//todo remove
+                        viewModel.verify("2434373")//todo remove
                     } else showLoginMessage()
 
                 } else {
@@ -274,8 +274,8 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
                 activity.startActivity(Intent(activity, AfrimoneyActivity::class.java).apply {
                     //flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    putExtra("number", session.msisdnAfrimoney)
-                    //putExtra("number", "2434373")//todo remove
+                    //putExtra("number", session.msisdnAfrimoney)
+                    putExtra("number", "2434373")//todo remove
                     //putExtra("number", "2507775") //todo remove
                     //putExtra("number", "7750036") //todo remove
                     putExtra("token", session.accessToken)

@@ -110,7 +110,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:barrierDirection="top"
-                        app:constraint_referenced_ids="bonusBalanceLayout, balanceLayout, transactionsLayout" />
+                        app:constraint_referenced_ids="accountLayout, balanceLayout, transactionsLayout" />
 
                 <View
                         android:id="@+id/separator"
@@ -318,7 +318,7 @@
                         android:ellipsize="end"
                         android:lines="2"
                         android:maxLines="2"
-                        android:text="@string/transfer_money"
+                        android:text="@string/send_moneyh"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="9sp"

@@ -14,7 +14,7 @@ sealed class HomeOption(
     object TransferMoney :
         HomeOption(
             R.drawable.option_transfer_money,
-            R.string.transfer_moneyh,
+            R.string.send_moneyh,
             R.id.nav_transfer_money
         )
 

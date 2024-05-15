@@ -1700,7 +1700,7 @@ class TedmobApis
     }
 
 
-    suspend fun getBalance(): BalanceDTO {
+    suspend fun getBalance(type:String): BalanceDTO {
         return refreshTokenIfNeeded {
             post<CommandContainerDTO<BalanceDTO>>(
                 "BalanceEnquiry",
@@ -1713,7 +1713,7 @@ class TedmobApis
                             this["TYPE"] = "CBEREQ"
                             this["MSISDN"] = session.msisdn
                             this["PROVIDER"] = "101"
-                            this["PAYID"] = "12"
+                            this["PAYID"] = type
                             this["LANGUAGE1"] = "1"
                             this["BLOCKSMS"] = "BOTH"
                             this["CELLID"] = ""

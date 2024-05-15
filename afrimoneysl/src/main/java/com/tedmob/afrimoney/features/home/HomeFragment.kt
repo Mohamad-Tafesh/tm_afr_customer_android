@@ -13,6 +13,7 @@ import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.withVBAvailable
+import com.tedmob.afrimoney.databinding.DialogBalanceBinding
 import com.tedmob.afrimoney.databinding.DialogPendingTransactionsBinding
 import com.tedmob.afrimoney.databinding.DialogTransactionResultBinding
 import com.tedmob.afrimoney.databinding.FragmentHomeNewBinding
@@ -21,6 +22,7 @@ import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideViewModel
+import com.tedmob.afrimoney.util.dialogs_utils.dialog.showVBDialog
 import com.tedmob.afrimoney.util.security.StringEncryptor
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -62,22 +64,6 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             setupToolbar()
             setupOptions()
 
-            balanceLayout.setDebouncedOnClickListener {
-                if (hide){
-                    hide = false
-                    balanceText.isVisible=true
-                    moneyIcon.isVisible=false
-                    balanceSubtitle.text=getString(R.string.hide_my_balance)
-                }else{
-                    hide = true
-                    balanceText.isVisible=false
-                    moneyIcon.isVisible=true
-                    balanceSubtitle.text=getString(R.string.my_balance)
-                }
-
-            }
-
-
 
         }
 
@@ -86,17 +72,46 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             it.let {
 
 
-                val newBalance = it.balance
-                //  (it.balance.toDouble() - it.fbr.toDouble() - it.fic.toDouble()).toString()
-
-
-                if ((newBalance.split("."))[1] == "00") {
-                    val bal = newBalance.toDoubleOrNull()?.toInt()
-                    binding?.balanceText?.text = bal.toString() + "GMD"
-                } else binding?.balanceText?.text = newBalance + "GMD"
-
-
                 binding?.userName?.text = it.userName
+
+                binding?.balanceLayout?.setDebouncedOnClickListener { _ ->
+
+                    showVBDialog(DialogBalanceBinding::inflate) {
+                        isCancellable(true)
+                        setCorner(40f)
+                        buildDialog { bindDialog, dialog ->
+
+                            bindDialog.normalWalletTv.text = getString(
+                                R.string.normal_wallet_,
+                                if ((it.normalWallet.split("."))[1] == "00") {
+                                    it.normalWallet.toDoubleOrNull()?.toInt().toString() + "GMD"
+                                } else it.normalWallet + "GMD"
+                            )
+
+                            bindDialog.bonusWalletTv.text = getString(
+                                R.string.bonus_wallet_,
+                                if ((it.bonusWallet.split("."))[1] == "00") {
+                                    it.bonusWallet.toDoubleOrNull()?.toInt().toString() + "GMD"
+                                } else it.bonusWallet + "GMD"
+                            )
+
+                            bindDialog.remittanceTv.text = getString(
+                                R.string.remittance_wallet_,
+                                if ((it.remittanceWallet.split("."))[1] == "00") {
+                                    it.remittanceWallet.toDoubleOrNull()?.toInt().toString() + "GMD"
+                                } else it.remittanceWallet + "GMD"
+                            )
+
+                            bindDialog.closeBtn.setDebouncedOnClickListener {
+                                dialog.dismiss()
+                            }
+
+
+                        }
+                    }
+
+
+                }
             }
         }
 
@@ -137,7 +152,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
             findNavController().navigate(R.id.nav_transfer_money)
         }
         pendingTransactionsOption.setDebouncedOnClickListener {
-             findNavController().navigate(R.id.nav_pending_transactions)
+            findNavController().navigate(R.id.nav_pending_transactions)
             //dialogPendingTransactions {}
         }
         withdrawMoneyOption.setDebouncedOnClickListener {

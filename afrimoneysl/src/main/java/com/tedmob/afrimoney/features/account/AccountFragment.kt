@@ -136,7 +136,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
 
 
 
-        balanceText.text = buildSpannedString {
+/*        balanceText.text = buildSpannedString {
             scale(1.6f) {
                 color(ContextCompat.getColor(requireContext(), R.color.violetMain)) {
 
@@ -155,7 +155,7 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
             }
 
             append("\n" + getString(R.string.my_balance))
-        }
+        }*/
 
         nameText.text = info.userName
 

@@ -18,12 +18,11 @@ class GetUserAccountInfoUseCase
     override suspend fun execute(params: Unit): UserAccountInfo {
         return withContext(Dispatchers.IO) {
             val userAsync = async { api.userInfo(session.msisdn) }
-            val balanceAsync = async { api.getBalance() }
+            val balanceAsync = async { api.getBalance("12") }
 
             val userResponse = userAsync.await()
             val balanceResponse = balanceAsync.await()
             UserAccountInfo(
-                null,
                 balanceResponse.BALANCE.orEmpty(),
                 balanceResponse.FICBALANCE.orEmpty(),
                 balanceResponse.FRBALANCE.orEmpty(),

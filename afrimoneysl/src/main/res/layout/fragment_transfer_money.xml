@@ -27,7 +27,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
             android:gravity="center_horizontal"
-            android:text="@string/transfer_money"
+            android:text="@string/send_money"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

@@ -291,5 +291,10 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="Dialog_Transparent" parent="Theme.Design.Light.BottomSheetDialog">
+
+    </style>
+
+
 
 </resources>

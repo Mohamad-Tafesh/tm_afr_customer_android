@@ -212,8 +212,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                             )
 
                         }
-                        bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
-                            getString(R.string.post_stores)
+
+                        if (BuildConfig.FLAVOR == "sl"){
+                            bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
+                                getString(R.string.post_stores)
+                        }
+
                     } else {
                         if (destination.id == R.id.customerCareFragment) {
                             customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(

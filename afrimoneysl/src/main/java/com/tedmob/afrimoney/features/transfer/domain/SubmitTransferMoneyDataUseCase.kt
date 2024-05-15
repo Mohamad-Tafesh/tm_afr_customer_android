@@ -21,7 +21,7 @@ class SubmitTransferMoneyDataUseCase
 
         val isAfrimoneyUser = api.checkIfAfrimoneyUser(params.number)
 
-        val response = api.transferMoney(params.number, params.amount, params.pin,isAfrimoneyUser,params.type)
+        val response = api.transferMoney(params.number, params.amount, params.pin,isAfrimoneyUser)
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
             if (response.errors.isNullOrEmpty()) {
@@ -41,9 +41,6 @@ class SubmitTransferMoneyDataUseCase
         val number: String,
         val amount: String,
         val pin: String,
-        val type: Int,
-
-
         )
 
 }

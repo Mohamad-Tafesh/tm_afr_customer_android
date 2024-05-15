@@ -30,6 +30,7 @@ class TransferMoneyViewModel
     var number: String by encrypted(encryptor, "")
     private var amount: String by encrypted(encryptor, "")
     var feesData: GetFeesData? = null
+    var type: Int? = null
 
     val proceedToConfirm: LiveData<Resource<Unit>> get() = _proceedToConfirm
     private val _proceedToConfirm = SingleLiveEvent<Resource<Unit>>()
@@ -49,10 +50,10 @@ class TransferMoneyViewModel
         _proceedToConfirm.emitSuccess(Unit)
     }
 
-    fun getFees(msisdn: String, amount: String) {
+    fun getFees(number: String, amount: String, type: Int) {
         execute(
             datas,
-            GetFeesUseCase.Params(msisdn, amount),
+            GetFeesUseCase.Params(number, amount),
             onLoading = {
                 _data.emitLoading()
             },
@@ -68,6 +69,7 @@ class TransferMoneyViewModel
 
                 this.amount = it.amount
                 this.number = it.number
+                this.type = type
 
                 feesData = data
 
@@ -86,7 +88,7 @@ class TransferMoneyViewModel
 
         execute(
             confirmationUseCase,
-            SubmitTransferMoneyDataUseCase.Params(number, amount, pin),
+            SubmitTransferMoneyDataUseCase.Params(number, amount, pin,type!!),
             onLoading = {
                 _submitted.emitLoading()
             },

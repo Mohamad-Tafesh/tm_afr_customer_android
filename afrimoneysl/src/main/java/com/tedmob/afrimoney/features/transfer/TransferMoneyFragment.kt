@@ -51,6 +51,9 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     @Inject
     internal lateinit var phoneUtil: PhoneNumberUtil
 
+
+    private var type: Int? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -106,11 +109,13 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                     id: Long
                 ) {
                     if (position == 0) {
-                        othersGrp.isVisible=true
+                        type = 0
+                        othersGrp.isVisible = true
                         validator.stop()
                         validator = setupValidation()
                     } else if (position == 1) {
-                        othersGrp.isVisible=false
+                        type = 1
+                        othersGrp.isVisible = false
                         validator.stop()
                         validator = setupValidation()
                     }
@@ -128,7 +133,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     private fun FragmentTransferMoneyBinding.setupValidation(): FormValidator = formValidator {
         val notEmptyRule = NotEmptyRule(getString(R.string.mandatory_field))
 
-        if (othersGrp.isVisible){
+        if (othersGrp.isVisible) {
             validatePhoneFields(
                 countryCode.getValidationField(notEmptyRule),
                 mobileNumberInput.getValidationField(notEmptyRule),
@@ -148,7 +153,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                 DoubleRule(getString(R.string.invalid_amount))
             )
 
-        }else{
+        } else {
 
             typesInput.validate(
                 notEmptyRule,
@@ -167,18 +172,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             var number = mobileNumberInput.getText()
             if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
-
-            if (othersGrp.isVisible){
-                viewModel.proceed(
-                    number,
-                    amountInput.getText().toDoubleOrNull() ?: 0.0,
-                )
-            }else{
-                viewModel.proceed(
-                    number,
-                    amountInput.getText().toDoubleOrNull() ?: 0.0,
-                )
-            }
+            viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
 
 
         }
@@ -222,7 +216,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
     private fun proceed() {
 
-        viewModel.getFees(viewModel.number, binding!!.amountInput.getText())
+        viewModel.getFees(viewModel.number, binding!!.amountInput.getText(),type!!)
 
     }
 

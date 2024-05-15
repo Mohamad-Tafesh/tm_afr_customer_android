@@ -136,16 +136,19 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
 
 
 
-/*        balanceText.text = buildSpannedString {
+        balanceText1.text = buildSpannedString {
+
+            append(getString(R.string.normal))
+
             scale(1.6f) {
                 color(ContextCompat.getColor(requireContext(), R.color.violetMain)) {
 
 
-                    val newBalance = info.balance
+                    val newBalance = info.normalWallet
                     if ((newBalance.split("."))[1] == "00") {
                         val bal = newBalance.toDoubleOrNull()?.toInt()
-                        append(bal.toString() + "GMD")
-                    } else append(newBalance + "GMD")
+                        append("\n"+bal.toString())
+                    } else append("\n"+newBalance)
 
                 }
                 bold {
@@ -154,8 +157,56 @@ class AccountFragment : BaseVBFragment<FragmentAccountBinding>() {
 
             }
 
-            append("\n" + getString(R.string.my_balance))
-        }*/
+            append("\nGMD")
+        }
+
+        balanceText2.text = buildSpannedString {
+
+            append(getString(R.string.bonus))
+
+            scale(1.6f) {
+                color(ContextCompat.getColor(requireContext(), R.color.violetMain)) {
+
+
+                    val newBalance = info.bonusWallet
+                    if ((newBalance.split("."))[1] == "00") {
+                        val bal = newBalance.toDoubleOrNull()?.toInt()
+                        append("\n"+bal.toString())
+                    } else append("\n"+newBalance)
+
+                }
+                bold {
+
+                }
+
+            }
+
+            append("\nGMD")
+        }
+
+        balanceText3.text = buildSpannedString {
+
+            append(getString(R.string.remittance))
+
+            scale(1.6f) {
+                color(ContextCompat.getColor(requireContext(), R.color.violetMain)) {
+
+
+                    val newBalance = info.remittanceWallet
+                    if ((newBalance.split("."))[1] == "00") {
+                        val bal = newBalance.toDoubleOrNull()?.toInt()
+                        append("\n"+bal.toString())
+                    } else append("\n"+newBalance)
+
+                }
+                bold {
+
+                }
+
+            }
+
+            append("\nGMD")
+        }
 
         nameText.text = info.userName
 

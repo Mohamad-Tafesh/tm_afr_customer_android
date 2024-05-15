@@ -295,4 +295,7 @@
     <string name="normal_wallet_">Nomal wallet: %s</string>
     <string name="bonus_wallet_">Bonus wallet: %s</string>
     <string name="remittance_wallet_">Remittance wallet: %s</string>
+    <string name="normal">Normal</string>
+    <string name="bonus">Bonus</string>
+    <string name="remittance">Remittance</string>
 </resources>

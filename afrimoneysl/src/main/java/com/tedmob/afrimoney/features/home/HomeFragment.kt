@@ -68,7 +68,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         }
 
 
-        observeResource(viewModel.balance) {//TODO add observe inline
+        observeResource(viewModel.balance) {
             it.let {
 
 

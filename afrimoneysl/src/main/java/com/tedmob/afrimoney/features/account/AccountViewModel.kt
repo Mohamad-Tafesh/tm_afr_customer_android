@@ -3,11 +3,13 @@ package com.tedmob.afrimoney.features.account
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator
+import com.tedmob.afrimoney.app.usecase.ObservableResourceUseCaseExecutor
 import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.SingleLiveEvent
 import com.tedmob.afrimoney.exception.AppExceptionFactory
 import com.tedmob.afrimoney.features.account.domain.GetUserAccountInfoUseCase
 import com.tedmob.afrimoney.features.account.domain.LogoutUseCase
+import com.tedmob.afrimoney.features.home.domain.GetBalanceUseCase
 import com.tedmob.afrimoney.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AccountViewModel
 @Inject constructor(
-    private val getUserAccountInfoUseCase: GetUserAccountInfoUseCase,
+    private val getBalanceUseCase: GetBalanceUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val appExceptionFactory: AppExceptionFactory,
     private val appSessionNavigator: AppSessionNavigator,
@@ -29,15 +31,22 @@ class AccountViewModel
 
 
     fun getUserInfo() {
-        executeResource(
-            getUserAccountInfoUseCase,
-            Unit,
+        ObservableResourceUseCaseExecutor(
+            getBalanceUseCase,
+            "",
             _info,
             appExceptionFactory,
-            appSessionNavigator,
-            action = { getUserInfo() },
-        )
+        ).execute()
     }
+
+/*    fun getBalance() {
+        ObservableResourceUseCaseExecutor(
+            getBlanceUseCase,
+            "",
+            _balance,
+            appExceptionFactory,
+        ).execute()
+    }*/
 
     fun logout() {
         executeResource(

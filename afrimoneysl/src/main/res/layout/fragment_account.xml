@@ -1,144 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <Space
-            android:id="@+id/toolbarBottom"
-            android:layout_width="0dp"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="?actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/toolbarBottom"
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="?actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="?colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/imagesMiddle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/imagesMiddle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <Space
-            android:id="@+id/imagesMiddle"
-            android:layout_width="0dp"
-            android:layout_height="0.1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/userImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/userImage" />
+                android:id="@+id/imagesMiddle"
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/balanceImage1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/balanceImage1" />
+
 
         <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerInside"
-            android:background="@drawable/bgd_option_primary"
-            android:src="@drawable/ic_tab_account"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/balanceImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarBottom" />
+                android:id="@+id/balanceImage1"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/balanceImage2"
+                android:background="@drawable/balance_background"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbarBottom" />
+
+        <TextView
+                android:id="@+id/balanceText1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/nexa_bold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/balanceImage1"
+                app:layout_constraintEnd_toEndOf="@id/balanceImage1"
+                app:layout_constraintStart_toStartOf="@id/balanceImage1"
+                app:layout_constraintTop_toTopOf="@id/balanceImage1"
+                tools:text="3,200\nMy Balance" />
+
 
         <ImageView
-            android:id="@+id/balanceImage"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/balance_background"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userImage"
-            app:layout_constraintTop_toBottomOf="@id/toolbarBottom" />
+                android:id="@+id/balanceImage2"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/balance_background"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/balanceImage3"
+                app:layout_constraintStart_toEndOf="@+id/balanceImage1"
+                app:layout_constraintTop_toBottomOf="@id/toolbarBottom" />
 
         <TextView
-            android:id="@+id/balanceText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/nexa_bold"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.3"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/balanceImage"
-            app:layout_constraintEnd_toEndOf="@id/balanceImage"
-            app:layout_constraintStart_toStartOf="@id/balanceImage"
-            app:layout_constraintTop_toTopOf="@id/balanceImage"
-            tools:text="3,200\nMy Balance" />
-
-        <TextView
-            android:id="@+id/nameText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.TextAppearance.Header2"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userImage"
-            tools:text="Jane Doe" />
+                android:id="@+id/balanceText2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/nexa_bold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/balanceImage2"
+                app:layout_constraintEnd_toEndOf="@id/balanceImage2"
+                app:layout_constraintStart_toStartOf="@id/balanceImage2"
+                app:layout_constraintTop_toTopOf="@id/balanceImage2"
+                tools:text="3,200\nMy Balance" />
 
         <ImageView
-            android:id="@+id/countryFlagImage"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/addressText"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameText" />
+                android:id="@+id/balanceImage3"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+
+                android:background="@drawable/balance_background"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/balanceImage2"
+                app:layout_constraintTop_toBottomOf="@id/toolbarBottom" />
 
         <TextView
-            android:id="@+id/addressText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:drawableStart="@drawable/country_icon_resized"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:text="@string/gambia"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/countryFlagImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameText"
-            app:layout_constraintWidth_max="300dp" />
+                android:id="@+id/balanceText3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/nexa_bold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/balanceImage3"
+                app:layout_constraintEnd_toEndOf="@id/balanceImage3"
+                app:layout_constraintStart_toStartOf="@id/balanceImage3"
+                app:layout_constraintTop_toTopOf="@id/balanceImage3"
+                tools:text="3,200\nMy Balance" />
+
+
+        <TextView
+                android:id="@+id/nameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.TextAppearance.Header2"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/balanceImage1"
+                tools:text="Jane Doe" />
+
+        <ImageView
+                android:id="@+id/countryFlagImage"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/addressText"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameText" />
+
+        <TextView
+                android:id="@+id/addressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:drawableStart="@drawable/country_icon_resized"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="@string/gambia"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/countryFlagImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameText"
+                app:layout_constraintWidth_max="300dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/optionsRV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addressText"
-            tools:itemCount="4"
-            tools:listitem="@layout/item_account_option" />
+                android:id="@+id/optionsRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressText"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_account_option" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

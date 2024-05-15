@@ -19,7 +19,7 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject constructor(
     private val getHomeUseCase: GetHomeDataUseCase,
-    private val getBlanceUseCase: GetBalanceUseCase,
+    private val getBalanceUseCase: GetBalanceUseCase,
     private val session: SessionRepository,
     private val appExceptionFactory: AppExceptionFactory,
     private val appSessionNavigator: AppSessionNavigator,
@@ -52,7 +52,7 @@ class HomeViewModel
 
     fun getBalance() {
         ObservableResourceUseCaseExecutor(
-            getBlanceUseCase,
+            getBalanceUseCase,
             "",
             _balance,
             appExceptionFactory,

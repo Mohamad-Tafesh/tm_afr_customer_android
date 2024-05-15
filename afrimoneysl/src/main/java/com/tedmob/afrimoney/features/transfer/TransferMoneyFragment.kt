@@ -8,7 +8,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.zxing.BarcodeFormat
@@ -22,6 +24,8 @@ import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.entity.Country
 import com.tedmob.afrimoney.databinding.FragmentTransferMoneyBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
+import com.tedmob.afrimoney.ui.spinner.MaterialSpinner
+import com.tedmob.afrimoney.ui.spinner.OnItemSelectedListener
 import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
@@ -75,46 +79,108 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
         }
 
         withVBAvailable {
+
             mobileNumberInput.setEndIconOnClickListener {
                 runImportContactFlow()
             }
 
-            val validator = setupValidation()
+            var validator = setupValidation()
             proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
             barcodeScan.setOnClickListener() {
                 scanBarcode()
             }
+
+
+            typesInput.adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                listOf("Send to others", "Remittance Account")
+            )
+
+
+            typesInput.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: MaterialSpinner,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (position == 0) {
+                        othersGrp.isVisible=true
+                        validator.stop()
+                        validator = setupValidation()
+                    } else if (position == 1) {
+                        othersGrp.isVisible=false
+                        validator.stop()
+                        validator = setupValidation()
+                    }
+                }
+
+                override fun onNothingSelected(parent: MaterialSpinner) {
+
+                }
+            }
+
+
         }
     }
 
     private fun FragmentTransferMoneyBinding.setupValidation(): FormValidator = formValidator {
         val notEmptyRule = NotEmptyRule(getString(R.string.mandatory_field))
 
-        validatePhoneFields(
-            countryCode.getValidationField(notEmptyRule),
-            mobileNumberInput.getValidationField(notEmptyRule),
-            PhoneRule(
-                getString(R.string.invalid_mobile_number),
-                phoneUtil,
-                type = PhoneRule.Type.MOBILE_OR_UNKNOWN
+        if (othersGrp.isVisible){
+            validatePhoneFields(
+                countryCode.getValidationField(notEmptyRule),
+                mobileNumberInput.getValidationField(notEmptyRule),
+                PhoneRule(
+                    getString(R.string.invalid_mobile_number),
+                    phoneUtil,
+                    type = PhoneRule.Type.MOBILE_OR_UNKNOWN
+                )
             )
-        )
 
+            typesInput.validate(
+                notEmptyRule,
+            )
 
-        amountInput.validate(
-            notEmptyRule,
-            DoubleRule(getString(R.string.invalid_amount))
-        )
+            amountInput.validate(
+                notEmptyRule,
+                DoubleRule(getString(R.string.invalid_amount))
+            )
+
+        }else{
+
+            typesInput.validate(
+                notEmptyRule,
+            )
+
+            amountInput.validate(
+                notEmptyRule,
+                DoubleRule(getString(R.string.invalid_amount))
+            )
+        }
+
 
 
         onValid = {
 
             var number = mobileNumberInput.getText()
             if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
-            viewModel.proceed(
-                number,
-                amountInput.getText().toDoubleOrNull() ?: 0.0,
+
+
+            if (othersGrp.isVisible){
+                viewModel.proceed(
+                    number,
+                    amountInput.getText().toDoubleOrNull() ?: 0.0,
                 )
+            }else{
+                viewModel.proceed(
+                    number,
+                    amountInput.getText().toDoubleOrNull() ?: 0.0,
+                )
+            }
+
+
         }
     }
 

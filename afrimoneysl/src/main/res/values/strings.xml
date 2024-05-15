@@ -298,4 +298,5 @@
     <string name="normal">Normal</string>
     <string name="bonus">Bonus</string>
     <string name="remittance">Remittance</string>
+    <string name="select_type">Select Type</string>
 </resources>

@@ -1173,7 +1173,8 @@ class TedmobApis
     suspend fun WithdrawAgentCode(
         code: String,
         amount: String,
-        pin: String
+        pin: String,
+        wallet: String,
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1193,7 +1194,13 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "userCode"
-                            this["productId"] = "12"
+                            this["productId"] = when(wallet){
+                                "Normal"-> "12"
+                                "Bonus"->  "12"
+                                //"Remittance"-> "73"
+                                "Remittance"-> "75"
+                                else -> "12"
+                            }
                             this["idValue"] = code
                         }
                         this["withdrawer"] = buildMap {
@@ -1255,7 +1262,8 @@ class TedmobApis
     suspend fun WithdrawAgentPhoneNumber(
         number: String,
         amount: String,
-        pin: String
+        pin: String,
+        wallet: String,
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1275,7 +1283,13 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = "12"
+                            this["productId"] = when(wallet){
+                                "Normal"-> "12"
+                                "Bonus"->  "12"
+                                //"Remittance"-> "73"
+                                "Remittance"-> "75"
+                                    else -> "12"
+                            }
                             this["idValue"] = number
                         }
                         this["withdrawer"] = buildMap {

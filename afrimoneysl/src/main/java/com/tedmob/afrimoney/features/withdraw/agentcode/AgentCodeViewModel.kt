@@ -25,8 +25,8 @@ class AgentCodeViewModel
     ) : BaseViewModel() {
 
 
-
     private lateinit var amount: String
+    private lateinit var wallet: String
 
     val data: LiveData<Resource<GetFeesData>> get() = _data
     private val _data = MutableLiveData<Resource<GetFeesData>>()
@@ -36,9 +36,9 @@ class AgentCodeViewModel
     private val _submitted = SingleLiveEvent<Resource<SubmitResult>>()
 
 
-data class Params(val agentCode:String,val amount: String)
+    data class Params(val agentCode: String, val amount: String)
 
-    fun getFees(code: String, amount: String) {
+    fun getFees(code: String, amount: String, wallet: String) {
         execute(
             feesUseCase,
             GetFeesAgentCodeUseCase.Params(code, amount),
@@ -47,7 +47,8 @@ data class Params(val agentCode:String,val amount: String)
             },
             onSuccess = {
 
-                this.amount=it.amount
+                this.amount = it.amount
+                this.wallet = wallet
                 val data =
                     GetFeesData(
                         it.number,
@@ -69,11 +70,11 @@ data class Params(val agentCode:String,val amount: String)
         )
     }
 
-    fun getConfirmation(code:String,pin:String) {
+    fun getConfirmation(code: String, pin: String) {
 
         execute(
             confirmationUseCase,
-            SubmitAgentCodeUseCase.Params(code, amount,pin),
+            SubmitAgentCodeUseCase.Params(code, amount, pin,wallet),
             onLoading = {
                 _submitted.emitLoading()
             },

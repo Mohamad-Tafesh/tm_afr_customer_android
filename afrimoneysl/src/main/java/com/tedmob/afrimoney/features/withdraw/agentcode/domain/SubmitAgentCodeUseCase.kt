@@ -20,7 +20,7 @@ class SubmitAgentCodeUseCase
     override suspend fun execute(params: Params): SubmitResult {
 
 
-        val response = api.WithdrawAgentCode(params.code, params.amount, params.pin)
+        val response = api.WithdrawAgentCode(params.code, params.amount, params.pin,params.wallet)
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
             if (response.errors.isNullOrEmpty()) {
@@ -41,6 +41,7 @@ class SubmitAgentCodeUseCase
         val code: String,
         val amount: String,
         val pin: String,
+        val wallet: String,
 
 
         )

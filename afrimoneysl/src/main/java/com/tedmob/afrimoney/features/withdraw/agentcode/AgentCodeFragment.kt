@@ -7,29 +7,22 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
-import coil.transform.CircleCropTransformation
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBFragment
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
-import com.tedmob.afrimoney.data.entity.IdTypeItem
 import com.tedmob.afrimoney.databinding.FragmentAgentCodeBinding
-import com.tedmob.afrimoney.features.transfer.TransferMoneyFragmentDirections
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.spinner.MaterialSpinner
 import com.tedmob.afrimoney.ui.spinner.OnItemSelectedListener
-import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
 import com.tedmob.afrimoney.util.getText
-import com.tedmob.afrimoney.util.phone.BaseVBFragmentWithImportContact
 import com.tedmob.afrimoney.util.setText
 import com.tedmob.libraries.validators.FormValidator
 import com.tedmob.libraries.validators.formValidator
 import com.tedmob.libraries.validators.rules.NotEmptyRule
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -37,6 +30,7 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
 
     private val viewModel by provideNavGraphViewModel<AgentCodeViewModel>(R.id.nav_withdraw)
 
+    var wallet: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +63,38 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
 
 
             proceedButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
+
+            walletInput.adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                listOf("Normal", "Bonus","Remittance")
+            )
+
+
+            walletInput.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: MaterialSpinner,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    wallet = when (position) {
+                        0 -> "Normal"
+                        1 -> "Bonus"
+                        2 -> "Remittance"
+                        else -> {
+                            null
+                        }
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: MaterialSpinner) {
+
+                }
+            }
+
         }
 
 
@@ -86,9 +112,12 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
             notEmptyRule,
         )
 
+        walletInput.validate(
+            notEmptyRule,
+        )
 
         onValid = {
-            viewModel.getFees(binding!!.agentCode.getText(), binding!!.amount.getText())
+            viewModel.getFees(binding!!.agentCode.getText(), binding!!.amount.getText(),wallet!!)
 
         }
     }

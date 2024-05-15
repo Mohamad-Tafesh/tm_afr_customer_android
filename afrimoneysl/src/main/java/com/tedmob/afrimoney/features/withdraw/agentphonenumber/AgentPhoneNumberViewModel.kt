@@ -37,10 +37,11 @@ class AgentPhoneNumberViewModel
     private val _submitted = SingleLiveEvent<Resource<SubmitResult>>()
 
     private lateinit var amount: String
+    private lateinit var wallet: String
 
     data class Params(val agentCode: String, val amount: String)
 
-    fun getFees(number: String, amount: String) {
+    fun getFees(number: String, amount: String,wallet:String) {
         execute(
             feesUseCase,
             GetFeesAgentPhoneNumberUseCase.Params(number, amount),
@@ -49,6 +50,7 @@ class AgentPhoneNumberViewModel
             },
             onSuccess = {
                 this.amount = it.amount
+                this.wallet = wallet
                 val data =
                     GetFeesData(
                         it.number,
@@ -75,7 +77,7 @@ class AgentPhoneNumberViewModel
 
         execute(
             confirmationUseCase,
-            SubmitAgentPhoneNumberUseCase.Params(code, amount, pin),
+            SubmitAgentPhoneNumberUseCase.Params(code, amount, pin,wallet),
             onLoading = {
                 _submitted.emitLoading()
             },

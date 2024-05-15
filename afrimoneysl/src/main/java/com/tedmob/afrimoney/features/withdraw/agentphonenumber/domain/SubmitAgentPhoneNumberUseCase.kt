@@ -20,7 +20,7 @@ class SubmitAgentPhoneNumberUseCase
     override suspend fun execute(params: Params): SubmitResult {
 
 
-        val response = api.WithdrawAgentPhoneNumber(params.number, params.amount, params.pin)
+        val response = api.WithdrawAgentPhoneNumber(params.number, params.amount, params.pin,params.wallet)
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
             if (response.errors.isNullOrEmpty()) {
@@ -41,6 +41,7 @@ class SubmitAgentPhoneNumberUseCase
         val number: String,
         val amount: String,
         val pin: String,
+        val wallet: String,
 
 
         )

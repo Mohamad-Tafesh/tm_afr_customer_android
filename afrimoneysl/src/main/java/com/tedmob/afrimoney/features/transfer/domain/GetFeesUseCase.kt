@@ -15,9 +15,9 @@ class GetFeesUseCase
     @Suppress("UNCHECKED_CAST")
     override suspend fun execute(params: Params): GetFeesData {
 
-        val isAfrimoneyUser = api.checkIfAfrimoneyUser(params.number)
+        val isAfrimoneyUser = api.checkIfAfrimoneyUser(params.number?:sessionRepository.msisdn)
 
-        val data = api.getFeesCashOut(params.number, params.amount,isAfrimoneyUser).message
+        val data = api.getFeesCashOut(params.number?:sessionRepository.msisdn, params.amount,isAfrimoneyUser).message
 
         val serviceCharges = data?.getList("serviceCharges")?.firstOrNull()
         val taxes1 = serviceCharges?.getString("amount")?.toDoubleOrNull()?: 0.0
@@ -29,11 +29,11 @@ class GetFeesUseCase
            ( data?.getObject("receiver")?.getString("userName")?:"") + " " + (data?.getObject("receiver")?.getString("lastName")?:"")
 
         val total = taxes1 + (taxes2 ?: 0.0) + params.amount.toDouble()
-       return GetFeesData( params.number ,params.amount,(taxes1 + (taxes2 ?:0.0)).toString(),receiverName,total.toString())
+       return GetFeesData( params.number?:sessionRepository.msisdn ,params.amount,(taxes1 + (taxes2 ?:0.0)).toString(),receiverName,total.toString())
     }
 
     class Params(
-        val number:String,
+        val number:String?,
         val amount: String,
 
     )

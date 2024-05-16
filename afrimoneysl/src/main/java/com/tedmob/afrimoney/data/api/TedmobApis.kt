@@ -988,7 +988,8 @@ class TedmobApis
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {
-                        if (isAfrimoneyUser) this["requestedServiceCode"] = "P2P" else this["requestedServiceCode"] = "P2PNONREG"
+                        if (isAfrimoneyUser) this["requestedServiceCode"] = "P2P" else this["requestedServiceCode"] =
+                            "P2PNONREG"
                         this["transactionAmount"] = amount
                         this["initiator"] = "withdrawer"
                         this["currency"] = "101"
@@ -1023,7 +1024,7 @@ class TedmobApis
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
-                if (isAfrimoneyUser)  "P2P" else  "P2PUnregistered",
+                if (isAfrimoneyUser) "P2P" else "P2PUnregistered",
                 appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
                 body = gsonBody(
                     buildMap<String, Any> {
@@ -1051,6 +1052,57 @@ class TedmobApis
 
 
                         }
+                    }
+                )
+            )
+
+            response
+        }
+    }
+
+    suspend fun transferMoneyFromRemittance(
+        amount: String,
+        pin: String,
+    ): ConfirmTransferMoneyDTO {
+        return refreshTokenIfNeeded {
+            val response = post<ConfirmTransferMoneyDTO>(
+                "FTBOA",
+                appHeaders(session.accessToken.takeIf { it.isNotBlank() } ?: session.deviceToken),
+                body = gsonBody(
+                    buildMap<String, Any> {
+                        this["serviceCode"] = "FTBOA"
+                        this["bearerCode"] = "USSD"
+                        this["initiator"] = "sender"
+                        this["currency"] = "101"
+                        this["transactionMode"] = ""
+                        this["language"] = "en"
+                        this["transactor"] = buildMap {
+                            this["idType"] = "mobileNumber"
+                            this["productId"] = "12"
+                            this["idValue"] = session.msisdn
+                            //this["productId"] = "73" //TEST
+                              this["productId"] = "75"   //LIVE
+                              this["ufirstName"] = ""
+                              this["ulastName"] = ""
+                              this["uaddress"] = ""
+                              this["invoiceMonthNo"] = ""
+                              this["mpin"] = pin
+                              this["priceUSDDstv"] = ""
+                              this["tpin"] = pin
+                              this["userRole"] = "Customer"
+                        }
+                        this["receiverProxy"] = buildMap {
+                            this["idType"] = "mobileNumber"
+                            this["productId"] = "12"
+                            this["idValue"] = session.msisdn
+                            this["userRole"] = "Customer"
+
+                        }
+
+                        this["transactionAmount"] = amount
+                        this["source"] = "3rd Party company Name"
+                        this["externalReferenceId"] = ""
+                        this["remarks"] = "string"
                     }
                 )
             )
@@ -1194,11 +1246,11 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "userCode"
-                            this["productId"] = when(wallet){
-                                "Normal"-> "12"
-                                "Bonus"->  "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                "Bonus" -> "12"
                                 //"Remittance"-> "73"
-                                "Remittance"-> "75"
+                                "Remittance" -> "75"
                                 else -> "12"
                             }
                             this["idValue"] = code
@@ -1283,12 +1335,12 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = when(wallet){
-                                "Normal"-> "12"
-                                "Bonus"->  "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                "Bonus" -> "12"
                                 //"Remittance"-> "73"
-                                "Remittance"-> "75"
-                                    else -> "12"
+                                "Remittance" -> "75"
+                                else -> "12"
                             }
                             this["idValue"] = number
                         }
@@ -1714,7 +1766,7 @@ class TedmobApis
     }
 
 
-    suspend fun getBalance(type:String): BalanceDTO {
+    suspend fun getBalance(type: String): BalanceDTO {
         return refreshTokenIfNeeded {
             post<CommandContainerDTO<BalanceDTO>>(
                 "BalanceEnquiry",

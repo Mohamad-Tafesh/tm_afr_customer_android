@@ -172,7 +172,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             var number = mobileNumberInput.getText()
             if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
-            viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
+            viewModel.proceed(if ((type?:0)==0) number else null, amountInput.getText().toDoubleOrNull() ?: 0.0)
 
 
         }

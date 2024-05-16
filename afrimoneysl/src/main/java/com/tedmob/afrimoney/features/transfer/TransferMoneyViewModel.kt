@@ -27,7 +27,7 @@ class TransferMoneyViewModel
     @Named("local-string") private val encryptor: StringEncryptor,
 ) : BaseViewModel() {
 
-    var number: String by encrypted(encryptor, "")
+    var number: String? = null
     private var amount: String by encrypted(encryptor, "")
     var feesData: GetFeesData? = null
     var type: Int? = null
@@ -43,14 +43,14 @@ class TransferMoneyViewModel
     private val _submitted = SingleLiveEvent<Resource<SubmitResult>>()
 
 
-    fun proceed(number: String, amount: Double) {
+    fun proceed(number: String?, amount: Double) {
         this.number = number
         this.amount = amount.toBigDecimal().toPlainString()
 
         _proceedToConfirm.emitSuccess(Unit)
     }
 
-    fun getFees(number: String, amount: String, type: Int) {
+    fun getFees(number: String?, amount: String, type: Int) {
         execute(
             datas,
             GetFeesUseCase.Params(number, amount),

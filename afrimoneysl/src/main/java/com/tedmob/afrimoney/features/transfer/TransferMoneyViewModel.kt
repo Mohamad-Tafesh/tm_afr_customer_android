@@ -68,7 +68,6 @@ class TransferMoneyViewModel
                     )
 
                 this.amount = it.amount
-                this.number = it.number
                 this.type = type
 
                 feesData = data

@@ -28,6 +28,11 @@
                 android:title="@string/report_incident" />
 
         <item
+                android:id="@+id/customerCareFragment"
+                android:icon="@drawable/customercare_new"
+                android:title="@string/customer_care" />
+
+        <item
                 android:id="@+id/faqFragment"
                 android:icon="@mipmap/side_menu_faqs"
                 android:title="@string/faq" />

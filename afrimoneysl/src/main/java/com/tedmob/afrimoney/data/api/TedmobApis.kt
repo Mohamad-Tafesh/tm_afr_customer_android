@@ -1072,7 +1072,7 @@ class TedmobApis
                     buildMap<String, Any> {
                         this["serviceCode"] = "FTBOA"
                         this["bearerCode"] = "USSD"
-                        this["initiator"] = "sender"
+                        this["initiator"] = "transactor"
                         this["currency"] = "101"
                         this["transactionMode"] = ""
                         this["language"] = "en"
@@ -1100,9 +1100,10 @@ class TedmobApis
                         }
 
                         this["transactionAmount"] = amount
-                        this["source"] = "3rd Party company Name"
+                        this["source"] = "Mobile app"
                         this["externalReferenceId"] = ""
-                        this["remarks"] = "string"
+                        this["remarks"] = ""
+                        this["externalReferenceId"] = "3C32D0D8-1393-11EF-B366-19C3750F7DFF"
                     }
                 )
             )

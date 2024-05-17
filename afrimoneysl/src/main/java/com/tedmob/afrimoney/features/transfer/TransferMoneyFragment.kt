@@ -98,7 +98,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             typesInput.adapter = ArrayAdapter(
                 requireContext(),
                 R.layout.support_simple_spinner_dropdown_item,
-                listOf("Send to others", "Remittance Account")
+                listOf("Send to others", "Remittance to Normal Wallet")
             )
 
 

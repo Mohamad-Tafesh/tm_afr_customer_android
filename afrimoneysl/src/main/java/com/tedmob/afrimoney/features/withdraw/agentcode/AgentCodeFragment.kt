@@ -67,7 +67,7 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
             walletInput.adapter = ArrayAdapter(
                 requireContext(),
                 R.layout.support_simple_spinner_dropdown_item,
-                listOf("Normal", "Bonus","Remittance")
+                listOf("Normal","Remittance")
             )
 
 

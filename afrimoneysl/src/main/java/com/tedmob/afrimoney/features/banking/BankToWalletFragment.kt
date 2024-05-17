@@ -92,10 +92,18 @@ class BankToWalletFragment : BaseVBFragment<FragmentBankToWalletBinding>() {
         )
 
         onValid = {
-            viewModel.proceed(
-               wallet.getText(),
-                amountInput.getText().toDoubleOrNull() ?: 0.0,
-            )
+
+            if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                viewModel.proceed(
+                    wallet.getText(),
+                    amountInput.getText().toDoubleOrNull() ?: 0.0,
+                )
+
+            }else{
+                showMessage("Please enter your amount")
+            }
+
+
         }
     }
 

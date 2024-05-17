@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -169,10 +170,16 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
         onValid = {
 
-            var number = mobileNumberInput.getText()
-            if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
+            if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                var number = mobileNumberInput.getText()
+                if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
-            viewModel.proceed(if ((type?:0)==0) number else null, amountInput.getText().toDoubleOrNull() ?: 0.0)
+                viewModel.proceed(if ((type?:0)==0) number else null, amountInput.getText().toDoubleOrNull() ?: 0.0)
+
+            }else{
+                showMessage("Please enter your amount")
+            }
+
 
 
         }

@@ -171,17 +171,25 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
             wallet.validate(notEmptyRule)
             amountInput.validate(notEmptyRule)
             onValid = {
-                viewModel.proceed(
-                    0,
-                    session.msisdn,
-                    list.description,
-                    list.remark,
-                    amountInput.getText(),
-                    data.receiver_idValue,
-                    data.receiver_idType,
-                    list.BundleId,
-                    list.Validity
-                )
+
+                if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+
+                    viewModel.proceed(
+                        0,
+                        session.msisdn,
+                        list.description,
+                        list.remark,
+                        amountInput.getText(),
+                        data.receiver_idValue,
+                        data.receiver_idType,
+                        list.BundleId,
+                        list.Validity
+                    )
+                }else{
+                    showMessage("Please enter your amount")
+                }
+
+
 
             }
         } else if (others.isChecked) {
@@ -197,21 +205,29 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
             wallet.validate(notEmptyRule)
             amountInput.validate(notEmptyRule)
             onValid = {
-                var number = mobileNumberInput.getText()
-                if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
-                number.let {
-                    viewModel.proceed(
-                        1,
-                        it,
-                        list.description,
-                        list.remark,
-                        amountInput.getText(),
-                        data.receiver_idValue,
-                        data.receiver_idType,
-                        list.BundleId,
-                        list.Validity
-                    )
+
+                if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                    var number = mobileNumberInput.getText()
+                    if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
+                    number.let {
+                        viewModel.proceed(
+                            1,
+                            it,
+                            list.description,
+                            list.remark,
+                            amountInput.getText(),
+                            data.receiver_idValue,
+                            data.receiver_idType,
+                            list.BundleId,
+                            list.Validity
+                        )
+                    }
+
+                }else{
+                    showMessage("Please enter your amount")
                 }
+
+
             }
         } else {
             onValid = {

@@ -90,12 +90,20 @@ class MerchantPaymentFragment : BaseVBFragmentWithImportContact<FragmentMerchant
 
 
         onValid = {
-            viewModel.proceed(
-                merchantcode.getText(),
-                amountInput.getText().toDoubleOrNull() ?: 0.0,
-                binding!!.referenceId.getText().takeIf { it.isNotBlank() } ?: ""
 
-            )
+            if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                viewModel.proceed(
+                    merchantcode.getText(),
+                    amountInput.getText().toDoubleOrNull() ?: 0.0,
+                    binding!!.referenceId.getText().takeIf { it.isNotBlank() } ?: ""
+
+                )
+
+            }else{
+                showMessage("Please enter your amount")
+            }
+
+
         }
     }
 

@@ -114,6 +114,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:enabled="true"
+                app:startIconDrawable="@color/transparent"
                 android:gravity="center"
                 android:hint="@string/select_wallet"
                 app:endIconDrawable="@drawable/arrowsblackdown"

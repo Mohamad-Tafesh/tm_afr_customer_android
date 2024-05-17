@@ -1187,7 +1187,7 @@ class TedmobApis
         }
     }
 
-    suspend fun getFeesAgentCode(code: String, amount: String): GetFeesDTO {
+    suspend fun getFeesAgentCode(code: String, amount: String,wallet: String): GetFeesDTO {
         return refreshTokenIfNeeded {
             val response = post<GetFeesDTO>(
                 "GetFees",
@@ -1209,7 +1209,12 @@ class TedmobApis
                         }
                         this["withdrawer"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                //"Remittance"-> "73"
+                                "Remittance" -> "75"
+                                else -> "12"
+                            }
                             this["idValue"] = session.msisdn
 
 
@@ -1247,18 +1252,17 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "userCode"
-                            this["productId"] = when (wallet) {
-                                "Normal" -> "12"
-                                "Bonus" -> "12"
-                                //"Remittance"-> "73"
-                                "Remittance" -> "75"
-                                else -> "12"
-                            }
+                            this["productId"] = "12"
                             this["idValue"] = code
                         }
                         this["withdrawer"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                //"Remittance"-> "73"
+                                "Remittance" -> "75"
+                                else -> "12"
+                            }
                             this["idValue"] = session.msisdn
                             this["mpin"] = pin
                             this["userRole"] = "CUSTOMER"
@@ -1276,7 +1280,7 @@ class TedmobApis
     }
 
 
-    suspend fun getFeesAgentPhoneNumber(number: String, amount: String): GetFeesDTO {
+    suspend fun getFeesAgentPhoneNumber(number: String, amount: String,wallet: String): GetFeesDTO {
         return refreshTokenIfNeeded {
             val response = post<GetFeesDTO>(
                 "GetFees",
@@ -1298,7 +1302,12 @@ class TedmobApis
                         }
                         this["withdrawer"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                //"Remittance"-> "73"
+                                "Remittance" -> "75"
+                                else -> "12"
+                            }
                             this["idValue"] = session.msisdn
 
 
@@ -1336,18 +1345,17 @@ class TedmobApis
                         this["transactionMode"] = "transactionMode"
                         this["transactor"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = when (wallet) {
-                                "Normal" -> "12"
-                                "Bonus" -> "12"
-                                //"Remittance"-> "73"
-                                "Remittance" -> "75"
-                                else -> "12"
-                            }
+                            this["productId"] = "12"
                             this["idValue"] = number
                         }
                         this["withdrawer"] = buildMap {
                             this["idType"] = "mobileNumber"
-                            this["productId"] = "12"
+                            this["productId"] = when (wallet) {
+                                "Normal" -> "12"
+                                //"Remittance"-> "73"
+                                "Remittance" -> "75"
+                                else -> "12"
+                            }
                             this["idValue"] = session.msisdn
                             this["mpin"] = pin
                             this["userRole"] = "CUSTOMER"

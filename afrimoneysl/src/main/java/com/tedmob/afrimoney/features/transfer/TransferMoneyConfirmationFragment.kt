@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.tedmob.afrimoney.R
@@ -67,11 +68,27 @@ class TransferMoneyConfirmationFragment :
     private fun FragmentTransferMoneyConfirmationBinding.setupData() {
         viewModel.feesData?.let {
             with(it) {
-                transferText.text = getString(R.string.amount_currency,amount)
-                toNumberText.text = number
-                feesText.text = getString(R.string.fees_new, fees)
-                totalText.text =  getString(R.string.amount_currency,total)
-                nameText.text = name.takeIf { it?.isNotBlank()==true }
+
+                if (it.number.isNullOrEmpty()){
+                    toNumberText.isVisible=false
+                    toNumberHeader.isVisible=false
+                    receiverName.isVisible=false
+                    nameText.isVisible=false
+                    totalHeader.isVisible=false
+                    totalText.isVisible=false
+                    feesText.isVisible=false
+
+                    transferText.text = getString(R.string.amount_currency,amount)
+
+                }else{
+                    transferText.text = getString(R.string.amount_currency,amount)
+                    toNumberText.text = number
+                    feesText.text = getString(R.string.fees_new, fees)
+                    totalText.text =  getString(R.string.amount_currency,total)
+                    nameText.text = name.takeIf { it?.isNotBlank()==true }
+                }
+
+
             }
         }
 

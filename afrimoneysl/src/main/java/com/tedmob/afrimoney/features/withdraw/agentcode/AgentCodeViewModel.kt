@@ -29,8 +29,9 @@ class AgentCodeViewModel
     private lateinit var wallet: String
 
     val data: LiveData<Resource<GetFeesData>> get() = _data
-    private val _data = MutableLiveData<Resource<GetFeesData>>()
+    private val _data = SingleLiveEvent<Resource<GetFeesData>>()
 
+    var feesData: GetFeesData? = null
 
     val submitted: LiveData<Resource<SubmitResult>> get() = _submitted
     private val _submitted = SingleLiveEvent<Resource<SubmitResult>>()
@@ -41,7 +42,7 @@ class AgentCodeViewModel
     fun getFees(code: String, amount: String, wallet: String) {
         execute(
             feesUseCase,
-            GetFeesAgentCodeUseCase.Params(code, amount),
+            GetFeesAgentCodeUseCase.Params(code, amount,wallet),
             onLoading = {
                 _data.emitLoading()
             },
@@ -58,6 +59,7 @@ class AgentCodeViewModel
                         it.total
                     )
 
+                feesData = data
 
                 _data.emitSuccess(data)
             },

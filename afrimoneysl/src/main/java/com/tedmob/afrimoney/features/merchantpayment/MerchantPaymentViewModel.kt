@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tedmob.afrimoney.app.AppSessionNavigator
 import com.tedmob.afrimoney.app.handleInvalidSession
 import com.tedmob.afrimoney.data.*
+import com.tedmob.afrimoney.data.entity.GetFeesData
 import com.tedmob.afrimoney.data.entity.SubmitResult
 import com.tedmob.afrimoney.exception.AppExceptionFactory
 import com.tedmob.afrimoney.features.merchantpayment.domain.GetFeesUseCase
@@ -27,6 +28,8 @@ class MerchantPaymentViewModel
     @Named("local-string") private val encryptor: StringEncryptor,
 ) : BaseViewModel() {
 
+    var feesData: MerchantPaymentData? = null
+
     private var merchantCode: String by encrypted(encryptor, "")
     private var amount: String by encrypted(encryptor, "")
     public var refId: String by encrypted(encryptor, "")
@@ -35,7 +38,7 @@ class MerchantPaymentViewModel
     private val _proceedToConfirm = SingleLiveEvent<Resource<Unit>>()
 
     val data: LiveData<Resource<MerchantPaymentData>> get() = _data
-    private val _data = MutableLiveData<Resource<MerchantPaymentData>>()
+    private val _data = SingleLiveEvent<Resource<MerchantPaymentData>>()
 
 
     val submitted: LiveData<Resource<SubmitResult>> get() = _submitted
@@ -66,6 +69,7 @@ class MerchantPaymentViewModel
                         it.fees,
                         it.total
                     )
+                feesData = data
 
                 this.amount=it.amount
                 this.merchantCode=it.merchantCode

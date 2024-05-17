@@ -30,11 +30,14 @@ class AgentPhoneNumberViewModel
 
 
     val data: LiveData<Resource<GetFeesData>> get() = _data
-    private val _data = MutableLiveData<Resource<GetFeesData>>()
+    private val _data = SingleLiveEvent<Resource<GetFeesData>>()
 
 
     val submitted: LiveData<Resource<SubmitResult>> get() = _submitted
     private val _submitted = SingleLiveEvent<Resource<SubmitResult>>()
+
+
+    var feesData: GetFeesData? = null
 
     private lateinit var amount: String
     private lateinit var wallet: String
@@ -44,7 +47,7 @@ class AgentPhoneNumberViewModel
     fun getFees(number: String, amount: String,wallet:String) {
         execute(
             feesUseCase,
-            GetFeesAgentPhoneNumberUseCase.Params(number, amount),
+            GetFeesAgentPhoneNumberUseCase.Params(number, amount,wallet),
             onLoading = {
                 _data.emitLoading()
             },
@@ -60,6 +63,8 @@ class AgentPhoneNumberViewModel
                         it.total
                     )
 
+
+                feesData = data
 
                 _data.emitSuccess(data)
             },

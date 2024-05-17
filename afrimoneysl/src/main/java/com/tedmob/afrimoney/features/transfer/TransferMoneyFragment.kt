@@ -23,6 +23,7 @@ import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.debugOnly
 import com.tedmob.afrimoney.app.withVBAvailable
 import com.tedmob.afrimoney.data.entity.Country
+import com.tedmob.afrimoney.data.entity.GetFeesData
 import com.tedmob.afrimoney.databinding.FragmentTransferMoneyBinding
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import com.tedmob.afrimoney.ui.spinner.MaterialSpinner
@@ -174,7 +175,16 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                 var number = mobileNumberInput.getText()
                 if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
-                viewModel.proceed(if ((type?:0)==0) number else null, amountInput.getText().toDoubleOrNull() ?: 0.0)
+                if ((type?:0)==1){
+                    viewModel.feesData = GetFeesData("",amountInput.getText(),"",null,"")
+                    findNavController().navigate(
+                        TransferMoneyFragmentDirections.actionTransferMoneyFragmentToTransferMoneyConfirmationFragment()
+                    )
+                }else{
+                    viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
+                }
+
+
 
             }else{
                 showMessage("Please enter your amount")

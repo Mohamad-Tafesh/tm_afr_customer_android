@@ -12,7 +12,7 @@ class GetFeesAgentPhoneNumberUseCase
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun execute(params: Params): GetFeesData {
-        val data = api.getFeesAgentPhoneNumber(params.number, params.amount).message
+        val data = api.getFeesAgentPhoneNumber(params.number, params.amount, params.wallet).message
 
         val serviceCharges = data?.getList("serviceCharges")?.firstOrNull()
         val taxes1 = serviceCharges?.getString("amount")?.toDoubleOrNull() ?: 0.0
@@ -28,6 +28,7 @@ class GetFeesAgentPhoneNumberUseCase
     class Params(
         val number:String,
         val amount: String,
+        val wallet: String,
 
 
     )

@@ -50,6 +50,8 @@ class AgentCodeConfirmationFragment :
         withVBAvailable {
             scrollParent.applySheetEffectTo(image)
             observeData()
+            contentLL.showContent()
+            setupData()
 
             val validator = setupValidator()
             confirmButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
@@ -61,24 +63,22 @@ class AgentCodeConfirmationFragment :
 
     private fun FragmentAgentCodeConfirmationBinding.observeData() {
 
-        observeResourceInline(viewModel.data,contentLL){
-            setupData(it)
-        }
-
        observeTransactionSubmit(viewModel.submitted, confirmButton) {
            exit()
        }
     }
 
 
-    private fun FragmentAgentCodeConfirmationBinding.setupData(data: GetFeesData) {
-        with(data) {
-            amountText.text = getString(R.string.amount_currency,amount)
-            agentCodeText.text = number
-            totalText.text =  getString(R.string.amount_currency,total)
-            feesText.text = getString(R.string.fees_new, data.fees)
-            nameText.text =name
+    private fun FragmentAgentCodeConfirmationBinding.setupData() {
+        viewModel.feesData?.let {
+            with(it) {
 
+                amountText.text = getString(R.string.amount_currency, amount)
+                agentCodeText.text = number
+                totalText.text = getString(R.string.amount_currency, total)
+                feesText.text = getString(R.string.fees_new,fees)
+                nameText.text = name
+            }
         }
     }
 

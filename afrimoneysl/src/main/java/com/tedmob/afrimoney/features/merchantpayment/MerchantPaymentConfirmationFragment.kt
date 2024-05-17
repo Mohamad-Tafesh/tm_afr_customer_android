@@ -49,6 +49,9 @@ class MerchantPaymentConfirmationFragment :
             scrollParent.applySheetEffectTo(image)
             observeData()
 
+            contentLL.showContent()
+            setupData()
+
             val validator = setupValidator()
             confirmButton.setDebouncedOnClickListener { validator.submit(viewLifecycleOwner.lifecycleScope) }
         }
@@ -56,26 +59,28 @@ class MerchantPaymentConfirmationFragment :
     }
 
     private fun FragmentMerchantPaymentConfirmationBinding.observeData() {
-        observeResourceInline(viewModel.data, contentLL) {
-            setupData(it)
-        }
+
        observeTransactionSubmit(viewModel.submitted, confirmButton) {
            exit()
        }
     }
 
 
-    private fun FragmentMerchantPaymentConfirmationBinding.setupData(data: MerchantPaymentData) {
-        with(data) {
-            transferText.text = getString(R.string.amount_currency,amount)
-            if (viewModel.refId!=""){  referenceId.text=viewModel.refId}else{
-                referenceIdHeader.isVisible=false
-            }
-            toMerchantCodeText.text = merchantCode
-            feesText.text = getString(R.string.fees_new,  data.fees)
-            totalText.text = getString(R.string.amount_currency,total)
-            nameText.text = name
+    private fun FragmentMerchantPaymentConfirmationBinding.setupData() {
+        viewModel.feesData?.let {
+            with(it) {
+                transferText.text = getString(R.string.amount_currency, amount)
+                if (viewModel.refId != "") {
+                    referenceId.text = viewModel.refId
+                } else {
+                    referenceIdHeader.isVisible = false
+                }
+                toMerchantCodeText.text = merchantCode
+                feesText.text = getString(R.string.fees_new, fees)
+                totalText.text = getString(R.string.amount_currency, total)
+                nameText.text = name
 
+            }
         }
     }
 

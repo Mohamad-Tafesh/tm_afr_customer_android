@@ -96,8 +96,7 @@ class AgentPhoneNumberFragment :
 
                     wallet = when (position) {
                         0 -> "Normal"
-                        1 -> "Bonus"
-                        2 -> "Remittance"
+                        1 -> "Remittance"
                         else -> {
                             null
                         }

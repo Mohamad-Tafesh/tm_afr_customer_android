@@ -117,7 +117,11 @@ class AgentCodeFragment : BaseVBFragment<FragmentAgentCodeBinding>() {
         )
 
         onValid = {
+            if ((amount.getText().toDoubleOrNull()?:0.0)>0){
             viewModel.getFees(binding!!.agentCode.getText(), binding!!.amount.getText(),wallet!!)
+            }else{
+                showMessage("Please enter your amount")
+            }
 
         }
     }

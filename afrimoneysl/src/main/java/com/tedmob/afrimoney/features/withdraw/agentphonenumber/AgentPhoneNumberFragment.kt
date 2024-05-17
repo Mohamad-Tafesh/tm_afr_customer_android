@@ -140,10 +140,17 @@ class AgentPhoneNumberFragment :
 
 
         onValid = {
-            var number = agentNumber.getText()
-            if (agentNumber.getText().length == 8) number = "0" + agentNumber.getText()
 
-            viewModel.getFees(number, amount.getText(),wallet!!)
+            if ((amount.getText().toDoubleOrNull()?:0.0)>0){
+                var number = agentNumber.getText()
+                if (agentNumber.getText().length == 8) number = "0" + agentNumber.getText()
+
+                viewModel.getFees(number, amount.getText(),wallet!!)
+            }else{
+                showMessage("Please enter your amount")
+            }
+
+
 
 
         }

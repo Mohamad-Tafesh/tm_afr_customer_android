@@ -69,7 +69,7 @@ class LocationFragment : BaseVBFragment<FragmentLocationBinding>() {
 
     override fun configureToolbar() {
         super.configureToolbar()
-        if (FLAVOR == "sl") {
+        if (FLAVOR == "sl" || FLAVOR == "gambia") {
             actionbar?.title = getString(R.string.post_stores)
         } else {
             actionbar?.title = getString(R.string.location)

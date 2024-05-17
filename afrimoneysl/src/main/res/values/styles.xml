@@ -123,8 +123,9 @@
         <item name="boxCornerRadiusBottomStart">24dp</item>
         <item name="boxCornerRadiusBottomEnd">24dp</item>
         <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">@color/greyHighlight</item>
-        <item name="boxStrokeWidth">0.5dp</item>
+        <item name="boxStrokeColor">@color/constant_border_color</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
     </style>
 
     <style name="AppTheme.TextView" parent="Widget.MaterialComponents.TextView">

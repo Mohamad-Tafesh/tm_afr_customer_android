@@ -19,17 +19,26 @@ import com.africell.africell.R
 import com.africell.africell.app.viewbinding.BaseVBActivity
 import com.africell.africell.app.viewbinding.withVBAvailable
 import com.africell.africell.databinding.ActivityMainBinding
+import com.africell.africell.databinding.FragmentSettingsBinding
 import com.africell.africell.features.authentication.AuthenticationActivity
+import com.africell.africell.features.launch.RootActivity
 import com.africell.africell.ui.viewmodel.observe
+import com.africell.africell.ui.viewmodel.observeNotNull
 import com.africell.africell.ui.viewmodel.observeResource
 import com.africell.africell.ui.viewmodel.provideViewModel
 import com.africell.africell.util.navigation.setupWithNavController
+import com.africell.africell.util.removeUserIdentification
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
 import com.tedmob.afrimoney.features.newhome.AfrimoneyRegistrationActivity
+import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseVBActivity<ActivityMainBinding>() {
@@ -45,6 +54,12 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         list.add(R.id.locationListFragment)
         list
     }
+
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
+
+    @Inject
+    lateinit var firebaseCrashlytics: FirebaseCrashlytics
 
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -70,6 +85,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
             setupBottomNavigationStyle()
+            setupLoginLogout()
         }
 
         observe(AfricellDestination.destination) {
@@ -238,6 +254,53 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
             }
         }
+
+    }
+
+    private fun ActivityMainBinding.setupLoginLogout() {
+        loginLogoutActionText.setText(if (session.isLoggedIn()) R.string.logout else R.string.login)
+        loginLogoutAction.setOnClickListener {
+            if (session.isLoggedIn()) {
+                viewModel.logout()
+            } else {
+                session.invalidateSession()
+                removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
+                startRootActivity()
+            }
+        }
+        bindData()
+    }
+
+    private fun bindData() {
+        observeNotNull(viewModel.logoutData, { resource ->
+            when (resource) {
+                is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    invalidateAndRestart()
+                }
+                else -> {
+
+                }
+            }
+
+        })
+    }
+
+    fun invalidateAndRestart() {
+        session.invalidateSession()
+        removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
+        startRootActivity()
+    }
+
+    private fun startRootActivity() {
+        startActivity(Intent(activity, RootActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
     }
 
     fun showLoginMessage() {

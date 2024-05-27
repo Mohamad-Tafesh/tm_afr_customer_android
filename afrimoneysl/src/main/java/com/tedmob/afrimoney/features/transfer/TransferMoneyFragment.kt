@@ -176,6 +176,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                 if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
                 if ((type?:0)==1){
+                    viewModel.amount = amountInput.getText()
                     viewModel.feesData = GetFeesData("",amountInput.getText(),"",null,"")
                     findNavController().navigate(
                         TransferMoneyFragmentDirections.actionTransferMoneyFragmentToTransferMoneyConfirmationFragment()

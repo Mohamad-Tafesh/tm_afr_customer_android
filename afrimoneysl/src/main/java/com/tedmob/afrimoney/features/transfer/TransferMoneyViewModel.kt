@@ -28,7 +28,7 @@ class TransferMoneyViewModel
 ) : BaseViewModel() {
 
     var number: String? = null
-    private var amount: String by encrypted(encryptor, "")
+    var amount: String by encrypted(encryptor, "")
     var feesData: GetFeesData? = null
     var type: Int? = null
 

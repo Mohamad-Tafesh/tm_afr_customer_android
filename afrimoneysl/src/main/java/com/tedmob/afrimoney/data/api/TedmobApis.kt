@@ -1433,7 +1433,7 @@ class TedmobApis
                             this["PROVIDER"] = "101"
                             this["PAYID"] = "12"
                             this["MPIN"] = pin
-                            this["BLOCKSMS"] = ""
+                            this["BLOCKSMS"] = "BOTH"
                             this["LANGUAGE1"] = "1"
                             this["SERVICE"] = ""
                             this["TXNMODE"] = ""

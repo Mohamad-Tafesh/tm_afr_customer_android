@@ -89,11 +89,11 @@ class AirtimeViewModel
     }*/
 
 
-    fun getServices() {
+    fun getServices(currency:String) {
 
         execute(
             getAirtimeData,
-            Unit,
+            currency,
             onLoading = {
                 _data.emitLoading()
             },

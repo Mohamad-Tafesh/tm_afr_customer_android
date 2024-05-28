@@ -13,11 +13,13 @@ class Bundlelist(
     val description: String,
     val remark: String,
     val transactionAmount: String,
+    val currency: String,
 ) : MaterialSearchableSpinnerItem(), Parcelable {
 
 
+
     override fun toString(): String =
-        description + " " + Validity //also used for spinner's selected view
+        description + " " + Validity + " - $currency"+transactionAmount //also used for spinner's selected view
 
     override fun toDisplayString(): String =
         description + " " + Validity //used for spinner's searchable dialog's items

@@ -34,11 +34,11 @@ class AfricellServicesViewModel
     private val _data = MutableLiveData<Resource<List<BundlelistParent>>>()
 
 
-    fun getServices() {
+    fun getServices(currency:String) {
 
         execute(
             servicesUseCase,
-            Unit,
+            currency,
             onLoading = {
                 _data.emitLoading()
             },

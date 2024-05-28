@@ -11,10 +11,10 @@ import javax.inject.Inject
 class GetAirtimeServiceUseCase
 @Inject constructor(
     private val api: TedmobApis,
-) : SuspendableUseCase<BundlelistParent, Unit>() {
+) : SuspendableUseCase<BundlelistParent, String>() {
 
     @Suppress("UNCHECKED_CAST")
-    override suspend fun execute(params: Unit): BundlelistParent {
+    override suspend fun execute(params: String): BundlelistParent {
         val data = api.airtimeServices().BundleList.orEmpty().get(0)
 
             data.let {
@@ -49,7 +49,8 @@ class GetAirtimeServiceUseCase
                             allowedWallets0,
                             description,
                             remark,
-                            transactionAmount
+                            transactionAmount,
+                            params
                         )
                     )
                 }

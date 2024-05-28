@@ -11,10 +11,10 @@ import javax.inject.Inject
 class GetAfricellServicesUseCase
 @Inject constructor(
     private val api: TedmobApis,
-) : SuspendableUseCase<List<BundlelistParent>, Unit>() {
+) : SuspendableUseCase<List<BundlelistParent>, String>() {
 
     @Suppress("UNCHECKED_CAST")
-    override suspend fun execute(params: Unit): List<BundlelistParent> {
+    override suspend fun execute(params: String): List<BundlelistParent> {
         val data = api.africellServices().BundleList
         return buildList<BundlelistParent> {
             data?.forEach {
@@ -49,7 +49,8 @@ class GetAfricellServicesUseCase
                             allowedWallets0,
                             description,
                             remark,
-                            transactionAmount
+                            transactionAmount,
+                            params
                         )
                     )
                 }

@@ -68,7 +68,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
         actionbar?.title = ""
         actionbar?.setHomeAsUpIndicator(R.mipmap.nav_side_menu)
         actionbar?.setDisplayHomeAsUpEnabled(true)
-
+sessionRepository
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

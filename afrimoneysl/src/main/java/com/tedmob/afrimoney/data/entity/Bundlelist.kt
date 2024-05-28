@@ -22,5 +22,5 @@ class Bundlelist(
         description + " " + Validity + " - $currency"+transactionAmount //also used for spinner's selected view
 
     override fun toDisplayString(): String =
-        description + " " + Validity //used for spinner's searchable dialog's items
+        description + " " + Validity + " - $currency"+transactionAmount //used for spinner's searchable dialog's items
 }

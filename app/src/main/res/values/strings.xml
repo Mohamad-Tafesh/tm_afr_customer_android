@@ -131,6 +131,7 @@
     <string name="delete_account">Delete Account</string>
     <string name="warning">Warning</string>
     <string name="are_you_sure_want_to_delete">Are you sure you want to delete your account, this action is irreversible?</string>
+    <string name="are_you_sure_want_to_logout">Are you sure you want to logout?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="expiry_date">"Expiry Date: "</string>

@@ -261,7 +261,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         loginLogoutActionText.setText(if (session.isLoggedIn()) R.string.logout else R.string.login)
         loginLogoutAction.setOnClickListener {
             if (session.isLoggedIn()) {
-                viewModel.logout()
+                showLogoutMessage()
             } else {
                 session.invalidateSession()
                 removeUserIdentification(firebaseAnalytics, firebaseCrashlytics)
@@ -312,6 +312,19 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             }
             .setNegativeButton(R.string.close) { dialog, which ->
                 AfricellDestination.destination.value = binding?.bottomNavigationView?.menu?.getItem(0)
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    fun showLogoutMessage() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.are_you_sure_want_to_logout))
+            .setCancelable(false)
+            .setPositiveButton(R.string.logout) { dialog, which ->
+                viewModel.logout()
+            }
+            .setNegativeButton(R.string.close) { dialog, which ->
                 dialog.dismiss()
             }
             .show()

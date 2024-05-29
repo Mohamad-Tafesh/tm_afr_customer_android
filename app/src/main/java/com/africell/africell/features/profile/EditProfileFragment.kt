@@ -130,6 +130,7 @@ class EditProfileFragment : BaseVBFragment<FragmentEditProfileBinding>(), Liv.Ac
         return Liv.Builder()
             .add(firstName, notEmptyRule)
             .add(lastName, notEmptyRule)
+            .add(emailLayout, notEmptyRule,emailRule)
             .submitAction(this@EditProfileFragment)
             .build()
     }

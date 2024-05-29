@@ -130,6 +130,7 @@
     <string name="delete_account">Supprimer le compte</string>
     <string name="warning">Avertissement</string>
     <string name="are_you_sure_want_to_delete">Êtes-vous sûr de vouloir supprimer votre compte, cette action est irréversible ?</string>
+    <string name="are_you_sure_want_to_logout">Êtes-vous sûr de vouloir vous déconnecter?</string>
     <string name="no">Non</string>
     <string name="yes">Oui</string>
     <string name="expiry_date">"Date d\'expiration: "</string>

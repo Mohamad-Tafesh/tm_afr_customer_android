@@ -56,7 +56,7 @@ class SettingsFragment : BaseVBFragment<FragmentSettingsBinding>() {
             bindOneSignalStateTo(notificationsLayout, notificationsSwitch)
             setupLanguage()
             bindAppVersionTo(appVersionLayout, appVersionSummaryText)
-            setupLoginLogout()
+            //setupLoginLogout()
             setUpDeleteAccount()
         }
     }

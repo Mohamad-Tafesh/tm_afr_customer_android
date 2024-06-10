@@ -194,7 +194,7 @@
     <style name="AppTheme.Launch" parent="Theme.SplashScreen">
         <!--NOTE: you cannot use attributes here (using ?) as they need to be resolved by the system, and it is too early here-->
         <item name="windowSplashScreenBackground">@color/violetMain</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 

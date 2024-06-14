@@ -121,9 +121,6 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                 }
             })
 
-            afrimoneyImg.setImageResource(
-                R.mipmap.tab_afrimoney_selected
-            )
 
             navigationView.setupWithNavController(
                 it,

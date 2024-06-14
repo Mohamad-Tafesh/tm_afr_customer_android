@@ -39,7 +39,7 @@
                     android:clipChildren="true"
                     android:elevation="0dp"
                     app:elevation="0dp"
-                    app:itemBackground="@color/transparent"
+                    app:itemIconTint="@color/purple"
                     app:itemTextAppearanceActive="@style/bottomNavigationTextStyle"
                     app:itemTextAppearanceInactive="@style/bottomNavigationTextStyle"
                     app:itemTextColor="@color/purple"

@@ -84,6 +84,24 @@
         app:layout_constraintTop_toBottomOf="@+id/idText"
         tools:text="Type: [...]" />
 
+<TextView
+        android:visibility="gone"
+        android:id="@+id/merchantText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/violetMain"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@+id/typeText"
+        tools:text="Type: [...]" />
+
     <TextView
         android:id="@+id/statusText"
         android:layout_width="0dp"
@@ -98,7 +116,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@+id/typeText"
+        app:layout_constraintTop_toBottomOf="@+id/merchantText"
        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Status: [...]" />
 </androidx.constraintlayout.widget.ConstraintLayout>

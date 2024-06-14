@@ -34,7 +34,7 @@
 
         <item
                 android:id="@+id/SMSFragment"
-                android:icon="@drawable/tab_sms"
+                android:icon="@mipmap/tab_sms"
                 android:iconTint="@color/black"
                 android:title="@string/sms" />
 

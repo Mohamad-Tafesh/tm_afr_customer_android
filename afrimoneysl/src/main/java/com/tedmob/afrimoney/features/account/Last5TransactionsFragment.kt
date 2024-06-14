@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.text.scale
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -121,6 +122,20 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                     append(" " + it.txnId.orEmpty())
                 }
 
+                if (it.attr1Value == "MERCHANT") {
+                    merchantText.isVisible = true
+                    typeText.text = buildSpannedString {
+                        scale(1f) {
+                            color(ContextCompat.getColor(requireContext(), R.color.black)) {
+
+                                append(getString(R.string.type))
+                            }
+                        }
+
+                        append(" " + it.firstName.orEmpty() + " " + it.lastName.orEmpty())
+                    }
+                }
+
                 typeText.text = buildSpannedString {
                     scale(1f) {
                         color(ContextCompat.getColor(requireContext(), R.color.black)) {
@@ -140,9 +155,11 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                         }
                     }
 
-                    append(" " + if (it.txnStatus.orEmpty().equals("ts",true)) getString(R.string.transaction_successful)
-                    else if (it.txnStatus.orEmpty().equals("tf",true)) getString(R.string.transaction_failed)
-                    else it.txnStatus.orEmpty())
+                    append(
+                        " " + if (it.txnStatus.orEmpty().equals("ts", true)) getString(R.string.transaction_successful)
+                        else if (it.txnStatus.orEmpty().equals("tf", true)) getString(R.string.transaction_failed)
+                        else it.txnStatus.orEmpty()
+                    )
                 }
 
                 //totalText.text = getString(R.string.total__format, it.txnAmt.orEmpty())

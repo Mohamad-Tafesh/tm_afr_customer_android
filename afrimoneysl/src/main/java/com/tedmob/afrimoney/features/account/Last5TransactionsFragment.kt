@@ -122,7 +122,7 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                     append(" " + it.txnId.orEmpty())
                 }
 
-                if (it.attr1Value == "MERCHANT") {
+                if (it.attr1Value == "MERCHPAY") {
                     merchantText.isVisible = true
                     typeText.text = buildSpannedString {
                         scale(1f) {

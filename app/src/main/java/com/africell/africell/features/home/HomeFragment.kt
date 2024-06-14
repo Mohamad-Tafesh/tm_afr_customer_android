@@ -30,6 +30,7 @@ import com.africell.africell.ui.viewmodel.provideViewModel
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
@@ -230,9 +231,10 @@ sessionRepository
         viewModel.getImages(SLIDERS, HOME_PAGE)
         observeResourceWithoutProgress(viewModel.imagesData) {
             withVBAvailable {
-                viewPager.adapter = offersAdapter
+
+                setupViewPager()
+
                 offersAdapter.setItems(it)
-                pageIndicator.setViewPager(viewPager)
                 autoScroll(it.size)
             }
         }
@@ -257,6 +259,46 @@ sessionRepository
         }
         start()
     }
+
+
+    private fun setupViewPager() {
+
+        withVBAvailable {
+
+            viewPager.adapter = offersAdapter
+
+
+            viewPager.adapter = offersAdapter
+            pageIndicator.setViewPager(requireBinding().viewPager)
+
+            viewPager.offscreenPageLimit = 1
+
+            val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+            val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+            val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+
+            val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+
+
+                page.translationX = -pageTranslationX * position
+                page.scaleY = 1 - (0.25f * abs(position))
+                page.alpha = 0.25f + (1 - abs(position))
+                /** For Hide Next Page */
+                page.elevation = 0f + (1 - abs(position))
+            }
+
+            viewPager.setPageTransformer(pageTransformer)
+
+            val itemDecoration = HorizontalMarginItemDecoration(
+                requireContext(),
+                R.dimen.viewpager_current_item_horizontal_margin
+            )
+            viewPager.addItemDecoration(itemDecoration)
+
+        }
+    }
+
+
 
     private fun start() {
         stop()

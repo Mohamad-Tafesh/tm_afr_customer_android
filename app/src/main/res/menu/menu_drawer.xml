@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
 
@@ -35,7 +36,7 @@
         <item
                 android:id="@+id/SMSFragment"
                 android:icon="@mipmap/tab_sms"
-                android:iconTint="@color/black"
+                app:iconTint="@color/black"
                 android:title="@string/sms" />
 
         <item

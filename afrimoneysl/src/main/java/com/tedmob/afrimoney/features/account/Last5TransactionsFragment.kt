@@ -124,15 +124,15 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
 
                 if (it.attr1Value == "MERCHPAY") {
                     merchantText.isVisible = true
-                    typeText.text = buildSpannedString {
+                    merchantText.text = buildSpannedString {
                         scale(1f) {
                             color(ContextCompat.getColor(requireContext(), R.color.black)) {
 
-                                append(getString(R.string.type))
+                                append(getString(R.string.merchant_name))
                             }
                         }
 
-                        append(" " + it.firstName.orEmpty() + " " + it.lastName.orEmpty())
+                        append(": " + it.firstName.orEmpty() + " " + it.lastName.orEmpty())
                     }
                 }
 

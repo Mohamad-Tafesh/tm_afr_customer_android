@@ -203,54 +203,11 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                 Timber.d("Navigate to %s", destination.label)
                 bottomNavigationView.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility =
-                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
                 afrimoneyImg.visibility =
-                    if ((BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                customerCareTxt.visibility =
-                    if ((/*BuildConfig.FLAVOR != "sl" &&*/ BuildConfig.FLAVOR != "gambia" ) && bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
-                if (BuildConfig.FLAVOR == "drc") {
-                    afrimoneyImg.visibility = GONE
-                    customerCareTxt.visibility = GONE
-
-                }
-
-                if (bottomNavFragmentIds.contains(destination.id)) {
-                    if (BuildConfig.FLAVOR == "sl" || BuildConfig.FLAVOR == "gambia") {
-                        if (destination.id == R.id.afrimoneyFragment) {
-                            afrimoneyImg.setImageResource(
-                                 R.mipmap.tab_afrimoney_selected
-                            )
-                        } else {
-                            afrimoneyImg.setImageResource(
-                                R.mipmap.tab_afrimoney_not_selected
-                            )
-
-                        }
-
-                        if (BuildConfig.FLAVOR == "sl"){
-                            bottomNavigationView.menu.getItem(bottomNavigationView.menu.size() - 1).title =
-                                getString(R.string.post_stores)
-                        }
-
-                    } else {
-                        if (destination.id == R.id.customerCareFragment) {
-                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                R.mipmap.tab_customer_care_selected, 0, 0
-                            )
-                        } else {
-                            customerCareTxt.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                R.mipmap.tab_customer_care,
-                                0,
-                                0
-                            )
-                        }
-                    }
-
-                }
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                afrimoneyText.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
 
             }
         }

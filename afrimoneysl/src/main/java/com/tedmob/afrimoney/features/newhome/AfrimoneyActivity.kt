@@ -148,6 +148,8 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
                 afrimoneyImg.visibility =
                     if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
+                afrimoneyText.visibility =
+                    if (bottomNavFragmentIds.contains(destination.id)) View.VISIBLE else View.GONE
             }
 
             session.msisdn = number.orEmpty()
@@ -161,7 +163,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                         finish()
                     }
 
-                    R.id.customerCareFragment -> {
+                   /* R.id.customerCareFragment -> {
                         AfricellDestination.destination.value = it
                         finish()
                     }
@@ -169,7 +171,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                     R.id.SMSFragment -> {
                         AfricellDestination.destination.value = it
                         finish()
-                    }
+                    }*/
 
                     R.id.locationListFragment -> {
                         AfricellDestination.destination.value = it

@@ -35,44 +35,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="0dp"
-                    android:background="@color/purple"
+                    android:background="@color/white"
                     android:clipChildren="true"
                     android:elevation="0dp"
-
                     app:elevation="0dp"
                     app:itemBackground="@color/transparent"
                     app:itemIconTint="@color/colorPrimary"
                     app:itemTextAppearanceActive="@style/bottomNavigationTextStyle"
                     app:itemTextAppearanceInactive="@style/bottomNavigationTextStyle"
-                    app:itemTextColor="@color/white"
+                    app:itemTextColor="@color/colorPrimary"
                     app:labelVisibilityMode="labeled"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:menu="@menu/menu_bottom_nav"/>
-
-
-            <TextView
-                    android:id="@+id/customerCareTxt"
-                    style="@style/TextAppearance.normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|bottom"
-                    android:layout_marginTop="@dimen/spacing_small"
-                    android:background="@drawable/frame_bottom_pink"
-                    android:drawablePadding="@dimen/spacing_small"
-                    android:gravity="bottom"
-                    android:paddingLeft="@dimen/spacing_normal"
-                    android:paddingTop="@dimen/spacing_small"
-                    android:paddingRight="@dimen/spacing_normal"
-                    android:paddingBottom="@dimen/spacing_small"
-                    android:text="@string/customer_care"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    app:drawableTopCompat="@drawable/tab_customer_care"
-                    app:elevation="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:menu="@menu/menu_bottom_nav" />
 
             <ImageView
                     android:id="@+id/afrimoneyImg"
@@ -80,13 +54,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
-                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginBottom="-8dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:background="@drawable/frame_bottom_pink"
                     android:gravity="bottom"
+                    android:paddingHorizontal="@dimen/spacing_tiny"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:src="@drawable/ic_afrimoney_icon_not_selected"
+                    android:textColor="@color/white"
+                    app:elevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/afrimoneyText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                    android:id="@+id/afrimoneyText"
+                    style="@style/TextAppearance.normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:gravity="bottom"
+                    android:paddingHorizontal="@dimen/spacing_tiny"
                     android:paddingTop="@dimen/spacing_tiny"
                     android:paddingBottom="@dimen/spacing_small"
+                    android:src="@drawable/ic_afrimoney_text"
                     android:textColor="@color/white"
-                    android:src="@mipmap/tab_afrimoney_not_selected"
                     app:elevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +105,7 @@
             app:headerLayout="@layout/drawer_header"
             app:insetForeground="@null"
             app:itemBackground="@null"
-            app:menu="@menu/menu_drawer" >
+            app:menu="@menu/menu_drawer">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/loginLogoutAction"

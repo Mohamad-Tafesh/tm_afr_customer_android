@@ -6,20 +6,22 @@
             android:icon="@mipmap/tab_home"
             android:title="@string/home" />
 
+<!--
     <item
             android:id="@+id/customerCareFragment"
             android:icon="@drawable/tab_customer_care"
             android:title="@string/customer_care" />
+-->
 
     <item
             android:id="@+id/afrimoneyFragment"
             android:title="" />
 
 
-    <item
+  <!--  <item
             android:id="@+id/SMSFragment"
             android:icon="@drawable/tab_sms"
-            android:title="@string/sms" />
+            android:title="@string/sms" />-->
 
     <item
             android:id="@+id/locationListFragment"

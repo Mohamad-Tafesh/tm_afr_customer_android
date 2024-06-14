@@ -62,7 +62,7 @@
     <string name="africell_servicesh">Africell\nServices</string>
     <string name="africell_services">Africell Services</string>
     <string name="africredit">Africredit</string>
-    <string name="pay_my_billsh">Pay\nMy Bills</string>
+    <string name="pay_my_billsh">Pay\nBills</string>
     <string name="pay_my_bills">Pay Bills</string>
     <string name="pay_my__bills">Pay Bills</string>
     <string name="merchant_paymenth">Merchant\nPayment</string>
@@ -300,4 +300,6 @@
     <string name="remittance">Remittance</string>
     <string name="select_type">Select Type</string>
     <string name="currency">GMD</string>
+    <string name="hello">Hello,</string>
+    <string name="buy_bundles">Buy\nBundles</string>
 </resources>

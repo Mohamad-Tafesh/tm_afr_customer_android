@@ -33,10 +33,10 @@
             <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="0dp"
-                    android:layout_height="330dp"
+                    android:layout_height="220dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bgd_pink"
+                    android:src="@drawable/ic_top_image_registration"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -52,50 +52,49 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                    android:id="@+id/userImage"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bgd_option_primary"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_tab_account"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-            <TextView
-                    android:id="@+id/userName"
-                    android:layout_width="0dp"
+            <LinearLayout
+                    android:layout_marginHorizontal="@dimen/spacing_normal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="?colorOnPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userImage"
-                    tools:text="Some Name" />
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/logo">
 
-            <TextView
-                    android:id="@+id/addressText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/country_icon_resized"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="@string/gambia"
-                    android:textColor="?colorOnPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userName"
-                    app:layout_constraintWidth_max="300dp" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_home" />
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_normal"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hello"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="?colorOnPrimary"
+                            android:textSize="14sp" />
+
+                    <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textColor="?colorOnPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="Some Name" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/userAdditionalInformationLayout"
@@ -225,14 +224,14 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="12dp"
                             android:gravity="center_horizontal"
+                            android:maxLines="1"
                             android:text="@string/my_balance"
                             android:textColor="?colorOnPrimary"
                             android:textSize="10sp"
-                            android:maxLines="1"
-                            app:autoSizeTextType="uniform"
-                            app:autoSizeStepGranularity="0.5sp"
-                            app:autoSizeMinTextSize="5sp"
                             app:autoSizeMaxTextSize="10sp"
+                            app:autoSizeMinTextSize="5sp"
+                            app:autoSizeStepGranularity="0.5sp"
+                            app:autoSizeTextType="uniform"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -276,14 +275,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp"
                             android:gravity="center_horizontal"
+                            android:maxLines="1"
                             android:text="@string/last_transactions"
                             android:textColor="?colorOnPrimary"
                             android:textSize="10sp"
-                            android:maxLines="1"
-                            app:autoSizeTextType="uniform"
-                            app:autoSizeStepGranularity="0.5sp"
-                            app:autoSizeMinTextSize="5sp"
                             app:autoSizeMaxTextSize="10sp"
+                            app:autoSizeMinTextSize="5sp"
+                            app:autoSizeStepGranularity="0.5sp"
+                            app:autoSizeTextType="uniform"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -305,8 +304,8 @@
                     app:layout_constraintTop_toBottomOf="@id/userAdditionalInformationLayout">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bgd_home_badge"
                         android:padding="2dp"
                         android:src="@drawable/ic_home_transfer_money" />
@@ -342,8 +341,8 @@
                     app:layout_constraintTop_toBottomOf="@id/userAdditionalInformationLayout">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bgd_home_badge"
                         android:padding="2dp"
                         android:src="@drawable/ic_home_pending_transactions" />
@@ -379,8 +378,8 @@
                     app:layout_constraintTop_toBottomOf="@id/userAdditionalInformationLayout">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:background="@drawable/bgd_home_badge"
                         android:padding="2dp"
                         android:src="@drawable/ic_home_withdraw_money" />
@@ -410,60 +409,27 @@
                     app:constraint_referenced_ids="transferMoneyOption,pendingTransactionsOption,withdrawMoneyOption" />
 
             <LinearLayout
-                    android:id="@+id/africellServices"
-                    android:layout_width="0dp"
+                    android:id="@+id/payBillsOption"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="33.5dp"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:background="?selectableItemBackground"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/payMyBillsOption"
+                    android:paddingHorizontal="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/pendingTransactionsOption"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/optionsBarrier1">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/mainafricellservices_new" />
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_pay_my_bill" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="2"
-                        android:maxLines="2"
-                        android:text="@string/africell_servicesh"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="9sp"
-                        app:autoSizeMaxTextSize="9sp"
-                        app:autoSizeMinTextSize="6sp"
-                        app:autoSizeStepGranularity="0.5sp"
-                        app:autoSizeTextType="uniform" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/payMyBillsOption"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:layout_marginEnd="33.5dp"
-                    android:background="?selectableItemBackground"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/africellServices"
-                    app:layout_constraintTop_toBottomOf="@id/optionsBarrier1">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_home_pay_my_bills" />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
                         android:ellipsize="end"
                         android:lines="2"
                         android:maxLines="2"
@@ -477,12 +443,89 @@
                         app:autoSizeTextType="uniform" />
             </LinearLayout>
 
+
+            <LinearLayout
+                    android:id="@+id/buyAirtimeOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:background="?selectableItemBackground"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/buyBundlesOption"
+                    app:layout_constraintStart_toEndOf="@id/payBillsOption"
+                    app:layout_constraintTop_toBottomOf="@id/optionsBarrier1">
+
+                <ImageView
+                        android:padding="2dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_airtime_home" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:ellipsize="end"
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:text="@string/buy_airtimeh"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        app:autoSizeMaxTextSize="9sp"
+                        app:autoSizeMinTextSize="6sp"
+                        app:autoSizeStepGranularity="0.5sp"
+                        app:autoSizeTextType="uniform" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:id="@+id/buyBundlesOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:background="?selectableItemBackground"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/buyAirtimeOption"
+                    app:layout_constraintTop_toBottomOf="@id/optionsBarrier1">
+
+                <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_africell_services" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:ellipsize="end"
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:text="@string/buy_bundles"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="9sp"
+                        app:autoSizeMaxTextSize="9sp"
+                        app:autoSizeMinTextSize="6sp"
+                        app:autoSizeStepGranularity="0.5sp"
+                        app:autoSizeTextType="uniform" />
+            </LinearLayout>
+
+
+
+
+
             <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/optionsBarrier2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="africellServices,payMyBillsOption" />
+                    app:constraint_referenced_ids="payBillsOption,buyAirtimeOption" />
 
             <LinearLayout
                     android:id="@+id/merchantPaymentOption"
@@ -552,22 +595,6 @@
                         app:autoSizeTextType="uniform" />
             </LinearLayout>
 
-            <View
-                    android:layout_width="0.2dp"
-                    android:layout_height="0dp"
-                    android:background="@color/darkGrey"
-                    app:layout_constraintBottom_toBottomOf="@id/merchantPaymentOption"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/africellServices" />
-
-            <View
-                    android:layout_width="0dp"
-                    android:layout_height="0.2dp"
-                    android:background="@color/darkGrey"
-                    app:layout_constraintBottom_toTopOf="@id/merchantPaymentOption"
-                    app:layout_constraintEnd_toEndOf="@id/payMyBillsOption"
-                    app:layout_constraintStart_toStartOf="@id/africellServices" />
 
             <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/optionsBarrier3"

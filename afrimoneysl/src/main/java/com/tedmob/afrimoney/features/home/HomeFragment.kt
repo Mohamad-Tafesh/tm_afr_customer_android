@@ -158,10 +158,13 @@ class HomeFragment : BaseVBFragment<FragmentHomeNewBinding>() {
         withdrawMoneyOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_withdraw)
         }
-        africellServices.setDebouncedOnClickListener {
+        buyAirtimeOption.setDebouncedOnClickListener {
+            findNavController().navigate(R.id.nav_airtime)
+        }
+        buyBundlesOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_services)
         }
-        payMyBillsOption.setDebouncedOnClickListener {
+        payBillsOption.setDebouncedOnClickListener {
             findNavController().navigate(R.id.nav_pay_my_bills)
         }
         merchantPaymentOption.setDebouncedOnClickListener {

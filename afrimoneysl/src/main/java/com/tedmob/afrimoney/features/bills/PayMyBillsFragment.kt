@@ -31,7 +31,7 @@ class PayMyBillsFragment : BaseVBFragment<FragmentPayMyBillsBinding>() {
 
         withVBAvailable {
             customToolbar.toolbar.run {
-                setNavigationIcon(R.drawable.ic_nav_back_white)
+                setNavigationIcon(R.drawable.ic_nav_back_white_)
                 setNavigationOnClickListener { findNavController().popBackStack() }
 
             }

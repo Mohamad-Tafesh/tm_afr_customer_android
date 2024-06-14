@@ -125,7 +125,7 @@
     <string name="please_select_a_location">Please select a location</string>
     <string name="confirm_pin">Confirm PIN</string>
     <string name="pins_do_not_match">PINs do not match</string>
-    <string name="last_5_transactions">Last 5 Transactions</string>
+    <string name="last_5_transactions">Last Transactions</string>
     <string name="my_profile">My Profile</string>
     <string name="change_pin">Change PIN</string>
     <string name="my_contract_information">My Contract Information</string>

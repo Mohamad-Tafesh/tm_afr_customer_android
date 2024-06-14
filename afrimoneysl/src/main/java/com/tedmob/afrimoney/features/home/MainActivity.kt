@@ -234,7 +234,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
                             R.id.balanceEnquiryFragment,
                             R.id.confirmPendingTransactionsFragment,
                             R.id.airtimeConfirmationfragment
-                            -> R.drawable.ic_nav_back_white
+                            -> R.drawable.ic_nav_back_white_
 
 
                             else -> R.drawable.ic_nav_back_black

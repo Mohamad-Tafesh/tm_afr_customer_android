@@ -26,7 +26,7 @@ class Last5TransactionsViewModel
     fun getLastTransactions(pin:String) {
         executeResource(
             getLastTransactions,
-            GetLastTransactionsUseCase.Params("5",pin),
+            GetLastTransactionsUseCase.Params("30",pin),
             _transactions,
             appExceptionFactory,
             appSessionNavigator,

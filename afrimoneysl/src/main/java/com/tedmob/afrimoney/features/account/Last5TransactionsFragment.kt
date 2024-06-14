@@ -132,7 +132,7 @@ class Last5TransactionsFragment : BaseVBFragment<FragmentLast5TransactionsBindin
                             }
                         }
 
-                        append(": " + it.firstName.orEmpty() + " " + it.lastName.orEmpty())
+                        append(" " + it.firstName.orEmpty() + " " + it.lastName.orEmpty())
                     }
                 }
 

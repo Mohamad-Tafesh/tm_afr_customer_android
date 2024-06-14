@@ -6,31 +6,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:fillViewport="true"
-        android:background="@color/bgdColor">
+        android:background="@color/bgdColor"
+        android:fillViewport="true">
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:orientation="vertical">
 
-        <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+            <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="3.29296875"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <me.relex.circleindicator.CircleIndicator3
                 android:id="@+id/pageIndicator"
                 android:layout_width="match_parent"
-                android:layout_gravity="center"
-                android:scrollbars="horizontal"
                 android:layout_height="25dp"
+                android:layout_gravity="center"
                 android:padding="@dimen/spacing_small"
+                android:scrollbars="horizontal"
                 app:ci_animator="@anim/indicator_no_animation"
                 app:ci_animator_reverse="@anim/indicator_no_animation"
-                app:ci_drawable_unselected="@drawable/light_pink_cv"
                 app:ci_drawable="@drawable/dark_pink_cv"
+                app:ci_drawable_unselected="@drawable/light_pink_cv"
                 app:ci_height="5dp"
                 app:ci_width="5dp" />
 
@@ -38,21 +47,22 @@
                 android:id="@+id/loading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-        <com.yarolegovich.discretescrollview.DiscreteScrollView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:listitem="@layout/row_balance" />
+
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/row_balance" />
         </com.africell.africell.ui.blocks.LoadingLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-               android:paddingBottom="@dimen/spacing_medium"
+                android:paddingStart="@dimen/spacing_medium"
                 android:paddingEnd="@dimen/spacing_medium"
-                android:paddingStart="@dimen/spacing_medium">
+                android:paddingBottom="@dimen/spacing_medium">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -96,7 +106,7 @@
                         android:background="@color/separator" />
 
                 <TextView
-android:id="@+id/myBundleServicesBtn"
+                        android:id="@+id/myBundleServicesBtn"
                         style="@style/TextAppearance.small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

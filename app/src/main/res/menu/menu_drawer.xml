@@ -33,6 +33,12 @@
                 android:title="@string/customer_care" />
 
         <item
+                android:id="@+id/SMSFragment"
+                android:icon="@drawable/tab_sms"
+                android:iconTint="@color/black"
+                android:title="@string/sms" />
+
+        <item
                 android:id="@+id/faqFragment"
                 android:icon="@mipmap/side_menu_faqs"
                 android:title="@string/faq" />

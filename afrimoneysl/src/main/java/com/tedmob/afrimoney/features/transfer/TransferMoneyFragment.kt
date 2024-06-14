@@ -96,37 +96,36 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             }
 
 
-            typesInput.adapter = ArrayAdapter(
+           /* typesInput.adapter = ArrayAdapter(
                 requireContext(),
                 R.layout.support_simple_spinner_dropdown_item,
                 listOf("Send to others", "Remittance to Normal Wallet")
             )
+*/
 
+            radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
 
-            typesInput.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: MaterialSpinner,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (position == 0) {
+                    R.id.toOther -> {
                         type = 0
                         othersGrp.isVisible = true
-                        validator.stop()
-                        validator = setupValidation()
-                    } else if (position == 1) {
-                        type = 1
-                        othersGrp.isVisible = false
+                        title.text = getString(R.string.send_to_other)
                         validator.stop()
                         validator = setupValidation()
                     }
+
+                    R.id.remittance -> {
+                        type = 1
+                        othersGrp.isVisible = false
+                        title.text = getString(R.string.remittance_to_normal_wallet)
+                        validator.stop()
+                        validator = setupValidation()
+                    }
+
                 }
 
-                override fun onNothingSelected(parent: MaterialSpinner) {
-
-                }
             }
+
 
 
         }
@@ -146,20 +145,12 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                 )
             )
 
-            typesInput.validate(
-                notEmptyRule,
-            )
-
             amountInput.validate(
                 notEmptyRule,
                 DoubleRule(getString(R.string.invalid_amount))
             )
 
         } else {
-
-            typesInput.validate(
-                notEmptyRule,
-            )
 
             amountInput.validate(
                 notEmptyRule,

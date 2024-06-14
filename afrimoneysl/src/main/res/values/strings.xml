@@ -302,6 +302,7 @@
     <string name="currency">GMD</string>
     <string name="hello">Hello,</string>
     <string name="buy_bundles">Buy\nBundles</string>
+    <string name="buy_bundles_">Buy Bundles</string>
     <string name="send_to_other">Send to others</string>
     <string name="remittance_to_normal_wallet">Remittance to Normal Wallet</string>
 </resources>

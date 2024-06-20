@@ -20,6 +20,7 @@ object PhoneNumber2Helper {
     fun getFormattedIfValid(
         countryCode: String?,
         number: String,
+        isTransferMoney: Boolean = false,
         type: Int = DEFAULT_TYPE,
         format: PhoneNumberUtil.PhoneNumberFormat = DEFAULT_FORMAT
     ): String? {
@@ -73,19 +74,35 @@ object PhoneNumber2Helper {
             else -> false
         }
 
-        return if (isNumberValid && isNeededType)
-            phoneNumberUtil.format(phoneNumber, format)
-        else if (
-                    number.startsWith("22040") ||
-                            number.startsWith("22041") ||
-                            (number.startsWith("40") && countryCode == "220") ||
-                            (number.startsWith("40") && countryCode == "+220") ||
-                            (number.startsWith("41") && countryCode == "220") ||
-                            (number.startsWith("41") && countryCode == "+220")
+        if (isTransferMoney) {
+            return if (isNumberValid && isNeededType)
+                phoneNumberUtil.format(phoneNumber, format)
+            else if (
+                number.startsWith("2") ||
+                number.startsWith("4") ||
+                number.startsWith("7")
+            ) {
+                phoneNumberUtil.format(phoneNumber, format)
+            } else null
+        } else {
+            return if (isNumberValid && isNeededType)
+                phoneNumberUtil.format(phoneNumber, format)
+            else if (
+                number.startsWith("1") ||
+                number.startsWith("2") ||
+                number.startsWith("3") ||
+                number.startsWith("4") ||
+                number.startsWith("5") ||
+                number.startsWith("6") ||
+                number.startsWith("7") ||
+                number.startsWith("8") ||
+                number.startsWith("9")
+            ) {
+                phoneNumberUtil.format(phoneNumber, format)
+            } else null
+        }
 
-        ) {
-            phoneNumberUtil.format(phoneNumber, format)
-        } else null
+
     }
 
     fun isValid(countryCode: String? = null, phoneNumber: String): Boolean {
@@ -93,15 +110,20 @@ object PhoneNumber2Helper {
     }
 
     fun isValid(countryCode: String?, phoneNumber: String, type: Int): Boolean {
-        return getFormattedIfValid(countryCode, phoneNumber, type) != null
+        return getFormattedIfValid(countryCode, phoneNumber, false, type) != null
     }
 
     fun isValid(countryCode: String?, phoneNumber: String, format: PhoneNumberUtil.PhoneNumberFormat): Boolean {
         return getFormattedIfValid(countryCode, phoneNumber, format = format) != null
     }
 
-    fun isValid(countryCode: String?, phoneNumber: String, type: Int, format: PhoneNumberUtil.PhoneNumberFormat): Boolean {
-        return getFormattedIfValid(countryCode, phoneNumber, type, format) != null
+    fun isValid(
+        countryCode: String?,
+        phoneNumber: String,
+        type: Int,
+        format: PhoneNumberUtil.PhoneNumberFormat
+    ): Boolean {
+        return getFormattedIfValid(countryCode, phoneNumber, false, type, format) != null
     }
 
     //fixme does not work for NATIONAL format (because it does not begin with a '+')

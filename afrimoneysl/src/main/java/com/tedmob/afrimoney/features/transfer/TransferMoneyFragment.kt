@@ -182,7 +182,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
                     withVBAvailable {
                         val phoneCode = countryCode.getText()
-                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number,true)
 
                         formatted?.let {
                             viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
@@ -237,7 +237,6 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     }
 
     private fun proceed() {
-        val test = 1
         viewModel.getFees(viewModel.number, binding!!.amountInput.getText(), type!!)
 
     }

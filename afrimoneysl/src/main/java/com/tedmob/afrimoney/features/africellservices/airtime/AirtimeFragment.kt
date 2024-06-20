@@ -109,6 +109,7 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
             list
         )
     }
+
     fun setData(data: BundlelistParent) {
         withVBAvailable {
 
@@ -118,17 +119,18 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                     R.id.others -> {
                         mobileNumberInput.isVisible = true
                         countryCode.isVisible = true
-                        wallet.selection = - 1
+                        wallet.selection = -1
                         setWallet(data.bundlelist[0].allowedWallets.filter {
                             it.id != "17"
                         })
                         validator?.stop()
                         validator = setupValidation(data, data.bundlelist.get(0))
                     }
+
                     R.id.self -> {
                         mobileNumberInput.isVisible = false
                         countryCode.isVisible = false
-                        wallet.selection = - 1
+                        wallet.selection = -1
                         setWallet(data.bundlelist[0].allowedWallets)
                         validator?.stop()
                         validator = setupValidation(data, data.bundlelist.get(0))
@@ -173,7 +175,7 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
             amountInput.validate(notEmptyRule)
             onValid = {
 
-                if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                if ((amountInput.getText().toDoubleOrNull() ?: 0.0) > 0) {
 
                     viewModel.proceed(
                         0,
@@ -186,35 +188,47 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                         list.BundleId,
                         list.Validity
                     )
-                }else{
+                } else {
                     showMessage("Please enter your amount")
                 }
 
 
-
             }
         } else if (others.isChecked) {
-/*            validatePhoneFields(
-                countryCode.getValidationField(notEmptyRule),
-                mobileNumberInput.getValidationField(notEmptyRule),
-                PhoneRule(
-                    getString(R.string.invalid_mobile_number),
-                    phoneUtil,
-                    type = PhoneRule.Type.MOBILE_OR_UNKNOWN
-                )
-            )*/
+            /*            validatePhoneFields(
+                            countryCode.getValidationField(notEmptyRule),
+                            mobileNumberInput.getValidationField(notEmptyRule),
+                            PhoneRule(
+                                getString(R.string.invalid_mobile_number),
+                                phoneUtil,
+                                type = PhoneRule.Type.MOBILE_OR_UNKNOWN
+                            )
+                        )*/
             mobileNumberInput.validate(notEmptyRule)
             wallet.validate(notEmptyRule)
             amountInput.validate(notEmptyRule)
             onValid = {
 
-                if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+                if ((amountInput.getText().toDoubleOrNull() ?: 0.0) > 0) {
                     var number = mobileNumberInput.getText()
                     if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
                     withVBAvailable {
                         val phoneCode = countryCode.getText()
-                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+                        val formatted = if (number.length == 9 && (
+                                    number.startsWith("1") ||
+                                            number.startsWith("2") ||
+                                            number.startsWith("3") ||
+                                            number.startsWith("4") ||
+                                            number.startsWith("5") ||
+                                            number.startsWith("6") ||
+                                            number.startsWith("7") ||
+                                            number.startsWith("8") ||
+                                            number.startsWith("9")
+                                    )
+                        ) {
+                            "Done"
+                        } else null
 
                         formatted?.let {
                             number.let {
@@ -234,8 +248,7 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                     }
 
 
-
-                }else{
+                } else {
                     showMessage("Please enter your amount")
                 }
 

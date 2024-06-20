@@ -182,7 +182,10 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
                     withVBAvailable {
                         val phoneCode = countryCode.getText()
-                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number,true)
+                        val formatted =
+                            if (number.length == 9 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith("7")))) {
+                                "Done"
+                            } else null
 
                         formatted?.let {
                             viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)

@@ -219,7 +219,20 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
 
                 withVBAvailable {
                     val phoneCode = countryCode.getText()
-                    val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+                    val formatted = if (number.length == 9 && (
+                                number.startsWith("1") ||
+                                        number.startsWith("2") ||
+                                        number.startsWith("3") ||
+                                        number.startsWith("4") ||
+                                        number.startsWith("5") ||
+                                        number.startsWith("6") ||
+                                        number.startsWith("7") ||
+                                        number.startsWith("8") ||
+                                        number.startsWith("9")
+                                )
+                    ) {
+                        "Done"
+                    } else null
 
                     formatted?.let {
                         number.let {

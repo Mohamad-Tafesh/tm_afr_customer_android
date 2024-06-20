@@ -173,6 +173,7 @@ dependencies {
     // util
     implementation "com.jakewharton.timber:timber:5.0.1"
     implementation "io.michaelrocks:libphonenumber-android:8.12.47"
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.2'
 
     // push
     implementation 'com.onesignal:OneSignal:4.8.0'

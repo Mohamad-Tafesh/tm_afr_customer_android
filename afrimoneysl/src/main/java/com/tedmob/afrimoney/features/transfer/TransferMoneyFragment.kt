@@ -33,6 +33,7 @@ import com.tedmob.afrimoney.ui.viewmodel.observeResourceFromButton
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
 import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.phone.BaseVBFragmentWithImportContact
+import com.tedmob.afrimoney.util.phone.PhoneNumber2Helper
 import com.tedmob.afrimoney.util.setText
 import com.tedmob.libraries.validators.FormValidator
 import com.tedmob.libraries.validators.formValidator
@@ -54,7 +55,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     internal lateinit var phoneUtil: PhoneNumberUtil
 
 
-    private var type: Int? = null
+    private var type = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,12 +97,12 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             }
 
 
-           /* typesInput.adapter = ArrayAdapter(
-                requireContext(),
-                R.layout.support_simple_spinner_dropdown_item,
-                listOf("Send to others", "Remittance to Normal Wallet")
-            )
-*/
+            /* typesInput.adapter = ArrayAdapter(
+                 requireContext(),
+                 R.layout.support_simple_spinner_dropdown_item,
+                 listOf("Send to others", "Remittance to Normal Wallet")
+             )
+ */
 
             radioGroup.setOnCheckedChangeListener { group, checkedId ->
                 when (checkedId) {
@@ -127,7 +128,6 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
             }
 
 
-
         }
     }
 
@@ -135,14 +135,18 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
         val notEmptyRule = NotEmptyRule(getString(R.string.mandatory_field))
 
         if (othersGrp.isVisible) {
-            validatePhoneFields(
-                countryCode.getValidationField(notEmptyRule),
-                mobileNumberInput.getValidationField(notEmptyRule),
-                PhoneRule(
-                    getString(R.string.invalid_mobile_number),
-                    phoneUtil,
-                    type = PhoneRule.Type.MOBILE_OR_UNKNOWN
-                )
+            /*            validatePhoneFields(
+                            countryCode.getValidationField(notEmptyRule),
+                            mobileNumberInput.getValidationField(notEmptyRule),
+                            PhoneRule(
+                                getString(R.string.invalid_mobile_number),
+                                phoneUtil,
+                                type = PhoneRule.Type.MOBILE_OR_UNKNOWN
+                            )
+                        )*/
+
+            mobileNumberInput.validate(
+                notEmptyRule,
             )
 
             amountInput.validate(
@@ -162,26 +166,35 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
         onValid = {
 
-            if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
+            if ((amountInput.getText().toDoubleOrNull() ?: 0.0) > 0) {
+
                 var number = mobileNumberInput.getText()
+
                 if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
 
-                if ((type?:0)==1){
+                if ((type ?: 0) == 1) {
                     viewModel.amount = amountInput.getText()
-                    viewModel.feesData = GetFeesData("",amountInput.getText(),"",null,"")
+                    viewModel.feesData = GetFeesData("", amountInput.getText(), "", null, "")
                     findNavController().navigate(
                         TransferMoneyFragmentDirections.actionTransferMoneyFragmentToTransferMoneyConfirmationFragment()
                     )
-                }else{
-                    viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
+                } else {
+
+                    withVBAvailable {
+                        val phoneCode = countryCode.getText()
+                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+
+                        formatted?.let {
+                            viewModel.proceed(number, amountInput.getText().toDoubleOrNull() ?: 0.0)
+                        } ?: showMessage(getString(R.string.invalid_mobile_number))
+                    }
+
                 }
 
 
-
-            }else{
+            } else {
                 showMessage("Please enter your amount")
             }
-
 
 
         }
@@ -224,8 +237,8 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
     }
 
     private fun proceed() {
-
-        viewModel.getFees(viewModel.number, binding!!.amountInput.getText(),type!!)
+        val test = 1
+        viewModel.getFees(viewModel.number, binding!!.amountInput.getText(), type!!)
 
     }
 

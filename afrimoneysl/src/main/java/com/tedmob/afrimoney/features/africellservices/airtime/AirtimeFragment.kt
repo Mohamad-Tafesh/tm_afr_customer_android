@@ -26,6 +26,7 @@ import com.tedmob.afrimoney.ui.viewmodel.observeResourceInline
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
 import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.phone.BaseVBFragmentWithImportContact
+import com.tedmob.afrimoney.util.phone.PhoneNumber2Helper
 import com.tedmob.afrimoney.util.setText
 import com.tedmob.libraries.validators.FormValidator
 import com.tedmob.libraries.validators.formValidator
@@ -193,7 +194,7 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
 
             }
         } else if (others.isChecked) {
-            validatePhoneFields(
+/*            validatePhoneFields(
                 countryCode.getValidationField(notEmptyRule),
                 mobileNumberInput.getValidationField(notEmptyRule),
                 PhoneRule(
@@ -201,7 +202,8 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                     phoneUtil,
                     type = PhoneRule.Type.MOBILE_OR_UNKNOWN
                 )
-            )
+            )*/
+            mobileNumberInput.validate(notEmptyRule)
             wallet.validate(notEmptyRule)
             amountInput.validate(notEmptyRule)
             onValid = {
@@ -209,19 +211,29 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                 if ((amountInput.getText().toDoubleOrNull()?:0.0)>0){
                     var number = mobileNumberInput.getText()
                     if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
-                    number.let {
-                        viewModel.proceed(
-                            1,
-                            it,
-                            list.description,
-                            list.remark,
-                            amountInput.getText(),
-                            data.receiver_idValue,
-                            data.receiver_idType,
-                            list.BundleId,
-                            list.Validity
-                        )
+
+                    withVBAvailable {
+                        val phoneCode = countryCode.getText()
+                        val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+
+                        formatted?.let {
+                            number.let {
+                                viewModel.proceed(
+                                    1,
+                                    it,
+                                    list.description,
+                                    list.remark,
+                                    amountInput.getText(),
+                                    data.receiver_idValue,
+                                    data.receiver_idType,
+                                    list.BundleId,
+                                    list.Validity
+                                )
+                            }
+                        } ?: showMessage(getString(R.string.invalid_mobile_number))
                     }
+
+
 
                 }else{
                     showMessage("Please enter your amount")

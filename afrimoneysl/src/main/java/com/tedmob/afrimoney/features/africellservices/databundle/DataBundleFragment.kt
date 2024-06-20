@@ -23,6 +23,7 @@ import com.tedmob.afrimoney.ui.viewmodel.observeResource
 import com.tedmob.afrimoney.ui.viewmodel.provideNavGraphViewModel
 import com.tedmob.afrimoney.util.getText
 import com.tedmob.afrimoney.util.phone.BaseVBFragmentWithImportContact
+import com.tedmob.afrimoney.util.phone.PhoneNumber2Helper
 import com.tedmob.afrimoney.util.setText
 import com.tedmob.libraries.validators.FormValidator
 import com.tedmob.libraries.validators.formValidator
@@ -114,17 +115,18 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                             R.id.others -> {
                                 mobileNumberInput.isVisible = true
                                 countryCode.isVisible = true
-                                wallet.selection = - 1
+                                wallet.selection = -1
                                 setWallet(args.data.bundlelist[index].allowedWallets.filter {
                                     it.id != "17"
                                 })
                                 validator?.stop()
                                 validator = setupValidation()
                             }
+
                             R.id.self -> {
                                 mobileNumberInput.isVisible = false
                                 countryCode.isVisible = false
-                                wallet.selection = - 1
+                                wallet.selection = -1
                                 setWallet(args.data.bundlelist[index].allowedWallets)
                                 validator?.stop()
                                 validator = setupValidation()
@@ -150,7 +152,6 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                         }
                     }
                     wallet.isVisible = true
-
 
 
                 }
@@ -196,37 +197,47 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
 
             }
         } else if (others.isChecked) {
-            validatePhoneFields(
-                countryCode.getValidationField(notEmptyRule),
-                mobileNumberInput.getValidationField(notEmptyRule),
-                PhoneRule(
-                    getString(R.string.invalid_mobile_number),
-                    phoneUtil,
-                    type = PhoneRule.Type.MOBILE_OR_UNKNOWN
-                )
-            )
+            /*  validatePhoneFields(
+                  countryCode.getValidationField(notEmptyRule),
+                  mobileNumberInput.getValidationField(notEmptyRule),
+                  PhoneRule(
+                      getString(R.string.invalid_mobile_number),
+                      phoneUtil,
+                      type = PhoneRule.Type.MOBILE_OR_UNKNOWN
+                  )
+              )*/
             bundle.validate(
                 notEmptyRule,
             )
             wallet.validate(notEmptyRule)
+            mobileNumberInput.validate(notEmptyRule)
 
             onValid = {
                 val data = args.data.bundlelist.get(index)
                 var number = mobileNumberInput.getText()
                 if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
-                number.let {
-                    viewModel.proceed(
-                        1,
-                        it,
-                        data.description,
-                        data.remark,
-                        data.transactionAmount,
-                        args.data.receiver_idValue,
-                        args.data.receiver_idType,
-                        data.BundleId,
-                        data.Validity
-                    )
+
+                withVBAvailable {
+                    val phoneCode = countryCode.getText()
+                    val formatted = PhoneNumber2Helper.getFormattedIfValid(phoneCode, number)
+
+                    formatted?.let {
+                        number.let {
+                            viewModel.proceed(
+                                1,
+                                it,
+                                data.description,
+                                data.remark,
+                                data.transactionAmount,
+                                args.data.receiver_idValue,
+                                args.data.receiver_idType,
+                                data.BundleId,
+                                data.Validity
+                            )
+                        }
+                    } ?: showMessage(getString(R.string.invalid_mobile_number))
                 }
+
             }
         } else {
             bundle.validate(

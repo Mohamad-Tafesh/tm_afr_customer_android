@@ -23,20 +23,20 @@ class GetPendingTransactionsUseCase
 
                     data = data.getObject("MESSAGE")?.getObject("DATA")
 
-                    val count = data?.getList("TXNDT")?.size ?: 0
+                    val count = data?.getObjectOrList("TXNDT")?.size ?: 0
 
 
-                    val txnDatesList = data?.getList("TXNDT")
-                    val serviceIdsist = data?.getList("SERVICEREQUESTID")
-                    val payIdsList = data?.getList("PAYID")
-                    val lastNameList = data?.getList("LASTNAME")
-                    val firstNameList = data?.getList("FIRSTNAME")
-                    val fromList = data?.getList("FROM")
-                    val toList = data?.getList("TO")
-                    val txnIdsList = data?.getList("TXNID")
-                    val txnAmountList = data?.getList("TXNAMT")
-                    val serviceTypeList = data?.getList("SERVICETYPE")
-                    val serviceNameList = data?.getList("SERVICENAME")
+                    val txnDatesList = data?.getObjectOrList("TXNDT")
+                    val serviceIdsist = data?.getObjectOrList("SERVICEREQUESTID")
+                    val payIdsList = data?.getObjectOrList("PAYID")
+                    val lastNameList = data?.getObjectOrList("LASTNAME")
+                    val firstNameList = data?.getObjectOrList("FIRSTNAME")
+                    val fromList = data?.getObjectOrList("FROM")
+                    val toList = data?.getObjectOrList("TO")
+                    val txnIdsList = data?.getObjectOrList("TXNID")
+                    val txnAmountList = data?.getObjectOrList("TXNAMT")
+                    val serviceTypeList = data?.getObjectOrList("SERVICETYPE")
+                    val serviceNameList = data?.getObjectOrList("SERVICENAME")
 
                     for (i in 0 until count) {
                         add(
@@ -86,6 +86,21 @@ class GetPendingTransactionsUseCase
     private fun Map<String, Any?>.getObject(key: String): Map<String, Any?>? = getValue(key)
     private fun Map<String, Any?>.getList(key: String): List<String>? = getValue(key)
     private fun Map<String, Any?>.getString(key: String): String? = getValue(key)
+
+    private fun Map<String, Any?>.getObjectOrList(key: String): List<String>? {
+        val value = this[key]
+        return when (value) {
+            is String -> listOf(value.toString())
+            is List<*> -> {
+                if (value.all { it is String }) {
+                    value as List<String>
+                } else {
+                    null
+                }
+            }
+            else -> null
+        }
+    }
 
 }
 

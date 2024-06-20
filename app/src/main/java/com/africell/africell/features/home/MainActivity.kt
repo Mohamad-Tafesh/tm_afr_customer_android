@@ -252,9 +252,9 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
 
         }
 
-     /*   logoutData.value = Unit*/
+        logoutData.value = null
         observeNotNull(logoutData){
-            showLogoutMessage()
+            viewModel.logout()
         }
     }
 
@@ -289,7 +289,7 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
             .setMessage(getString(R.string.are_you_sure_want_to_logout))
             .setCancelable(false)
             .setPositiveButton(R.string.logout) { dialog, which ->
-                viewModel.logout()
+                logoutData.value = Unit
             }
             .setNegativeButton(R.string.close) { dialog, which ->
                 dialog.dismiss()

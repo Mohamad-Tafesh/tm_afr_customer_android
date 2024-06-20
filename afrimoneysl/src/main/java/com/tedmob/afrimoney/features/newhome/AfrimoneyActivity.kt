@@ -18,6 +18,7 @@ import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.databinding.ActivityAfrimoneyNewBinding
+import com.tedmob.afrimoney.features.launch.RootActivity
 import com.tedmob.afrimoney.util.navigation.setupWithNavController
 import com.tedmob.afrimoney.util.removeUserIdentification
 import dagger.hilt.android.AndroidEntryPoint
@@ -285,11 +286,23 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
             .setCancelable(false)
             .setPositiveButton(R.string.logout) { dialog, which ->
                 logoutData.value = Unit
+                finish()
             }
             .setNegativeButton(R.string.close) { dialog, which ->
                 dialog.dismiss()
             }
             .show()
+    }
+
+    fun invalidateAndRestart() {
+        session.invalidateSession()
+        startRootActivity()
+    }
+
+    private fun startRootActivity() {
+        startActivity(Intent(this, RootActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
     }
 
 

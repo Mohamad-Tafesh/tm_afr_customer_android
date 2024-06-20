@@ -35,6 +35,7 @@ import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.entity.UserState
 import com.tedmob.afrimoney.features.newhome.AfrimoneyActivity
 import com.tedmob.afrimoney.features.newhome.AfrimoneyRegistrationActivity
+import com.tedmob.afrimoney.features.newhome.logoutData
 import com.tedmob.afrimoney.ui.button.setDebouncedOnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -228,24 +229,33 @@ class MainActivity : BaseVBActivity<ActivityMainBinding>() {
         bindData()
     }
 
+
+
     private fun bindData() {
-        observeNotNull(viewModel.logoutData, { resource ->
+        observeNotNull(viewModel.logoutData) { resource ->
             when (resource) {
                 is Resource.Loading -> showProgressDialog(getString(R.string.loading_))
                 is Resource.Success -> {
                     hideProgressDialog()
                     invalidateAndRestart()
                 }
+
                 is Resource.Error -> {
                     hideProgressDialog()
                     invalidateAndRestart()
                 }
+
                 else -> {
 
                 }
             }
 
-        })
+        }
+
+     /*   logoutData.value = Unit*/
+        observeNotNull(logoutData){
+            showLogoutMessage()
+        }
     }
 
     fun invalidateAndRestart() {

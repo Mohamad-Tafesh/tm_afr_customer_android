@@ -1,8 +1,10 @@
 package com.tedmob.afrimoney.features.newhome
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -12,10 +14,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.tedmob.afrimoney.R
 import com.tedmob.afrimoney.app.BaseVBActivity
 import com.tedmob.afrimoney.app.withVBAvailable
+import com.tedmob.afrimoney.data.Resource
 import com.tedmob.afrimoney.data.entity.AfricellDestination
 import com.tedmob.afrimoney.data.repository.domain.SessionRepository
 import com.tedmob.afrimoney.databinding.ActivityAfrimoneyNewBinding
 import com.tedmob.afrimoney.util.navigation.setupWithNavController
+import com.tedmob.afrimoney.util.removeUserIdentification
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -69,6 +73,7 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
             appBarConfiguration = drawerLayout.getAppBarConfigWithRoot(topLevelDestinations)
             setupNavigation()
             setupBottomNavigationStyle()
+            setupLoginLogout()
         }
         if (restart == 401) {
             this.finish()
@@ -160,15 +165,15 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
                         finish()
                     }
 
-                   /* R.id.customerCareFragment -> {
-                        AfricellDestination.destination.value = it
-                        finish()
-                    }
+                    /* R.id.customerCareFragment -> {
+                         AfricellDestination.destination.value = it
+                         finish()
+                     }
 
-                    R.id.SMSFragment -> {
-                        AfricellDestination.destination.value = it
-                        finish()
-                    }*/
+                     R.id.SMSFragment -> {
+                         AfricellDestination.destination.value = it
+                         finish()
+                     }*/
 
                     R.id.locationListFragment -> {
                         AfricellDestination.destination.value = it
@@ -265,4 +270,27 @@ class AfrimoneyActivity : BaseVBActivity<ActivityAfrimoneyNewBinding>() {
     private fun DrawerLayout.getAppBarConfigWithRoot(topLevelDestinations: Set<Int>): AppBarConfiguration {
         return AppBarConfiguration.Builder(topLevelDestinations).setDrawerLayout(this).build()
     }
+
+
+    private fun ActivityAfrimoneyNewBinding.setupLoginLogout() {
+        loginLogoutActionText.setText(R.string.logout)
+        loginLogoutAction.setOnClickListener {
+            showLogoutMessage()
+        }
+    }
+
+    fun showLogoutMessage() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.logout_text))
+            .setCancelable(false)
+            .setPositiveButton(R.string.logout) { dialog, which ->
+                logoutData.value = Unit
+            }
+            .setNegativeButton(R.string.close) { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+
 }

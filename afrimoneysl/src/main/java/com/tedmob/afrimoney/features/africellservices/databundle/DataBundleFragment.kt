@@ -215,12 +215,12 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
             onValid = {
                 val data = args.data.bundlelist.get(index)
                 var number = mobileNumberInput.getText()
-                if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
+
 
                 withVBAvailable {
 
                     val formatted =
-                        if (number.length == 9 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith("7")))) {
+                        if (number.length == 7 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith("7")))) {
                             "Done"
                         } else null
 

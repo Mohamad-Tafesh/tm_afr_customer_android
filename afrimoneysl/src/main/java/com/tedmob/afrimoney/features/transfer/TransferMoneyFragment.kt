@@ -170,8 +170,6 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
 
                 var number = mobileNumberInput.getText()
 
-                if (mobileNumberInput.getText().length == 8) number = "0" + mobileNumberInput.getText()
-
                 if ((type ?: 0) == 1) {
                     viewModel.amount = amountInput.getText()
                     viewModel.feesData = GetFeesData("", amountInput.getText(), "", null, "")
@@ -183,7 +181,7 @@ class TransferMoneyFragment : BaseVBFragmentWithImportContact<FragmentTransferMo
                     withVBAvailable {
                         val phoneCode = countryCode.getText()
 
-                        val formatted = if (number.length == 9 && (
+                        val formatted = if (number.length == 7 && (
                                     number.startsWith("1") ||
                                             number.startsWith("2") ||
                                             number.startsWith("3") ||

@@ -755,6 +755,12 @@ class TedmobApis
 
 
                         }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
+                        }
                     }
                 )
             )
@@ -842,6 +848,12 @@ class TedmobApis
                             this["idValue"] = session.msisdn
                             this["mpin"] = pin
 
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )
@@ -1007,6 +1019,7 @@ class TedmobApis
 
 
                         }
+
                     }
                 )
             )
@@ -1051,6 +1064,13 @@ class TedmobApis
                             this["password"] = pin
 
 
+
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )
@@ -1104,6 +1124,12 @@ class TedmobApis
                         this["externalReferenceId"] = ""
                         this["remarks"] = ""
                         this["externalReferenceId"] = getUUID()
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
+                        }
                     }
                 )
             )
@@ -1178,6 +1204,12 @@ class TedmobApis
                             this["mpin"] = pin
 
 
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )
@@ -1269,6 +1301,12 @@ class TedmobApis
                             this["identificationNo"] = ""
 
 
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )
@@ -1362,6 +1400,12 @@ class TedmobApis
                             this["identificationNo"] = ""
 
 
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )
@@ -1577,6 +1621,11 @@ class TedmobApis
                             this["billAccountNumber"] = number
                             this["billNumber"] = ""
                         }
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
+                        }
                         this["transactor"] = buildMap {
                             this["idType"] = "mobileNumber"
                             this["mpin"] = pin
@@ -1720,6 +1769,12 @@ class TedmobApis
 
 
                         }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
+                        }
                     }
                 )
             )
@@ -1765,6 +1820,12 @@ class TedmobApis
                             this["productId"] = "12"
 
 
+                        }
+
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
                     }
                 )

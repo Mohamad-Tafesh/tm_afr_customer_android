@@ -110,9 +110,11 @@ class MobileNumberFragment : BaseVBFragment<FragmentMobileNumberBinding>(), Liv.
 
     override fun performAction() {
         withVBAvailable {
-            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode
+            val phoneCode = (countrySpinner.selectedItem as? Country)?.phonecode?.replace("+", "")
             val formatted =
                 PhoneNumberHelper.getFormattedIfValid("", phoneCode + mobileNumberLayout.getText())?.replace("+", "")
+
+
             val otpType = if (isReset == true) FORGOT_PASSWORD_TYPE else NEW_USER_TYPE
             formatted?.let {
                 viewModel.generateOTP(formatted, otpType)

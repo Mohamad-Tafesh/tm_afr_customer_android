@@ -84,6 +84,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>(), Liv.Action {
                     }
                     "gambia" -> {
                         mobileNumberLayout.setText("2704114")
+                        //mobileNumberLayout.setText("4136062")
                         password.setText("notpassword")
                     }
                 }

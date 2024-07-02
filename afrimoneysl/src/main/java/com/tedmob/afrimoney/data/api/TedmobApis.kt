@@ -954,6 +954,12 @@ class TedmobApis
                             this["mpin"] = pin
                         }
 
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
+                        }
+
                     }
                 )
             )
@@ -983,6 +989,11 @@ class TedmobApis
                             this["idType"] = "mobileNumber"
                             this["idValue"] = session.msisdn
                             this["mpin"] = pin
+                        }
+                        this["extensibleFields"] = buildMap {
+                            this["field1"] = "mobApp"
+                            this["field2"] = ""
+                            this["field3"] = ""
                         }
 
                     }

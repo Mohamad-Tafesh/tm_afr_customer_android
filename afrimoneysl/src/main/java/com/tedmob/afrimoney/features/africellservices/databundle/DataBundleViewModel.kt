@@ -26,7 +26,7 @@ class DataBundleViewModel
     ) : BaseViewModel() {
 
     class Params(
-        val type:Int,
+        val type: Int,
         val number: String,
         val bundleName: String,
         val remark: String,
@@ -34,8 +34,9 @@ class DataBundleViewModel
         val idValue: String,
         val idType: String,
         val bundle: String,
-        val validity:String
-        )
+        val validity: String,
+        val walletID: String
+    )
 
     data class DataBundle(
         val number: String,
@@ -56,7 +57,7 @@ class DataBundleViewModel
 
 
     fun proceed(
-        type:Int,
+        type: Int,
         number: String,
         bundleName: String,
         remark: String,
@@ -64,7 +65,8 @@ class DataBundleViewModel
         idValue: String,
         idType: String,
         bundle: String,
-        validity:String
+        validity: String,
+        walletID: String
     ) {
 
         _dataSelf.emitSuccess(
@@ -77,7 +79,8 @@ class DataBundleViewModel
                 idValue,
                 idType,
                 bundle,
-                validity
+                validity,
+                walletID
             )
         )
         _proceedToConfirm.emitSuccess(Unit)
@@ -96,6 +99,7 @@ class DataBundleViewModel
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ) {
 
         execute(
@@ -106,7 +110,8 @@ class DataBundleViewModel
                 pin,
                 idValue,
                 idType,
-                bundle
+                bundle,
+                walletID
             ),
             onLoading = {
                 _submitted.emitLoading()
@@ -131,6 +136,7 @@ class DataBundleViewModel
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ) {
 
         execute(
@@ -141,7 +147,8 @@ class DataBundleViewModel
                 pin,
                 idValue,
                 idType,
-                bundle
+                bundle,
+                walletID
             ),
             onLoading = {
                 _submitted.emitLoading()

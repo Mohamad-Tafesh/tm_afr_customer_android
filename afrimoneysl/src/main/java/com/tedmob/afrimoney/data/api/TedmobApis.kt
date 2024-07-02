@@ -1747,6 +1747,7 @@ class TedmobApis
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1776,7 +1777,7 @@ class TedmobApis
                             this["mpin"] = pin
                             this["bundle"] = bundle
                             this["idValue"] = session.msisdn
-                            this["productId"] = "12"
+                            this["productId"] = walletID
 
 
                         }
@@ -1801,6 +1802,7 @@ class TedmobApis
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ): ConfirmTransferMoneyDTO {
         return refreshTokenIfNeeded {
             val response = post<ConfirmTransferMoneyDTO>(
@@ -1828,7 +1830,7 @@ class TedmobApis
                             this["mpin"] = pin
                             this["bundle"] = bundle
                             this["idValue"] = session.msisdn
-                            this["productId"] = "12"
+                            this["productId"] = walletID
 
 
                         }

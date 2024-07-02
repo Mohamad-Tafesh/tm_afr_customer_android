@@ -19,7 +19,8 @@ class BundleSelfConfirmationUseCase
             params.pin,
             params.idValue,
             params.idType,
-            params.bundle
+            params.bundle,
+            params.walletID
         )
         lateinit var message: String
         if (!response.status.equals("SUCCEEDED", true)) {
@@ -42,6 +43,7 @@ class Params(
         val idValue: String,
         val idType: String,
         val bundle: String,
+        val walletID: String,
 
         )
 

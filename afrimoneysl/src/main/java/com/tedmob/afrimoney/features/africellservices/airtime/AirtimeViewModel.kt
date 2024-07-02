@@ -38,7 +38,8 @@ class AirtimeViewModel
         val idValue: String,
         val idType: String,
         val bundle: String,
-        val validity:String
+        val validity:String,
+        val walletID:String,
         )
 
     val proceedToConfirm: LiveData<Resource<Unit>> get() = _proceedToConfirm
@@ -64,7 +65,8 @@ class AirtimeViewModel
         idValue: String,
         idType: String,
         bundle: String,
-        validity:String
+        validity:String,
+        walletID:String
     ) {
 
         _dataSelf.emitSuccess(
@@ -77,7 +79,8 @@ class AirtimeViewModel
                 idValue,
                 idType,
                 bundle,
-                validity
+                validity,
+                walletID
             )
         )
         _proceedToConfirm.emitSuccess(Unit)
@@ -118,6 +121,7 @@ class AirtimeViewModel
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ) {
 
         execute(
@@ -128,7 +132,9 @@ class AirtimeViewModel
                 pin,
                 idValue,
                 idType,
-                bundle
+                bundle,
+                walletID,
+
             ),
             onLoading = {
                 _submitted.emitLoading()
@@ -153,6 +159,7 @@ class AirtimeViewModel
         idValue: String,
         idType: String,
         bundle: String,
+        walletID: String,
     ) {
 
         execute(
@@ -163,7 +170,8 @@ class AirtimeViewModel
                 pin,
                 idValue,
                 idType,
-                bundle
+                bundle,
+                walletID
             ),
             onLoading = {
                 _submitted.emitLoading()

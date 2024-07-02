@@ -90,7 +90,8 @@ class AirtimeConfirmationFragment :
                     pinInputLayout.getText(),
                     datas!!.idValue,
                     datas!!.idType,
-                    datas!!.bundle
+                    datas!!.bundle,
+                    datas!!.walletID,
                 )
             } else if (datas!!.type == OTHER) {
                 viewModel.getConfirmationOther(
@@ -99,7 +100,8 @@ class AirtimeConfirmationFragment :
                     pinInputLayout.getText(),
                     datas!!.idValue,
                     datas!!.idType,
-                    datas!!.bundle
+                    datas!!.bundle,
+                    datas!!.walletID,
                 )
             }
 

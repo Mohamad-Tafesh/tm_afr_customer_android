@@ -192,7 +192,8 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                     args.data.receiver_idValue,
                     args.data.receiver_idType,
                     data.BundleId,
-                    data.Validity
+                    data.Validity,
+                    data.allowedWallets.first { it.name == wallet.getText() }.id,
                 )
 
             }
@@ -220,7 +221,10 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                 withVBAvailable {
 
                     val formatted =
-                        if (number.length == 7 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith("7")))) {
+                        if (number.length == 7 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith(
+                                "7"
+                            )))
+                        ) {
                             "Done"
                         } else null
 
@@ -235,7 +239,8 @@ class DataBundleFragment : BaseVBFragmentWithImportContact<FragmentDataBundleBin
                                 args.data.receiver_idValue,
                                 args.data.receiver_idType,
                                 data.BundleId,
-                                data.Validity
+                                data.Validity,
+                                data.allowedWallets.first { it.name == wallet.getText() }.id
                             )
                         }
                     } ?: showMessage(getString(R.string.invalid_mobile_number))

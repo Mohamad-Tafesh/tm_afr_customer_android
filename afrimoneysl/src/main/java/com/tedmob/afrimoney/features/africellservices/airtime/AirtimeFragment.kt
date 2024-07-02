@@ -186,7 +186,8 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                         data.receiver_idValue,
                         data.receiver_idType,
                         list.BundleId,
-                        list.Validity
+                        list.Validity,
+                        list.allowedWallets.first { it.name == wallet.getText() }.id
                     )
                 } else {
                     showMessage("Please enter your amount")
@@ -215,7 +216,10 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
 
                     withVBAvailable {
                         val formatted =
-                            if (number.length == 7 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith("7")))) {
+                            if (number.length == 7 && ((number.startsWith("2") || number.startsWith("4") || number.startsWith(
+                                    "7"
+                                )))
+                            ) {
                                 "Done"
                             } else null
 
@@ -230,7 +234,8 @@ class AirtimeFragment : BaseVBFragmentWithImportContact<FragmentAirtimeBinding>(
                                     data.receiver_idValue,
                                     data.receiver_idType,
                                     list.BundleId,
-                                    list.Validity
+                                    list.Validity,
+                                    list.allowedWallets.first { it.name == wallet.getText() }.id
                                 )
                             }
                         } ?: showMessage(getString(R.string.invalid_mobile_number))

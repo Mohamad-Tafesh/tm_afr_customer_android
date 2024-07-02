@@ -19,6 +19,7 @@ import com.tedmob.afrimoney.util.getText
 import com.tedmob.libraries.validators.formValidator
 import com.tedmob.libraries.validators.rules.NotEmptyRule
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.wait
 
 @AndroidEntryPoint
 class BundleConfirmationFragment :
@@ -88,7 +89,8 @@ class BundleConfirmationFragment :
                     pinInputLayout.getText(),
                     datas!!.idValue,
                     datas!!.idType,
-                    datas!!.bundle
+                    datas!!.bundle,
+                    datas!!.walletID,
                 )
             } else if (datas!!.type == OTHER) {
                 viewModel.getConfirmationOther(
@@ -97,7 +99,8 @@ class BundleConfirmationFragment :
                     pinInputLayout.getText(),
                     datas!!.idValue,
                     datas!!.idType,
-                    datas!!.bundle
+                    datas!!.bundle,
+                    datas!!.walletID
                 )
             }
 
